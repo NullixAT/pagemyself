@@ -176,7 +176,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             <div class="myself-edit-frame">
                 <div class="myself-edit-frame-outer-top">
                     <div class="myself-edit-frame-outer-margin">
-                        <a href="<?= Url::getBrowserUrl() ?>"><img src="<?= Url::getUrlToFile("img/logo-white.svg") ?>"
+                        <a href="<?= Url::getBrowserUrl() ?>"><img src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
                                                                    alt="" height="30"></a>
                         <a href="<?= Url::create()->setParameter('editMode', 0) ?>"
                            class="framelix-button framelix-button-primary framelix-button-small"

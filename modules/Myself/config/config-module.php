@@ -18,8 +18,8 @@ if (!defined("FRAMELIX_MODULE")) {
         "page": "__myself_user_role_page__",
         "tags": "__myself_user_tags_page__"
     },
-    "backendLogo": "img\/logo-white.svg",
-    "backendIcon": "img\/logo-squared.svg",
+    "backendLogo": "img\/logo-colored-white.svg",
+    "backendIcon": "img\/logo-squared.png",
     "compiler": {
         "Myself": {
             "js": {
