@@ -1,0 +1,3 @@
+[submodule "modules/Framelix"]
+	path = modules/Framelix
+	url = https://github.com/brainfoolong/framelix-core.git
