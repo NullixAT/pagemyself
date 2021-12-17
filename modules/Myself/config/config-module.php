@@ -32,7 +32,10 @@ if (!defined("FRAMELIX_MODULE")) {
                                 "js\/myself-pageblocks.js"
                             ]
                         }
-                    ]
+                    ],
+                    "options": {
+                        "noInclude": true
+                    }
                 },
                 "form": {
                     "files": [
@@ -96,7 +99,10 @@ if (!defined("FRAMELIX_MODULE")) {
                             "type": "file",
                             "path": "scss\/myself.scss"
                         }
-                    ]
+                    ],
+                    "options": {
+                        "noInclude": true
+                    }
                 },
                 "form": {
                     "files": [

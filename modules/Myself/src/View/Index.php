@@ -257,6 +257,8 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         Compiler::compile(FRAMELIX_MODULE);
         $this->includeCompiledFilesForModule("Framelix");
         $this->includeCompiledFilesForModule(FRAMELIX_MODULE);
+        $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "myself");
+        $this->includeCompiledFile(FRAMELIX_MODULE, "js", "myself");
 
         if ($this->editMode) {
             $this->includeCompiledFile(FRAMELIX_MODULE, "js", "myself-edit");
