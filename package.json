@@ -1,0 +1,32 @@
+{
+  "name": "pagemyself",
+  "description": "PageMyself - A full WYSIWYG website builder with live editing features.",
+  "version": "0.1.0",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brainfoolong/pagemyself.git"
+  },
+  "keywords": [
+    "php",
+    "framework",
+    "fullstack"
+  ],
+  "author": "BrainFooLong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brainfoolong/pagemyself/issues"
+  },
+  "homepage": "https://github.com/brainfoolong/pagemyself#readme",
+  "builtInModules" : [
+    "Calendar",
+    "ContactForm",
+    "Framelix",
+    "Guestbook",
+    "ImageGallery",
+    "Myself",
+    "Slideshow"
+  ]
+}

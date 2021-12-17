@@ -4,6 +4,7 @@ namespace Framelix\Myself;
 
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Utils\FileUtils;
+use Framelix\Framelix\Utils\JsonUtils;
 
 use function basename;
 use function class_exists;
@@ -65,6 +66,11 @@ class Console extends \Framelix\Framelix\Console
         $myselfConfig = Config::getConfigFromFile("Myself", "config-editable.php");
         $myselfConfig['modules'][$moduleName] = $moduleName;
         Config::writetConfigToFile("Myself", "config-editable.php", $myselfConfig);
+        JsonUtils::writeToFile($moduleDir . "/package.json", [
+            "version" => "0.0.1",
+            "name" => "pagemyself-" . strtolower($moduleName),
+            "description" => "Your module description",
+        ], true);
     }
 
     /**
