@@ -1,0 +1,638 @@
+{
+    "__myself_align__": [
+        "Ausrichtung",
+        "a6370"
+    ],
+    "__myself_align_bottom__": [
+        "Unten",
+        "2ad9d"
+    ],
+    "__myself_align_center__": [
+        "Zentriert",
+        "dc5ff"
+    ],
+    "__myself_align_desc__": [
+        "Wie die Spalten ausgerichtet werden. Wird nur ben\u00f6tigt wenn eine maximale Breite definiert wurde.",
+        "54195"
+    ],
+    "__myself_align_left__": [
+        "Links",
+        "945d5"
+    ],
+    "__myself_align_right__": [
+        "Rechts",
+        "92b09"
+    ],
+    "__myself_align_top__": [
+        "Oben",
+        "a4ffd"
+    ],
+    "__myself_column_align__": [
+        "Spaltenausrichtung",
+        "51f94"
+    ],
+    "__myself_disable_editmode__": [
+        "Bearbeitungsmodus deaktivieren",
+        "5017a"
+    ],
+    "__myself_enable_editmode__": [
+        "Bearbeitungsmodus aktivieren",
+        "07917"
+    ],
+    "__myself_form_field_ace_activate__": [
+        "Editor aktivieren",
+        "50f23"
+    ],
+    "__myself_goback__": [
+        "Zur\u00fcck",
+        "22b65"
+    ],
+    "__myself_goto_backend__": [
+        "Zum Backend",
+        "d7d98"
+    ],
+    "__myself_layout_exception__": [
+        "Hoppla, da ist ein Fehler aufgetreten. Bitte komm sp\u00e4ter wieder oder kontaktieren den Seiteninhaber.",
+        "51a9c"
+    ],
+    "__myself_mediabrowser_accept__": [
+        "Selektierte Eintr\u00e4ge best\u00e4tigen",
+        "9b832"
+    ],
+    "__myself_mediabrowser_available_entries__": [
+        "Verf\u00fcgbare Dateien",
+        "f275d"
+    ],
+    "__myself_mediabrowser_createfolder__": [
+        "Neuen Ordner erstellen",
+        "01d03"
+    ],
+    "__myself_mediabrowser_delete_file__": [
+        "Datei l\u00f6schen",
+        "a1997"
+    ],
+    "__myself_mediabrowser_delete_folder__": [
+        "Ordner und alle Dateien darin l\u00f6schen",
+        "7625a"
+    ],
+    "__myself_mediabrowser_delete_folder_securequestion__": [
+        "Schreib YES in das Textfeld um die Aktion zu best\u00e4tigen",
+        "1fc1f"
+    ],
+    "__myself_mediabrowser_files_selected__": [
+        "{{0=1:Datei|0=*:Dateien}} ausgew\u00e4hlt",
+        "da67f"
+    ],
+    "__myself_mediabrowser_open_folder__": [
+        "Ordner \u00f6ffnen",
+        "a6e75"
+    ],
+    "__myself_mediabrowser_parent_folder__": [
+        "Zur\u00fcck",
+        "8ca15"
+    ],
+    "__myself_mediabrowser_rename__": [
+        "Umbenennen",
+        "904a8"
+    ],
+    "__myself_mediabrowser_replace__": [
+        "Datei ersetzen",
+        "82c8e"
+    ],
+    "__myself_mediabrowser_select_entry__": [
+        "Eintrag w\u00e4hlen\/abw\u00e4hlen",
+        "59a35"
+    ],
+    "__myself_mediabrowser_selected_entries__": [
+        "Ausgew\u00e4hlte Eintr\u00e4ge",
+        "4b2fc"
+    ],
+    "__myself_mediabrowser_selected_entries_info__": [
+        "Du kannst die Eintr\u00e4ge hier mit Drag&Drop sortieren",
+        "5bb11"
+    ],
+    "__myself_mediabrowser_show_details__": [
+        "Details anzeigen",
+        "d5390"
+    ],
+    "__myself_mediabrowser_upload__": [
+        "Hier klicken um eine Datei hochzuladen oder ziehe eine Datei einfach hier rein",
+        "64763"
+    ],
+    "__myself_mediabrowser_upload_failed__": [
+        "Upload fehlgeschlagen. Nur die folgenden Dateitypen werden akzeptiert: {0}",
+        "8ab27"
+    ],
+    "__myself_mediabrowser_uploaded__": [
+        "Datei hochgeladen",
+        "08f26"
+    ],
+    "__myself_modulename__": [
+        "PageMyself",
+        "125bd"
+    ],
+    "__myself_nav_align__": [
+        "Ausrichtung der Navigation",
+        "a612b"
+    ],
+    "__myself_open_media_browser__": [
+        "Dateibrowser \u00f6ffnen",
+        "0fdaf"
+    ],
+    "__myself_open_website_editor__": [
+        "Webseiteneditor \u00f6ffnen",
+        "2cff3"
+    ],
+    "__myself_page_align__": [
+        "Seitenausrichtung",
+        "e4e99"
+    ],
+    "__myself_page_login__": [
+        "Login",
+        "99dea"
+    ],
+    "__myself_page_not_exist__": [
+        "Sorry, diese Seite existiert nicht.",
+        "f473a"
+    ],
+    "__myself_page_password__": [
+        "Diese Seite ben\u00f6tigt ein Passwort",
+        "455c5"
+    ],
+    "__myself_page_password_success__": [
+        "Passwort ist korrekt",
+        "56164"
+    ],
+    "__myself_page_password_wrong__": [
+        "Passwort ist falsch",
+        "4500a"
+    ],
+    "__myself_pageblock_create__": [
+        "Einen neue Page-Block erzeugen",
+        "121ad"
+    ],
+    "__myself_pageblock_create_attention__": [
+        "Nachdem du einen Block gew\u00e4hlt hast kannst du den Typ nicht mehr modifizieren. Du musst den Block dann l\u00f6schen und neu anlegen.",
+        "513c1"
+    ],
+    "__myself_pageblock_delete__": [
+        "Block l\u00f6schen",
+        "6f339"
+    ],
+    "__myself_pageblock_delete_unavailable__": [
+        "Dieser Block ist nicht mehr verf\u00fcgbar. Das kann passieren wenn du ein Plugin verwendet hast, dass du wieder entfernt hast.",
+        "3dbbc"
+    ],
+    "__myself_pageblock_deleted__": [
+        "Block gel\u00f6scht",
+        "7a52f"
+    ],
+    "__myself_pageblock_edit__": [
+        "Einstellungen dieses Blocks \u00f6ffnen",
+        "fac04"
+    ],
+    "__myself_pageblock_edit_internal_delete__": [
+        "Block l\u00f6schen",
+        "4fd76"
+    ],
+    "__myself_pageblock_edit_internal_draft__": [
+        "Entwurf",
+        "f03ab"
+    ],
+    "__myself_pageblock_edit_internal_draft_desc_": [
+        "Diese Seite ist im Entwurfsmodus. Nur Seitenadministratoren k\u00f6nnen sie sehen.",
+        "e94d0"
+    ],
+    "__myself_pageblocks_backgroundalign__": [
+        "Hintergrundausrichtung",
+        "bfbf9"
+    ],
+    "__myself_pageblocks_backgroundcolor__": [
+        "Hintergrundfarbe",
+        "368d9"
+    ],
+    "__myself_pageblocks_backgroundimage__": [
+        "Hintergrundbild",
+        "69ee1"
+    ],
+    "__myself_pageblocks_backgroundvideo__": [
+        "Hintergrundvideo",
+        "4ae5d"
+    ],
+    "__myself_pageblocks_backgroundvideo_desc__": [
+        "Du solltest Video mit m\u00f6glichst geringer Dateigr\u00f6\u00dfe w\u00e4hlen.<br\/>Das Video startet automatisch, wiederholt sich und ist lautlos.<br\/>F\u00fcge ein Hintergrundbild auch ein, dies wird als Platzhalter w\u00e4hrend des Ladevorgangs angezeigt.",
+        "033c4"
+    ],
+    "__myself_pageblocks_columns__": [
+        "Eine oder mehrere Spalten in einer Reihe",
+        "06c69"
+    ],
+    "__myself_pageblocks_columns_desc__": [
+        "M\u00f6glicherweise der Block den du am meisten benutzen wirst. Du kannst viele Einstellungen vornehmen, jede Spalte kann individuell bef\u00fcllt werden.",
+        "74362"
+    ],
+    "__myself_pageblocks_columns_form_column_enabled__": [
+        "Spalte sichtbar",
+        "7d31f"
+    ],
+    "__myself_pageblocks_columns_form_column_enabled_desc__": [
+        "Falls deaktiviert, dann wird diese Spalte nicht angezeigt",
+        "a1cc6"
+    ],
+    "__myself_pageblocks_columns_form_column_gap__": [
+        "Spalt in px",
+        "56e39"
+    ],
+    "__myself_pageblocks_columns_form_column_gap_desc__": [
+        "Der Spalt definiert den Abstand zwischen den Spalten, jedoch nicht am Anfang und Ende der Reihe.",
+        "42cbc"
+    ],
+    "__myself_pageblocks_columns_form_column_maxwidth__": [
+        "Maximale Breite in px",
+        "dd689"
+    ],
+    "__myself_pageblocks_columns_form_column_maxwidth_desc__": [
+        "Der Block wird nicht breiter als diese Angabe. Hilfreich wenn du zb.: einen Block zentrieren willst.",
+        "90b5d"
+    ],
+    "__myself_pageblocks_columns_form_column_padding__": [
+        "Padding in px",
+        "f7840"
+    ],
+    "__myself_pageblocks_columns_form_column_padding_desc__": [
+        "Padding nennt man Abstand zwischen Au\u00dfenwand der Spalte und dem Textbereich.",
+        "ab192"
+    ],
+    "__myself_pageblocks_columns_form_column_width__": [
+        "Breite in Gewichtung oder Px",
+        "8fb3a"
+    ],
+    "__myself_pageblocks_columns_form_column_width_desc__": [
+        "Falls du einen Wert gr\u00f6\u00dfer als 10 eingibst, dann wird der Wert als Pixelwert angenommen.<br\/>Werte darunter ist eine Gewichtung.<br\/>Falls du also alle Spalten gleich breit haben willst, dann gibt in jeder Spalte 1 ein.<br\/>M\u00f6chtest du eine Spalte doppelt so breit wie die anderen, dann gib 2 ein. Usw...<br\/>Mit dieser Technik richten sich die Spalten je nach verf\u00fcgbaren Bildschirmgr\u00f6\u00dfe automatisch aus.",
+        "aefc3"
+    ],
+    "__myself_pageblocks_columns_form_formlabel__": [
+        "Spalte {0}",
+        "76ade"
+    ],
+    "__myself_pageblocks_columns_form_general__": [
+        "Allgemein",
+        "0db37"
+    ],
+    "__myself_pageblocks_columns_open_editor__": [
+        "Klicke hier um den Texteditor zu \u00f6ffnen",
+        "4a08e"
+    ],
+    "__myself_pageblocks_columns_open_simpletexteditor__": [
+        "Klicke hier um den Text zu bearbeiten",
+        "5ad1c"
+    ],
+    "__myself_pageblocks_css__": [
+        "CSS\/Stylesheet - Maximale Anpassungsm\u00f6glichkeit",
+        "54ed8"
+    ],
+    "__myself_pageblocks_css_css__": [
+        "CSS Code",
+        "3c1bf"
+    ],
+    "__myself_pageblocks_css_desc__": [
+        "Mit CSS kannst du den Stil deiner Seite noch genauer anpassen. Auch wenn wir schon viele Einstellungen anbieten, ist es manchmal notwendig noch genauere Anpassungen vorzunehmen.<br\/>Falls du globale Einstellungen f\u00fcr jede Seite vornehmen willst, dann gehe auf die Stil-Einstellungen.",
+        "9a57c"
+    ],
+    "__myself_pageblocks_css_form_main__": [
+        "Dein CSS Code",
+        "53e62"
+    ],
+    "__myself_pageblocks_edit_form_internal__": [
+        "Blockeinstellungen",
+        "4d57e"
+    ],
+    "__myself_pageblocks_html__": [
+        "HTML Code",
+        "e0ec8"
+    ],
+    "__myself_pageblocks_html_desc__": [
+        "Mit HTML Code kannst du alles auf der Seite einbinden was du m\u00f6chtest. Manche Tools ben\u00f6tigen das.",
+        "f1f96"
+    ],
+    "__myself_pageblocks_html_form_main__": [
+        "HTML Einstellungen",
+        "0aacf"
+    ],
+    "__myself_pageblocks_html_html__": [
+        "Dein HTML Code",
+        "8081c"
+    ],
+    "__myself_pageblocks_javascript__": [
+        "JavaScript - Dynamischer Inhalt",
+        "b81a3"
+    ],
+    "__myself_pageblocks_javascript_desc__": [
+        "Mit Javascript kannst dynamische Inhalte auf deiner Seite einf\u00fcgen. zb.: F\u00fcr Werbung, Z\u00e4hler, interaktive Features, Analytics, etc...<br\/>Falls du globale Scripts einf\u00fcgen willst, dann gehen auf die Stil-Einstellungen.",
+        "f69dc"
+    ],
+    "__myself_pageblocks_javascript_form_main__": [
+        "Script Code",
+        "bb9fe"
+    ],
+    "__myself_pageblocks_javascript_javascript__": [
+        "Dein Script Code",
+        "cfab8"
+    ],
+    "__myself_pageblocks_minheight__": [
+        "Minimale H\u00f6he in px",
+        "90e6a"
+    ],
+    "__myself_pageblocks_minheight_desc__": [
+        "Falls du eine Mindesth\u00f6he willst kannst du sie hier einstellen",
+        "df67c"
+    ],
+    "__myself_pageblocks_navigation__": [
+        "Navigation",
+        "84649"
+    ],
+    "__myself_pageblocks_navigation_desc__": [
+        "Zeigt alle relevanten Navigationseintr\u00e4ge an. Dieser Block wird wahrscheinlich schon von deinem gew\u00e4hlten Stil eingebunden, das musst du also m\u00f6glicherweise nicht mehr tun.",
+        "09827"
+    ],
+    "__myself_pageblocks_navigation_form_main__": [
+        "Navigationseinstellungen",
+        "4e7bc"
+    ],
+    "__myself_pageblocks_navigation_logo__": [
+        "Dein Logo",
+        "f38db"
+    ],
+    "__myself_pageblocks_slideshow_next__": [
+        "N\u00e4chstes Bild",
+        "558ed"
+    ],
+    "__myself_pageblocks_slideshow_prev__": [
+        "Vorheriges Bild",
+        "ee34f"
+    ],
+    "__myself_pageblocks_textcolor__": [
+        "Textfarbe",
+        "5f111"
+    ],
+    "__myself_storable_liveedit_nomultiline__": [
+        "Nur eine Zeile erlaubt",
+        "db5fe"
+    ],
+    "__myself_storable_nav_flagdraft_label__": [
+        "Entwurf",
+        "f03ab"
+    ],
+    "__myself_storable_nav_flagdraft_label_desc__": [
+        "Nur Seitenadministratoren k\u00f6nnen diesen Eintrag sehen",
+        "21b85"
+    ],
+    "__myself_storable_nav_link_label__": [
+        "Benutzerdefinierter Link",
+        "a4654"
+    ],
+    "__myself_storable_nav_link_label_desc__": [
+        "Link zu einer beliebigen Webseite",
+        "ddc23"
+    ],
+    "__myself_storable_nav_page_label__": [
+        "Link auf eine Seite",
+        "a0af9"
+    ],
+    "__myself_storable_nav_page_label_desc__": [
+        "W\u00e4hle aus deinen vorhandenen Seiten",
+        "7e804"
+    ],
+    "__myself_storable_nav_pagetagsvisible_label__": [
+        "Page-Tag Bedingungen",
+        "bd44f"
+    ],
+    "__myself_storable_nav_pagetagsvisible_label_desc__": [
+        "Zeigt diesen Navigationseintrag nur, wenn die Seite auf der du dich befindest einen dieser gew\u00e4hlten Tags hat. Wird nichts gew\u00e4hlt, dann ist der Eintrag \u00fcberall sichtbar.",
+        "9bfd3"
+    ],
+    "__myself_storable_nav_tags_label__": [
+        "Tags",
+        "189f6"
+    ],
+    "__myself_storable_nav_tags_label_desc__": [
+        "Diese Tags werden sp\u00e4ter zum Filtern genutzt.",
+        "783be"
+    ],
+    "__myself_storable_nav_target_blank__": [
+        "Neuer Tab",
+        "c8a19"
+    ],
+    "__myself_storable_nav_target_label__": [
+        "\u00d6ffnen in",
+        "aad57"
+    ],
+    "__myself_storable_nav_target_label_desc__": [
+        "Wie wird der Link ge\u00f6ffnet",
+        "4b6c3"
+    ],
+    "__myself_storable_nav_target_self__": [
+        "Gleiche Seite",
+        "3021c"
+    ],
+    "__myself_storable_nav_title_label__": [
+        "Bezeichnung",
+        "b021d"
+    ],
+    "__myself_storable_nav_title_label_desc__": [
+        "Wenn leer, dann wird Seitentitel der verlinkten Seiten angezeigt.",
+        "4c6c6"
+    ],
+    "__myself_storable_page_flagdraft_label__": [
+        "Entwurf",
+        "f03ab"
+    ],
+    "__myself_storable_page_flagdraft_label_desc__": [
+        "Nur Seitenadministratoren k\u00f6nnen diesen Eintrag sehen.",
+        "21b85"
+    ],
+    "__myself_storable_page_lang_label__": [
+        "Sprache",
+        "4994a"
+    ],
+    "__myself_storable_page_password_label__": [
+        "Passwort",
+        "dc647"
+    ],
+    "__myself_storable_page_password_label_desc__": [
+        "Falls gesetzt, dann kann die Seite nur mit dem gew\u00e4hlten Passwort ge\u00f6ffnet werden",
+        "6ad17"
+    ],
+    "__myself_storable_page_tags_label__": [
+        "Page-Tags",
+        "e453e"
+    ],
+    "__myself_storable_page_title_label__": [
+        "Seitentitel",
+        "12cb4"
+    ],
+    "__myself_storable_page_title_label_desc__": [
+        "Der Titel wird f\u00fcr Suchmaschinen und Browsertitel verwendet.",
+        "29000"
+    ],
+    "__myself_storable_page_url_label__": [
+        "Pfad in URL",
+        "0ccb0"
+    ],
+    "__myself_storable_page_url_label_desc__": [
+        "Der Pfad nach {0}",
+        "14516"
+    ],
+    "__myself_storable_tag_color_label__": [
+        "Farbe",
+        "cb5fe"
+    ],
+    "__myself_storable_tag_name_label__": [
+        "Bezeichnung",
+        "b021d"
+    ],
+    "__myself_tag_category_1__": [
+        "Page-Tags",
+        "4e964"
+    ],
+    "__myself_tag_category_2__": [
+        "Navigations-Tags",
+        "04b7f"
+    ],
+    "__myself_tags__": [
+        "Tags",
+        "189f6"
+    ],
+    "__myself_theme_not_exist__": [
+        "Diese Seite hat keinen Stil gew\u00e4hlt",
+        "a8209"
+    ],
+    "__myself_theme_settings__": [
+        "Stil-Einstellungen",
+        "55b8d"
+    ],
+    "__myself_theme_settings_form_internal__": [
+        "Basiseinstellungen",
+        "2a940"
+    ],
+    "__myself_theme_settings_form_internal_pagecss__": [
+        "Globales CSS \/ Stylesheet",
+        "3aeb1"
+    ],
+    "__myself_theme_settings_form_internal_pagecss_desc__": [
+        "Falls du CSS auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
+        "8f6cf"
+    ],
+    "__myself_theme_settings_form_internal_pagejs__": [
+        "Globales Javascript",
+        "e0607"
+    ],
+    "__myself_theme_settings_form_internal_pagejs_desc__": [
+        "Falls du Javascript auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
+        "4f97f"
+    ],
+    "__myself_themes_hello_form_main__": [
+        "Stil-Einstellungen",
+        "e873d"
+    ],
+    "__myself_themes_hello_info__": [
+        "Hello - Ein einfacher Stil ohne viel Schnick-Schnack",
+        "e08d8"
+    ],
+    "__myself_themes_hello_primarycolor__": [
+        "Prim\u00e4rfarbe (Navigation, Buttons, etc...)",
+        "3583d"
+    ],
+    "__myself_themes_hello_sidebar_more__": [
+        "Mehr",
+        "d3da9"
+    ],
+    "__myself_toggle_mobile__": [
+        "Mobile Ansicht wechseln",
+        "11b4c"
+    ],
+    "__myself_unsaved_changes__": [
+        "Du hast ungespeicherte \u00c4nderungen in diesem Tab",
+        "03c17"
+    ],
+    "__myself_user_role_content__": [
+        "Seitenadministrator (Nur auf der Webseite, nicht im Backend)",
+        "e373c"
+    ],
+    "__myself_user_role_nav__": [
+        "Navigation ver\u00e4ndern",
+        "7d1d5"
+    ],
+    "__myself_user_role_page__": [
+        "Seiten bearbeiten",
+        "b0ff1"
+    ],
+    "__myself_user_tags_page__": [
+        "Tags",
+        "976fa"
+    ],
+    "__myself_view_backend_index__": [
+        "PageMyself Backend",
+        "3c7ab"
+    ],
+    "__myself_view_backend_nav_arrange__": [
+        "Eintr\u00e4ge sortieren",
+        "abe2c"
+    ],
+    "__myself_view_backend_nav_arrange_drag_move__": [
+        "Halte einen dieser Buttons und ziehe den Eintrag auf einen anderen Bereich",
+        "34cf5"
+    ],
+    "__myself_view_backend_nav_arrange_drag_sort__": [
+        "Halte einen dieser Buttons um zu sortieren",
+        "54b17"
+    ],
+    "__myself_view_backend_nav_arrange_drop_child__": [
+        "Eintrag hier anh\u00e4ngen",
+        "0f581"
+    ],
+    "__myself_view_backend_nav_arrange_drop_main__": [
+        "Eintrag hier reinziehen um auf die oberste Ebene zu platzieren",
+        "ee43f"
+    ],
+    "__myself_view_backend_nav_arrange_many_levels__": [
+        "Es ist nicht empfohlen mehr als 2 Ebenen zu haben.",
+        "22653"
+    ],
+    "__myself_view_backend_nav_edit__": [
+        "Navigation erstellen \/ Bearbeiten",
+        "f91dc"
+    ],
+    "__myself_view_backend_nav_entries__": [
+        "Alle Eintr\u00e4ge",
+        "bb854"
+    ],
+    "__myself_view_backend_nav_index__": [
+        "Navigation",
+        "84649"
+    ],
+    "__myself_view_backend_page_edit__": [
+        "Seite erstellen \/ Bearbeiten",
+        "33ea7"
+    ],
+    "__myself_view_backend_page_entries__": [
+        "Alle Seiten",
+        "0174e"
+    ],
+    "__myself_view_backend_page_index__": [
+        "Seiten",
+        "453ac"
+    ],
+    "__myself_view_backend_page_index_missing_homepage__": [
+        "Du hast noch keine Startseite (Seite ohne Pfad) erstellt. Damit deine Homepage funktioniert, brauchst du eine Startseite.",
+        "cdd07"
+    ],
+    "__myself_visible_in_editmode__": [
+        "Diese Info ist sichtbar, weil du dich im Bearbeitungsmodus befindest.",
+        "306dd"
+    ],
+    "__myself_wait_for_unblock__": [
+        "Du musst noch {0} warten bevor du wieder probieren kannst",
+        "ba53d"
+    ]
+}

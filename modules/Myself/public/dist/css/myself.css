@@ -1,0 +1,55 @@
+:root {
+  --font-default: Arial, sans-serif; }
+
+body {
+  font-family: var(--font-default); }
+
+.myself-tag,
+.myself-tag:any-link {
+  font-size: 0.7rem;
+  height: 14px;
+  line-height: 14px;
+  white-space: nowrap;
+  padding: 2px 5px;
+  color: white;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none; }
+
+.myself-live-editable-wysiwyg p {
+  margin: 0; }
+
+.myself-page-block[data-draft] {
+  outline: 2px solid red !important; }
+
+html:not([data-edit-frame]) .myself-page-block[data-draft] {
+  display: none; }
+
+.myself-page-block-editable {
+  min-height: 35px; }
+  .myself-page-block-editable.myself-page-block-highlight, .myself-page-block-editable:hover, .myself-page-block-editable:focus-within {
+    box-shadow: #009dff 0 0 10px inset; }
+
+.myself-live-editable-wysiwyg,
+.myself-live-editable-text {
+  cursor: text;
+  min-height: 18px;
+  position: relative; }
+
+.myself-live-editable-text[data-multiline='1'] {
+  white-space: pre; }
+
+.myself-editable-text-save-button {
+  padding: 0 20px !important; }
+
+html[data-edit-frame='1'] .myself-hide-if-editmode,
+html[data-edit='1'] .myself-hide-if-editmode {
+  display: none; }
+
+html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
+  display: none; }
+
+.myself-lazy-load {
+  display: inline-block; }

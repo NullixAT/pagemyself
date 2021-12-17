@@ -1,0 +1,479 @@
+{
+    "__myself_align__": [
+        "Alignment"
+    ],
+    "__myself_align_bottom__": [
+        "Bottom"
+    ],
+    "__myself_align_center__": [
+        "Centered"
+    ],
+    "__myself_align_desc__": [
+        "How to align all columns. Will only will take affect when you set a max width. Otherwise the columns take up full screen size."
+    ],
+    "__myself_align_left__": [
+        "Left"
+    ],
+    "__myself_align_right__": [
+        "Right"
+    ],
+    "__myself_align_top__": [
+        "Top"
+    ],
+    "__myself_column_align__": [
+        "Column Alignment"
+    ],
+    "__myself_disable_editmode__": [
+        "Disable edit mode"
+    ],
+    "__myself_enable_editmode__": [
+        "Enable edit mode"
+    ],
+    "__myself_form_field_ace_activate__": [
+        "Activate editor"
+    ],
+    "__myself_goback__": [
+        "Go back"
+    ],
+    "__myself_goto_backend__": [
+        "Goto backend"
+    ],
+    "__myself_layout_exception__": [
+        "Sorry, there is an error on this part of the website. Please come back later or contact the site administrator."
+    ],
+    "__myself_mediabrowser_accept__": [
+        "Confirm selected entries"
+    ],
+    "__myself_mediabrowser_available_entries__": [
+        "Available entries"
+    ],
+    "__myself_mediabrowser_createfolder__": [
+        "Click here to create a new folder"
+    ],
+    "__myself_mediabrowser_delete_file__": [
+        "Delete this file"
+    ],
+    "__myself_mediabrowser_delete_folder__": [
+        "Delete this folder including all files and subfolders in it"
+    ],
+    "__myself_mediabrowser_delete_folder_securequestion__": [
+        "Please enter YES into the prompt, to confirm the delete action"
+    ],
+    "__myself_mediabrowser_files_selected__": [
+        "{{0=1:file|0=*:files}} selected"
+    ],
+    "__myself_mediabrowser_open_folder__": [
+        "Open folder"
+    ],
+    "__myself_mediabrowser_parent_folder__": [
+        "Goto parent folder"
+    ],
+    "__myself_mediabrowser_rename__": [
+        "Rename"
+    ],
+    "__myself_mediabrowser_replace__": [
+        "Replace file"
+    ],
+    "__myself_mediabrowser_select_entry__": [
+        "Select\/Deselect this entry"
+    ],
+    "__myself_mediabrowser_selected_entries__": [
+        "Selected entries"
+    ],
+    "__myself_mediabrowser_selected_entries_info__": [
+        "You can sort this entries by dragging the entries around"
+    ],
+    "__myself_mediabrowser_show_details__": [
+        "Show details"
+    ],
+    "__myself_mediabrowser_upload__": [
+        "Click here to upload a file in this folder or just drop a file in here"
+    ],
+    "__myself_mediabrowser_upload_failed__": [
+        "Upload failed because only the following file extensions are allowed: {0}"
+    ],
+    "__myself_mediabrowser_uploaded__": [
+        "File uploaded"
+    ],
+    "__myself_modulename__": [
+        "PageMyself"
+    ],
+    "__myself_nav_align__": [
+        "Navigation Alignment"
+    ],
+    "__myself_open_media_browser__": [
+        "Open Media Browser"
+    ],
+    "__myself_open_website_editor__": [
+        "Open website editor"
+    ],
+    "__myself_page_align__": [
+        "Page Alignment"
+    ],
+    "__myself_page_login__": [
+        "Login"
+    ],
+    "__myself_page_not_exist__": [
+        "Sorry, this page does not exist."
+    ],
+    "__myself_page_password__": [
+        "This page requires a password to enter"
+    ],
+    "__myself_page_password_success__": [
+        "Passwort was correct"
+    ],
+    "__myself_page_password_wrong__": [
+        "Wrong password"
+    ],
+    "__myself_pageblock_create__": [
+        "Add a new page block here"
+    ],
+    "__myself_pageblock_create_attention__": [
+        "Once you have created a block, you cannot modify the block type anymore. If you've misclicked, delete the block and create a new."
+    ],
+    "__myself_pageblock_delete__": [
+        "Delete this page block"
+    ],
+    "__myself_pageblock_delete_unavailable__": [
+        "This page block is not available anymore. This can happen when you have used a page block from a plugin, that is now removed."
+    ],
+    "__myself_pageblock_deleted__": [
+        "Block deleted"
+    ],
+    "__myself_pageblock_edit__": [
+        "Edit settings of this page block"
+    ],
+    "__myself_pageblock_edit_internal_delete__": [
+        "Delete this block"
+    ],
+    "__myself_pageblock_edit_internal_draft__": [
+        "Draft"
+    ],
+    "__myself_pageblock_edit_internal_draft_desc_": [
+        "Set this page block in draft mode. It is only visible in edit mode."
+    ],
+    "__myself_pageblocks_backgroundalign__": [
+        "Background Alignment"
+    ],
+    "__myself_pageblocks_backgroundcolor__": [
+        "Background color"
+    ],
+    "__myself_pageblocks_backgroundimage__": [
+        "Background image"
+    ],
+    "__myself_pageblocks_backgroundvideo__": [
+        "Background video"
+    ],
+    "__myself_pageblocks_backgroundvideo_desc__": [
+        "You should set a background image as well, as a placeholder before the video starts.<br\/>Keep the filesize of a video as small as possible, to safe bandwidth for your users.<br\/>Also this video does automatically start, is looped and is muted, so cut out audio to also save bandwith."
+    ],
+    "__myself_pageblocks_columns__": [
+        "One or multiple columns in a row"
+    ],
+    "__myself_pageblocks_columns_desc__": [
+        "Probably the block you will use the most.<br\/>This block can be used to display free editable content columns in a block.<br\/>You can choose to fill the whole width or to seperate into multiple pieces which each can independently filled."
+    ],
+    "__myself_pageblocks_columns_form_column_enabled__": [
+        "Column enabled"
+    ],
+    "__myself_pageblocks_columns_form_column_enabled_desc__": [
+        "If disabled, the column will not be displayed on the page"
+    ],
+    "__myself_pageblocks_columns_form_column_gap__": [
+        "Gap in px"
+    ],
+    "__myself_pageblocks_columns_form_column_gap_desc__": [
+        "The gap defines the size of the gap between the columns, but not at the start or the end of the row."
+    ],
+    "__myself_pageblocks_columns_form_column_maxwidth__": [
+        "Max width in px"
+    ],
+    "__myself_pageblocks_columns_form_column_maxwidth_desc__": [
+        "The block will not be larger then this width. Useful when you choose center layout with for example 1000 max width. Looks good on all screens."
+    ],
+    "__myself_pageblocks_columns_form_column_padding__": [
+        "Padding in px"
+    ],
+    "__myself_pageblocks_columns_form_column_padding_desc__": [
+        "Padding is used to create space around an element's content, inside of any defined borders."
+    ],
+    "__myself_pageblocks_columns_form_column_width__": [
+        "Width in weight or px"
+    ],
+    "__myself_pageblocks_columns_form_column_width_desc__": [
+        "Set width in weight or px. If you enter a value greather than 10, it will be considered to be max pixel width. A value <= 10 is considered a weight. If you want all columns to be equal in width, then insert 1 in every column. If you want a column to be double in size of others, set 2 in the column, and 1 in others. And so on...<br\/>This technique make it possible that your content is always displayed nicely, independent of the screen size."
+    ],
+    "__myself_pageblocks_columns_form_formlabel__": [
+        "Column {0}"
+    ],
+    "__myself_pageblocks_columns_form_general__": [
+        "General"
+    ],
+    "__myself_pageblocks_columns_open_editor__": [
+        "Click here to open the text editor"
+    ],
+    "__myself_pageblocks_columns_open_simpletexteditor__": [
+        "Click here to edit this text"
+    ],
+    "__myself_pageblocks_css__": [
+        "CSS\/Stylesheet - Maximum customization for your page"
+    ],
+    "__myself_pageblocks_css_css__": [
+        "Your CSS code goes in here"
+    ],
+    "__myself_pageblocks_css_desc__": [
+        "With CSS you can add individual styling for your page. Although we already provide a lot of styling features in this app, it sometimes is required that you add your own styling.<br\/>If you want to add global styles that are inserted into every page on your website, goto the theme settings instead."
+    ],
+    "__myself_pageblocks_css_form_main__": [
+        "Your CSS Code"
+    ],
+    "__myself_pageblocks_edit_form_internal__": [
+        "Block Settings"
+    ],
+    "__myself_pageblocks_html__": [
+        "HTML Code"
+    ],
+    "__myself_pageblocks_html_desc__": [
+        "With pure HTML Code you can embed everything you want into your page. Some external tools and services may require this."
+    ],
+    "__myself_pageblocks_html_form_main__": [
+        "HTML Settings"
+    ],
+    "__myself_pageblocks_html_html__": [
+        "Your HTML Code goes in here"
+    ],
+    "__myself_pageblocks_javascript__": [
+        "JavaScript - Include javascript in your page"
+    ],
+    "__myself_pageblocks_javascript_desc__": [
+        "JavaScript is mostly used to insert dynamic content into your page. It can be used for all sort of things, like Ads, Dynamic Content, Counters, Interactive Features, Analytics, etc...<br\/>If you want to add global scripts that are inserted into every page on your website, goto the theme settings instead."
+    ],
+    "__myself_pageblocks_javascript_form_main__": [
+        "Your script code"
+    ],
+    "__myself_pageblocks_javascript_javascript__": [
+        "Your Javascript Code"
+    ],
+    "__myself_pageblocks_minheight__": [
+        "Minimal height in px"
+    ],
+    "__myself_pageblocks_minheight_desc__": [
+        "If you want a fixed minimal height for this container, enter a pixel value here."
+    ],
+    "__myself_pageblocks_navigation__": [
+        "Navigation"
+    ],
+    "__myself_pageblocks_navigation_desc__": [
+        "Display all relevant navigation entries for this page in a list. This block is probably already integrated by your used theme, so you may not need to add it manually."
+    ],
+    "__myself_pageblocks_navigation_form_main__": [
+        "Navigation settings"
+    ],
+    "__myself_pageblocks_navigation_logo__": [
+        "Your Logo"
+    ],
+    "__myself_pageblocks_slideshow_next__": [
+        "Next image"
+    ],
+    "__myself_pageblocks_slideshow_prev__": [
+        "Previous image"
+    ],
+    "__myself_pageblocks_textcolor__": [
+        "Text color"
+    ],
+    "__myself_storable_liveedit_nomultiline__": [
+        "No multiple lines allowed here"
+    ],
+    "__myself_storable_nav_flagdraft_label__": [
+        "Draft"
+    ],
+    "__myself_storable_nav_flagdraft_label_desc__": [
+        "Only you or your website administrators can see this entry on the website"
+    ],
+    "__myself_storable_nav_link_label__": [
+        "Self-defined link"
+    ],
+    "__myself_storable_nav_link_label_desc__": [
+        "Enter a link to any website"
+    ],
+    "__myself_storable_nav_page_label__": [
+        "Link to page"
+    ],
+    "__myself_storable_nav_page_label_desc__": [
+        "Choose a page the you have already created"
+    ],
+    "__myself_storable_nav_pagetagsvisible_label__": [
+        "Page tag condition"
+    ],
+    "__myself_storable_nav_pagetagsvisible_label_desc__": [
+        "Show this navigation entry only in a page that has one of the following tags. If no tag is choosen, this entry is visible everywhere."
+    ],
+    "__myself_storable_nav_tags_label__": [
+        "Tags"
+    ],
+    "__myself_storable_nav_tags_label_desc__": [
+        "This tags are later used to filter navigation entries in your content blocks. For example you can create a tag 'header' and a tag 'footer' and on the website you use a navigation page block that filter for this tags."
+    ],
+    "__myself_storable_nav_target_blank__": [
+        "New tab"
+    ],
+    "__myself_storable_nav_target_label__": [
+        "Open in"
+    ],
+    "__myself_storable_nav_target_label_desc__": [
+        "Open in same or new tab"
+    ],
+    "__myself_storable_nav_target_self__": [
+        "Same tab"
+    ],
+    "__myself_storable_nav_title_label__": [
+        "Label"
+    ],
+    "__myself_storable_nav_title_label_desc__": [
+        "The label for the navigation entry.<br\/>If empty, then name of linked page is automatically taken."
+    ],
+    "__myself_storable_page_flagdraft_label__": [
+        "Draft"
+    ],
+    "__myself_storable_page_flagdraft_label_desc__": [
+        "Only you or your website administrators can see this entry on the website"
+    ],
+    "__myself_storable_page_lang_label__": [
+        "Language"
+    ],
+    "__myself_storable_page_password_label__": [
+        "Password"
+    ],
+    "__myself_storable_page_password_label_desc__": [
+        "If set, the page can only by viewed when the user enters this password."
+    ],
+    "__myself_storable_page_tags_label__": [
+        "Page Tags"
+    ],
+    "__myself_storable_page_title_label__": [
+        "Page title"
+    ],
+    "__myself_storable_page_title_label_desc__": [
+        "This title is used as the browser title and for search engines. In page, if required, you have to add this text separately."
+    ],
+    "__myself_storable_page_url_label__": [
+        "Path in URL"
+    ],
+    "__myself_storable_page_url_label_desc__": [
+        "This is the path after {0}<br\/>So for a contact page, you probably want to choose 'contact'<br\/>Warning: If you change it once it was online, the old url will be unavailable.<br\/>Empty Path = Main page"
+    ],
+    "__myself_storable_tag_color_label__": [
+        "Color"
+    ],
+    "__myself_storable_tag_name_label__": [
+        "Label"
+    ],
+    "__myself_tag_category_1__": [
+        "Page tags"
+    ],
+    "__myself_tag_category_2__": [
+        "Navigation tags"
+    ],
+    "__myself_tags__": [
+        "Tags"
+    ],
+    "__myself_theme_not_exist__": [
+        "Sorry, this page has not theme choosen."
+    ],
+    "__myself_theme_settings__": [
+        "Theme settings"
+    ],
+    "__myself_theme_settings_form_internal__": [
+        "Basic Settings"
+    ],
+    "__myself_theme_settings_form_internal_pagecss__": [
+        "Global CSS \/ Stylesheet"
+    ],
+    "__myself_theme_settings_form_internal_pagecss_desc__": [
+        "If you need additional css that is integrated into every page in this theme, add it here."
+    ],
+    "__myself_theme_settings_form_internal_pagejs__": [
+        "Global Javascript"
+    ],
+    "__myself_theme_settings_form_internal_pagejs_desc__": [
+        "If you need additional javascript that is integrated into every page in this theme, add it here."
+    ],
+    "__myself_themes_hello_form_main__": [
+        "Theme Settings"
+    ],
+    "__myself_themes_hello_info__": [
+        "Hello - A very basic theme without much styling"
+    ],
+    "__myself_themes_hello_primarycolor__": [
+        "Primary Color (Navigation, Buttons, etc...)"
+    ],
+    "__myself_themes_hello_sidebar_more__": [
+        "More"
+    ],
+    "__myself_toggle_mobile__": [
+        "Toggle Mobile\/Desktop View"
+    ],
+    "__myself_unsaved_changes__": [
+        "You have unsaved changes in this tab"
+    ],
+    "__myself_user_role_content__": [
+        "Site-Admin (Only Website, not Backend)"
+    ],
+    "__myself_user_role_nav__": [
+        "Edit website navigation"
+    ],
+    "__myself_user_role_page__": [
+        "Edit website pages"
+    ],
+    "__myself_user_tags_page__": [
+        "Edit tags"
+    ],
+    "__myself_view_backend_index__": [
+        "PageMyself Backend"
+    ],
+    "__myself_view_backend_nav_arrange__": [
+        "Sort and arrange entries"
+    ],
+    "__myself_view_backend_nav_arrange_drag_move__": [
+        "Hold any of this buttons and drag into another area"
+    ],
+    "__myself_view_backend_nav_arrange_drag_sort__": [
+        "Hold any of this buttons and drag to sort"
+    ],
+    "__myself_view_backend_nav_arrange_drop_child__": [
+        "Drop entry here to attach to this entry as child"
+    ],
+    "__myself_view_backend_nav_arrange_drop_main__": [
+        "Drop entry here to attach to the top level"
+    ],
+    "__myself_view_backend_nav_arrange_many_levels__": [
+        "It is not recommended to have more than 2 levels."
+    ],
+    "__myself_view_backend_nav_edit__": [
+        "Create navigation \/ Edit navigation"
+    ],
+    "__myself_view_backend_nav_entries__": [
+        "List all entries"
+    ],
+    "__myself_view_backend_nav_index__": [
+        "Navigation"
+    ],
+    "__myself_view_backend_page_edit__": [
+        "Create page \/ Edit page"
+    ],
+    "__myself_view_backend_page_entries__": [
+        "List all pages"
+    ],
+    "__myself_view_backend_page_index__": [
+        "Pages"
+    ],
+    "__myself_view_backend_page_index_missing_homepage__": [
+        "You not have a page with an empty path (Homepage). To make your site working, please create a page without a path in URL."
+    ],
+    "__myself_visible_in_editmode__": [
+        "This text\/blockinfo is only visible because you are currently in edit mode"
+    ],
+    "__myself_wait_for_unblock__": [
+        "You must wait {0} before you can try again"
+    ]
+}

@@ -1,0 +1,32 @@
+.myself-pageblocks-columns {
+  display: flex; }
+
+.myself-pageblocks-columns-outer {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto; }
+
+.myself-pageblocks-columns-inner {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto; }
+
+.myself-pageblocks-columns-column {
+  flex: 1 1 auto;
+  overflow: hidden;
+  position: relative;
+  z-index: 1; }
+
+.myself-pageblocks-columns-content {
+  position: relative;
+  z-index: 1; }
+
+.myself-pageblocks-columns .myself-live-editable-wysiwyg:not(.mce-content-body) {
+  flex: 1 1 auto; }
+
+.myself-pageblocks-columns-background-media {
+  position: absolute;
+  overflow: hidden;
+  display: flex; }
+  .myself-pageblocks-columns-background-media img, .myself-pageblocks-columns-background-media video {
+    width: 100%; }

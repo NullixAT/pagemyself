@@ -1,0 +1,20 @@
+{
+    "__imagegallery_pageblocks_imagegallery__": [
+        "Image Gallery"
+    ],
+    "__imagegallery_pageblocks_imagegallery_desc__": [
+        "A simple image gallery, where you can add as many images as you want, that will be displayed in a big gallery, which the user can browse through."
+    ],
+    "__imagegallery_pageblocks_imagegallery_files__": [
+        "Select\/Upload image files"
+    ],
+    "__imagegallery_pageblocks_imagegallery_form_main__": [
+        "Gallery Settings"
+    ],
+    "__imagegallery_pageblocks_imagegallery_maxwidth__": [
+        "Max width of an image"
+    ],
+    "__imagegallery_pageblocks_imagegallery_maxwidth_desc__": [
+        "If multiple images with that width can fit into a row, they will displayed in a row."
+    ]
+}

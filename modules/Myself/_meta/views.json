@@ -1,0 +1,113 @@
+{
+    "directoryListHash": "1|329450931",
+    "views": {
+        "Framelix\\Myself\\View\\Backend\\Index": {
+            "accessRole": true,
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend"
+        },
+        "Framelix\\Myself\\View\\Backend\\Nav\\Arrange": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/nav\/arrange"
+        },
+        "Framelix\\Myself\\View\\Backend\\Nav\\Edit": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/nav\/edit"
+        },
+        "Framelix\\Myself\\View\\Backend\\Nav\\Entries": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/nav\/entries"
+        },
+        "Framelix\\Myself\\View\\Backend\\Nav\\Index": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/nav"
+        },
+        "Framelix\\Myself\\View\\Backend\\Page\\Edit": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/page\/edit"
+        },
+        "Framelix\\Myself\\View\\Backend\\Page\\Entries": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/page\/entries"
+        },
+        "Framelix\\Myself\\View\\Backend\\Page\\Index": {
+            "accessRole": "admin,nav",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/page"
+        },
+        "Framelix\\Myself\\View\\Backend\\Tag\\Edit": {
+            "accessRole": "admin,tags",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/tag\/edit"
+        },
+        "Framelix\\Myself\\View\\Index": {
+            "accessRole": "*",
+            "customUrl": "~(?<url>.*)~",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "depth": 102,
+            "pageTitle": "{classLangKey}",
+            "url": ""
+        },
+        "Framelix\\Myself\\View\\PageBlockEdit": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 1,
+            "pageTitle": "{classLangKey}",
+            "url": "\/pageblockedit"
+        },
+        "Framelix\\Myself\\View\\ThemeSettings": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 1,
+            "pageTitle": "{classLangKey}",
+            "url": "\/themesettings"
+        }
+    }
+}

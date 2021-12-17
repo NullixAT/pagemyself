@@ -1,0 +1,15 @@
+.myself-pageblocks-navigation-navlist {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .myself-pageblocks-navigation-navlist[data-level='0'] {
+    padding: 10px; }
+  .myself-pageblocks-navigation-navlist a:any-link {
+    display: block;
+    padding: 5px; }
+  .myself-pageblocks-navigation-navlist .myself-pageblocks-navigation-navlist-group {
+    padding: 5px;
+    font-weight: bold; }
+
+.myself-pageblocks-navigation-navlist-logo img {
+  width: 100%; }

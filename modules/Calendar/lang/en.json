@@ -1,0 +1,35 @@
+{
+    "__calendar_pageblocks_calendar__": [
+        "Calendar"
+    ],
+    "__calendar_pageblocks_calendar_cellcolor__": [
+        "Default Cell Color"
+    ],
+    "__calendar_pageblocks_calendar_cellcolor_day__": [
+        "Color of this cell"
+    ],
+    "__calendar_pageblocks_calendar_cellinfo__": [
+        "Optional information"
+    ],
+    "__calendar_pageblocks_calendar_desc__": [
+        "Embed a calendar view on your homepage. You can add information to each day of the calendar."
+    ],
+    "__calendar_pageblocks_calendar_form_main__": [
+        "Calendar Settings"
+    ],
+    "__calendar_pageblocks_calendar_global__": [
+        "Shared entries"
+    ],
+    "__calendar_pageblocks_calendar_global_desc__": [
+        "You can embed the calendar multiple times, each will have the same entries. If disabled, each pageblock have it's own entries."
+    ],
+    "__calendar_pageblocks_calendar_internalinfo__": [
+        "Internal info (Is only visible for page admins)"
+    ],
+    "__calendar_pageblocks_calendar_maxdate__": [
+        "Max allowed month"
+    ],
+    "__calendar_pageblocks_calendar_mindate__": [
+        "Min allowed month"
+    ]
+}

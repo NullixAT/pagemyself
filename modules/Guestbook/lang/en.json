@@ -1,0 +1,59 @@
+{
+    "__guestbook_delete__": [
+        "Delete this entry"
+    ],
+    "__guestbook_email__": [
+        "Your E-Mail (It will not be displayed)"
+    ],
+    "__guestbook_email_hidden__": [
+        "Only you, as a page administrator, can see this email"
+    ],
+    "__guestbook_email_newmessage_subject__": [
+        "New guestbook entry"
+    ],
+    "__guestbook_email_newmessage_text__": [
+        "You have a new guestbook message. Goto {url} to review and enable this entry."
+    ],
+    "__guestbook_emailconfig_missing__": [
+        "You must configure your email settings in the backend to be able to receive emails on new entries."
+    ],
+    "__guestbook_hide__": [
+        "Hide this entry"
+    ],
+    "__guestbook_message__": [
+        "Your Message"
+    ],
+    "__guestbook_name__": [
+        "Your Name (Will be displayed)"
+    ],
+    "__guestbook_pageblocks_guestbook__": [
+        "Guestbook"
+    ],
+    "__guestbook_pageblocks_guestbook_desc__": [
+        "Provide your user a way to communicate with you. Everybody can write in a guestbook and everyone can read guestbook messages."
+    ],
+    "__guestbook_pageblocks_guestbook_email__": [
+        "E-Mail is required"
+    ],
+    "__guestbook_pageblocks_guestbook_emailnewentry__": [
+        "Send you an e-mail to the given address on a new guestbook entry"
+    ],
+    "__guestbook_pageblocks_guestbook_form_main__": [
+        "Guestbook Settings"
+    ],
+    "__guestbook_pageblocks_guestbook_name__": [
+        "Name is required"
+    ],
+    "__guestbook_save_entry__": [
+        "Submit entry"
+    ],
+    "__guestbook_saved__": [
+        "Thank you for your message."
+    ],
+    "__guestbook_saved_draft__": [
+        "Thank you for your message. After it has been reviewed, it will be showed on this page."
+    ],
+    "__guestbook_show__": [
+        "Show this entry"
+    ]
+}

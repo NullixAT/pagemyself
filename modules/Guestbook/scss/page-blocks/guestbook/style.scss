@@ -1,0 +1,32 @@
+.guestbook-pageblocks-guestbook-entry {
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
+
+  .myself-live-editable-text {
+    min-height: auto;
+  }
+}
+
+.guestbook-pageblocks-guestbook-entry-time {
+  font-size: 80%;
+  opacity: 0.8;
+}
+
+.guestbook-pageblocks-guestbook-entry-name{
+  padding-top: 5px;
+  font-weight: bold;
+}
+
+.guestbook-pageblocks-guestbook-entry-email {
+  padding-top: 5px;
+}
+
+.guestbook-pageblocks-guestbook-entry-message {
+  padding-top: 10px;
+}
+
+.guestbook-pageblocks-guestbook-buttons {
+  margin-top: 10px;
+  text-align: right;
+}

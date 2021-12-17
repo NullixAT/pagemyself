@@ -1,0 +1,67 @@
+'use strict';
+
+tinymce.PluginManager.add('myself', function (editor, url) {
+  /* Add a button that opens a window */
+  editor.ui.registry.addButton('myself-save-text', {
+    text: FramelixLang.get('__save__'),
+    tooltip: FramelixLang.get('__save__'),
+    icon: 'save',
+    onAction: async function onAction() {
+      const container = editor.myself.container;
+      Framelix.showProgressBar(-1);
+      await FramelixRequest.request('post', editor.myself.pageBlockEditUrl, {
+        'action': 'save-editable-content'
+      }, {
+        'storableId': container.attr('data-id'),
+        'propertyName': container.attr('data-property-name'),
+        'arrayKey': container.attr('data-array-key'),
+        'content': editor.getContent()
+      });
+      FramelixToast.success('__saved__');
+      Framelix.showProgressBar(null);
+      editor.destroy();
+    }
+  });
+  /* Add a button that opens a window */
+
+  editor.ui.registry.addButton('myself-cancel-text', {
+    text: FramelixLang.get('__cancel__'),
+    tooltip: FramelixLang.get('__cancel__'),
+    icon: 'cancel',
+    onAction: function onAction() {
+      const container = editor.myself.container;
+      container.html(editor.myself.originalContent);
+      editor.destroy();
+    }
+  });
+  return {
+    getMetadata: function getMetadata() {
+      return {
+        name: 'Live Editable Text'
+      };
+    }
+  };
+});
+tinymce.PluginManager.get('image', function (editor, url) {
+  /* Add a button that opens a window */
+  editor.ui.registry.addButton('myself-save-text', {
+    text: FramelixLang.get('__save__'),
+    tooltip: FramelixLang.get('__save__'),
+    icon: 'save',
+    onAction: async function onAction() {
+      const container = editor.myself.container;
+      Framelix.showProgressBar(-1);
+      await FramelixRequest.request('post', editor.myself.pageBlockEditUrl, {
+        'action': 'save-editable-content'
+      }, {
+        'storableId': container.attr('data-id'),
+        'propertyName': container.attr('data-property-name'),
+        'arrayKey': container.attr('data-array-key'),
+        'content': editor.getContent()
+      });
+      FramelixToast.success('__saved__');
+      Framelix.showProgressBar(null);
+      editor.destroy();
+    }
+  });
+});
