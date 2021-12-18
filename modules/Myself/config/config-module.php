@@ -23,7 +23,7 @@ if (!defined("FRAMELIX_MODULE")) {
             "page": "__myself_user_role_page__"
         },
         "backendLogo": "img\/logo-colored-white.svg",
-        "backendIcon": "img\/logo-squared.png",
+        "backendIcon": "img\/logo-squared.svg",
         "compiler": {
             "Myself": {
                 "js": {
