@@ -19,12 +19,10 @@ use function explode;
 
 /**
  * Page
- * @property Tag[]|null $tags
  * @property string|null $themeClass
  * @property string $title
  * @property string|null $password
  * @property string|null $url
- * @property PageBlock[]|null $blocks
  * @property mixed|null $settings
  * @property bool $flagDraft
  * @property string $lang

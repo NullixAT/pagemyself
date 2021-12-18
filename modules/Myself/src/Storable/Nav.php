@@ -11,18 +11,27 @@ use function basename;
 
 /**
  * Nav
- * @property Tag[]|null $pageTagsVisible
- * @property Tag[]|null $tags
  * @property Nav|null $parent
+ * @property int $linkType
  * @property Page|null $page
  * @property string|null $title
  * @property string|null $link
  * @property string|null $target
+ * @property string|null $lang
  * @property bool $flagDraft
  * @property int|null $sort
  */
 class Nav extends StorableExtended
 {
+
+    public const LINKTYPE_CUSTOM = 1;
+    public const LINKTYPE_PAGE = 2;
+
+    public const LINKTYPES = [
+        self::LINKTYPE_CUSTOM,
+        self::LINKTYPE_PAGE
+    ];
+
     /**
      * Get edit url
      * @return Url|null

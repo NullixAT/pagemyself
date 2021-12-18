@@ -25,6 +25,7 @@ use function array_unshift;
 use function preg_replace;
 use function str_replace;
 use function strtolower;
+use function var_dump;
 
 /**
  * Index
@@ -162,8 +163,10 @@ class PageBlockEdit extends View
                                 $requestPageBlock->pageBlockClass,
                                 $field->name . "_desc"
                             );
+                            $langKey = preg_replace("~\[(.*?)\]~", "_$1", $langKey);
+                            $langKey = str_replace("_pageblocksettings", "", $langKey);
                             if (Lang::keyExist($langKey)) {
-                                $field->labelDescription = Lang::get($field->labelDescription);
+                                $field->labelDescription = Lang::get($langKey);
                             }
                         }
                         $field->defaultValue = ArrayUtils::getValue(

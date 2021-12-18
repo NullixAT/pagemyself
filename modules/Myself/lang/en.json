@@ -302,18 +302,6 @@
     "__myself_storable_nav_page_label_desc__": [
         "Choose a page the you have already created"
     ],
-    "__myself_storable_nav_pagetagsvisible_label__": [
-        "Page tag condition"
-    ],
-    "__myself_storable_nav_pagetagsvisible_label_desc__": [
-        "Show this navigation entry only in a page that has one of the following tags. If no tag is choosen, this entry is visible everywhere."
-    ],
-    "__myself_storable_nav_tags_label__": [
-        "Tags"
-    ],
-    "__myself_storable_nav_tags_label_desc__": [
-        "This tags are later used to filter navigation entries in your content blocks. For example you can create a tag 'header' and a tag 'footer' and on the website you use a navigation page block that filter for this tags."
-    ],
     "__myself_storable_nav_target_blank__": [
         "New tab"
     ],
@@ -347,9 +335,6 @@
     "__myself_storable_page_password_label_desc__": [
         "If set, the page can only by viewed when the user enters this password."
     ],
-    "__myself_storable_page_tags_label__": [
-        "Page Tags"
-    ],
     "__myself_storable_page_title_label__": [
         "Page title"
     ],
@@ -360,22 +345,13 @@
         "Path in URL"
     ],
     "__myself_storable_page_url_label_desc__": [
-        "This is the path after {0}<br\/>So for a contact page, you probably want to choose 'contact'<br\/>Warning: If you change it once it was online, the old url will be unavailable.<br\/>Empty Path = Main page"
+        "Final URL: {0}<br\/>Empty Path = Main page"
     ],
     "__myself_storable_tag_color_label__": [
         "Color"
     ],
     "__myself_storable_tag_name_label__": [
         "Label"
-    ],
-    "__myself_tag_category_1__": [
-        "Page tags"
-    ],
-    "__myself_tag_category_2__": [
-        "Navigation tags"
-    ],
-    "__myself_tags__": [
-        "Tags"
     ],
     "__myself_theme_not_exist__": [
         "Sorry, this page has not theme choosen."
@@ -425,9 +401,6 @@
     "__myself_user_role_page__": [
         "Edit website pages"
     ],
-    "__myself_user_tags_page__": [
-        "Edit tags"
-    ],
     "__myself_view_backend_index__": [
         "PageMyself Backend"
     ],
@@ -475,5 +448,26 @@
     ],
     "__myself_wait_for_unblock__": [
         "You must wait {0} before you can try again"
+    ],
+    "__myself_pageblocks_navigation_allowedentries__" : [
+        "Filter visible entries"
+    ],
+    "__myself_pageblocks_navigation_allowedentries_desc__" : [
+        "If no entries are choosen, then all entries are visible"
+    ],
+    "__myself_storable_nav_linktype_label__" : [
+        "Link Type"
+    ],
+    "__myself_storable_nav_linktype_1__" : [
+        "Custom URL"
+    ],
+    "__myself_storable_nav_linktype_2__" : [
+        "Choose a page"
+    ],
+    "__myself_storable_nav_lang_label__" : [
+        "Filter Language"
+    ],
+    "__myself_storable_nav_lang_label_desc__" : [
+        "Only visible when on a page with this language<br/>Not choosen = Visible for every language"
     ]
 }

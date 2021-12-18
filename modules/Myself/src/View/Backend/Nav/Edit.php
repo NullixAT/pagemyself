@@ -61,21 +61,5 @@ class Edit extends View
     {
         $form = $this->meta->getEditForm();
         $form->show();
-        ?>
-        <script>
-          (async function () {
-            const form = FramelixForm.getById('<?=$form->id?>')
-            const storableId = <?=JsonUtils::encode($this->storable)?>;
-            await form.rendered
-            if (!storableId) {
-              const title = form.fields['title']
-              title.container.on('change', function () {
-                const url = form.fields['url']
-                if (!url.getValue().length) url.setValue(FramelixStringUtils.slugify(title.getValue().toLowerCase()))
-              })
-            }
-          })()
-        </script>
-        <?php
     }
 }

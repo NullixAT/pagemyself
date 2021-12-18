@@ -34,24 +34,27 @@ class Nav extends StorableMeta
             return $this->storable->title;
         };
 
+        $field = new Select();
+        $field->required = true;
+        foreach (\Framelix\Myself\Storable\Nav::LINKTYPES as $type) {
+            $field->addOption($type, Lang::get('__myself_storable_nav_linktype_' . $type . '__'));
+        }
+        $property = $this->createProperty('linkType');
+        $property->field = $field;
+
         $pages = \Framelix\Myself\Storable\Page::getByCondition(sort: ['+title']);
         $field = new Select();
         $field->searchable = true;
-        $field->addOption('custom', Lang::get('__myself_storable_nav_link_label__'));
+        $field->required = true;
         $field->addOptionsByStorables($pages);
         $property = $this->createProperty('page');
         $property->field = $field;
-        $property->valueCallable = function () {
-            if (!$this->storable->page) {
-                return $this->storable->link ? 'custom' : null;
-            }
-            return $this->storable->page;
-        };
+        $property->field->getVisibilityCondition()->equal('linkType', \Framelix\Myself\Storable\Nav::LINKTYPE_PAGE);
 
         $property = $this->createProperty('link');
         $property->addDefaultField();
         $property->field->required = true;
-        $property->field->getVisibilityCondition()->equal('page', 'custom');
+        $property->field->getVisibilityCondition()->equal('linkType', \Framelix\Myself\Storable\Nav::LINKTYPE_CUSTOM);
 
         $field = new Select();
         $field->addOption('_self', Lang::get('__myself_storable_nav_target_self__'));
@@ -62,26 +65,15 @@ class Nav extends StorableMeta
         $property = $this->createProperty('flagDraft');
         $property->addDefaultField();
 
+        $existingPages = \Framelix\Myself\Storable\Page::getByCondition();
+        $langCodes = [];
+        foreach($existingPages as $existingPage){
+            $langCodes[$existingPage->lang] = Lang::ISO_LANG_CODES[$existingPage->lang];
+        }
         $field = new Select();
-        $field->addOptionsByStorables(
-            \Framelix\Myself\Storable\Tag::getByCondition(
-                'category = {0}',
-                [\Framelix\Myself\Storable\Tag::CATEGORY_PAGE],
-                "+sort"
-            )
-        );
-        $property = $this->createProperty('pageTagsVisible');
-        $property->field = $field;
-
-        $field = new Select();
-        $field->addOptionsByStorables(
-            \Framelix\Myself\Storable\Tag::getByCondition(
-                'category = {0}',
-                [\Framelix\Myself\Storable\Tag::CATEGORY_NAV],
-                "+sort"
-            )
-        );
-        $property = $this->createProperty('tags');
+        $field->searchable = true;
+        $field->addOptions($langCodes);
+        $property = $this->createProperty('lang');
         $property->field = $field;
 
         $this->addDefaultPropertiesAtEnd();

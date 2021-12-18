@@ -30,12 +30,6 @@ class Page extends StorableMeta
         $property->addDefaultField();
 
         $property = $this->createProperty('url');
-        $property->setLabelDescription(
-            Lang::get(
-                '__myself_storable_page_url_label_desc__',
-                [Url::getApplicationUrl() . "/"]
-            )
-        );
         $property->addDefaultField();
 
         $property = $this->createProperty('password');
@@ -43,17 +37,6 @@ class Page extends StorableMeta
 
         $property = $this->createProperty('flagDraft');
         $property->addDefaultField();
-
-        $field = new Select();
-        $field->addOptionsByStorables(
-            \Framelix\Myself\Storable\Tag::getByCondition(
-                'category = {0}',
-                [\Framelix\Myself\Storable\Tag::CATEGORY_PAGE],
-                "+sort"
-            )
-        );
-        $property = $this->createProperty('tags');
-        $property->field = $field;
 
         $field = new Select();
         $field->searchable = true;

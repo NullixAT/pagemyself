@@ -29,15 +29,5 @@ class Sidebar extends \Framelix\Framelix\Backend\Sidebar
         $this->addLink(Index::class, icon: "article");
         $this->addLink(\Framelix\Myself\View\Backend\Nav\Index::class, icon: "menu");
         $this->showHtmlForLinkData();
-
-        $this->startGroup('__myself_tags__', 'tag');
-        foreach (Tag::$categories as $category) {
-            $this->addLink(
-                Edit::class,
-                "__myself_tag_category_{$category}__",
-                urlParameters: ["category" => $category]
-            );
-        }
-        $this->showHtmlForLinkData();
     }
 }

@@ -279,10 +279,7 @@ class Arrange extends View
     {
         $row = [
             'id' => $nav->id,
-            'title' => StringUtils::stringify(
-                    $nav->pageTagsVisible,
-                    toStringMethods: ['getHtmlString']
-                ) . " " . htmlentities($nav->getLabel()),
+            'title' => htmlentities($nav->getLabel()),
             'flagDraft' => $nav->flagDraft,
             'url' => $nav->page->url ?? null,
             'childs' => []

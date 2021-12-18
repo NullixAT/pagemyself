@@ -65,21 +65,27 @@ class Edit extends View
         ?>
         <script>
           (async function () {
+
+            function updateUrl () {
+              let inputValue = FramelixStringUtils.slugify(urlField.getValue().toLowerCase(), false, false, /[^a-z0-9\-_\/]/i).replace(/^\/+|\/+$/g, '')
+              urlField.setValue(inputValue)
+              urlField.container.find('.framelix-form-field-label-description').html(FramelixLang.get('__myself_storable_page_url_label_desc__', [FramelixConfig.applicationUrl + '/' + inputValue]))
+            }
+
             const form = FramelixForm.getById('<?=$form->id?>')
             const storableId = <?=JsonUtils::encode($this->storable)?>;
             await form.rendered
+            const titleField = form.fields['title']
+            const urlField = form.fields['url']
             if (!storableId) {
-              const title = form.fields['title']
-              title.container.on('change', function () {
-                const url = form.fields['url']
-                if (!url.getValue().length) url.setValue(FramelixStringUtils.slugify(title.getValue().toLowerCase()))
+              titleField.container.on('change', function () {
+                if (!urlField.getValue().length) urlField.setValue(FramelixStringUtils.slugify(titleField.getValue().toLowerCase()), true)
               })
             }
-            form.fields['url'].container.on('change', function () {
-              let field = form.fields['url']
-              let inputValue = FramelixStringUtils.slugify(field.getValue().toLowerCase(), false, false, /[^a-z0-9\-_\/]/i).replace(/^\/+|\/+$/g, '')
-              field.setValue(inputValue)
+            urlField.container.on('input ' + FramelixFormField.EVENT_CHANGE, function () {
+              updateUrl()
             })
+            updateUrl()
           })()
         </script>
         <?php

@@ -102,7 +102,7 @@ class Index extends LayoutView
                 if (Request::getPost('password') === $this->page->password) {
                     Session::set('myself-page-password-' . md5($this->page->password), true);
                     Toast::success('__myself_page_password_success__');
-                }else{
+                } else {
                     Toast::error('__myself_page_password_wrong__');
                 }
                 Url::create()->redirect();
@@ -176,8 +176,9 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             <div class="myself-edit-frame">
                 <div class="myself-edit-frame-outer-top">
                     <div class="myself-edit-frame-outer-margin">
-                        <a href="<?= Url::getBrowserUrl() ?>"><img src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
-                                                                   alt="" height="30"></a>
+                        <a href="<?= Url::getBrowserUrl() ?>"><img
+                                    src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
+                                    alt="" height="30"></a>
                         <a href="<?= Url::create()->setParameter('editMode', 0) ?>"
                            class="framelix-button framelix-button-primary framelix-button-small"
                            data-icon-left="highlight_off"><?= Lang::get('__myself_disable_editmode__') ?></a>
@@ -250,9 +251,6 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
      */
     private function includeResources(): void
     {
-        if (!$this->page) {
-            return;
-        }
         Compiler::compile("Framelix");
         Compiler::compile(FRAMELIX_MODULE);
         $this->includeCompiledFilesForModule("Framelix");
@@ -264,6 +262,9 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             $this->includeCompiledFile(FRAMELIX_MODULE, "js", "myself-edit");
             $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "myself-edit");
         } else {
+            if (!$this->page) {
+                return;
+            }
             $themeClassName = $this->page->getThemeClassName();
             $themeExp = explode("\\", $themeClassName);
             $themeName = strtolower($themeExp[3]);

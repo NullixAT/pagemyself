@@ -403,22 +403,6 @@
         "W\u00e4hle aus deinen vorhandenen Seiten",
         "7e804"
     ],
-    "__myself_storable_nav_pagetagsvisible_label__": [
-        "Page-Tag Bedingungen",
-        "bd44f"
-    ],
-    "__myself_storable_nav_pagetagsvisible_label_desc__": [
-        "Zeigt diesen Navigationseintrag nur, wenn die Seite auf der du dich befindest einen dieser gew\u00e4hlten Tags hat. Wird nichts gew\u00e4hlt, dann ist der Eintrag \u00fcberall sichtbar.",
-        "9bfd3"
-    ],
-    "__myself_storable_nav_tags_label__": [
-        "Tags",
-        "189f6"
-    ],
-    "__myself_storable_nav_tags_label_desc__": [
-        "Diese Tags werden sp\u00e4ter zum Filtern genutzt.",
-        "783be"
-    ],
     "__myself_storable_nav_target_blank__": [
         "Neuer Tab",
         "c8a19"
@@ -463,10 +447,6 @@
         "Falls gesetzt, dann kann die Seite nur mit dem gew\u00e4hlten Passwort ge\u00f6ffnet werden",
         "6ad17"
     ],
-    "__myself_storable_page_tags_label__": [
-        "Page-Tags",
-        "e453e"
-    ],
     "__myself_storable_page_title_label__": [
         "Seitentitel",
         "12cb4"
@@ -480,7 +460,7 @@
         "0ccb0"
     ],
     "__myself_storable_page_url_label_desc__": [
-        "Der Pfad nach {0}",
+        "Finale URL: {0}<br/>Leer = Startseite",
         "14516"
     ],
     "__myself_storable_tag_color_label__": [
@@ -490,18 +470,6 @@
     "__myself_storable_tag_name_label__": [
         "Bezeichnung",
         "b021d"
-    ],
-    "__myself_tag_category_1__": [
-        "Page-Tags",
-        "4e964"
-    ],
-    "__myself_tag_category_2__": [
-        "Navigations-Tags",
-        "04b7f"
-    ],
-    "__myself_tags__": [
-        "Tags",
-        "189f6"
     ],
     "__myself_theme_not_exist__": [
         "Diese Seite hat keinen Stil gew\u00e4hlt",
@@ -566,10 +534,6 @@
     "__myself_user_role_page__": [
         "Seiten bearbeiten",
         "b0ff1"
-    ],
-    "__myself_user_tags_page__": [
-        "Tags",
-        "976fa"
     ],
     "__myself_view_backend_index__": [
         "PageMyself Backend",

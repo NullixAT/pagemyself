@@ -2,7 +2,9 @@
 
 namespace Framelix\Myself\PageBlocks;
 
+use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Lang;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\View;
@@ -11,6 +13,10 @@ use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Nav;
 use Framelix\Myself\View\Index;
+
+use function in_array;
+use function rtrim;
+use function str_repeat;
 
 /**
  * Navigation page block
@@ -23,12 +29,8 @@ class Navigation extends BlockBase
      */
     public function showContent(): void
     {
-        $condition = 'parent IS NULL';
-        if (!LayoutUtils::isEditAllowed()) {
-            $condition .= " && flagDraft = false";
-        }
         echo '<nav>';
-        $entries = Nav::getByCondition($condition, sort: ['+sort', '+title']);
+        $entries = $this->getNavChilds(null);
         $this->showNavEntries($entries);
         echo '</nav>';
     }
@@ -51,7 +53,33 @@ class Navigation extends BlockBase
         $field->setOnlyImages();
         $form->addField($field);
 
+        $field = new Select();
+        $field->name = 'pageBlockSettings[allowedEntries]';
+        $field->multiple = true;
+        $field->dropdown = false;
+        $this->addNavSelectOptionRecursive(
+            $field,
+            $this->getNavChilds(null)
+        );
+        $form->addField($field);
+
         return $forms;
+    }
+
+    /**
+     * Add nav select options recursive to select field
+     * @param Select $field
+     * @param Nav[] $entries
+     * @param int $level
+     * @return void
+     */
+    private function addNavSelectOptionRecursive(Select $field, array $entries, int $level = 0): void
+    {
+        foreach ($entries as $entry) {
+            $field->addOption($entry, str_repeat("&nbstp;", $level * 4) . $entry->getLabel());
+            $childs = $this->getNavChilds($entry);
+            $this->addNavSelectOptionRecursive($field, $childs, $level + 1);
+        }
     }
 
 
@@ -66,8 +94,8 @@ class Navigation extends BlockBase
         $currentUrl = Url::create()->urlData['path'];
         $htmlClassBase = ClassUtils::getHtmlClass($this, "navlist");
         echo '<ul class="' . $htmlClassBase . '" data-level="' . $level . '">';
+        $settings = $this->pageBlock->pageBlockSettings;
         if ($level === 0) {
-            $settings = $this->pageBlock->pageBlockSettings;
             $logo = MediaFile::getById($settings['logo'] ?? null);
             if ($logo) {
                 echo '<li class="' . $htmlClassBase . '-logo"><a href="' . Url::getApplicationUrl(
@@ -77,20 +105,7 @@ class Navigation extends BlockBase
             }
         }
         foreach ($entries as $entry) {
-            $allowed = true;
-            if ($entry->pageTagsVisible) {
-                $allowed = false;
-                $pageTags = $this->pageBlock->page->tags;
-                if ($pageTags) {
-                    foreach ($pageTags as $pageTag) {
-                        if (in_array($pageTag, $entry->pageTagsVisible)) {
-                            $allowed = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!$allowed) {
+            if (($settings['allowedEntries'] ?? null) && !in_array((string)$entry->id, $settings['allowedEntries'])) {
                 continue;
             }
             echo '<li>';
@@ -107,16 +122,34 @@ class Navigation extends BlockBase
             } else {
                 echo '</div>';
             }
-            $condition = 'parent = ' . $entry;
-            if (!LayoutUtils::isEditAllowed()) {
-                $condition .= " && flagDraft = false";
-            }
-            $childs = Nav::getByCondition($condition, sort: ['+sort', '+title']);
+            $childs = $this->getNavChilds($entry);
             if ($childs) {
                 $this->showNavEntries($childs, $level + 1);
             }
             echo '</li>';
         }
         echo '</ul>';
+    }
+
+    /**
+     * Get nav childs for given parent
+     * @param Nav|null $parent
+     * @return Nav[]
+     */
+    private function getNavChilds(?Nav $parent): array
+    {
+        $condition = 'parent IS NULL';
+        if ($parent) {
+            $condition = "parent = " . $parent;
+        }
+        $condition .= " && (lang IS NULL || lang = {0})";
+        if (!LayoutUtils::isEditAllowed()) {
+            $condition .= " && flagDraft = false";
+        }
+        return Nav::getByCondition(
+            $condition,
+            [$this->pageBlock->page->lang ?? Lang::$lang],
+            sort: ['+sort', '+title']
+        );
     }
 }

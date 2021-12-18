@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|329450931",
+    "directoryListHash": "1|231879495",
     "views": {
         "Framelix\\Myself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -72,15 +72,6 @@
             "depth": 3,
             "pageTitle": "{classLangKey}",
             "url": "\/backend\/page"
-        },
-        "Framelix\\Myself\\View\\Backend\\Tag\\Edit": {
-            "accessRole": "admin,tags",
-            "customUrl": null,
-            "devModeOnly": false,
-            "multilanguage": true,
-            "depth": 3,
-            "pageTitle": "{classLangKey}",
-            "url": "\/backend\/tag\/edit"
         },
         "Framelix\\Myself\\View\\Index": {
             "accessRole": "*",
