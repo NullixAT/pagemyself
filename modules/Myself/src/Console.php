@@ -5,28 +5,20 @@ namespace Framelix\Myself;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\JsonUtils;
-use Framelix\Framelix\Utils\Zip;
 
-use function array_combine;
 use function basename;
 use function class_exists;
-use function copy;
 use function dirname;
-use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function is_dir;
-use function is_file;
-use function is_string;
 use function mkdir;
 use function preg_match;
 use function realpath;
-use function rename;
 use function str_replace;
 use function str_starts_with;
 use function strtolower;
 use function substr;
-use function unlink;
 
 /**
  * Console Runner

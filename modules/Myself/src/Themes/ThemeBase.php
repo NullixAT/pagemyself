@@ -18,7 +18,6 @@ use Framelix\Myself\View\Index;
 
 use function basename;
 use function class_exists;
-use function var_dump;
 
 /**
  * ThemeBase
