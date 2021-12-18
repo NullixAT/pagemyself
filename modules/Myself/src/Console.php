@@ -21,6 +21,7 @@ use function is_string;
 use function mkdir;
 use function preg_match;
 use function realpath;
+use function rename;
 use function str_replace;
 use function str_starts_with;
 use function strtolower;
@@ -137,13 +138,13 @@ class Console extends \Framelix\Framelix\Console
     }
 
     /**
-     * Update/install module by given zip file
+     * Update/install module/app updates by given zip file
      * @param string|null $zipPath If set, this action will update without further security questions (is used from web based update)
      * @return void
      */
-    public static function updateModuleByZip(?string $zipPath = null): void
+    public static function installZipPackage(?string $zipPath = null): void
     {
-        $zipPath = 'D:\www\pagemyself\build\dist\Calendar-0.1.0.zip';
+        $zipPath = $zipPath ?? 'D:\www\pagemyself\build\dist\release-0.1.0.zip';
         if (!is_string($zipPath)) {
             $zipPath = trim(self::question('Path to module ZIP file'));
             // try relative path
@@ -160,11 +161,24 @@ class Console extends \Framelix\Framelix\Console
         mkdir($tmpPath);
         Zip::unzip($zipPath, $tmpPath);
         $packageJson = JsonUtils::readFromFile($tmpPath . "/package.json");
-        if (!isset($packageJson['pagemyself']['module']) && ($packageJson['name'] ?? null) !== 'framelix') {
+        $moduleName = $packageJson['pagemyself']['module'] ?? null;
+        if (!$moduleName) {
+            if ($packageJson['name'] === "pagemyself") {
+                $moduleName = "pagemyself";
+            }
+            if ($packageJson['name'] === "framelix") {
+                $moduleName = "Framelix";
+            }
+        }
+        if (!$moduleName) {
             self::red("$zipPath is not a valid module archive");
             return;
         }
-        $moduleDir = FileUtils::getModuleRootPath($packageJson['pagemyself']['module'] ?? 'Framelix');
+        if ($moduleName !== "pagemyself") {
+            $rootDirectory = FileUtils::getModuleRootPath($moduleName);
+        } else {
+            $rootDirectory = realpath(__DIR__ . "/../../..");
+        }
         $filelistNew = JsonUtils::readFromFile($tmpPath . "/filelist.json");
         if (!$filelistNew) {
             self::red(
@@ -173,44 +187,52 @@ class Console extends \Framelix\Framelix\Console
             return;
         }
         $filelistNew = array_combine($filelistNew, $filelistNew);
-        $filelistExist = file_exists($moduleDir . "/filelist.json") ? JsonUtils::readFromFile(
-            $moduleDir . "/filelist.json"
+        $filelistExist = file_exists($rootDirectory . "/filelist.json") ? JsonUtils::readFromFile(
+            $rootDirectory . "/filelist.json"
         ) : [];
         $filelistExist = array_combine($filelistExist, $filelistExist);
-        if (!is_dir($moduleDir)) {
-            mkdir($moduleDir);
+        if (!is_dir($rootDirectory)) {
+            mkdir($rootDirectory);
         }
         foreach ($filelistNew as $relativeFile) {
             $tmpFilePath = FileUtils::normalizePath(realpath($tmpPath . "/" . $relativeFile));
-            $newPath = $moduleDir . "/" . $relativeFile;
+            $newPath = $rootDirectory . "/" . $relativeFile;
             if (is_dir($tmpFilePath)) {
                 if (!is_dir($newPath)) {
                     mkdir($newPath);
-                    self::green('Directory "' . $tmpFilePath . '" created' . "\n");
+                    self::green('[ADDED] Directory "' . $newPath . '" created' . "\n");
                 } else {
-                    self::yellow('Directory "' . $tmpFilePath . '" already exist, skip' . "\n");
+                    self::yellow('[SKIPPED] Directory "' . $newPath . '" already exist' . "\n");
                 }
             } elseif (is_file($tmpFilePath)) {
                 copy($tmpFilePath, $newPath);
                 if (file_exists($newPath)) {
-                    self::green('File "' . $tmpFilePath . '" updated' . "\n");
+                    self::green('[UPDATED] File "' . $newPath . '" updated' . "\n");
                 } else {
-                    self::green('File "' . $tmpFilePath . '" created' . "\n");
+                    self::green('[ADDED] File "' . $newPath . '" created' . "\n");
                 }
             }
             unset($filelistExist[$relativeFile]);
         }
         foreach ($filelistExist as $fileExist) {
-            $newPath = $moduleDir . "/" . $fileExist;
+            $newPath = $rootDirectory . "/" . $fileExist;
             if (is_dir($newPath)) {
-                self::green('Obsolete Directory "' . $newPath . '" removed' . "\n");
+                self::yellow('[REMOVED] Obsolete Directory "' . $newPath . '" removed' . "\n");
             } elseif (is_file($newPath)) {
-                self::green('Obsolete File "' . $newPath . '" removed' . "\n");
+                self::green('[REMOVED] Obsolete File "' . $newPath . '" removed' . "\n");
                 unlink($newPath);
             }
         }
+        if ($moduleName === "pagemyself") {
+            rename($tmpPath, "$tmpPath-zips");
+            $tmpPath .= "-zips";
+            $moduleZipFiles = FileUtils::getFiles($tmpPath . "/modules", "~\.zip$~");
+            foreach ($moduleZipFiles as $moduleZipFile) {
+                self::installZipPackage($moduleZipFile);
+            }
+            FileUtils::deleteDirectory($tmpPath);
+        }
     }
-
 
     /**
      * Update compiler config based on available page blocks and themes

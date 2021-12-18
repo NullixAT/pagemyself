@@ -50,8 +50,7 @@ foreach ($files as $file) {
     }
     $arr[substr($relativeName, 1)] = $file;
 }
-$filelistPath = $modulePath . "/filelist.json";
-$oldFileList = file_exists($filelistPath) ? file_get_contents($filelistPath) : null;
+$filelistPath = __DIR__ . "/tmp/filelist.json";
 JsonUtils::writeToFile($filelistPath, array_keys($arr));
 $arr["filelist.json"] = $filelistPath;
 $zipFile = FileUtils::normalizePath(
@@ -59,7 +58,4 @@ $zipFile = FileUtils::normalizePath(
 );
 Zip::createZip($zipFile, $arr);
 @unlink($filelistPath);
-if ($oldFileList) {
-    file_put_contents($filelistPath, $oldFileList);
-}
 echo $zipFile;

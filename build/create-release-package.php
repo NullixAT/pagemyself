@@ -19,6 +19,7 @@ $ignoreModuleFiles = [
 ];
 
 $root = FileUtils::normalizePath(dirname(__DIR__));
+$filelist = [];
 $arr = [
     "logs" => $root . "/logs",
     "modules" => $root . "/modules",
@@ -26,10 +27,14 @@ $arr = [
     "index.php" => $root . "/index.php",
     "package.json" => $root . "/package.json"
 ];
+$filelist = array_keys($arr);
 
 foreach ($builtInModules as $module) {
     $shell = Shell::execute("php {*}", [__DIR__ . "/create-module-package.php", $module]);
     $zipFile = $shell->output[0];
     $arr["modules/$module.zip"] = $zipFile;
 }
+$filelistFile = __DIR__ . "/tmp/filelist.json";
+JsonUtils::writeToFile($filelistFile, $filelist);
+$arr["filelist.json"] = $filelistFile;
 Zip::createZip(__DIR__ . "/dist/release-" . $packageJson['version'] . ".zip", $arr);
