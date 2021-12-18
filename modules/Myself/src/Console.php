@@ -204,10 +204,11 @@ class Console extends \Framelix\Framelix\Console
                     self::yellow('[SKIPPED] Directory "' . $newPath . '" already exist' . "\n");
                 }
             } elseif (is_file($tmpFilePath)) {
-                copy($tmpFilePath, $newPath);
                 if (file_exists($newPath)) {
+                    copy($tmpFilePath, $newPath);
                     self::green('[UPDATED] File "' . $newPath . '" updated' . "\n");
                 } else {
+                    copy($tmpFilePath, $newPath);
                     self::green('[ADDED] File "' . $newPath . '" created' . "\n");
                 }
             }
