@@ -19,6 +19,7 @@ use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
 use Framelix\Myself\LayoutUtils;
+use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\Theme;
 
@@ -129,6 +130,17 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             echo '</div></div>';
             return;
         }
+        $favicon = MediaFile::getById(\Framelix\Myself\Storable\WebsiteSettings::get('favicon'));
+        $imageData = $favicon?->getImageData();
+        if ($imageData) {
+            $this->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
+        }
+        if (!$this->editMode) {
+            $pageCss = \Framelix\Myself\Storable\WebsiteSettings::get('pagecss');
+            if ($pageCss) {
+                $this->addHeadHtml('<style>' . $pageCss . '</style>');
+            }
+        }
         $themeBlock = $this->page->getThemeBlock();
         $themeBlock->viewSetup($this);
         $themeBlock->showLayout($this);
@@ -163,6 +175,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                     MyselfEdit.themeSettingsEditUrl = ' . JsonUtils::encode(
                     View::getUrl(ThemeSettings::class)->setParameter('pageId', $this->page)
                 ) . ';
+                    MyselfEdit.websiteSettingsEditUrl = ' . JsonUtils::encode(View::getUrl(WebsiteSettings::class)) . ';
                 </script>
                 '
             );
@@ -188,6 +201,11 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                                 class="framelix-button framelix-button-success framelix-button-small myself-theme-api-call"
                                 data-icon-left="settings" data-action="edit"><?= Lang::get(
                                 '__myself_theme_settings__'
+                            ) ?></button>
+                        <button
+                                class="framelix-button framelix-button-warning framelix-button-small myself-website-settings"
+                                data-icon-left="language"><?= Lang::get(
+                                '__myself_websitesettings__'
                             ) ?></button>
                         <a href="<?= View::getUrl(Backend\Index::class) ?>"
                            class="framelix-button framelix-button-small"
@@ -243,6 +261,12 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
           Framelix.initLate()
         </script>
         <?
+        if (!$this->editMode) {
+            $pageJs = \Framelix\Myself\Storable\WebsiteSettings::get('pagejs');
+            if ($pageJs) {
+                echo '<script>try{' . $pageJs . '}catch (e){console.error(e)}</script>';
+            }
+        }
         echo '</body></html>';
         Buffer::flush();
     }

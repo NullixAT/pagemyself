@@ -19,6 +19,12 @@ class MyselfEdit {
   static themeSettingsEditUrl
 
   /**
+   * Website settings url
+   * @type {string}
+   */
+  static websiteSettingsEditUrl
+
+  /**
    * Init late
    */
   static initLate () {
@@ -101,6 +107,14 @@ class MyselfEdit {
       let activeRow = ev.type !== 'mouseout' ? this : null
       MyselfEdit.editBlockMap.forEach(function (editRow, srcElement) {
         srcElement.classList.toggle('myself-page-block-highlight', editRow[0] === activeRow)
+      })
+    })
+    $(document).on('click', '.myself-website-settings', async function () {
+      FramelixModal.hideAll()
+      const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true)
+      modal.contentContainer.addClass('myself-edit-font')
+      modal.closed.then(function () {
+        location.reload()
       })
     })
     $(document).on('click', '.myself-theme-api-call', async function () {

@@ -508,32 +508,8 @@
         "55b8d"
     ],
     "__myself_theme_settings_form_internal__": [
-        "Basiseinstellungen",
-        "2a940"
-    ],
-    "__myself_theme_settings_form_internal_favicon__": [
-        "Favicon",
-        "49e95"
-    ],
-    "__myself_theme_settings_form_internal_favicon_desc__": [
-        "Das kleine Symbol das im Browser neben dem Seitentitel angezeigt wird und welches von Suchmaschinen verwendet wird. Sollte ein Bild mit 512x512 sein.",
-        "bba11"
-    ],
-    "__myself_theme_settings_form_internal_pagecss__": [
-        "Globales CSS \/ Stylesheet",
-        "3aeb1"
-    ],
-    "__myself_theme_settings_form_internal_pagecss_desc__": [
-        "Falls du CSS auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
-        "8f6cf"
-    ],
-    "__myself_theme_settings_form_internal_pagejs__": [
-        "Globales Javascript",
-        "e0607"
-    ],
-    "__myself_theme_settings_form_internal_pagejs_desc__": [
-        "Falls du Javascript auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
-        "4f97f"
+        "Stil",
+        "d7217"
     ],
     "__myself_themes_hello_form_main__": [
         "Stil-Einstellungen",
@@ -634,5 +610,33 @@
     "__myself_wait_for_unblock__": [
         "Du musst noch {0} warten bevor du wieder probieren kannst",
         "ba53d"
+    ],
+    "__myself_websitesettings__": [
+        "Webseiten-Einstellungen",
+        "214da"
+    ],
+    "__myself_websitesettings_favicon__": [
+        "Favicon",
+        "49e95"
+    ],
+    "__myself_websitesettings_favicon_desc__": [
+        "Das kleine Symbol das im Browser neben dem Seitentitel angezeigt wird und welches von Suchmaschinen verwendet wird. Sollte ein Bild mit 512x512 sein.",
+        "bba11"
+    ],
+    "__myself_websitesettings_pagecss__": [
+        "Globales CSS \/ Stylesheet",
+        "3aeb1"
+    ],
+    "__myself_websitesettings_pagecss_desc__": [
+        "Falls du CSS auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
+        "8f6cf"
+    ],
+    "__myself_websitesettings_pagejs__": [
+        "Globales Javascript",
+        "e0607"
+    ],
+    "__myself_websitesettings_pagejs_desc__": [
+        "Falls du Javascript auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
+        "4f97f"
     ]
 }

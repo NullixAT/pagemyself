@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|231879495",
+    "directoryListHash": "1|34983837",
     "views": {
         "Framelix\\Myself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -91,6 +91,24 @@
             "pageTitle": "{classLangKey}",
             "url": "\/pageblockedit"
         },
+        "Framelix\\Myself\\View\\PageMyselfAbout": {
+            "accessRole": "*",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": false,
+            "depth": 2,
+            "pageTitle": "{classLangKey}",
+            "url": "\/pagemyselfabout"
+        },
+        "Framelix\\Myself\\View\\Sitemap": {
+            "accessRole": "*",
+            "customUrl": "~sitemap.xml~",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "depth": 101,
+            "pageTitle": "{classLangKey}",
+            "url": "\/sitemap"
+        },
         "Framelix\\Myself\\View\\ThemeSettings": {
             "accessRole": "admin,content",
             "customUrl": null,
@@ -99,6 +117,15 @@
             "depth": 1,
             "pageTitle": "{classLangKey}",
             "url": "\/themesettings"
+        },
+        "Framelix\\Myself\\View\\WebsiteSettings": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 1,
+            "pageTitle": "{classLangKey}",
+            "url": "\/websitesettings"
         }
     }
 }

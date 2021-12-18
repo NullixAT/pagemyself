@@ -263,6 +263,12 @@
     "__myself_pageblocks_navigation__": [
         "Navigation"
     ],
+    "__myself_pageblocks_navigation_allowedentries__": [
+        "Filter visible entries"
+    ],
+    "__myself_pageblocks_navigation_allowedentries_desc__": [
+        "If no entries are choosen, then all entries are visible"
+    ],
     "__myself_pageblocks_navigation_desc__": [
         "Display all relevant navigation entries for this page in a list. This block is probably already integrated by your used theme, so you may not need to add it manually."
     ],
@@ -290,11 +296,26 @@
     "__myself_storable_nav_flagdraft_label_desc__": [
         "Only you or your website administrators can see this entry on the website"
     ],
+    "__myself_storable_nav_lang_label__": [
+        "Filter Language"
+    ],
+    "__myself_storable_nav_lang_label_desc__": [
+        "Only visible when on a page with this language<br\/>Not choosen = Visible for every language"
+    ],
     "__myself_storable_nav_link_label__": [
         "Self-defined link"
     ],
     "__myself_storable_nav_link_label_desc__": [
         "Enter a link to any website"
+    ],
+    "__myself_storable_nav_linktype_1__": [
+        "Custom URL"
+    ],
+    "__myself_storable_nav_linktype_2__": [
+        "Choose a page"
+    ],
+    "__myself_storable_nav_linktype_label__": [
+        "Link Type"
     ],
     "__myself_storable_nav_page_label__": [
         "Link to page"
@@ -360,19 +381,7 @@
         "Theme settings"
     ],
     "__myself_theme_settings_form_internal__": [
-        "Basic Settings"
-    ],
-    "__myself_theme_settings_form_internal_pagecss__": [
-        "Global CSS \/ Stylesheet"
-    ],
-    "__myself_theme_settings_form_internal_pagecss_desc__": [
-        "If you need additional css that is integrated into every page in this theme, add it here."
-    ],
-    "__myself_theme_settings_form_internal_pagejs__": [
-        "Global Javascript"
-    ],
-    "__myself_theme_settings_form_internal_pagejs_desc__": [
-        "If you need additional javascript that is integrated into every page in this theme, add it here."
+        "Theme"
     ],
     "__myself_themes_hello_form_main__": [
         "Theme Settings"
@@ -449,31 +458,25 @@
     "__myself_wait_for_unblock__": [
         "You must wait {0} before you can try again"
     ],
-    "__myself_pageblocks_navigation_allowedentries__" : [
-        "Filter visible entries"
+    "__myself_websitesettings__": [
+        "Website Settings"
     ],
-    "__myself_pageblocks_navigation_allowedentries_desc__" : [
-        "If no entries are choosen, then all entries are visible"
-    ],
-    "__myself_storable_nav_linktype_label__" : [
-        "Link Type"
-    ],
-    "__myself_storable_nav_linktype_1__" : [
-        "Custom URL"
-    ],
-    "__myself_storable_nav_linktype_2__" : [
-        "Choose a page"
-    ],
-    "__myself_storable_nav_lang_label__" : [
-        "Filter Language"
-    ],
-    "__myself_storable_nav_lang_label_desc__" : [
-        "Only visible when on a page with this language<br/>Not choosen = Visible for every language"
-    ],
-    "__myself_theme_settings_form_internal_favicon__" : [
+    "__myself_websitesettings_favicon__": [
         "Favicon"
     ],
-    "__myself_theme_settings_form_internal_favicon_desc__" : [
+    "__myself_websitesettings_favicon_desc__": [
         "The tiny icon that is displayed beside the browser page title and in search engines. Should be a squared image with 512x512."
+    ],
+    "__myself_websitesettings_pagecss__": [
+        "Global CSS \/ Stylesheet"
+    ],
+    "__myself_websitesettings_pagecss_desc__": [
+        "If you need additional css that is integrated into every page in this theme, add it here."
+    ],
+    "__myself_websitesettings_pagejs__": [
+        "Global Javascript"
+    ],
+    "__myself_websitesettings_pagejs_desc__": [
+        "If you need additional javascript that is integrated into every page in this theme, add it here."
     ]
 }

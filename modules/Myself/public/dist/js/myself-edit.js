@@ -19,6 +19,11 @@ class MyselfEdit {
    */
 
   /**
+   * Website settings url
+   * @type {string}
+   */
+
+  /**
    * Init late
    */
   static initLate() {
@@ -98,6 +103,14 @@ class MyselfEdit {
       let activeRow = ev.type !== 'mouseout' ? this : null;
       MyselfEdit.editBlockMap.forEach(function (editRow, srcElement) {
         srcElement.classList.toggle('myself-page-block-highlight', editRow[0] === activeRow);
+      });
+    });
+    $(document).on('click', '.myself-website-settings', async function () {
+      FramelixModal.hideAll();
+      const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true);
+      modal.contentContainer.addClass('myself-edit-font');
+      modal.closed.then(function () {
+        location.reload();
       });
     });
     $(document).on('click', '.myself-theme-api-call', async function () {
@@ -309,5 +322,7 @@ _defineProperty(MyselfEdit, "editBlockMap", void 0);
 _defineProperty(MyselfEdit, "pageBlockEditUrl", void 0);
 
 _defineProperty(MyselfEdit, "themeSettingsEditUrl", void 0);
+
+_defineProperty(MyselfEdit, "websiteSettingsEditUrl", void 0);
 
 FramelixInit.late.push(MyselfEdit.initLate);

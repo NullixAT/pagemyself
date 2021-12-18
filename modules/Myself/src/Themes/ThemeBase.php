@@ -8,9 +8,6 @@ use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
-use Framelix\Myself\Form\Field\Ace;
-use Framelix\Myself\Form\Field\MediaBrowser;
-use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 use Framelix\Myself\Storable\Theme;
@@ -82,12 +79,6 @@ abstract class ThemeBase
      */
     public function viewSetup(Index $index): void
     {
-        $settings = $this->theme->settings;
-        $favicon = MediaFile::getById($settings['favicon'] ?? null);
-        $imageData = $favicon?->getImageData();
-        if ($imageData) {
-            $index->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
-        }
     }
 
     /**
@@ -164,29 +155,6 @@ abstract class ThemeBase
 
         $field = new Html();
         $field->name = "info";
-        $form->addField($field);
-
-        $field = new MediaBrowser();
-        $field->name = 'settings[favicon]';
-        $field->label = '__myself_theme_settings_form_internal_favicon__';
-        $field->labelDescription = '__myself_theme_settings_form_internal_favicon_desc__';
-        $field->setOnlyImages();
-        $form->addField($field);
-
-        $field = new Ace();
-        $field->label = '__myself_theme_settings_form_internal_pagejs__';
-        $field->labelDescription = '__myself_theme_settings_form_internal_pagejs_desc__';
-        $field->name = 'settings[pagejs]';
-        $field->mode = 'javascript';
-        $field->initialHidden = true;
-        $form->addField($field);
-
-        $field = new Ace();
-        $field->label = '__myself_theme_settings_form_internal_pagecss__';
-        $field->labelDescription = '__myself_theme_settings_form_internal_pagecss_desc__';
-        $field->name = 'settings[pagecss]';
-        $field->mode = 'css';
-        $field->initialHidden = true;
         $form->addField($field);
 
         return $forms;
