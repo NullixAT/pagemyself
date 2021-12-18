@@ -2,12 +2,12 @@
   "name": "pagemyself-myself",
   "description": "A PageMyself module itself.",
   "version": "0.1.0",
-  "pagemyself": {
+  "framelix": {
     "module" : "Myself",
     "release": {
       "exclude": [
-        "public/uploads",
-        "templates"
+        "^/public/uploads",
+        "^/templates"
       ]
     }
   }

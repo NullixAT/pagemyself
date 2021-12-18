@@ -2,7 +2,7 @@
   "name": "pagemyself-slideshow",
   "description": "A simple built-in slideshow module for PageMyself.",
   "version": "0.1.0",
-  "pagemyself": {
+  "framelix": {
     "module": "Slideshow"
   }
 }

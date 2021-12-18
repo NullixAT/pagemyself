@@ -2,7 +2,7 @@
   "name": "pagemyself-contactform",
   "description": "A simple built-in contact form module for PageMyself.",
   "version": "0.1.0",
-  "pagemyself": {
+  "framelix": {
     "module": "ContactForm"
   }
 }
