@@ -25,7 +25,6 @@ use function array_unshift;
 use function preg_replace;
 use function str_replace;
 use function strtolower;
-use function var_dump;
 
 /**
  * Index

@@ -2,7 +2,6 @@
 
 namespace Framelix\Myself\Backend;
 
-use Framelix\Myself\Storable\Tag;
 use Framelix\Myself\View\Backend\Page\Index;
 use Framelix\Myself\View\Backend\Tag\Edit;
 

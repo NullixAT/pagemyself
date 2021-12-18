@@ -26,8 +26,8 @@ $arr = [];
 $modulePackageJson = JsonUtils::readFromFile($modulePath . "/package.json");
 $files = FileUtils::getFiles($modulePath, null, true, true);
 $ignoreArr = $ignoreModuleFiles;
-if (isset($modulePackageJson['release']['exclude'])) {
-    $ignoreArr = array_merge($ignoreArr, $modulePackageJson['release']['exclude']);
+if (isset($modulePackageJson['pagemyself']['release']['exclude'])) {
+    $ignoreArr = array_merge($ignoreArr, $modulePackageJson['pagemyself']['release']['exclude']);
 }
 foreach ($files as $file) {
     $relativeName = substr($file, strlen($modulePath));
@@ -38,9 +38,20 @@ foreach ($files as $file) {
             }
         }
     }
+    $directories = explode("/", substr($relativeName, 1));
+    if (count($directories) > 1) {
+        array_pop($directories);
+        $directoryPath = [];
+        foreach ($directories as $directory) {
+            $directoryPath[] = $directory;
+            $dir = implode("/", $directoryPath);
+            $arr[$dir] = $modulePath . "/" . $dir;
+        }
+    }
     $arr[substr($relativeName, 1)] = $file;
 }
 $filelistPath = $modulePath . "/filelist.json";
+$oldFileList = file_exists($filelistPath) ? file_get_contents($filelistPath) : null;
 JsonUtils::writeToFile($filelistPath, array_keys($arr));
 $arr["filelist.json"] = $filelistPath;
 $zipFile = FileUtils::normalizePath(
@@ -48,4 +59,7 @@ $zipFile = FileUtils::normalizePath(
 );
 Zip::createZip($zipFile, $arr);
 @unlink($filelistPath);
+if ($oldFileList) {
+    file_put_contents($filelistPath, $oldFileList);
+}
 echo $zipFile;

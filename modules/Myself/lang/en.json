@@ -469,5 +469,11 @@
     ],
     "__myself_storable_nav_lang_label_desc__" : [
         "Only visible when on a page with this language<br/>Not choosen = Visible for every language"
+    ],
+    "__myself_theme_settings_form_internal_favicon__" : [
+        "Favicon"
+    ],
+    "__myself_theme_settings_form_internal_favicon_desc__" : [
+        "The tiny icon that is displayed beside the browser page title and in search engines. Should be a squared image with 512x512."
     ]
 }

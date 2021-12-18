@@ -6,7 +6,6 @@ use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\StorableMeta;
-use Framelix\Framelix\Url;
 
 /**
  * Page

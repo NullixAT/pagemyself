@@ -67,7 +67,7 @@ class Nav extends StorableMeta
 
         $existingPages = \Framelix\Myself\Storable\Page::getByCondition();
         $langCodes = [];
-        foreach($existingPages as $existingPage){
+        foreach ($existingPages as $existingPage) {
             $langCodes[$existingPage->lang] = Lang::ISO_LANG_CODES[$existingPage->lang];
         }
         $field = new Select();

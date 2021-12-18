@@ -9,6 +9,8 @@ use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Myself\Form\Field\Ace;
+use Framelix\Myself\Form\Field\MediaBrowser;
+use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 use Framelix\Myself\Storable\Theme;
@@ -16,6 +18,7 @@ use Framelix\Myself\View\Index;
 
 use function basename;
 use function class_exists;
+use function var_dump;
 
 /**
  * ThemeBase
@@ -71,6 +74,21 @@ abstract class ThemeBase
      */
     public function __construct(public Theme $theme, public Page $page)
     {
+    }
+
+    /**
+     * This function is called before the layout is generated
+     * Use this to setup some meta stuff
+     * @param Index $index
+     */
+    public function viewSetup(Index $index): void
+    {
+        $settings = $this->theme->settings;
+        $favicon = MediaFile::getById($settings['favicon'] ?? null);
+        $imageData = $favicon?->getImageData();
+        if ($imageData) {
+            $index->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
+        }
     }
 
     /**
@@ -147,6 +165,13 @@ abstract class ThemeBase
 
         $field = new Html();
         $field->name = "info";
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'settings[favicon]';
+        $field->label = '__myself_theme_settings_form_internal_favicon__';
+        $field->labelDescription = '__myself_theme_settings_form_internal_favicon_desc__';
+        $field->setOnlyImages();
         $form->addField($field);
 
         $field = new Ace();

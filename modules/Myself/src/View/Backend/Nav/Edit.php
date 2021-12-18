@@ -6,7 +6,6 @@ use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Url;
-use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\Myself\Storable\Nav;
 

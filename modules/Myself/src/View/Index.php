@@ -129,7 +129,9 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             echo '</div></div>';
             return;
         }
-        $this->page->getThemeBlock()->showLayout($this);
+        $themeBlock = $this->page->getThemeBlock();
+        $themeBlock->viewSetup($this);
+        $themeBlock->showLayout($this);
     }
 
     /**

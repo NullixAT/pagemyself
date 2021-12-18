@@ -8,7 +8,6 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
-use Framelix\Framelix\Utils\StringUtils;
 use Framelix\Framelix\View\Api;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\Myself\Storable\Nav;

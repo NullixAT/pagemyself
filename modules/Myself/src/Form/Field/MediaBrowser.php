@@ -20,7 +20,6 @@ use function implode;
 use function in_array;
 use function ini_set;
 use function is_string;
-use function str_starts_with;
 
 /**
  * MediaBrowser

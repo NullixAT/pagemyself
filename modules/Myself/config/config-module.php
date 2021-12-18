@@ -19,7 +19,6 @@ if (!defined("FRAMELIX_MODULE")) {
         },
         "userRoles": {
             "content": "__myself_user_role_content__",
-            "settings": "__myself_user_role_settings__",
             "nav": "__myself_user_role_nav__",
             "page": "__myself_user_role_page__"
         },

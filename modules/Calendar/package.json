@@ -1,5 +1,8 @@
 {
   "name": "pagemyself-calendar",
   "description": "A simple built-in calendar module for PageMyself.",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "pagemyself": {
+    "module": "Calendar"
+  }
 }

@@ -5,13 +5,19 @@ namespace Framelix\Myself;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\JsonUtils;
+use Framelix\Framelix\Utils\Zip;
 
+use function array_combine;
 use function basename;
 use function class_exists;
+use function copy;
 use function dirname;
+use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function is_dir;
+use function is_file;
+use function is_string;
 use function mkdir;
 use function preg_match;
 use function realpath;
@@ -19,6 +25,7 @@ use function str_replace;
 use function str_starts_with;
 use function strtolower;
 use function substr;
+use function unlink;
 
 /**
  * Console Runner
@@ -70,6 +77,9 @@ class Console extends \Framelix\Framelix\Console
             "version" => "0.0.1",
             "name" => "pagemyself-" . strtolower($moduleName),
             "description" => "Your module description",
+            "pagemyself" => [
+                "module" => $moduleName
+            ],
         ], true);
     }
 
@@ -124,6 +134,81 @@ class Console extends \Framelix\Framelix\Console
         mkdir(dirname($path));
         file_put_contents($path, $templateContent);
         self::updateCompilerConfig();
+    }
+
+    /**
+     * Update/install module by given zip file
+     * @param string|null $zipPath If set, this action will update without further security questions (is used from web based update)
+     * @return void
+     */
+    public static function updateModuleByZip(?string $zipPath = null): void
+    {
+        $zipPath = 'D:\www\pagemyself\build\dist\Calendar-0.1.0.zip';
+        if (!is_string($zipPath)) {
+            $zipPath = trim(self::question('Path to module ZIP file'));
+            // try relative path
+            if (!is_file($zipPath)) {
+                $zipPath = __DIR__ . "/" . $zipPath;
+            }
+        }
+        if (!file_exists($zipPath)) {
+            self::red("$zipPath does not exist");
+            return;
+        }
+        $tmpPath = __DIR__ . "/../tmp/unzip";
+        FileUtils::deleteDirectory($tmpPath);
+        mkdir($tmpPath);
+        Zip::unzip($zipPath, $tmpPath);
+        $packageJson = JsonUtils::readFromFile($tmpPath . "/package.json");
+        if (!isset($packageJson['pagemyself']['module']) && ($packageJson['name'] ?? null) !== 'framelix') {
+            self::red("$zipPath is not a valid module archive");
+            return;
+        }
+        $moduleDir = FileUtils::getModuleRootPath($packageJson['pagemyself']['module'] ?? 'Framelix');
+        $filelistNew = JsonUtils::readFromFile($tmpPath . "/filelist.json");
+        if (!$filelistNew) {
+            self::red(
+                "$zipPath has no filelist. Build the archive with the build tools that generate the filelist for you."
+            );
+            return;
+        }
+        $filelistNew = array_combine($filelistNew, $filelistNew);
+        $filelistExist = file_exists($moduleDir . "/filelist.json") ? JsonUtils::readFromFile(
+            $moduleDir . "/filelist.json"
+        ) : [];
+        $filelistExist = array_combine($filelistExist, $filelistExist);
+        if (!is_dir($moduleDir)) {
+            mkdir($moduleDir);
+        }
+        foreach ($filelistNew as $relativeFile) {
+            $tmpFilePath = FileUtils::normalizePath(realpath($tmpPath . "/" . $relativeFile));
+            $newPath = $moduleDir . "/" . $relativeFile;
+            if (is_dir($tmpFilePath)) {
+                if (!is_dir($newPath)) {
+                    mkdir($newPath);
+                    self::green('Directory "' . $tmpFilePath . '" created' . "\n");
+                } else {
+                    self::yellow('Directory "' . $tmpFilePath . '" already exist, skip' . "\n");
+                }
+            } elseif (is_file($tmpFilePath)) {
+                copy($tmpFilePath, $newPath);
+                if (file_exists($newPath)) {
+                    self::green('File "' . $tmpFilePath . '" updated' . "\n");
+                } else {
+                    self::green('File "' . $tmpFilePath . '" created' . "\n");
+                }
+            }
+            unset($filelistExist[$relativeFile]);
+        }
+        foreach ($filelistExist as $fileExist) {
+            $newPath = $moduleDir . "/" . $fileExist;
+            if (is_dir($newPath)) {
+                self::green('Obsolete Directory "' . $newPath . '" removed' . "\n");
+            } elseif (is_file($newPath)) {
+                self::green('Obsolete File "' . $newPath . '" removed' . "\n");
+                unlink($newPath);
+            }
+        }
     }
 
 

@@ -351,6 +351,14 @@
         "Navigation",
         "84649"
     ],
+    "__myself_pageblocks_navigation_allowedentries__": [
+        "Filtere sichtbare Eintr\u00e4ge",
+        "05d73"
+    ],
+    "__myself_pageblocks_navigation_allowedentries_desc__": [
+        "Falls kein Eintrag gew\u00e4hlt wird, dann sind alle Eintr\u00e4ge sichtbar",
+        "6036a"
+    ],
     "__myself_pageblocks_navigation_desc__": [
         "Zeigt alle relevanten Navigationseintr\u00e4ge an. Dieser Block wird wahrscheinlich schon von deinem gew\u00e4hlten Stil eingebunden, das musst du also m\u00f6glicherweise nicht mehr tun.",
         "09827"
@@ -387,6 +395,14 @@
         "Nur Seitenadministratoren k\u00f6nnen diesen Eintrag sehen",
         "21b85"
     ],
+    "__myself_storable_nav_lang_label__": [
+        "Filtere Sprache",
+        "25ad8"
+    ],
+    "__myself_storable_nav_lang_label_desc__": [
+        "Nur sichtbar wenn auf der Seite, auf der du bist, die selbe Sprache eingestellt ist.<br\/>Wird nichts gew\u00e4hlt = Immer sichtbar",
+        "65a62"
+    ],
     "__myself_storable_nav_link_label__": [
         "Benutzerdefinierter Link",
         "a4654"
@@ -394,6 +410,18 @@
     "__myself_storable_nav_link_label_desc__": [
         "Link zu einer beliebigen Webseite",
         "ddc23"
+    ],
+    "__myself_storable_nav_linktype_1__": [
+        "Benutzerdefinierter Link",
+        "812a4"
+    ],
+    "__myself_storable_nav_linktype_2__": [
+        "W\u00e4hle eine Seite",
+        "64d66"
+    ],
+    "__myself_storable_nav_linktype_label__": [
+        "Link-Typ",
+        "a38a1"
     ],
     "__myself_storable_nav_page_label__": [
         "Link auf eine Seite",
@@ -460,8 +488,8 @@
         "0ccb0"
     ],
     "__myself_storable_page_url_label_desc__": [
-        "Finale URL: {0}<br/>Leer = Startseite",
-        "14516"
+        "Finale URL: {0}<br\/>Leer = Startseite",
+        "3530a"
     ],
     "__myself_storable_tag_color_label__": [
         "Farbe",
@@ -482,6 +510,14 @@
     "__myself_theme_settings_form_internal__": [
         "Basiseinstellungen",
         "2a940"
+    ],
+    "__myself_theme_settings_form_internal_favicon__": [
+        "Favicon",
+        "49e95"
+    ],
+    "__myself_theme_settings_form_internal_favicon_desc__": [
+        "Das kleine Symbol das im Browser neben dem Seitentitel angezeigt wird und welches von Suchmaschinen verwendet wird. Sollte ein Bild mit 512x512 sein.",
+        "bba11"
     ],
     "__myself_theme_settings_form_internal_pagecss__": [
         "Globales CSS \/ Stylesheet",

@@ -1,5 +1,8 @@
 {
   "name": "pagemyself-guestbook",
   "description": "A simple built-in guestbook module for PageMyself.",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "pagemyself": {
+    "module": "Guestbook"
+  }
 }
