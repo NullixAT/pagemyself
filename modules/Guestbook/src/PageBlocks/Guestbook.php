@@ -15,7 +15,6 @@ use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Response;
 use Framelix\Framelix\Storable\BruteForceProtection;
 use Framelix\Framelix\Url;
-use Framelix\Framelix\View\Api;
 use Framelix\Guestbook\Storable\Entry;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\PageBlocks\BlockBase;
@@ -89,7 +88,7 @@ class Guestbook extends BlockBase
         $settings = $pageBlock->pageBlockSettings;
         $form = new Form();
         $form->id = "guestbook";
-        $form->submitUrl = Api::getSignedCallPhpMethodUrlString(__CLASS__, 'save', ['pageBlockId' => $pageBlock]);
+        $form->submitUrl = JsCall::getCallUrl(__CLASS__, 'save', ['pageBlockId' => $pageBlock]);
 
         if ($settings['email'] ?? false) {
             $field = new Email();
@@ -136,7 +135,8 @@ class Guestbook extends BlockBase
                 <?
                 if ($entry->email && LayoutUtils::isEditAllowed()) {
                     ?>
-                    <div class="guestbook-pageblocks-guestbook-entry-email myself-show-if-editmode" title="__guestbook_email_hidden__">
+                    <div class="guestbook-pageblocks-guestbook-entry-email myself-show-if-editmode"
+                         title="__guestbook_email_hidden__">
                         <?= htmlentities($entry->email) ?>
                     </div>
                     <?
@@ -159,8 +159,8 @@ class Guestbook extends BlockBase
                 <?
 
                 if (LayoutUtils::isEditAllowed()) {
-                    $deleteUrl = Api::getSignedCallPhpMethodUrlString(__CLASS__, 'delete', ['id' => $entry]);
-                    $showHideUrl = Api::getSignedCallPhpMethodUrlString(__CLASS__, 'showhide', ['id' => $entry]);
+                    $deleteUrl = JsCall::getCallUrl(__CLASS__, 'delete', ['id' => $entry]);
+                    $showHideUrl = JsCall::getCallUrl(__CLASS__, 'showhide', ['id' => $entry]);
                     ?>
                     <div class="guestbook-pageblocks-guestbook-buttons myself-show-if-editmode">
                         <button class="framelix-button framelix-button-error framelix-button-small"

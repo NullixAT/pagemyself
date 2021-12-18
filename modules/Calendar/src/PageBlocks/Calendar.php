@@ -18,7 +18,6 @@ use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ColorUtils;
-use Framelix\Framelix\View\Api;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\PageBlock;
@@ -75,7 +74,7 @@ class Calendar extends BlockBase
                 <?php
                 $form = new Form();
                 $form->id = "editentry";
-                $form->submitUrl = Api::getSignedCallPhpMethodUrlString(
+                $form->submitUrl = JsCall::getCallUrl(
                     __CLASS__,
                     'save',
                     ['date' => Request::getGet('date'), 'pageBlockId' => $pageBlock]
@@ -230,7 +229,7 @@ class Calendar extends BlockBase
                             if (LayoutUtils::isEditAllowed()) {
                                 $attributes->set(
                                     'data-modal',
-                                    Api::getSignedCallPhpMethodUrlString(
+                                    JsCall::getCallUrl(
                                         __CLASS__,
                                         'edit',
                                         ['date' => $date, 'pageBlockId' => $this->pageBlock]

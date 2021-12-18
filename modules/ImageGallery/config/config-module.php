@@ -1,4 +1,5 @@
 <?php
+
 // prevent loading directly in the browser without framelix context
 if (!defined("FRAMELIX_MODULE")) {
     die();
@@ -8,37 +9,37 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
-    "compiler": {
-        "ImageGallery": {
-            "js": {
-                "pageblock-imagegallery": {
-                    "files": [
-                        {
-                            "type": "folder",
-                            "path": "js\/page-blocks\/imagegallery",
-                            "recursive": true
+        "compiler": {
+            "ImageGallery": {
+                "js": {
+                    "pageblock-imagegallery": {
+                        "files": [
+                            {
+                                "type": "folder",
+                                "path": "js\/page-blocks\/imagegallery",
+                                "recursive": true
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
                         }
-                    ],
-                    "options": {
-                        "noInclude": true
                     }
-                }
-            },
-            "scss": {
-                "pageblock-imagegallery": {
-                    "files": [
-                        {
-                            "type": "folder",
-                            "path": "scss\/page-blocks\/imagegallery",
-                            "recursive": true
+                },
+                "scss": {
+                    "pageblock-imagegallery": {
+                        "files": [
+                            {
+                                "type": "folder",
+                                "path": "scss\/page-blocks\/imagegallery",
+                                "recursive": true
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
                         }
-                    ],
-                    "options": {
-                        "noInclude": true
                     }
                 }
             }
         }
     }
-}
 </script>

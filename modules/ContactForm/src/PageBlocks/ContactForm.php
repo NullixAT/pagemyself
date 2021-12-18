@@ -16,7 +16,6 @@ use Framelix\Framelix\Network\Response;
 use Framelix\Framelix\Storable\BruteForceProtection;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
-use Framelix\Framelix\View\Api;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\PageBlock;
 
@@ -78,7 +77,7 @@ class ContactForm extends BlockBase
     {
         $form = new Form();
         $form->id = "contactform";
-        $form->submitUrl = Api::getSignedCallPhpMethodUrlString(__CLASS__, 'submit', ['pageBlockId' => $pageBlock]);
+        $form->submitUrl = JsCall::getCallUrl(__CLASS__, 'submit', ['pageBlockId' => $pageBlock]);
 
         $field = new Email();
         $field->name = "email";
@@ -108,7 +107,7 @@ class ContactForm extends BlockBase
             $type = 'btn';
         }
         if ($type === 'btn') {
-            $getEmailUrl = Api::getSignedCallPhpMethodUrlString(
+            $getEmailUrl = JsCall::getCallUrl(
                 __CLASS__,
                 'getemail',
                 ['pageBlockId' => $this->pageBlock]

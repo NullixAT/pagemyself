@@ -1,4 +1,5 @@
 <?php
+
 // prevent loading directly in the browser without framelix context
 if (!defined("FRAMELIX_MODULE")) {
     die();
@@ -8,11 +9,11 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
-    "compiler": {
-        "ContactForm": {
-            "js": [],
-            "scss": []
+        "compiler": {
+            "ContactForm": {
+                "js": [],
+                "scss": []
+            }
         }
     }
-}
 </script>

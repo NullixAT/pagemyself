@@ -10,7 +10,6 @@ use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\UploadedFile;
 use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Url;
-use Framelix\Framelix\View\Api;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\MediaFileFolder;
 use Throwable;
@@ -121,7 +120,7 @@ class MediaBrowser extends Field
                     $jsCall->result = false;
                     return;
                 }
-                $createFolderUrl = Api::getSignedCallPhpMethodUrlString(
+                $createFolderUrl = JsCall::getCallUrl(
                     __CLASS__,
                     'create-folder',
                     ['folder' => $mediaFolder]
@@ -215,7 +214,7 @@ class MediaBrowser extends Field
      */
     public static function showEntryForFolder(MediaFileFolder $folder, bool $selected, bool $parentFolder = false): void
     {
-        $openFolderUrl = Api::getSignedCallPhpMethodUrlString(
+        $openFolderUrl = JsCall::getCallUrl(
             __CLASS__,
             'list',
             [
@@ -223,12 +222,12 @@ class MediaBrowser extends Field
                 'allowedExtensions' => Request::getGet('allowedExtensions')
             ]
         );
-        $deleteUrl = Api::getSignedCallPhpMethodUrlString(
+        $deleteUrl = JsCall::getCallUrl(
             __CLASS__,
             'delete-folder',
             ['folder' => $folder]
         );
-        $renameUrl = Api::getSignedCallPhpMethodUrlString(
+        $renameUrl = JsCall::getCallUrl(
             __CLASS__,
             'rename',
             ['folder' => $folder]
@@ -282,12 +281,12 @@ class MediaBrowser extends Field
      */
     public static function showEntryForFile(MediaFile $file, bool $selected): void
     {
-        $deleteUrl = Api::getSignedCallPhpMethodUrlString(
+        $deleteUrl = JsCall::getCallUrl(
             __CLASS__,
             'delete-file',
             ['file' => $file]
         );
-        $renameUrl = Api::getSignedCallPhpMethodUrlString(
+        $renameUrl = JsCall::getCallUrl(
             __CLASS__,
             'rename',
             ['file' => $file]
@@ -367,7 +366,7 @@ class MediaBrowser extends Field
     public function jsonSerialize(): array
     {
         $data = parent::jsonSerialize();
-        $data['properties']['signedGetBrowserUrl'] = Api::getSignedCallPhpMethodUrlString(
+        $data['properties']['signedGetBrowserUrl'] = JsCall::getCallUrl(
             __CLASS__,
             'list',
             ['allowedExtensions' => $this->allowedExtensions]

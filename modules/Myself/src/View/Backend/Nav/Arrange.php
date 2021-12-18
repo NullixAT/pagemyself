@@ -8,7 +8,6 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
-use Framelix\Framelix\View\Api;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\Myself\Storable\Nav;
 
@@ -254,7 +253,7 @@ class Arrange extends View
               }
             })
             saveButtons.on('click', 'button', function () {
-              FramelixApi.callPhpMethod('<?=Api::getSignedCallPhpMethodUrlString(
+              FramelixApi.callPhpMethod('<?=JsCall::getCallUrl(
                   __CLASS__,
                   "save"
               )?>', { 'navData': getNavData() })

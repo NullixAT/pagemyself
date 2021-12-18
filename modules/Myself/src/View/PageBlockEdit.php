@@ -7,6 +7,7 @@ use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Response;
 use Framelix\Framelix\Storable\Storable;
@@ -51,7 +52,7 @@ class PageBlockEdit extends View
         $action = Request::getGet('action');
         switch ($action) {
             case 'getmediabrowserurl':
-                echo View\Api::getSignedCallPhpMethodUrlString(
+                echo JsCall::getCallUrl(
                     MediaBrowser::class,
                     'list',
                     [
