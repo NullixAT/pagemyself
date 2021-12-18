@@ -144,7 +144,6 @@ class Console extends \Framelix\Framelix\Console
      */
     public static function installZipPackage(?string $zipPath = null): void
     {
-        $zipPath = $zipPath ?? 'D:\www\pagemyself\build\dist\release-0.1.0.zip';
         if (!is_string($zipPath)) {
             $zipPath = trim(self::question('Path to module ZIP file'));
             // try relative path
