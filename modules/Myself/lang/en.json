@@ -461,11 +461,41 @@
     "__myself_websitesettings__": [
         "Website Settings"
     ],
+    "__myself_websitesettings_author__": [
+        "Author of website"
+    ],
     "__myself_websitesettings_favicon__": [
         "Favicon"
     ],
     "__myself_websitesettings_favicon_desc__": [
         "The tiny icon that is displayed beside the browser page title and in search engines. Should be a squared image with 512x512."
+    ],
+    "__myself_websitesettings_headhtml__": [
+        "HTML Code that appears inside <head> tag"
+    ],
+    "__myself_websitesettings_headhtml_desc__": [
+        "This is considered metadata and can be used for search engine optimization, including scripts, adding external stylesheets, etc..."
+    ],
+    "__myself_websitesettings_keywords__": [
+        "Website keywords"
+    ],
+    "__myself_websitesettings_keywords_desc__": [
+        "Keywords are words, separated with comma, that describe your service and website. It is used by search engines but you should not add more than 20 keywords. It can harm your search engine ranking if abused."
+    ],
+    "__myself_websitesettings_og_data__": [
+        "This is a meta information and is used by search engines and social media representation."
+    ],
+    "__myself_websitesettings_og_description__": [
+        "Website Description"
+    ],
+    "__myself_websitesettings_og_image__": [
+        "Website Logo"
+    ],
+    "__myself_websitesettings_og_site_name__": [
+        "Website Short Name"
+    ],
+    "__myself_websitesettings_og_title__": [
+        "Website Long Name"
     ],
     "__myself_websitesettings_pagecss__": [
         "Global CSS \/ Stylesheet"
@@ -478,5 +508,8 @@
     ],
     "__myself_websitesettings_pagejs_desc__": [
         "If you need additional javascript that is integrated into every page in this theme, add it here."
+    ],
+    "__myself_websitesettings_search_engine_data__": [
+        "This is a meta information and is only used for search machine optimization"
     ]
 }

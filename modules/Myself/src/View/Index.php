@@ -26,6 +26,7 @@ use Framelix\Myself\Storable\Theme;
 use function class_exists;
 use function end;
 use function explode;
+use function htmlentities;
 use function http_response_code;
 use function md5;
 use function strtolower;
@@ -135,10 +136,43 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         if ($imageData) {
             $this->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
         }
+        if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_site_name')) {
+            $this->addHeadHtml('<meta property="og:site_name" content="' . htmlentities($settingValue) . '"/>');
+        }
+        if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_image')) {
+            $imageData = MediaFile::getById($settingValue)?->getImageData();
+            if ($imageData) {
+                $this->addHeadHtml(
+                    '<meta property="og:image" content="' . $imageData['sizes']['original']['url'] . '"/>'
+                );
+            }
+        }
+        if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_title')) {
+            $this->addHeadHtml('<meta property="og:title" content="' . htmlentities($settingValue) . '"/>');
+        }
+        if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_description')) {
+            $this->addHeadHtml('<meta property="og:description" content="' . htmlentities($settingValue) . '"/>');
+        }
+        if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('author')) {
+            $this->addHeadHtml('<meta property="author" content="' . htmlentities($settingValue) . '"/>');
+        }
+        if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('keywords')) {
+            $this->addHeadHtml('<meta property="keywords" content="' . htmlentities($settingValue) . '"/>');
+        }
+        $this->addHeadHtml(
+            '
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="' . Url::create() . '" />
+            <meta name="generator" content="PageMyself Website Builder" />
+        '
+        );
         if (!$this->editMode) {
             $pageCss = \Framelix\Myself\Storable\WebsiteSettings::get('pagecss');
             if ($pageCss) {
                 $this->addHeadHtml('<style>' . $pageCss . '</style>');
+            }
+            if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('headHtml')) {
+                $this->addHeadHtml($settingValue);
             }
         }
         $themeBlock = $this->page->getThemeBlock();

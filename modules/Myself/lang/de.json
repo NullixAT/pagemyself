@@ -615,6 +615,10 @@
         "Webseiten-Einstellungen",
         "214da"
     ],
+    "__myself_websitesettings_author__": [
+        "Autor der Webseite",
+        "881eb"
+    ],
     "__myself_websitesettings_favicon__": [
         "Favicon",
         "49e95"
@@ -622,6 +626,42 @@
     "__myself_websitesettings_favicon_desc__": [
         "Das kleine Symbol das im Browser neben dem Seitentitel angezeigt wird und welches von Suchmaschinen verwendet wird. Sollte ein Bild mit 512x512 sein.",
         "bba11"
+    ],
+    "__myself_websitesettings_headhtml__": [
+        "HTML Code der im <head> Tag der Seite integriert wird",
+        "a6961"
+    ],
+    "__myself_websitesettings_headhtml_desc__": [
+        "Das ist als Metadaten anzusehen. Diese werden f\u00fcr Suchmaschinenoptimierung, Script Einbindung, externe Stylesheets, usw... genutzt.",
+        "c8dec"
+    ],
+    "__myself_websitesettings_keywords__": [
+        "Webseiten Keywords",
+        "a33b1"
+    ],
+    "__myself_websitesettings_keywords_desc__": [
+        "Keywords sind W\u00f6rter, getrennt mit Beistrich, die deine Webseite\/Service mit Stichw\u00f6rtern beschreiben. Dies wird von Suchmaschinen benutzt. Verwende nicht mehr als 20 W\u00f6rter. Es k\u00f6nnte auch negative Auswirkungen auf Suchmaschinenplatzierung haben wenn du es \u00fcbertreibst.",
+        "89810"
+    ],
+    "__myself_websitesettings_og_data__": [
+        "Das ist als Metadaten anzusehen. Diese werden f\u00fcr Suchmaschinenoptimierung und Webseiteninformation f\u00fcr soziale Medien.",
+        "f5708"
+    ],
+    "__myself_websitesettings_og_description__": [
+        "Webseitenbeschreibung",
+        "b8b21"
+    ],
+    "__myself_websitesettings_og_image__": [
+        "Webseitenlogo",
+        "e5ccb"
+    ],
+    "__myself_websitesettings_og_site_name__": [
+        "Kurzer Name der Webseite",
+        "b2d8c"
+    ],
+    "__myself_websitesettings_og_title__": [
+        "Langer Name der Webseite",
+        "d55a0"
     ],
     "__myself_websitesettings_pagecss__": [
         "Globales CSS \/ Stylesheet",
@@ -638,5 +678,9 @@
     "__myself_websitesettings_pagejs_desc__": [
         "Falls du Javascript auf jeder Seite einbinden willst, dann f\u00fcge den Code hier ein.",
         "4f97f"
+    ],
+    "__myself_websitesettings_search_engine_data__": [
+        "Das ist als Metadaten anzusehen. Diese werden f\u00fcr Suchmaschinenoptimierung.",
+        "1f5d9"
     ]
 }
