@@ -21,6 +21,8 @@
     outline: 5px solid red; }
   .slideshow-pageblocks-slideshow-container.slideshow-pageblocks-slideshow-loading[data-animation='flip'] .slideshow-pageblocks-slideshow-image {
     transform: rotateY(90deg); }
+  .slideshow-pageblocks-slideshow-container.slideshow-pageblocks-slideshow-loading[data-animation='blur'] .slideshow-pageblocks-slideshow-image {
+    filter: blur(100px); }
 
 .slideshow-pageblocks-slideshow-left,
 .slideshow-pageblocks-slideshow-right {

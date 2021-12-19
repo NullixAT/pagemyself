@@ -29,8 +29,6 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
    * Initialize the block
    */
   initBlock() {
-    var _screen, _screen$orientation;
-
     const self = this;
     self.images = this.config.images;
     self.slideshowContainer = this.blockContainer.find('.slideshow-pageblocks-slideshow-container');
@@ -39,14 +37,15 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
     self.titleContainer = this.blockContainer.find('.slideshow-pageblocks-slideshow-title');
     self.btnLeft = this.blockContainer.find('.slideshow-pageblocks-slideshow-left');
     self.btnRight = this.blockContainer.find('.slideshow-pageblocks-slideshow-right');
-    self.imageContainer.height(Math.round(window.innerHeight * 0.5));
-
-    if ((_screen = screen) !== null && _screen !== void 0 && (_screen$orientation = _screen.orientation) !== null && _screen$orientation !== void 0 && _screen$orientation.addEventListener) {
-      screen.orientation.addEventListener('change', function () {
-        self.imageContainer.height(Math.round(window.innerHeight * 0.5));
-      });
-    }
-
+    self.updateContainerHeight();
+    let resizeTo = null;
+    $(window).on("resize", function () {
+      if (resizeTo) return;
+      resizeTo = setTimeout(function () {
+        self.updateContainerHeight();
+        resizeTo = null;
+      }, 500);
+    });
     let autoInterval = null;
     this.imageOuterContainer.on('keydown click swiped-left swiped-right', function (ev) {
       clearInterval(autoInterval);
@@ -76,6 +75,25 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
         self.showImage(newIndex);
       }, 5000);
     }
+  }
+  /**
+   * Update container height
+   */
+
+
+  updateContainerHeight() {
+    let maxImageHeight = 0;
+    let containerWidth = this.slideshowContainer.width();
+    let containerHeight = window.innerHeight * 0.7;
+
+    for (let i = 0; i < this.images.length; i++) {
+      const imageDim = this.images[i].sizes.original.dimensions;
+      const h = containerWidth * (1 / imageDim.w * imageDim.h);
+      if (h > maxImageHeight) maxImageHeight = h;
+    }
+
+    if (maxImageHeight < containerHeight) containerHeight = maxImageHeight;
+    this.imageContainer.height(containerHeight);
   }
   /**
    * Show image

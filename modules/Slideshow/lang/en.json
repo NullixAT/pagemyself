@@ -11,6 +11,9 @@
     "__slideshow_pageblocks_slideshow_animation_flip__": [
         "Flip"
     ],
+    "__slideshow_pageblocks_slideshow_animation_blur__": [
+        "Blur"
+    ],
     "__slideshow_pageblocks_slideshow_automatic__": [
         "Automatic switch images until the user interact with the slideshow"
     ],

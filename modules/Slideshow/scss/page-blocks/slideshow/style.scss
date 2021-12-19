@@ -37,6 +37,12 @@
         transform: rotateY(90deg);
       }
     }
+
+    &[data-animation='blur'] {
+      .slideshow-pageblocks-slideshow-image {
+        filter: blur(100px);
+      }
+    }
   }
 }
 

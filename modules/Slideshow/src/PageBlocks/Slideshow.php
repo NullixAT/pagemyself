@@ -94,6 +94,7 @@ class Slideshow extends BlockBase
         $field->name = 'pageBlockSettings[animation]';
         $field->addOption('fade', '__slideshow_pageblocks_slideshow_animation_fade__');
         $field->addOption('flip', '__slideshow_pageblocks_slideshow_animation_flip__');
+        $field->addOption('blur', '__slideshow_pageblocks_slideshow_animation_blur__');
         $form->addField($field);
 
         $field = new MediaBrowser();
