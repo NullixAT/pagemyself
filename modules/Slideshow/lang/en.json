@@ -2,6 +2,18 @@
     "__slideshow_pageblocks_slideshow__": [
         "Image Slideshow"
     ],
+    "__slideshow_pageblocks_slideshow_animation__": [
+        "Animation Type"
+    ],
+    "__slideshow_pageblocks_slideshow_animation_fade__": [
+        "Fade"
+    ],
+    "__slideshow_pageblocks_slideshow_animation_flip__": [
+        "Flip"
+    ],
+    "__slideshow_pageblocks_slideshow_automatic__": [
+        "Automatic switch images until the user interact with the slideshow"
+    ],
     "__slideshow_pageblocks_slideshow_desc__": [
         "With image slideshow you get an easy to use slideshow, which allows the user to switch between the images you define, in a slideshow manner."
     ],
@@ -10,5 +22,11 @@
     ],
     "__slideshow_pageblocks_slideshow_form_main__": [
         "Slideshow Settings"
+    ],
+    "__slideshow_pageblocks_slideshow_random__": [
+        "Randomize image order"
+    ],
+    "__slideshow_pageblocks_slideshow_showimageinfo__": [
+        "Show image title and image count"
     ]
 }

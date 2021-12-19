@@ -9,6 +9,12 @@
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.2) 0 0 20px;
 
+    .myself-pageblocks-navigation-navlist-logo {
+      img {
+        max-width: 150px;
+      }
+    }
+
     > .myself-pageblocks-navigation-navlist {
       list-style: none;
 
@@ -120,10 +126,10 @@ html[data-screen-size='s'] .myself-themes-hello,
     background: white;
     display: flex;
     overflow: hidden;
+    justify-content: center;
 
     .myself-pageblocks-navigation {
-      width: calc(100% - 50px);
-      flex: 1 1 auto;
+      max-width: calc(100% - 50px);
 
       nav {
         flex: 1 1 auto;

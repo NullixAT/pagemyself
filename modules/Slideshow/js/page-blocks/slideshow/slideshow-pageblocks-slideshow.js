@@ -7,6 +7,9 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
   images
 
   /** @type {Cash} */
+  slideshowContainer
+
+  /** @type {Cash} */
   imageOuterContainer
 
   /** @type {Cash} */
@@ -33,6 +36,7 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
   initBlock () {
     const self = this
     self.images = this.config.images
+    self.slideshowContainer = this.blockContainer.find('.slideshow-pageblocks-slideshow-container')
     self.imageOuterContainer = this.blockContainer.find('.slideshow-pageblocks-slideshow-image-outer')
     self.imageContainer = this.blockContainer.find('.slideshow-pageblocks-slideshow-image')
     self.titleContainer = this.blockContainer.find('.slideshow-pageblocks-slideshow-title')
@@ -45,7 +49,9 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
       })
     }
 
+    let autoInterval = null
     this.imageOuterContainer.on('keydown click swiped-left swiped-right', function (ev) {
+      clearInterval(autoInterval)
       let dir = 1
       if (ev.type.substr(0, 6) === 'swiped') {
         dir = ev.type === 'swiped-right' ? -1 : 1
@@ -62,6 +68,13 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
       self.showImage(newIndex)
     })
     self.showImage(self.currentIndex)
+    if (this.config.automatic) {
+      autoInterval = setInterval(function () {
+        let newIndex = self.currentIndex + 1
+        if (newIndex > self.images.length - 1) newIndex = 0
+        self.showImage(newIndex)
+      }, 5000)
+    }
   }
 
   /**
@@ -91,14 +104,14 @@ class SlideshowPageBlocksSlideshow extends MyselfPageBlocks {
       self.titleContainer.append($(`<div class="myself-live-editable-text"></div>`).text(imageData.title))
     }
     FramelixIntersectionObserver.onGetVisible(self.imageOuterContainer, function () {
-      self.blockContainer.addClass('slideshow-pageblocks-slideshow-loading')
+      self.slideshowContainer.addClass('slideshow-pageblocks-slideshow-loading')
       clearTimeout(self.fadeTo)
       self.fadeTo = setTimeout(function () {
         const img = new Image()
         img.src = useSrc
         self.imageContainer.css('background-image', 'url(' + useSrc + ')')
         img.onload = function () {
-          self.blockContainer.removeClass('slideshow-pageblocks-slideshow-loading')
+          self.slideshowContainer.removeClass('slideshow-pageblocks-slideshow-loading')
         }
       }, 500)
     })

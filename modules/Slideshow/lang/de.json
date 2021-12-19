@@ -3,6 +3,22 @@
         "Bilder-Slideshow",
         "072ff"
     ],
+    "__slideshow_pageblocks_slideshow_animation__": [
+        "Animationstyp",
+        "623fa"
+    ],
+    "__slideshow_pageblocks_slideshow_animation_fade__": [
+        "Fade",
+        "04e03"
+    ],
+    "__slideshow_pageblocks_slideshow_animation_flip__": [
+        "Flip",
+        "9ffbd"
+    ],
+    "__slideshow_pageblocks_slideshow_automatic__": [
+        "Wechsle Bilder automatisch solange der Nutzer keine Interaktion mit der Slideshow macht",
+        "6c54f"
+    ],
     "__slideshow_pageblocks_slideshow_desc__": [
         "Eine einfache Bilder Slideshow mit dem Nutzer eine von dir definierte Anzahl an Bildern durchzappen kann.",
         "01af1"
@@ -14,5 +30,13 @@
     "__slideshow_pageblocks_slideshow_form_main__": [
         "Slideshow-Einstellungen",
         "6a8b4"
+    ],
+    "__slideshow_pageblocks_slideshow_random__": [
+        "Zuf\u00e4llige Bilderreihenfolge",
+        "5c6ef"
+    ],
+    "__slideshow_pageblocks_slideshow_showimageinfo__": [
+        "Zeige Bildtitel und Anzahl",
+        "33961"
     ]
 }
