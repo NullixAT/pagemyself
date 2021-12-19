@@ -45,9 +45,9 @@ class Calendar extends BlockBase
         }
         $settings = $pageBlock->pageBlockSettings;
         $date = Date::create(Request::getGet('date'));
-        $date->dateTime->setDayOfMonth(1);
         switch ($jsCall->action) {
             case 'gettable':
+                $date->dateTime->setDayOfMonth(1);
                 self::showTable($pageBlock, $date);
                 break;
             case 'save':
@@ -81,7 +81,7 @@ class Calendar extends BlockBase
                 $form->submitUrl = JsCall::getCallUrl(
                     __CLASS__,
                     'save',
-                    ['date' => Request::getGet('date'), 'pageBlockId' => $pageBlock]
+                    ['date' => $date, 'pageBlockId' => $pageBlock]
                 );
                 if ($settings['global'] ?? null) {
                     $object = Entry::getByConditionOne('date = {0}', [$date]);
@@ -215,16 +215,16 @@ class Calendar extends BlockBase
                 echo '<tr>';
                 for ($i = 1; $i <= 7; $i++) {
                     $addDays = $i - 1;
-                    $date = Date::create($weekStart->format("Y-m-d"));
+                    $weekDate = Date::create($weekStart->format("Y-m-d"));
                     if ($addDays > 0) {
-                        $date->dateTime->modify("+ $addDays days");
+                        $weekDate->dateTime->modify("+ $addDays days");
                     }
-                    $html = (int)$date->dateTime->format("d");
+                    $html = (int)$weekDate->dateTime->format("d");
                     $attributes = new HtmlAttributes();
-                    if ($date->dateTime->getMonth() !== $date->dateTime->getMonth()) {
+                    if ($date->dateTime->getMonth() !== $weekDate->dateTime->getMonth()) {
                         $attributes->addClass('calendar-pageblocks-calendar-othermonth');
                     } else {
-                        $entry = $entries[$date->dateTime->getDayOfMonth()] ?? null;
+                        $entry = $entries[$weekDate->dateTime->getDayOfMonth()] ?? null;
                         $color = $entry['color'] ?? $settings['cellColor'] ?? null;
                         if ($color) {
                             $attributes->setStyle('background-color', $color);
@@ -240,7 +240,7 @@ class Calendar extends BlockBase
                                 JsCall::getCallUrl(
                                     __CLASS__,
                                     'edit',
-                                    ['date' => $date, 'pageBlockId' => $pageBlock]
+                                    ['date' => $weekDate, 'pageBlockId' => $pageBlock]
                                 )
                             );
                         }
