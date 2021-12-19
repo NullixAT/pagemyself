@@ -95,6 +95,7 @@ abstract class BlockBase
         $htmlAttributes = new HtmlAttributes();
         $htmlAttributes->addClass('myself-page-block');
         $htmlAttributes->addClass($className);
+        $htmlAttributes->set('id', 'pageblock-' . $this->pageBlock);
         $htmlAttributes->set('data-id', $this->pageBlock);
         if ($this->pageBlock->flagDraft) {
             $htmlAttributes->set('data-draft', 1);

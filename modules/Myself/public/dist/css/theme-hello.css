@@ -106,7 +106,7 @@ html[data-screen-size='s'] .myself-themes-hello,
         font-size: 24px; }
   html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-content,
   .myself-themes-hello[data-navigation='top'] .myself-themes-hello-content {
-    padding: 20px; }
+    padding: 20px 0; }
   html[data-screen-size='s'] .myself-themes-hello .myself-pageblocks-navigation-navlist[data-level='0'],
   .myself-themes-hello[data-navigation='top'] .myself-pageblocks-navigation-navlist[data-level='0'] {
     display: flex;

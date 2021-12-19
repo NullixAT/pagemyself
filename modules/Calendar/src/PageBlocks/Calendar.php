@@ -45,7 +45,11 @@ class Calendar extends BlockBase
         }
         $settings = $pageBlock->pageBlockSettings;
         $date = Date::create(Request::getGet('date'));
+        $date->dateTime->setDayOfMonth(1);
         switch ($jsCall->action) {
+            case 'gettable':
+                self::showTable($pageBlock, $date);
+                break;
             case 'save':
                 if ($settings['global'] ?? null) {
                     $entry = Entry::getByConditionOne('date = {0}', [$date]);
@@ -115,6 +119,143 @@ class Calendar extends BlockBase
     }
 
     /**
+     * Get table for month
+     * @param PageBlock $pageBlock
+     * @param Date $date
+     * @return void
+     */
+    public static function showTable(PageBlock $pageBlock, Date $date): void
+    {
+        $settings = $pageBlock->pageBlockSettings;
+        $minDate = Date::create($settings['minDate'] ?? 'now - 10 years');
+        $maxDate = Date::create($settings['maxDate'] ?? 'now + 10 years');
+        if ($date->getSortableValue() < $minDate->getSortableValue()) {
+            $date = $minDate;
+        }
+        if ($date->getSortableValue() > $maxDate->getSortableValue()) {
+            $date = $maxDate;
+        }
+        $prevMonth = $date->clone();
+        $prevMonth->dateTime->modify("-1 month");
+        $nextMonth = $date->clone();
+        $nextMonth->dateTime->modify("+1 month");
+        $entries = [];
+        if ($settings['global'] ?? null) {
+            $objects = Entry::getByCondition(
+                'date BETWEEN {0} AND {1}',
+                [$date->dateTime->format("Y-m-01"), $date->dateTime->format("Y-m-t")]
+            );
+            foreach ($objects as $object) {
+                $entries[$object->date->dateTime->getDayOfMonth()] = [
+                    'color' => $object->color,
+                    'info' => $object->info,
+                ];
+            }
+        } else {
+            $range = Date::rangeDays($date->dateTime->format("Y-m-01"), $date->dateTime->format("Y-m-t"));
+            foreach ($range as $month) {
+                if (isset($settings['entries'][$month->getDbValue()])) {
+                    $entries[$month->dateTime->getDayOfMonth()] = $settings['entries'][$month->getDbValue()];
+                }
+            }
+        }
+        ?>
+        <div class="calendar-pageblocks-calendar-month-select">
+            <?
+            if ($date->getSortableValue() >= $minDate->getSortableValue()) {
+                ?>
+                <a href="<?= Url::getBrowserUrl()->setParameter(
+                    'calendarDate',
+                    $prevMonth
+                )->setHash("pageblock-" . $pageBlock) ?>" data-jscall="<?= JsCall::getCallUrl(
+                    __CLASS__,
+                    'gettable',
+                    ['pageBlockId' => $pageBlock, 'date' => $prevMonth]
+                ) ?>" class="framelix-button framelix-button-trans">«</a>
+                <?
+            }
+            ?>
+            <strong><?= $date->dateTime->getMonthNameAndYear() ?></strong>
+            <?
+            if ($date->getSortableValue() <= $maxDate->getSortableValue()) {
+                ?>
+                <a href="<?= Url::getBrowserUrl()->setParameter(
+                    'calendarDate',
+                    $nextMonth
+                )->setHash("pageblock-" . $pageBlock) ?>" data-jscall="<?= JsCall::getCallUrl(
+                    __CLASS__,
+                    'gettable',
+                    ['pageBlockId' => $pageBlock, 'date' => $nextMonth]
+                ) ?>" class="framelix-button framelix-button-trans">»</a>
+                <?
+            }
+            ?>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <?php
+                for ($i = 1; $i <= 7; $i++) {
+                    echo '<th>' . Lang::get('__framelix_dayshort_' . $i . '__') . '</th>';
+                }
+                ?>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $week = -1;
+            while ($week <= 6) {
+                $week++;
+                $weekStart = $week > 0 ? DateTime::create(
+                    $date->getDbValue() . " + $week weeks monday this week"
+                ) : DateTime::create($date->getDbValue() . " monday this week");
+                if ((int)$weekStart->format("Ym") > (int)$date->dateTime->format("Ym")) {
+                    break;
+                }
+                echo '<tr>';
+                for ($i = 1; $i <= 7; $i++) {
+                    $addDays = $i - 1;
+                    $date = Date::create($weekStart->format("Y-m-d"));
+                    if ($addDays > 0) {
+                        $date->dateTime->modify("+ $addDays days");
+                    }
+                    $html = (int)$date->dateTime->format("d");
+                    $attributes = new HtmlAttributes();
+                    if ($date->dateTime->getMonth() !== $date->dateTime->getMonth()) {
+                        $attributes->addClass('calendar-pageblocks-calendar-othermonth');
+                    } else {
+                        $entry = $entries[$date->dateTime->getDayOfMonth()] ?? null;
+                        $color = $entry['color'] ?? $settings['cellColor'] ?? null;
+                        if ($color) {
+                            $attributes->setStyle('background-color', $color);
+                            $attributes->setStyle('color', ColorUtils::invertColor($color, true));
+                        }
+                        $info = $entry['info'] ?? null;
+                        if ($info) {
+                            $attributes->set('title', $info);
+                        }
+                        if (LayoutUtils::isEditAllowed()) {
+                            $attributes->set(
+                                'data-modal',
+                                JsCall::getCallUrl(
+                                    __CLASS__,
+                                    'edit',
+                                    ['date' => $date, 'pageBlockId' => $pageBlock]
+                                )
+                            );
+                        }
+                    }
+                    echo '<td ' . $attributes . '>' . $html . '</td>';
+                }
+                echo '</tr>';
+            }
+            ?>
+            </tbody>
+        </table>
+        <?php
+    }
+
+    /**
      * Show content for this block
      * @return void
      */
@@ -125,125 +266,11 @@ class Calendar extends BlockBase
             $this->date = Date::create("now");
         }
         $this->date->dateTime->setDayOfMonth(1);
-        $settings = $this->pageBlock->pageBlockSettings;
-        $minDate = Date::create($settings['minDate'] ?? 'now - 10 years');
-        $maxDate = Date::create($settings['maxDate'] ?? 'now + 10 years');
-        if ($this->date->getSortableValue() < $minDate->getSortableValue()) {
-            $this->date = $minDate;
-        }
-        if ($this->date->getSortableValue() > $maxDate->getSortableValue()) {
-            $this->date = $maxDate;
-        }
-        $prevMonth = $this->date->clone();
-        $prevMonth->dateTime->modify("-1 month");
-        $nextMonth = $this->date->clone();
-        $nextMonth->dateTime->modify("+1 month");
-        $entries = [];
-        if ($settings['global'] ?? null) {
-            $objects = Entry::getByCondition(
-                'date BETWEEN {0} AND {1}',
-                [$this->date->dateTime->format("Y-m-01"), $this->date->dateTime->format("Y-m-t")]
-            );
-            foreach ($objects as $object) {
-                $entries[$object->date->dateTime->getDayOfMonth()] = [
-                    'color' => $object->color,
-                    'info' => $object->info,
-                ];
-            }
-        } else {
-            $range = Date::rangeDays($this->date->dateTime->format("Y-m-01"), $this->date->dateTime->format("Y-m-t"));
-            foreach ($range as $date) {
-                if (isset($settings['entries'][$date->getDbValue()])) {
-                    $entries[$date->dateTime->getDayOfMonth()] = $settings['entries'][$date->getDbValue()];
-                }
-            }
-        }
         ?>
-        <div class="calendar-pageblocks-calendar-month-select">
-            <?
-            if ($this->date->getSortableValue() >= $minDate->getSortableValue()) {
-                ?>
-                <a href="<?= Url::create()->setParameter(
-                    'calendarDate',
-                    $prevMonth
-                ) ?>" class="framelix-button">«</a>
-                <?
-            }
-            ?>
-            <strong><?= $this->date->dateTime->getMonthNameAndYear() ?></strong>
-            <?
-            if ($this->date->getSortableValue() <= $maxDate->getSortableValue()) {
-                ?>
-                <a href="<?= Url::create()->setParameter(
-                    'calendarDate',
-                    $nextMonth
-                ) ?>" class="framelix-button">»</a>
-                <?
-            }
-            ?>
-        </div>
         <div class="calendar-pageblocks-calendar-table">
-            <table>
-                <thead>
-                <tr>
-                    <?php
-                    for ($i = 1; $i <= 7; $i++) {
-                        echo '<th>' . Lang::get('__framelix_dayshort_' . $i . '__') . '</th>';
-                    }
-                    ?>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                $week = -1;
-                while ($week <= 6) {
-                    $week++;
-                    $weekStart = $week > 0 ? DateTime::create(
-                        $this->date->getDbValue() . " + $week weeks monday this week"
-                    ) : DateTime::create($this->date->getDbValue() . " monday this week");
-                    if ((int)$weekStart->format("Ym") > (int)$this->date->dateTime->format("Ym")) {
-                        break;
-                    }
-                    echo '<tr>';
-                    for ($i = 1; $i <= 7; $i++) {
-                        $addDays = $i - 1;
-                        $date = Date::create($weekStart->format("Y-m-d"));
-                        if ($addDays > 0) {
-                            $date->dateTime->modify("+ $addDays days");
-                        }
-                        $html = (int)$date->dateTime->format("d");
-                        $attributes = new HtmlAttributes();
-                        if ($date->dateTime->getMonth() !== $this->date->dateTime->getMonth()) {
-                            $attributes->addClass('calendar-pageblocks-calendar-othermonth');
-                        } else {
-                            $entry = $entries[$date->dateTime->getDayOfMonth()] ?? null;
-                            $color = $entry['color'] ?? $settings['cellColor'] ?? null;
-                            if ($color) {
-                                $attributes->setStyle('background-color', $color);
-                                $attributes->setStyle('color', ColorUtils::invertColor($color, true));
-                            }
-                            $info = $entry['info'] ?? null;
-                            if ($info) {
-                                $attributes->set('title', $info);
-                            }
-                            if (LayoutUtils::isEditAllowed()) {
-                                $attributes->set(
-                                    'data-modal',
-                                    JsCall::getCallUrl(
-                                        __CLASS__,
-                                        'edit',
-                                        ['date' => $date, 'pageBlockId' => $this->pageBlock]
-                                    )
-                                );
-                            }
-                        }
-                        echo '<td ' . $attributes . '>' . $html . '</td>';
-                    }
-                    echo '</tr>';
-                }
-                ?>
-                </tbody>
-            </table>
+            <?
+            self::showTable($this->pageBlock, $this->date);
+            ?>
         </div>
         <?php
     }
