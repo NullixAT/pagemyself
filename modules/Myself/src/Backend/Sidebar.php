@@ -5,7 +5,6 @@ namespace Framelix\Myself\Backend;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Myself\View\Backend\Page\Index;
-use Framelix\Myself\View\Backend\Tag\Edit;
 
 use function file_exists;
 
