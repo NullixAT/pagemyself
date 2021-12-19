@@ -24,6 +24,11 @@ class MyselfEdit {
    */
 
   /**
+   * Url to tinymce folder
+   * @type {string}
+   */
+
+  /**
    * Init late
    */
   static initLate() {
@@ -191,7 +196,7 @@ class MyselfEdit {
     }
 
     const mediaBrowser = new MyselfFormFieldMediaBrowser();
-    await frame.eval('FramelixDom').includeResource(FramelixConfig.modulePublicUrl + '/@Framelix/vendor/tinymce/tinymce.min.js', 'tinymce');
+    await frame.eval('FramelixDom').includeResource(MyselfEdit.tinymceUrl, 'tinymce');
     frame.eval('FramelixDom').addChangeListener('wysiwyg', async function () {
       $(frameDoc).find('.myself-live-editable-wysiwyg:not(.mce-content-body)').each(async function () {
         const container = frame.$(this);
@@ -324,5 +329,7 @@ _defineProperty(MyselfEdit, "pageBlockEditUrl", void 0);
 _defineProperty(MyselfEdit, "themeSettingsEditUrl", void 0);
 
 _defineProperty(MyselfEdit, "websiteSettingsEditUrl", void 0);
+
+_defineProperty(MyselfEdit, "tinymceUrl", void 0);
 
 FramelixInit.late.push(MyselfEdit.initLate);

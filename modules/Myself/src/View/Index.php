@@ -205,6 +205,9 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             $this->addHeadHtml(
                 '
                 <script>
+                MyselfEdit.tinymceUrl = ' . JsonUtils::encode(
+                    Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js")
+                ) . ';
                     MyselfEdit.pageBlockEditUrl = ' . JsonUtils::encode(View::getUrl(PageBlockEdit::class)) . ';
                     MyselfEdit.themeSettingsEditUrl = ' . JsonUtils::encode(
                     View::getUrl(ThemeSettings::class)->setParameter('pageId', $this->page)
