@@ -2,18 +2,26 @@
 
 namespace Framelix\Myself\View;
 
+use Framelix\Framelix\Form\Field\Color;
+use Framelix\Framelix\Form\Field\Number;
+use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Field\Text;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Response;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
+use Framelix\Framelix\Utils\ClassUtils;
+use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View;
 use Framelix\Myself\Form\Field\Ace;
 use Framelix\Myself\Form\Field\MediaBrowser;
+use Framelix\Myself\Storable\PageBlock;
 
 use function htmlentities;
+use function is_array;
 
 /**
  * WebsiteSettings
@@ -25,6 +33,174 @@ class WebsiteSettings extends View
      * @var string|bool
      */
     protected string|bool $accessRole = "admin,content";
+
+    /**
+     * On js call
+     * @param JsCall $jsCall
+     */
+    public static function onJsCall(JsCall $jsCall): void
+    {
+        switch ($jsCall->action) {
+            case 'editor':
+                $config = \Framelix\Myself\Storable\WebsiteSettings::get('blockLayout');
+                $pageBlocks = PageBlock::getByCondition('fixedPlacement IS NULL');
+                $config['allPageBlocks'] = [];
+                foreach ($pageBlocks as $pageBlock) {
+                    $config['allPageBlocks'][$pageBlock->id] = [
+                        'title' => ClassUtils::getLangKey(
+                            $pageBlock->pageBlockClass
+                        )
+                    ];
+                }
+                if (is_array($config['rows'] ?? null)) {
+                    foreach ($config['rows'] as $rowId => $row) {
+                        $columns = $row['columns'] ?? null;
+                        if (is_array($columns)) {
+                            foreach ($columns as $columnId => $columnRow) {
+                                $config['rows'][$rowId]['columns'][$columnId]['pageBlockId'] = $pageBlocks[$columnRow['pageBlockId'] ?? 0] ?? null;
+                            }
+                        }
+                    }
+                }
+                ?>
+                <div class="myself-block-layout-editor"></div>
+                <script>
+                  (function () {
+                    MyselfEdit.blockLayoutConfig = <?=JsonUtils::encode($config)?>;
+                    MyselfEdit.renderBlockLayoutEditor()
+                  })()
+                </script>
+                <?php
+                break;
+            case 'save-settings':
+                \Framelix\Myself\Storable\WebsiteSettings::set('blockLayout[rows]', $jsCall->parameters['rows']);
+                break;
+            case 'column-settings':
+                $form = self::getFormColumnSettings($jsCall->parameters['settings']);
+                $form->addButton('save', '__ok__', 'save', 'success');
+                $form->show();
+                break;
+            case 'row-settings':
+                $form = self::getFormRowSettings($jsCall->parameters['settings']);
+                $form->addButton('save', '__ok__', 'save', 'success');
+                $form->show();
+                break;
+        }
+    }
+
+    /**
+     * Get form for row settings
+     * @param array|null $settings
+     * @return Form
+     */
+    public static function getFormRowSettings(?array $settings): Form
+    {
+        $form = new Form();
+        $form->id = "rowsettings";
+
+        $field = new Number();
+        $field->name = 'gap';
+        $field->label = '__myself_blocklayout_rowsetting_gap__';
+        $field->labelDescription = '__myself_blocklayout_rowsetting_gap_desc__';
+        $field->min = 0;
+        $field->max = 10000;
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Number();
+        $field->name = 'maxWidth';
+        $field->label = '__myself_blocklayout_rowsetting_maxwidth__';
+        $field->labelDescription = '__myself_blocklayout_rowsetting_maxwidth_desc__';
+        $field->min = 0;
+        $field->max = 10000;
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Select();
+        $field->name = 'alignment';
+        $field->label = '__myself_align__';
+        $field->labelDescription = '__myself_align_desc__';
+        $field->addOption('left', '__myself_align_left__');
+        $field->addOption('center', '__myself_align_center__');
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $field->getVisibilityCondition()->notEmpty('maxWidth');
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundImage';
+        $field->label = '__myself_pageblocks_backgroundimage__';
+        $field->setOnlyImages();
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundVideo';
+        $field->label = '__myself_pageblocks_backgroundvideo__';
+        $field->labelDescription = '__myself_pageblocks_backgroundvideo_desc__';
+        $field->setOnlyVideos();
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        return $form;
+    }
+
+
+    /**
+     * Get form for column settings
+     * @param array|null $settings
+     * @return Form
+     */
+    public static function getFormColumnSettings(?array $settings): Form
+    {
+        $form = new Form();
+        $form->id = "columnsettings";
+
+        $field = new Number();
+        $field->name = 'padding';
+        $field->label = '__myself_blocklayout_columnsetting_padding__';
+        $field->labelDescription = '__myself_blocklayout_columnsetting_padding_desc__';
+        $field->min = 0;
+        $field->max = 10000;
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Number();
+        $field->name = 'minHeight';
+        $field->label = '__myself_pageblocks_minheight__';
+        $field->labelDescription = '__myself_pageblocks_minheight_desc__';
+        $field->max = 10000;
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Color();
+        $field->name = 'textColor';
+        $field->label = '__myself_pageblocks_textcolor__';
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Color();
+        $field->name = 'backgroundColor';
+        $field->label = '__myself_pageblocks_backgroundcolor__';
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundImage';
+        $field->label = '__myself_pageblocks_backgroundimage__';
+        $field->setOnlyImages();
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundVideo';
+        $field->label = '__myself_pageblocks_backgroundvideo__';
+        $field->labelDescription = '__myself_pageblocks_backgroundvideo_desc__';
+        $field->setOnlyVideos();
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        return $form;
+    }
 
     /**
      * On request

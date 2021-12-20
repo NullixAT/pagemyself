@@ -60,41 +60,6 @@ class PageBlockEdit extends View
                     ]
                 );
                 break;
-            case 'moveup':
-            case 'movedown':
-                if ($action === 'movedown') {
-                    $pageBlockFlip = PageBlock::getByConditionOne(
-                        'page = {0} && sort > {1}',
-                        [$requestPage, $requestPageBlock->sort],
-                        ['+sort']
-                    );
-                } else {
-                    $pageBlockFlip = PageBlock::getByConditionOne(
-                        'page = {0} && sort < {1}',
-                        [$requestPage, $requestPageBlock->sort],
-                        ['-sort']
-                    );
-                }
-                if ($pageBlockFlip) {
-                    $prevSort = $requestPageBlock->sort;
-                    $requestPageBlock->sort = $pageBlockFlip->sort;
-                    $requestPageBlock->store();
-                    $pageBlockFlip->sort = $prevSort;
-                    $pageBlockFlip->store();
-                }
-                $pageBlocks = PageBlock::getByCondition(
-                    'page = {0}',
-                    [$requestPage],
-                    ['+sort']
-                );
-                // set all sort flags ascending
-                $sort = 0;
-                foreach ($pageBlocks as $pageBlock) {
-                    $pageBlock->sort = $sort++;
-                    $pageBlock->store();
-                }
-                Toast::success('__myself_pageblock_deleted__');
-                Url::getBrowserUrl()->redirect();
             case 'delete':
                 $requestPageBlock?->delete();
                 Toast::success('__myself_pageblock_deleted__');

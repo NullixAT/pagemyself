@@ -65,8 +65,7 @@ class Page extends StorableExtended
         }
         $this->pageBlocks[$cacheKey] = PageBlock::getByCondition(
             'page = {0} ' . ($filterDraft && !LayoutUtils::isEditAllowed() ? ' && flagDraft = 0' : ''),
-            [$this, User::get()],
-            "+sort"
+            [$this, User::get()]
         );
         return $this->pageBlocks[$cacheKey];
     }

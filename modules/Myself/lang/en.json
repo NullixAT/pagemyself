@@ -20,11 +20,41 @@
     "__myself_align_top__": [
         "Top"
     ],
+    "__myself_blocklayout_columnsetting_padding__": [
+        "Padding in px"
+    ],
+    "__myself_blocklayout_columnsetting_padding_desc__": [
+        "Padding is used to create space around an element's content, inside of any defined borders."
+    ],
+    "__myself_blocklayout_empty__": [
+        "Empty"
+    ],
+    "__myself_blocklayout_openeditor__": [
+        "Change layout"
+    ],
+    "__myself_blocklayout_rowsetting_gap__": [
+        "Gap in px"
+    ],
+    "__myself_blocklayout_rowsetting_gap_desc__": [
+        "The gap defines the size of the gap between the columns, but not at the start or the end of the row."
+    ],
+    "__myself_blocklayout_rowsetting_maxwidth__": [
+        "Max width in px"
+    ],
+    "__myself_blocklayout_rowsetting_maxwidth_desc__": [
+        "The block will not be larger then this width. Useful when you choose center layout with for example 1000 max width. Looks good on all screens."
+    ],
+    "__myself_blocklayout_save__": [
+        "Save Layout"
+    ],
     "__myself_column_align__": [
         "Column Alignment"
     ],
     "__myself_disable_editmode__": [
         "Disable edit mode"
+    ],
+    "__myself_edittext_area__": [
+        "Click here to add a text"
     ],
     "__myself_enable_editmode__": [
         "Enable edit mode"
@@ -152,9 +182,6 @@
     "__myself_pageblock_edit_internal_draft_desc_": [
         "Set this page block in draft mode. It is only visible in edit mode."
     ],
-    "__myself_pageblocks_backgroundalign__": [
-        "Background Alignment"
-    ],
     "__myself_pageblocks_backgroundcolor__": [
         "Background color"
     ],
@@ -166,54 +193,6 @@
     ],
     "__myself_pageblocks_backgroundvideo_desc__": [
         "You should set a background image as well, as a placeholder before the video starts.<br\/>Keep the filesize of a video as small as possible, to safe bandwidth for your users.<br\/>Also this video does automatically start, is looped and is muted, so cut out audio to also save bandwith."
-    ],
-    "__myself_pageblocks_columns__": [
-        "One or multiple columns in a row"
-    ],
-    "__myself_pageblocks_columns_desc__": [
-        "Probably the block you will use the most.<br\/>This block can be used to display free editable content columns in a block.<br\/>You can choose to fill the whole width or to seperate into multiple pieces which each can independently filled."
-    ],
-    "__myself_pageblocks_columns_form_column_enabled__": [
-        "Column enabled"
-    ],
-    "__myself_pageblocks_columns_form_column_enabled_desc__": [
-        "If disabled, the column will not be displayed on the page"
-    ],
-    "__myself_pageblocks_columns_form_column_gap__": [
-        "Gap in px"
-    ],
-    "__myself_pageblocks_columns_form_column_gap_desc__": [
-        "The gap defines the size of the gap between the columns, but not at the start or the end of the row."
-    ],
-    "__myself_pageblocks_columns_form_column_maxwidth__": [
-        "Max width in px"
-    ],
-    "__myself_pageblocks_columns_form_column_maxwidth_desc__": [
-        "The block will not be larger then this width. Useful when you choose center layout with for example 1000 max width. Looks good on all screens."
-    ],
-    "__myself_pageblocks_columns_form_column_padding__": [
-        "Padding in px"
-    ],
-    "__myself_pageblocks_columns_form_column_padding_desc__": [
-        "Padding is used to create space around an element's content, inside of any defined borders."
-    ],
-    "__myself_pageblocks_columns_form_column_width__": [
-        "Width in weight or px"
-    ],
-    "__myself_pageblocks_columns_form_column_width_desc__": [
-        "Set width in weight or px. If you enter a value greather than 10, it will be considered to be max pixel width. A value <= 10 is considered a weight. If you want all columns to be equal in width, then insert 1 in every column. If you want a column to be double in size of others, set 2 in the column, and 1 in others. And so on...<br\/>This technique make it possible that your content is always displayed nicely, independent of the screen size."
-    ],
-    "__myself_pageblocks_columns_form_formlabel__": [
-        "Column {0}"
-    ],
-    "__myself_pageblocks_columns_form_general__": [
-        "General"
-    ],
-    "__myself_pageblocks_columns_open_editor__": [
-        "Click here to open the text editor"
-    ],
-    "__myself_pageblocks_columns_open_simpletexteditor__": [
-        "Click here to edit this text"
     ],
     "__myself_pageblocks_css__": [
         "CSS\/Stylesheet - Maximum customization for your page"
@@ -283,6 +262,21 @@
     ],
     "__myself_pageblocks_slideshow_prev__": [
         "Previous image"
+    ],
+    "__myself_pageblocks_text__": [
+        "Text"
+    ],
+    "__myself_pageblocks_text_desc__": [
+        "A simple text page block where you can write any text you want. With or without font formatting features."
+    ],
+    "__myself_pageblocks_text_form_main__": [
+        "Text settings"
+    ],
+    "__myself_pageblocks_text_multiline__": [
+        "Allow multiple lines"
+    ],
+    "__myself_pageblocks_text_wysiwyg__": [
+        "Full Text Editor with format options"
     ],
     "__myself_pageblocks_textcolor__": [
         "Text color"

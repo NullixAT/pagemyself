@@ -28,6 +28,40 @@ class Myself {
       if (domTo) return
       domTo = setTimeout(function () {
         domTo = null
+        $('.myself-block-layout-row[data-background-video], .myself-block-layout-row-column[data-background-video]').each(function () {
+          const el = $(this)
+          const backgroundVideo = el.attr('data-background-video')
+          el.removeAttr('data-background-video')
+          FramelixIntersectionObserver.onGetVisible(this, function () {
+            /** @type {HTMLVideoElement} */
+            const video = document.createElement('video')
+            video.autoplay = true
+            video.loop = true
+            video.muted = true
+            video.src = backgroundVideo
+            el.prepend(video)
+            el.addClass('myself-block-layout-background-video')
+            video.play()
+            let resizeTo = false
+            video.width = el.width()
+            $(window).on('resize', function () {
+              if (resizeTo) return
+              resizeTo = true
+              setTimeout(function () {
+                resizeTo = false
+                video.width = el.width()
+              }, 200)
+            })
+          })
+        })
+        $('.myself-block-layout-row[data-background-image], .myself-block-layout-row-column[data-background-image]').each(function () {
+          const el = $(this)
+          const backgroundImage = el.attr('data-background-image')
+          el.removeAttr('data-background-image')
+          FramelixIntersectionObserver.onGetVisible(this, function () {
+            el.css('background-image', 'url(' + backgroundImage + ')')
+          })
+        })
         $('.myself-lazy-load').not('.myself-lazy-load-initialized').addClass('myself-lazy-load-initialized').each(function () {
           const el = $(this)
           const imgAttr = el.attr('data-img')

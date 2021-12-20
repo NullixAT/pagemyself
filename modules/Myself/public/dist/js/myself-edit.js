@@ -24,8 +24,37 @@ class MyselfEdit {
    */
 
   /**
+   * Url to open block editor
+   */
+
+  /**
+   * Row settings edit url
+   * @type {string}
+   */
+
+  /**
+   * Column settings edit url
+   * @type {string}
+   */
+
+  /**
+   * Save settings  url
+   * @type {string}
+   */
+
+  /**
    * Url to tinymce folder
    * @type {string}
+   */
+
+  /**
+   * The current block layout config
+   * @type {{}}
+   */
+
+  /**
+   * Is block layout editor initialized
+   * @type {boolean}
    */
 
   /**
@@ -134,17 +163,6 @@ class MyselfEdit {
         location.reload();
       });
     });
-    $(document).on('click', '.myself-select-new-page-block', async function () {
-      FramelixModal.hideAll();
-      const modal = await FramelixModal.request('post', MyselfEdit.pageBlockEditUrl, {
-        'action': 'select-new',
-        'pageId': editFrameDoc[0].querySelector('html').getAttribute('data-page')
-      }, null, false, null, true);
-      modal.contentContainer.addClass('myself-edit-font');
-      modal.contentContainer.on(FramelixForm.EVENT_SUBMITTED, function () {
-        editFrameWindow.location.reload();
-      });
-    });
     $(document).on('click', '.myself-page-api-call', async function () {
       if (this.dataset.confirm && !(await FramelixModal.confirm('__sure__').closed).confirmed) return;
       const urlParams = {
@@ -165,6 +183,9 @@ class MyselfEdit {
         editFrameWindow.location.reload();
       });
     });
+    $(document).on('click', '.myself-open-layout-block-editor', function () {
+      FramelixModal.callPhpMethod(MyselfEdit.blockLayoutEditorUrl, null, true);
+    });
     $(document).on('change', '.myself-page-block-edit-tabs', function (ev) {
       const target = $(ev.target);
       const tabContent = target.closest('.framelix-tab-content');
@@ -180,6 +201,243 @@ class MyselfEdit {
       const tabButton = tabContent.closest('.framelix-tabs').children('.framelix-tab-buttons').children('.framelix-tab-button[data-id=\'' + tabContent.attr('data-id') + '\']');
       tabButton.find('.myself-tab-edited').remove();
     });
+    $(document).on('click', '.myself-block-layout-row [data-action]', function () {});
+  }
+  /**
+   * Render block layout editor
+   */
+
+
+  static async renderBlockLayoutEditor() {
+    if (!Framelix.hasObjectKeys(MyselfEdit.blockLayoutConfig)) {
+      MyselfEdit.blockLayoutConfig = {};
+    }
+
+    if (!Framelix.hasObjectKeys(MyselfEdit.blockLayoutConfig.rows)) {
+      MyselfEdit.blockLayoutConfig.rows = [];
+    }
+
+    const container = $('.myself-block-layout-editor');
+    container.html('<div class="framelix-loading"></div>');
+    container.empty(); // get all unassigned blocks and add it to the end of the list
+
+    let unassignedPageBlocks = Object.assign({}, MyselfEdit.blockLayoutConfig.allPageBlocks);
+
+    for (let i = 0; i < MyselfEdit.blockLayoutConfig.rows.length; i++) {
+      const configRow = MyselfEdit.blockLayoutConfig.rows[i];
+
+      for (let j = 0; j < configRow.columns.length; j++) {
+        const configColumn = configRow.columns[j];
+
+        if (configColumn.pageBlockId) {
+          delete unassignedPageBlocks[configColumn.pageBlockId];
+        }
+      }
+    }
+
+    for (let pageBlockId in unassignedPageBlocks) {
+      const pageBlockRow = unassignedPageBlocks[pageBlockId];
+      MyselfEdit.blockLayoutConfig.rows.push({
+        'columns': [{
+          'title': pageBlockRow.title,
+          'pageBlockId': pageBlockId,
+          'settings': {}
+        }]
+      });
+    }
+
+    for (let i = 0; i < MyselfEdit.blockLayoutConfig.rows.length; i++) {
+      var _configRow$settings, _configRow$settings2, _configRow$settings3;
+
+      const configRow = MyselfEdit.blockLayoutConfig.rows[i];
+      const row = $(`<div class="myself-block-layout-row"></div>`);
+      const gap = (_configRow$settings = configRow.settings) === null || _configRow$settings === void 0 ? void 0 : _configRow$settings.gap;
+      const maxWidth = (_configRow$settings2 = configRow.settings) === null || _configRow$settings2 === void 0 ? void 0 : _configRow$settings2.maxWidth;
+      const align = (_configRow$settings3 = configRow.settings) === null || _configRow$settings3 === void 0 ? void 0 : _configRow$settings3.alignment;
+
+      if (gap !== null && typeof gap !== 'undefined' && gap.length) {
+        row.css('gap', gap + 'px');
+      }
+
+      if (maxWidth !== null && typeof maxWidth !== 'undefined' && maxWidth.length) {
+        row.css('max-width', maxWidth + 'px');
+      }
+
+      if (align !== null && typeof align !== 'undefined' && align.length) {
+        row.attr('data-align', align);
+      }
+
+      for (let j = 0; j < configRow.columns.length; j++) {
+        const configColumn = configRow.columns[j];
+        const empty = !configColumn.pageBlockId;
+        row.append(`<div class="myself-block-layout-row-column" draggable="true" data-id="${j}" ${empty ? 'data-empty="1"' : ''}>
+            <div class="myself-block-layout-row-column-title">
+            ${FramelixLang.get(empty ? '__myself_blocklayout_empty__' : configColumn.title)}
+            </div>
+            <div class="myself-block-layout-row-column-actions">
+              <button class="framelix-button framelix-button-primary" data-icon-left="settings"
+                      title="__myself_blocklayout_settings_column__" data-action="settingscolumn"></button>
+              <button class="framelix-button framelix-button-trans" data-icon-left="clear"
+                      title="__myself_blocklayout_remove_column__" data-action="removecolumn"></button>
+            </div>
+        </div>`);
+      }
+
+      row.append(`<div class="myself-block-layout-row-column myself-block-layout-row-column-new">
+            <div class="myself-block-layout-row-column-title">
+            </div>
+            <div class="myself-block-layout-row-column-actions">
+              <button class="framelix-button framelix-button-primary" data-icon-left="settings"
+                      title="__myself_blocklayout_settings_row__" data-action="settingsrow"></button>
+              <button class="framelix-button framelix-button-success" data-icon-left="add"
+                      title="__myself_blocklayout_add_column__" data-action="addcolumn"></button>
+            </div>
+        </div>`);
+      row.attr('data-id', i);
+      container.append(row);
+    }
+
+    container.append(`<div class="myself-block-layout-row framelix-responsive-grid-2">        
+        <button class="myself-block-layout-row-column framelix-button framelix-button-success" data-icon-left="save" data-action="save">${FramelixLang.get('__myself_blocklayout_save__')}</button>
+        <button class="myself-block-layout-row-column framelix-button framelix-button-primary" data-icon-left="add"
+                        title="__myself_blocklayout_add_row__" data-action="addrow"></button>
+    </div>`);
+
+    if (!container.attr('data-initialized')) {
+      container.attr('data-initialized', 1);
+      container.on('click', '[data-action]', async function () {
+        const row = $(this).closest('.myself-block-layout-row');
+        const rowId = row.attr('data-id');
+        const column = $(this).closest('.myself-block-layout-row-column');
+        const columnId = column.attr('data-id');
+
+        switch ($(this).attr('data-action')) {
+          case 'save':
+            {
+              await FramelixApi.callPhpMethod(MyselfEdit.blockLayoutSaveSettingsUrl, {
+                'rows': MyselfEdit.blockLayoutConfig.rows
+              });
+              location.reload();
+            }
+            break;
+
+          case 'settingsrow':
+            {
+              let rowSettings = MyselfEdit.blockLayoutConfig.rows[rowId].settings;
+
+              if (!rowSettings || Array.isArray(rowSettings)) {
+                MyselfEdit.blockLayoutConfig.rows[rowId].settings = {};
+                rowSettings = MyselfEdit.blockLayoutConfig.rows[rowId].settings;
+              }
+
+              const modal = await FramelixModal.callPhpMethod(MyselfEdit.blockLayoutRowSettingsEditUrl, {
+                'settings': rowSettings
+              }, true);
+              modal.contentContainer.on('click', '.framelix-form-buttons [data-action=\'save\']', async function () {
+                const form = FramelixForm.getById('rowsettings');
+                if (!(await form.validate())) return;
+                Object.assign(rowSettings, form.getValues());
+                modal.close();
+                MyselfEdit.renderBlockLayoutEditor();
+              });
+            }
+            break;
+
+          case 'settingscolumn':
+            {
+              let columnSettings = MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings;
+
+              if (!columnSettings || Array.isArray(columnSettings)) {
+                MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings = {};
+                columnSettings = MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings;
+              }
+
+              const modal = await FramelixModal.callPhpMethod(MyselfEdit.blockLayoutColumnSettingsEditUrl, {
+                'settings': columnSettings
+              }, true);
+              modal.contentContainer.on('click', '.framelix-form-buttons [data-action=\'save\']', async function () {
+                const form = FramelixForm.getById('columnsettings');
+                if (!(await form.validate())) return;
+                Object.assign(columnSettings, form.getValues());
+                modal.close();
+                MyselfEdit.renderBlockLayoutEditor();
+              });
+            }
+            break;
+
+          case 'addrow':
+            MyselfEdit.blockLayoutConfig.rows.push({
+              'columns': [{
+                'title': ''
+              }]
+            });
+            MyselfEdit.renderBlockLayoutEditor();
+            break;
+
+          case 'addcolumn':
+            MyselfEdit.blockLayoutConfig.rows[rowId].columns.push({
+              'title': ''
+            });
+            MyselfEdit.renderBlockLayoutEditor();
+            break;
+
+          case 'removecolumn':
+            MyselfEdit.blockLayoutConfig.rows[rowId].columns.splice(columnId, 1);
+
+            if (!MyselfEdit.blockLayoutConfig.rows[rowId].columns.length) {
+              MyselfEdit.blockLayoutConfig.rows.splice(rowId, 1);
+            }
+
+            MyselfEdit.renderBlockLayoutEditor();
+            break;
+        }
+      });
+    }
+
+    if (!MyselfEdit.blockLayoutEditorInitialized) {
+      MyselfEdit.blockLayoutEditorInitialized = true;
+      let dragEl = null;
+
+      function swapColumns(columnA, columnB) {
+        const columnIdA = columnA.attr('data-id');
+        const columnIdB = columnB.attr('data-id');
+        const rowA = columnA.closest('.myself-block-layout-row');
+        const rowB = columnB.closest('.myself-block-layout-row');
+        const rowIdA = rowA.attr('data-id');
+        const rowIdB = rowB.attr('data-id');
+        const configA = MyselfEdit.blockLayoutConfig.rows[rowIdA].columns[columnIdA];
+        const configB = MyselfEdit.blockLayoutConfig.rows[rowIdB].columns[columnIdB];
+        const settingsA = configA.settings;
+        const settingsB = configB.settings;
+        configB.settings = settingsA;
+        configA.settings = settingsB;
+        MyselfEdit.blockLayoutConfig.rows[rowIdA].columns[columnIdA] = configB;
+        MyselfEdit.blockLayoutConfig.rows[rowIdB].columns[columnIdB] = configA;
+        dragEl = null;
+        MyselfEdit.renderBlockLayoutEditor();
+      }
+
+      $(document).on('dragstart', '.myself-block-layout-row-column[draggable]', function (ev) {
+        dragEl = $(this);
+        $('.myself-block-layout-row-column[draggable]').not(this).toggleClass('myself-block-layout-drop-highlight', true);
+      });
+      $(document).on('dragenter dragover', '.myself-block-layout-drop-highlight', function (ev) {
+        $('.myself-block-layout-drop-highlight-strong').toggleClass('myself-block-layout-drop-highlight-strong', false);
+        $(this).toggleClass('myself-block-layout-drop-highlight-strong', true);
+        ev.preventDefault();
+      });
+      $(document).on('drop', '.myself-block-layout-drop-highlight', function (ev) {
+        ev.preventDefault();
+
+        if (dragEl) {
+          swapColumns(dragEl, $(this));
+        }
+      });
+      $(document).on('dragend', function (ev) {
+        $('.myself-block-layout-drop-highlight').toggleClass('myself-block-layout-drop-highlight', false);
+        dragEl = null;
+      });
+    }
   }
   /**
    * Bind live editable wysiwyg
@@ -330,6 +588,18 @@ _defineProperty(MyselfEdit, "themeSettingsEditUrl", void 0);
 
 _defineProperty(MyselfEdit, "websiteSettingsEditUrl", void 0);
 
+_defineProperty(MyselfEdit, "blockLayoutEditorUrl", void 0);
+
+_defineProperty(MyselfEdit, "blockLayoutRowSettingsEditUrl", void 0);
+
+_defineProperty(MyselfEdit, "blockLayoutColumnSettingsEditUrl", void 0);
+
+_defineProperty(MyselfEdit, "blockLayoutSaveSettingsUrl", void 0);
+
 _defineProperty(MyselfEdit, "tinymceUrl", void 0);
+
+_defineProperty(MyselfEdit, "blockLayoutConfig", {});
+
+_defineProperty(MyselfEdit, "blockLayoutEditorInitialized", false);
 
 FramelixInit.late.push(MyselfEdit.initLate);

@@ -9,6 +9,7 @@ use Framelix\Framelix\Html\Compiler;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Storable\User;
@@ -213,6 +214,18 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                     View::getUrl(ThemeSettings::class)->setParameter('pageId', $this->page)
                 ) . ';
                     MyselfEdit.websiteSettingsEditUrl = ' . JsonUtils::encode(View::getUrl(WebsiteSettings::class)) . ';
+                    MyselfEdit.blockLayoutEditorUrl = ' . JsonUtils::encode(
+                    JsCall::getCallUrl(WebsiteSettings::class, 'editor')
+                ) . ';
+                    MyselfEdit.blockLayoutRowSettingsEditUrl = ' . JsonUtils::encode(
+                    JsCall::getCallUrl(WebsiteSettings::class, 'row-settings')
+                ) . ';
+                    MyselfEdit.blockLayoutColumnSettingsEditUrl = ' . JsonUtils::encode(
+                    JsCall::getCallUrl(WebsiteSettings::class, 'column-settings')
+                ) . ';
+                    MyselfEdit.blockLayoutSaveSettingsUrl = ' . JsonUtils::encode(
+                    JsCall::getCallUrl(WebsiteSettings::class, 'save-settings')
+                ) . ';
                 </script>
                 '
             );
@@ -260,11 +273,19 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 </div>
                 <div class="myself-edit-frame-outer-right">
                     <div class="myself-edit-frame-button-row" data-sticky-top="1">
-                        <button class="framelix-button framelix-button-primary myself-select-new-page-block"
+                        <button class="framelix-button framelix-button-primary myself-page-api-call"
                                 data-icon-left="playlist_add"
+                                data-action="select-new"
+                                data-page-id="<?= $this->page ?>"
                                 title="__myself_pageblock_create__"
                                 style="height: 70px;"></button>
 
+                    </div>
+                    <div class="myself-edit-frame-button-row" data-sticky-bottom="1">
+                        <button class="framelix-button framelix-button-primary myself-open-layout-block-editor"
+                                data-icon-left="grid_view"
+                                title="__myself_blocklayout_openeditor__"
+                                style="height: 70px;"></button>
                     </div>
                     <div class="myself-edit-frame-outer-margin"></div>
                 </div>

@@ -27,6 +27,42 @@
         "Oben",
         "a4ffd"
     ],
+    "__myself_blocklayout_columnsetting_padding__": [
+        "Padding in px",
+        "f7840"
+    ],
+    "__myself_blocklayout_columnsetting_padding_desc__": [
+        "Padding nennt man Abstand zwischen Au\u00dfenwand der Spalte und dem Textbereich.",
+        "ab192"
+    ],
+    "__myself_blocklayout_empty__": [
+        "Leer",
+        "ce2c8"
+    ],
+    "__myself_blocklayout_openeditor__": [
+        "\u00c4ndere das Layout",
+        "a7a66"
+    ],
+    "__myself_blocklayout_rowsetting_gap__": [
+        "Spalt in px",
+        "56e39"
+    ],
+    "__myself_blocklayout_rowsetting_gap_desc__": [
+        "Der Spalt definiert den Abstand zwischen den Spalten, jedoch nicht am Anfang und Ende der Reihe.",
+        "42cbc"
+    ],
+    "__myself_blocklayout_rowsetting_maxwidth__": [
+        "Maximale Breite in px",
+        "dd689"
+    ],
+    "__myself_blocklayout_rowsetting_maxwidth_desc__": [
+        "Der Block wird nicht breiter als diese Angabe. Hilfreich wenn du zb.: einen Block zentrieren willst.",
+        "90b5d"
+    ],
+    "__myself_blocklayout_save__": [
+        "Layout speichern",
+        "0f4a5"
+    ],
     "__myself_column_align__": [
         "Spaltenausrichtung",
         "51f94"
@@ -34,6 +70,10 @@
     "__myself_disable_editmode__": [
         "Bearbeitungsmodus deaktivieren",
         "5017a"
+    ],
+    "__myself_edittext_area__": [
+        "Klicke hier um einen Text zu schreiben",
+        "9c69e"
     ],
     "__myself_enable_editmode__": [
         "Bearbeitungsmodus aktivieren",
@@ -203,10 +243,6 @@
         "Diese Seite ist im Entwurfsmodus. Nur Seitenadministratoren k\u00f6nnen sie sehen.",
         "e94d0"
     ],
-    "__myself_pageblocks_backgroundalign__": [
-        "Hintergrundausrichtung",
-        "bfbf9"
-    ],
     "__myself_pageblocks_backgroundcolor__": [
         "Hintergrundfarbe",
         "368d9"
@@ -222,70 +258,6 @@
     "__myself_pageblocks_backgroundvideo_desc__": [
         "Du solltest Video mit m\u00f6glichst geringer Dateigr\u00f6\u00dfe w\u00e4hlen.<br\/>Das Video startet automatisch, wiederholt sich und ist lautlos.<br\/>F\u00fcge ein Hintergrundbild auch ein, dies wird als Platzhalter w\u00e4hrend des Ladevorgangs angezeigt.",
         "033c4"
-    ],
-    "__myself_pageblocks_columns__": [
-        "Eine oder mehrere Spalten in einer Reihe",
-        "06c69"
-    ],
-    "__myself_pageblocks_columns_desc__": [
-        "M\u00f6glicherweise der Block den du am meisten benutzen wirst. Du kannst viele Einstellungen vornehmen, jede Spalte kann individuell bef\u00fcllt werden.",
-        "74362"
-    ],
-    "__myself_pageblocks_columns_form_column_enabled__": [
-        "Spalte sichtbar",
-        "7d31f"
-    ],
-    "__myself_pageblocks_columns_form_column_enabled_desc__": [
-        "Falls deaktiviert, dann wird diese Spalte nicht angezeigt",
-        "a1cc6"
-    ],
-    "__myself_pageblocks_columns_form_column_gap__": [
-        "Spalt in px",
-        "56e39"
-    ],
-    "__myself_pageblocks_columns_form_column_gap_desc__": [
-        "Der Spalt definiert den Abstand zwischen den Spalten, jedoch nicht am Anfang und Ende der Reihe.",
-        "42cbc"
-    ],
-    "__myself_pageblocks_columns_form_column_maxwidth__": [
-        "Maximale Breite in px",
-        "dd689"
-    ],
-    "__myself_pageblocks_columns_form_column_maxwidth_desc__": [
-        "Der Block wird nicht breiter als diese Angabe. Hilfreich wenn du zb.: einen Block zentrieren willst.",
-        "90b5d"
-    ],
-    "__myself_pageblocks_columns_form_column_padding__": [
-        "Padding in px",
-        "f7840"
-    ],
-    "__myself_pageblocks_columns_form_column_padding_desc__": [
-        "Padding nennt man Abstand zwischen Au\u00dfenwand der Spalte und dem Textbereich.",
-        "ab192"
-    ],
-    "__myself_pageblocks_columns_form_column_width__": [
-        "Breite in Gewichtung oder Px",
-        "8fb3a"
-    ],
-    "__myself_pageblocks_columns_form_column_width_desc__": [
-        "Falls du einen Wert gr\u00f6\u00dfer als 10 eingibst, dann wird der Wert als Pixelwert angenommen.<br\/>Werte darunter ist eine Gewichtung.<br\/>Falls du also alle Spalten gleich breit haben willst, dann gibt in jeder Spalte 1 ein.<br\/>M\u00f6chtest du eine Spalte doppelt so breit wie die anderen, dann gib 2 ein. Usw...<br\/>Mit dieser Technik richten sich die Spalten je nach verf\u00fcgbaren Bildschirmgr\u00f6\u00dfe automatisch aus.",
-        "aefc3"
-    ],
-    "__myself_pageblocks_columns_form_formlabel__": [
-        "Spalte {0}",
-        "76ade"
-    ],
-    "__myself_pageblocks_columns_form_general__": [
-        "Allgemein",
-        "0db37"
-    ],
-    "__myself_pageblocks_columns_open_editor__": [
-        "Klicke hier um den Texteditor zu \u00f6ffnen",
-        "4a08e"
-    ],
-    "__myself_pageblocks_columns_open_simpletexteditor__": [
-        "Klicke hier um den Text zu bearbeiten",
-        "5ad1c"
     ],
     "__myself_pageblocks_css__": [
         "CSS\/Stylesheet - Maximale Anpassungsm\u00f6glichkeit",
@@ -378,6 +350,26 @@
     "__myself_pageblocks_slideshow_prev__": [
         "Vorheriges Bild",
         "ee34f"
+    ],
+    "__myself_pageblocks_text__": [
+        "Text",
+        "9dffb"
+    ],
+    "__myself_pageblocks_text_desc__": [
+        "Ein einfacher Textblock mit oder ohne Textformatierung.",
+        "4c404"
+    ],
+    "__myself_pageblocks_text_form_main__": [
+        "Text Einstellungen",
+        "d8519"
+    ],
+    "__myself_pageblocks_text_multiline__": [
+        "Erlaube mehrfache Zeilen",
+        "52eba"
+    ],
+    "__myself_pageblocks_text_wysiwyg__": [
+        "Voller Texteditor mit Formatierungsoptionen",
+        "9f2d2"
     ],
     "__myself_pageblocks_textcolor__": [
         "Textfarbe",

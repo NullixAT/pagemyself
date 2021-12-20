@@ -6,15 +6,21 @@ use Exception;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Html\HtmlAttributes;
+use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
+use Framelix\Framelix\Utils\NumberUtils;
+use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 use Framelix\Myself\Storable\Theme;
+use Framelix\Myself\Storable\WebsiteSettings;
 use Framelix\Myself\View\Index;
 
 use function basename;
 use function class_exists;
+use function is_array;
 
 /**
  * ThemeBase
@@ -111,24 +117,108 @@ abstract class ThemeBase
     }
 
     /**
-     * Show all user defined page blocks
+     * Show all user defined layout and blocks
      * @return void
      */
-    public function showUserDefinedPageBlocks(): void
+    public function showUserDefinedLayout(): void
     {
-        ?>
-        <div class="myself-page-blocks">
-            <?
-            $pageBlocks = $this->page->getPageBlocks();
-            foreach ($pageBlocks as $pageBlock) {
-                if ($pageBlock->fixedPlacement) {
-                    continue;
-                }
-                $pageBlock->getLayoutBlock()?->showLayout();
+        $config = WebsiteSettings::get('blockLayout');
+        $pageBlocks = $this->page->getPageBlocks();
+        foreach ($pageBlocks as $id => $pageBlock) {
+            if ($pageBlock->fixedPlacement) {
+                unset($pageBlocks[$id]);
             }
-            ?>
-        </div>
-        <?
+        }
+        $unassignedPageBlocks = $pageBlocks;
+        if (is_array($config['rows'] ?? null)) {
+            foreach ($config['rows'] as $row) {
+                $rowAttributes = new HtmlAttributes();
+                $rowAttributes->addClass('myself-block-layout-row');
+                $columns = $row['columns'] ?? null;
+                $rowSettings = $row['settings'] ?? null;
+                $settingValue = $rowSettings['gap'] ?? null;
+                if ($settingValue) {
+                    $rowAttributes->setStyle('gap', NumberUtils::toFloat($settingValue) . "px");
+                }
+                $settingValue = $rowSettings['maxWidth'] ?? null;
+                if ($settingValue) {
+                    $rowAttributes->setStyle('max-width', NumberUtils::toFloat($settingValue) . "px");
+                }
+                $settingValue = $rowSettings['alignment'] ?? null;
+                if ($settingValue) {
+                    $rowAttributes->set('data-align', $settingValue);
+                }
+                $backgroundImage = MediaFile::getById($rowSettings['backgroundImage'] ?? null);
+                $backgroundVideo = MediaFile::getById($rowSettings['backgroundVideo'] ?? null);
+                if ($backgroundImage && $backgroundImage->getImageData()) {
+                    $rowAttributes->set(
+                        'data-background-image',
+                        Url::getUrlToFile($backgroundImage->getPath())
+                    );
+                }
+                if ($backgroundVideo && $backgroundVideo->getPath()) {
+                    $rowAttributes->set(
+                        'data-background-video',
+                        Url::getUrlToFile($backgroundVideo->getPath())
+                    );
+                }
+                echo '<div ' . $rowAttributes . '>';
+                if (is_array($columns)) {
+                    foreach ($columns as $columnRow) {
+                        $columnSettings = $columnRow['settings'] ?? null;
+                        $columnAttributes = new HtmlAttributes();
+                        $columnAttributes->addClass('myself-block-layout-row-column');
+                        $settingValue = $columnSettings['padding'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('padding', NumberUtils::toFloat($settingValue) . "px");
+                        }
+                        $settingValue = $columnSettings['minHeight'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('min-height', NumberUtils::toFloat($settingValue) . "px");
+                        }
+                        $settingValue = $columnSettings['textColor'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('color', $settingValue);
+                        }
+                        $settingValue = $columnSettings['backgroundColor'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('background-color', $settingValue);
+                        }
+                        $backgroundImage = MediaFile::getById($columnSettings['backgroundImage'] ?? null);
+                        $backgroundVideo = MediaFile::getById($columnSettings['backgroundVideo'] ?? null);
+                        if ($backgroundImage && $backgroundImage->getImageData()) {
+                            $columnAttributes->set(
+                                'data-background-image',
+                                Url::getUrlToFile($backgroundImage->getPath())
+                            );
+                        }
+                        if ($backgroundVideo && $backgroundVideo->getPath()) {
+                            $columnAttributes->set(
+                                'data-background-video',
+                                Url::getUrlToFile($backgroundVideo->getPath())
+                            );
+                        }
+                        echo '<div ' . $columnAttributes . '>';
+                        $pageBlock = $pageBlocks[$columnRow['pageBlockId'] ?? 0] ?? null;
+                        if ($pageBlock) {
+                            $pageBlock->getLayoutBlock()?->showLayout();
+                            unset($unassignedPageBlocks[$pageBlock->id]);
+                        }
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                }
+            }
+        }
+        foreach ($unassignedPageBlocks as $pageBlock) {
+            $rowAttributes = new HtmlAttributes();
+            $rowAttributes->addClass('myself-block-layout-row');
+            $columnAttributes = new HtmlAttributes();
+            $columnAttributes->addClass('myself-block-layout-row-column');
+            echo '<div ' . $rowAttributes . '><div ' . $columnAttributes . '>';
+            $pageBlock->getLayoutBlock()?->showLayout();
+            echo '</div></div>';
+        }
     }
 
     /**

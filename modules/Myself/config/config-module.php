@@ -71,18 +71,6 @@ if (!defined("FRAMELIX_MODULE")) {
                             "noInclude": true
                         }
                     },
-                    "pageblock-columns": {
-                        "files": [
-                            {
-                                "type": "folder",
-                                "path": "js\/page-blocks\/columns",
-                                "recursive": true
-                            }
-                        ],
-                        "options": {
-                            "noInclude": true
-                        }
-                    },
                     "theme-hello": {
                         "files": [
                             {
@@ -121,18 +109,6 @@ if (!defined("FRAMELIX_MODULE")) {
                             {
                                 "type": "file",
                                 "path": "scss\/myself-edit.scss"
-                            }
-                        ],
-                        "options": {
-                            "noInclude": true
-                        }
-                    },
-                    "pageblock-columns": {
-                        "files": [
-                            {
-                                "type": "folder",
-                                "path": "scss\/page-blocks\/columns",
-                                "recursive": true
                             }
                         ],
                         "options": {

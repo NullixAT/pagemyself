@@ -54,7 +54,7 @@ class Hello extends ThemeBase
         echo '<button class="framelix-button framelix-button-trans ' . $htmlClassBase . '-more" data-icon-left="menu"></button>';
         echo '</div>';
         echo '<div class="' . $htmlClassBase . '-content">';
-        $this->showUserDefinedPageBlocks();
+        $this->showUserDefinedLayout();
         echo '</div></div>';
     }
 

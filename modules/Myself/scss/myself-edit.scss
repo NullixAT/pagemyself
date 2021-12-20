@@ -65,6 +65,7 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 .myself-edit-frame-outer-right {
   position: absolute;
   top: 0;
+  height: 100vh;
   width: var(--myself-edit-frame-padding);
   font-family: var(--myself-edit-font);
 
@@ -122,6 +123,11 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 
   &[data-sticky-top='1'] {
     top: 0;
+    position: absolute;
+  }
+
+  &[data-sticky-bottom='1'] {
+    bottom: 0;
     position: absolute;
   }
 }
@@ -196,4 +202,50 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 .myself-tab-edited {
   opacity: 0.7;
   margin-right: 10px;
+}
+
+.myself-block-layout-row {
+  margin-bottom: 5px;
+  flex-wrap: nowrap;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
+  border-radius: 20px;
+
+  button.framelix-button {
+    margin: 0;
+  }
+}
+
+.myself-block-layout-row-column {
+  background: #ddd;
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
+
+  &[data-empty='1'] {
+    background: #f5f5f5;
+  }
+}
+
+.myself-block-layout-row-column-new {
+  flex: 0;
+  background: white;
+}
+
+.myself-block-layout-row-column-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+
+.myself-block-layout-row-column-actions {
+  display: flex;
+}
+
+.myself-block-layout-drop-highlight {
+  box-shadow: var(--color-success-bg-subtle) 0 0 20px;
+
+  &.myself-block-layout-drop-highlight-strong {
+    box-shadow: var(--color-success-bg-strong) 0 0 20px;
+  }
 }

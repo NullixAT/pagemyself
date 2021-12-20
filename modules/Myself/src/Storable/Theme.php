@@ -42,8 +42,7 @@ class Theme extends StorableExtended
         }
         $this->pageBlocks[$cacheKey] = PageBlock::getByCondition(
             'theme = {0}',
-            [$this],
-            "+sort"
+            [$this]
         );
         return $this->pageBlocks[$cacheKey];
     }

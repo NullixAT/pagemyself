@@ -149,8 +149,6 @@ abstract class BlockBase
             $label .= '<button class="framelix-button framelix-button-error framelix-button-small myself-page-api-call" data-confirm="1" data-action="delete" data-page-block-id="' . $this->pageBlock . '" data-icon-left="clear">';
             $label .= Lang::get('__myself_pageblock_edit_internal_delete__');
             $label .= '</button>';
-            $label .= '<button class="framelix-button framelix-button-small myself-page-api-call" data-action="moveup" data-page-block-id="' . $this->pageBlock . '" data-icon-left="expand_less" title="__myself_pageblock_move_up__"></button>';
-            $label .= '<button class="framelix-button framelix-button-small myself-page-api-call" data-action="movedown" data-page-block-id="' . $this->pageBlock . '" data-icon-left="expand_more" title="__myself_pageblock_move_down__"></button>';
             $label .= '</div>';
         }
 

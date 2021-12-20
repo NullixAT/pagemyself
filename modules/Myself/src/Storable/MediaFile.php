@@ -212,9 +212,6 @@ class MediaFile extends StorableFile
      */
     public function getBiggestThumbUrl(?int $maxSize = null): ?Url
     {
-        if (!$this->isImageFile()) {
-            return null;
-        }
         $path = $this->getBiggestThumbPath($maxSize);
         if ($path) {
             return Url::getUrlToFile($path);
@@ -285,8 +282,8 @@ class MediaFile extends StorableFile
         $sizes = array_reverse($sizes, true);
         if ($this->id) {
             foreach ($sizes as $size => $row) {
-                $thumbPath = $this->getThumbPath($size, false);
-                if (file_exists($thumbPath)) {
+                $thumbPath = $this->getThumbPath($size);
+                if ($thumbPath) {
                     $existingThumbPaths[$size] = $thumbPath;
                 }
             }
@@ -305,7 +302,7 @@ class MediaFile extends StorableFile
                 ];
             }
             foreach ($sizes as $size => $row) {
-                if ($image->getSourceWidth() > $row[0] || $image->getSourceHeight() > $row[1]) {
+                if ($metadata['imageDimensions']['original']['w'] > $row[0] || $metadata['imageDimensions']['original']['h'] > $row[1]) {
                     $thumbPath = $this->getThumbPath($size, false);
                     $image->resizeToBestFit($row[0], $row[1]);
                     $image->save($thumbPath);
@@ -322,9 +319,11 @@ class MediaFile extends StorableFile
                 $this->store();
             }
         }
-        // remove old thumb files
-        foreach ($existingThumbPaths as $existingThumbPath) {
-            unlink($existingThumbPath);
+        if ($file) {
+            // remove old thumb files
+            foreach ($existingThumbPaths as $existingThumbPath) {
+                unlink($existingThumbPath);
+            }
         }
     }
 

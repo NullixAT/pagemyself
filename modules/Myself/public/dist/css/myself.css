@@ -38,6 +38,12 @@ html:not([data-edit-frame]) .myself-page-block[data-draft] {
   min-height: 18px;
   position: relative; }
 
+html[data-edit-frame='1'] .myself-live-editable-wysiwyg:empty:after,
+html[data-edit-frame='1'] .myself-live-editable-text:empty:after {
+  content: attr(data-empty-text);
+  font-style: italic;
+  opacity: 0.8; }
+
 .myself-live-editable-text[data-multiline='1'] {
   white-space: pre; }
 
@@ -53,3 +59,30 @@ html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
 
 .myself-lazy-load {
   display: inline-block; }
+
+.myself-block-layout-row {
+  display: flex;
+  flex-wrap: wrap;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; }
+  .myself-block-layout-row[data-align='center'] {
+    margin-left: auto;
+    margin-right: auto; }
+
+.myself-block-layout-row-column {
+  flex: 1 1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; }
+
+.myself-block-layout-background-video {
+  position: relative;
+  overflow: hidden; }
+  .myself-block-layout-background-video > * {
+    position: relative;
+    overflow: hidden;
+    z-index: 1; }
+  .myself-block-layout-background-video > video {
+    position: absolute;
+    z-index: 0; }

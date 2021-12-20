@@ -2,9 +2,7 @@
 
 namespace Framelix\Myself\View;
 
-use Framelix\Framelix\Lang;
 use Framelix\Framelix\View;
-use Framelix\Myself\Storable\Nav;
 use Framelix\Myself\Storable\Page;
 
 use function header;
@@ -50,35 +48,5 @@ class Sitemap extends View
             </url>';
         }
         echo '</urlset>';
-    }
-
-    /**
-     * Show xml recursive for all childs of given parent
-     * @param Nav|null $parent
-     * @return Nav[]
-     */
-    private function showUrlsRecursive(?Page $parent): array
-    {
-        $condition = 'parent IS NULL';
-        if ($parent) {
-            $condition = "parent = " . $parent;
-        }
-        $condition .= " && flagDraft = false";
-        $entries = Nav::getByCondition(
-            $condition,
-            [$this->pageBlock->page->lang ?? Lang::$lang],
-            sort: ['+sort', '+title']
-        );
-        foreach ($entries as $entry) {
-            echo '<url>
-    <loc>' . View::getUrl(Index::class, ['url' => $entry->link]) . '</loc>
-    <lastmod>2018-06-04</lastmod>
-  </url>';
-        }
-        return Nav::getByCondition(
-            $condition,
-            [$this->pageBlock->page->lang ?? Lang::$lang],
-            sort: ['+sort', '+title']
-        );
     }
 }
