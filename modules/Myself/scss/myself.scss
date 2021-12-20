@@ -38,7 +38,6 @@ html:not([data-edit-frame]) .myself-page-block[data-draft] {
 .myself-page-block-editable {
   min-height: 35px;
 
-  &.myself-page-block-highlight,
   &:hover,
   &:focus-within {
     box-shadow: #009dff 0 0 10px inset;
@@ -102,8 +101,12 @@ html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
 .myself-block-layout-row-column {
   flex: 1 1;
   background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: cover;
+
+  &[data-background-size='contain'] {
+    background-size: cover;
+  }
 }
 
 .myself-block-layout-background-video {

@@ -16,12 +16,13 @@
   width: 100%; }
 
 .calendar-pageblocks-calendar-table th {
+  border-radius: 10px;
   background: #f5f5f5;
   padding: 10px;
   font-weight: bold; }
 
 .calendar-pageblocks-calendar-table td {
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 5px;
+  border-radius: 10px;
   padding: 10px; }
 
 .calendar-pageblocks-calendar-othermonth {

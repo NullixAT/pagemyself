@@ -7,9 +7,11 @@ class CalendarPageBlocksCalendar extends MyselfPageBlocks {
       const field = FramelixFormField.getFieldByName($(this), 'month')
       window.location.href = field.getValue()
     })
-    this.blockContainer.on('click', 'td[data-modal]', function (ev) {
-      FramelixModal.callPhpMethod($(this).attr('data-modal'))
-    })
+    if (Myself.isEditModeInner()) {
+      this.blockContainer.on('click', 'td[data-modal]', function (ev) {
+        FramelixModal.callPhpMethod($(this).attr('data-modal'))
+      })
+    }
     const tableContainer = this.blockContainer.find('.calendar-pageblocks-calendar-table')
     this.blockContainer.on('click', '.calendar-pageblocks-calendar-month-select a[data-jscall]', async function (ev) {
       ev.preventDefault()

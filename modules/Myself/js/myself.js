@@ -32,34 +32,50 @@ class Myself {
           const el = $(this)
           const backgroundVideo = el.attr('data-background-video')
           el.removeAttr('data-background-video')
+          el.attr('data-background-video-original', backgroundVideo)
           FramelixIntersectionObserver.onGetVisible(this, function () {
+            function updateVideoPosition () {
+              const elWidth = el.width()
+              const elHeight = el.height()
+              const wRatio = 1 / video.videoWidth * elWidth
+              const hRatio = 1 / video.videoHeight * elHeight
+              const minRatio = Math.min(wRatio, hRatio)
+              const maxRatio = Math.max(wRatio, hRatio)
+              video.width = video.videoWidth * minRatio
+              video.height = video.videoHeight * minRatio
+              if (backgroundSize === 'cover') {
+                video.width = video.videoWidth * maxRatio
+                video.height = video.videoHeight * maxRatio
+              }
+              video.style.left = (elWidth / 2 - video.width / 2) + 'px'
+              video.style.top = (elHeight / 2 - video.height / 2) + 'px'
+            }
+
             /** @type {HTMLVideoElement} */
             const video = document.createElement('video')
             video.autoplay = true
             video.loop = true
             video.muted = true
             video.src = backgroundVideo
+            video.poster = el.attr('data-background-image') || el.attr('data-background-original') || ''
             el.prepend(video)
             el.addClass('myself-block-layout-background-video')
             video.play()
-            let resizeTo = false
-            video.width = el.width()
-            $(window).on('resize', function () {
-              if (resizeTo) return
-              resizeTo = true
-              setTimeout(function () {
-                resizeTo = false
-                video.width = el.width()
-              }, 200)
-            })
+            const backgroundSize = el.attr('data-background-size') || 'cover'
+            video.addEventListener('timeupdate', updateVideoPosition)
+            video.addEventListener('play', updateVideoPosition)
+            updateVideoPosition()
           })
         })
         $('.myself-block-layout-row[data-background-image], .myself-block-layout-row-column[data-background-image]').each(function () {
           const el = $(this)
           const backgroundImage = el.attr('data-background-image')
           el.removeAttr('data-background-image')
+          el.attr('data-background-image-original', backgroundImage)
           FramelixIntersectionObserver.onGetVisible(this, function () {
-            el.css('background-image', 'url(' + backgroundImage + ')')
+            if (!el.attr('data-background-video') && !el.attr('data-background-video-original')) {
+              el.css('background-image', 'url(' + backgroundImage + ')')
+            }
           })
         })
         $('.myself-lazy-load').not('.myself-lazy-load-initialized').addClass('myself-lazy-load-initialized').each(function () {

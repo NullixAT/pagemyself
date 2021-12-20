@@ -110,7 +110,6 @@ abstract class ThemeBase
             $usePageBlock->theme = $this->theme;
             $usePageBlock->flagDraft = false;
             $usePageBlock->pageBlockClass = $typeClass;
-            $usePageBlock->sort = 0;
             $usePageBlock->store();
         }
         return $usePageBlock;
@@ -148,6 +147,10 @@ abstract class ThemeBase
                 if ($settingValue) {
                     $rowAttributes->set('data-align', $settingValue);
                 }
+                $settingValue = $rowSettings['backgroundSize'] ?? null;
+                if ($settingValue) {
+                    $rowAttributes->set('data-background-size', $settingValue);
+                }
                 $backgroundImage = MediaFile::getById($rowSettings['backgroundImage'] ?? null);
                 $backgroundVideo = MediaFile::getById($rowSettings['backgroundVideo'] ?? null);
                 if ($backgroundImage && $backgroundImage->getImageData()) {
@@ -172,6 +175,10 @@ abstract class ThemeBase
                         if ($settingValue) {
                             $columnAttributes->setStyle('padding', NumberUtils::toFloat($settingValue) . "px");
                         }
+                        $settingValue = $columnSettings['minWidth'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('min-width', NumberUtils::toFloat($settingValue) . "px");
+                        }
                         $settingValue = $columnSettings['minHeight'] ?? null;
                         if ($settingValue) {
                             $columnAttributes->setStyle('min-height', NumberUtils::toFloat($settingValue) . "px");
@@ -183,6 +190,22 @@ abstract class ThemeBase
                         $settingValue = $columnSettings['backgroundColor'] ?? null;
                         if ($settingValue) {
                             $columnAttributes->setStyle('background-color', $settingValue);
+                        }
+                        $settingValue = $columnSettings['textAlignment'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('text-align', $settingValue);
+                        }
+                        $settingValue = $columnSettings['textSize'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('font-size', $settingValue . "%");
+                        }
+                        $settingValue = $columnSettings['backgroundSize'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->set('data-background-size', $settingValue);
+                        }
+                        $settingValue = $columnSettings['grow'] ?? null;
+                        if ($settingValue) {
+                            $columnAttributes->setStyle('flex-grow', $settingValue);
                         }
                         $backgroundImage = MediaFile::getById($columnSettings['backgroundImage'] ?? null);
                         $backgroundVideo = MediaFile::getById($columnSettings['backgroundVideo'] ?? null);

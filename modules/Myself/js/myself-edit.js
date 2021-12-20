@@ -3,9 +3,6 @@
  */
 class MyselfEdit {
 
-  /** @type Map<HTMLElement,Cash> */
-  static editBlockMap
-
   /**
    * Page block edit url
    * @type {string}
@@ -28,6 +25,12 @@ class MyselfEdit {
    * Url to open block editor
    */
   static blockLayoutEditorUrl
+
+  /**
+   * Fetch settings edit url
+   * @type {string}
+   */
+  static blockLayoutFetchSettingsUrl
 
   /**
    * Row settings edit url
@@ -69,111 +72,38 @@ class MyselfEdit {
    * Init late
    */
   static initLate () {
-
-    MyselfEdit.editBlockMap = new Map()
-
     const editFrame = $('.myself-edit-frame-inner iframe')
     let editFrameWindow = editFrame[0].contentWindow
     let editFrameDoc = $(editFrameWindow.document)
-    const leftEditArea = $('.myself-edit-frame-outer-left').children('.myself-edit-frame-outer-margin')
-    const rightEditArea = $('.myself-edit-frame-outer-right').children('.myself-edit-frame-outer-margin')
-
-    let lastPositions = []
-
-    function step () {
-      if (MyselfEdit.editBlockMap) {
-        let i = 0
-        MyselfEdit.editBlockMap.forEach(function (editRow, srcElement) {
-          if (typeof lastPositions[i] === 'undefined') {
-            lastPositions.push(0)
-          }
-          const boundRectSrc = srcElement.getBoundingClientRect()
-          if (lastPositions[i] !== boundRectSrc.top) {
-            lastPositions[i] = boundRectSrc.top
-            editRow.css('top', boundRectSrc.top + 'px')
-          }
-          i++
-        })
-      }
-      window.requestAnimationFrame(step)
-    }
-
-    window.requestAnimationFrame(step)
 
     MyselfEdit.bindLiveEditableText(window)
 
-    $('[data-help-text-id]').each(function () {
-
-    })
     editFrame.on('load', function () {
-      if (MyselfEdit.editBlockMap) {
-        MyselfEdit.editBlockMap.forEach(function (editRow, srcElement) {
-          editRow.remove()
-        })
-      }
-      lastPositions = []
       editFrameWindow = editFrame[0].contentWindow
       editFrameDoc = $(editFrameWindow.document)
       editFrameDoc[0].querySelector('html').setAttribute('data-edit-frame', '1')
       let url = new URL(editFrameWindow.location.href)
       url.searchParams.set('editMode', '1')
       window.history.pushState(null, null, url)
-
-      editFrameDoc.find('.myself-page-block').addClass('myself-page-block-editable').each(function () {
-        const pageBlockId = this.getAttribute('data-id')
-        const editRow = $('<div class="myself-edit-frame-button-row myself-edit-frame-button-row-float" data-page-block-id="' + pageBlockId + '"></div>')
-        editRow.append(`<button class="framelix-button myself-page-api-call" data-action="edit" data-page-block-id="${pageBlockId}" data-icon-left="edit" title="__myself_pageblock_edit__"></button>`)
-        const boundingRect = this.getBoundingClientRect()
-        const middle = boundingRect.left + boundingRect.width / 2
-        if (middle <= window.innerWidth / 2) {
-          leftEditArea.append(editRow)
-        } else {
-          rightEditArea.append(editRow)
-        }
-        MyselfEdit.editBlockMap.set(this, editRow)
-        editFrameWindow.$(this).on('focusin mouseenter', function () {
-          MyselfEdit.editBlockMap.forEach(function (innerEditRow, srcElement) {
-            innerEditRow.removeClass('myself-edit-frame-button-row-active')
-          })
-          editRow.addClass('myself-edit-frame-button-row-active')
-        })
-        editRow[0].ignoreDomObserver = true
-      })
-
       MyselfEdit.bindLiveEditableText(editFrameWindow)
       MyselfEdit.bindLiveEditableWysiwyg(editFrameWindow)
     })
-
-    $(document).on('mouseenter mouseleave', '.myself-edit-frame-button-row', function (ev) {
-      let activeRow = ev.type !== 'mouseout' ? this : null
-      MyselfEdit.editBlockMap.forEach(function (editRow, srcElement) {
-        srcElement.classList.toggle('myself-page-block-highlight', editRow[0] === activeRow)
-      })
-    })
-    $(document).on('click', '.myself-website-settings', async function () {
-      FramelixModal.hideAll()
+    $(document).on('click', '.myself-open-website-settings', async function () {
       const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true)
       modal.contentContainer.addClass('myself-edit-font')
       modal.closed.then(function () {
         location.reload()
       })
     })
-    $(document).on('click', '.myself-theme-api-call', async function () {
-      const urlParams = {
-        'action': null
-      }
-      for (let k in urlParams) {
-        urlParams[k] = this.dataset[k] || null
-      }
-      FramelixModal.hideAll()
-      const modal = await FramelixModal.request('post', MyselfEdit.themeSettingsEditUrl, urlParams, null, false, null, true)
+    $(document).on('click', '.myself-open-theme-settings', async function () {
+      const modal = await FramelixModal.request('post', MyselfEdit.themeSettingsEditUrl, null, null, false, null, true)
       modal.contentContainer.addClass('myself-edit-font')
       modal.closed.then(function () {
         location.reload()
       })
     })
-    $(document).on('click', '.myself-page-api-call', async function () {
-      if (this.dataset.confirm && !(await FramelixModal.confirm('__sure__').closed).confirmed) return
+    $(document).on('click', '.myself-delete-page-block', async function () {
+      if (!(await FramelixModal.confirm('__sure__').closed).confirmed) return
       const urlParams = {
         'action': null,
         'pageId': null,
@@ -183,32 +113,37 @@ class MyselfEdit {
       for (let k in urlParams) {
         urlParams[k] = this.dataset[k] || null
       }
-      FramelixModal.hideAll()
-      const modal = await FramelixModal.request('post', MyselfEdit.pageBlockEditUrl, urlParams, null, false, null, true)
-      modal.contentContainer.addClass('myself-edit-font')
-      modal.contentContainer.on(FramelixForm.EVENT_SUBMITTED, function () {
+      await FramelixRequest.request('post', MyselfEdit.pageBlockEditUrl, {
+        'action': 'delete',
+        'pageBlockId': $(this).attr('data-page-block-id')
+      })
+      location.reload()
+    })
+    $(document).on('click', '.myself-open-create-page-block', async function () {
+      await FramelixModal.request('post', MyselfEdit.pageBlockEditUrl, {
+        'action': 'select-new',
+        'pageId': $(this).attr('data-page-id')
+      }, null, false, null, true)
+    })
+    $(document).on('click', '.myself-create-new-page-block', async function () {
+      await FramelixRequest.request('post', MyselfEdit.pageBlockEditUrl, {
+        'action': 'create',
+        'pageBlockClass': $(this).attr('data-page-block-class'),
+        'pageId': $(this).attr('data-page-id')
+      })
+      location.reload()
+    })
+    $(document).on('click', '.myself-open-layout-block-editor', async function () {
+      const modal = await FramelixModal.callPhpMethod(MyselfEdit.blockLayoutEditorUrl, null, true)
+      modal.closed.then(function () {
         editFrameWindow.location.reload()
       })
-    })
-    $(document).on('click', '.myself-open-layout-block-editor', function () {
-      FramelixModal.callPhpMethod(MyselfEdit.blockLayoutEditorUrl, null, true)
-    })
-    $(document).on('change', '.myself-page-block-edit-tabs', function (ev) {
-      const target = $(ev.target)
-      const tabContent = target.closest('.framelix-tab-content')
-      const tabButton = tabContent.closest('.framelix-tabs').children('.framelix-tab-buttons').children('.framelix-tab-button[data-id=\'' + tabContent.attr('data-id') + '\']')
-      if (!tabButton.find('.myself-tab-edited').length) {
-        tabButton.prepend('<span class="material-icons myself-tab-edited" title="__myself_unsaved_changes__">warning</span>')
-      }
     })
     $(document).on(FramelixForm.EVENT_SUBMITTED, '.myself-page-block-edit-tabs', function (ev) {
       const target = $(ev.target)
       const tabContent = target.closest('.framelix-tab-content')
       const tabButton = tabContent.closest('.framelix-tabs').children('.framelix-tab-buttons').children('.framelix-tab-button[data-id=\'' + tabContent.attr('data-id') + '\']')
       tabButton.find('.myself-tab-edited').remove()
-    })
-    $(document).on('click', '.myself-block-layout-row [data-action]', function () {
-
     })
   }
 
@@ -229,8 +164,14 @@ class MyselfEdit {
     let unassignedPageBlocks = Object.assign({}, MyselfEdit.blockLayoutConfig.allPageBlocks)
     for (let i = 0; i < MyselfEdit.blockLayoutConfig.rows.length; i++) {
       const configRow = MyselfEdit.blockLayoutConfig.rows[i]
+      if (!Framelix.hasObjectKeys(configRow.settings) || Array.isArray(configRow.settings)) {
+        configRow.settings = {}
+      }
       for (let j = 0; j < configRow.columns.length; j++) {
         const configColumn = configRow.columns[j]
+        if (!Framelix.hasObjectKeys(configColumn.settings) || Array.isArray(configColumn.settings)) {
+          configColumn.settings = {}
+        }
         if (configColumn.pageBlockId) {
           delete unassignedPageBlocks[configColumn.pageBlockId]
         }
@@ -239,6 +180,7 @@ class MyselfEdit {
     for (let pageBlockId in unassignedPageBlocks) {
       const pageBlockRow = unassignedPageBlocks[pageBlockId]
       MyselfEdit.blockLayoutConfig.rows.push({
+        'settings': {},
         'columns': [
           { 'title': pageBlockRow.title, 'pageBlockId': pageBlockId, 'settings': {} }
         ]
@@ -247,41 +189,35 @@ class MyselfEdit {
     for (let i = 0; i < MyselfEdit.blockLayoutConfig.rows.length; i++) {
       const configRow = MyselfEdit.blockLayoutConfig.rows[i]
       const row = $(`<div class="myself-block-layout-row"></div>`)
-      const gap = configRow.settings?.gap
-      const maxWidth = configRow.settings?.maxWidth
-      const align = configRow.settings?.alignment
-      if (gap !== null && typeof gap !== 'undefined' && gap.length) {
-        row.css('gap', gap + 'px')
-      }
-      if (maxWidth !== null && typeof maxWidth !== 'undefined' && maxWidth.length) {
-        row.css('max-width', maxWidth + 'px')
-      }
-      if (align !== null && typeof align !== 'undefined' && align.length) {
-        row.attr('data-align', align)
-      }
+      row.attr('data-columns', configRow.columns.length)
       for (let j = 0; j < configRow.columns.length; j++) {
         const configColumn = configRow.columns[j]
         const empty = !configColumn.pageBlockId
-        row.append(`<div class="myself-block-layout-row-column" draggable="true" data-id="${j}" ${empty ? 'data-empty="1"' : ''}>
+        const grow = configColumn.settings.grow || 1
+        row.append(`<div class="myself-block-layout-row-column" draggable="true" data-grow="${grow}" data-id="${j}" ${empty ? 'data-empty="1"' : ''} style="flex-grow: ${grow}">
             <div class="myself-block-layout-row-column-title">
             ${FramelixLang.get(empty ? '__myself_blocklayout_empty__' : configColumn.title)}
             </div>
             <div class="myself-block-layout-row-column-actions">
+              <button class="framelix-button framelix-button-trans" data-icon-left="vertical_align_center"
+                      title="__myself_blocklayout_shrink__" data-action="shrink"></button>
+              <button class="framelix-button framelix-button-trans" data-icon-left="expand"
+                      title="__myself_blocklayout_grow__" data-action="grow"></button>
               <button class="framelix-button framelix-button-primary" data-icon-left="settings"
-                      title="__myself_blocklayout_settings_column__" data-action="settingscolumn"></button>
+                      title="__myself_blocklayout_settings_column__" data-action="column-settings"></button>
               <button class="framelix-button framelix-button-trans" data-icon-left="clear"
                       title="__myself_blocklayout_remove_column__" data-action="removecolumn"></button>
             </div>
         </div>`)
       }
       row.append(`<div class="myself-block-layout-row-column myself-block-layout-row-column-new">
-            <div class="myself-block-layout-row-column-title">
-            </div>
+            <div class="myself-block-layout-row-column-title"></div>
             <div class="myself-block-layout-row-column-actions">
               <button class="framelix-button framelix-button-primary" data-icon-left="settings"
-                      title="__myself_blocklayout_settings_row__" data-action="settingsrow"></button>
+                      title="__myself_blocklayout_settings_row__" data-action="row-settings"></button>
               <button class="framelix-button framelix-button-success" data-icon-left="add"
                       title="__myself_blocklayout_add_column__" data-action="addcolumn"></button>
+              <button class="framelix-button framelix-button-trans myself-block-layout-sort" data-icon-left="swap_vert" title="__myself_blocklayout_sort_row__"></button>
             </div>
         </div>`)
       row.attr('data-id', i)
@@ -293,24 +229,60 @@ class MyselfEdit {
                         title="__myself_blocklayout_add_row__" data-action="addrow"></button>
     </div>`)
     if (!container.attr('data-initialized')) {
+      await FramelixDom.includeCompiledFile('Framelix', 'js', 'sortablejs', 'Sortable')
+      new Sortable(container[0], {
+        'handle': '.myself-block-layout-sort',
+        'onSort': function () {
+          const rows = []
+          container.find('.myself-block-layout-row[data-id]').each(function () {
+            const rowId = $(this).attr('data-id')
+            if (MyselfEdit.blockLayoutConfig.rows[rowId]) {
+              rows.push(MyselfEdit.blockLayoutConfig.rows[rowId])
+            }
+          })
+          MyselfEdit.blockLayoutConfig.rows = rows
+          MyselfEdit.renderBlockLayoutEditor()
+        }
+      })
       container.attr('data-initialized', 1)
       container.on('click', '[data-action]', async function () {
         const row = $(this).closest('.myself-block-layout-row')
         const rowId = row.attr('data-id')
         const column = $(this).closest('.myself-block-layout-row-column')
         const columnId = column.attr('data-id')
-        switch ($(this).attr('data-action')) {
+        const action = $(this).attr('data-action')
+
+        let rowSettings = {}
+        let pageBlockId = null
+        if (rowId) {
+          rowSettings = MyselfEdit.blockLayoutConfig.rows[rowId].settings
+        }
+        let columnSettings = {}
+        if (columnId) {
+          pageBlockId = MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].pageBlockId
+          columnSettings = MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings
+        }
+
+        switch (action) {
           case 'save': {
             await FramelixApi.callPhpMethod(MyselfEdit.blockLayoutSaveSettingsUrl, { 'rows': MyselfEdit.blockLayoutConfig.rows })
             location.reload()
           }
             break
-          case 'settingsrow': {
-            let rowSettings = MyselfEdit.blockLayoutConfig.rows[rowId].settings
-            if (!rowSettings || Array.isArray(rowSettings)) {
-              MyselfEdit.blockLayoutConfig.rows[rowId].settings = {}
-              rowSettings = MyselfEdit.blockLayoutConfig.rows[rowId].settings
+          case 'grow':
+          case 'shrink': {
+            let grow = columnSettings.grow || 1
+            if (action === 'grow') {
+              grow++
+            } else {
+              grow--
+              if (grow < 1) grow = 1
             }
+            columnSettings.grow = grow
+            MyselfEdit.renderBlockLayoutEditor()
+          }
+            break
+          case 'row-settings': {
             const modal = await FramelixModal.callPhpMethod(MyselfEdit.blockLayoutRowSettingsEditUrl, {
               'settings': rowSettings
             }, true)
@@ -323,20 +295,38 @@ class MyselfEdit {
             })
           }
             break
-          case 'settingscolumn': {
-            let columnSettings = MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings
-            if (!columnSettings || Array.isArray(columnSettings)) {
-              MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings = {}
-              columnSettings = MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings
-            }
+          case 'column-settings': {
             const modal = await FramelixModal.callPhpMethod(MyselfEdit.blockLayoutColumnSettingsEditUrl, {
-              'settings': columnSettings
+              'settings': columnSettings,
+              'pageBlockId': pageBlockId,
+              'rowId': rowId,
+              'columnId': columnId
             }, true)
-            modal.contentContainer.on('click', '.framelix-form-buttons [data-action=\'save\']', async function () {
-              const form = FramelixForm.getById('columnsettings')
-              if (!(await form.validate())) return
-              Object.assign(columnSettings, form.getValues())
-              modal.close()
+            modal.contentContainer.on(FramelixFormField.EVENT_CHANGE, function (ev) {
+              const target = $(ev.target)
+              const tabContent = target.closest('.framelix-tab-content')
+              if (tabContent.length) {
+                const tabButton = tabContent.closest('.framelix-tabs').children('.framelix-tab-buttons').children('.framelix-tab-button[data-id=\'' + tabContent.attr('data-id') + '\']')
+                if (!tabButton.find('.myself-tab-edited').length) {
+                  tabButton.prepend('<span class="material-icons myself-tab-edited" title="__myself_unsaved_changes__">warning</span>')
+                }
+              }
+            })
+            let settingsChanged = false
+            modal.contentContainer.on(FramelixForm.EVENT_SUBMITTED, function (ev) {
+              const target = $(ev.target)
+              const tabContent = target.closest('.framelix-tab-content')
+              if (tabContent.length) {
+                const tabButton = tabContent.closest('.framelix-tabs').children('.framelix-tab-buttons').children('.framelix-tab-button[data-id=\'' + tabContent.attr('data-id') + '\']')
+                tabButton.find('.myself-tab-edited').remove()
+              }
+              settingsChanged = true
+            })
+            // reload settings from backend as it may have changed for the edited column
+            modal.closed.then(async function () {
+              if (!settingsChanged) return
+              const newSettings = await FramelixApi.callPhpMethod(MyselfEdit.blockLayoutFetchSettingsUrl)
+              MyselfEdit.blockLayoutConfig.rows[rowId].columns[columnId].settings = newSettings.rows[rowId].columns[columnId].settings
               MyselfEdit.renderBlockLayoutEditor()
             })
           }

@@ -211,7 +211,10 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 ) . ';
                     MyselfEdit.pageBlockEditUrl = ' . JsonUtils::encode(View::getUrl(PageBlockEdit::class)) . ';
                     MyselfEdit.themeSettingsEditUrl = ' . JsonUtils::encode(
-                    View::getUrl(ThemeSettings::class)->setParameter('pageId', $this->page)
+                    View::getUrl(ThemeSettings::class)->setParameter('pageId', $this->page)->setParameter(
+                        'action',
+                        'edit'
+                    )
                 ) . ';
                     MyselfEdit.websiteSettingsEditUrl = ' . JsonUtils::encode(View::getUrl(WebsiteSettings::class)) . ';
                     MyselfEdit.blockLayoutEditorUrl = ' . JsonUtils::encode(
@@ -225,6 +228,9 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 ) . ';
                     MyselfEdit.blockLayoutSaveSettingsUrl = ' . JsonUtils::encode(
                     JsCall::getCallUrl(WebsiteSettings::class, 'save-settings')
+                ) . ';
+                    MyselfEdit.blockLayoutFetchSettingsUrl = ' . JsonUtils::encode(
+                    JsCall::getCallUrl(WebsiteSettings::class, 'fetch-settings')
                 ) . ';
                 </script>
                 '
@@ -248,12 +254,10 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                            class="framelix-button framelix-button-primary framelix-button-small"
                            data-icon-left="highlight_off"><?= Lang::get('__myself_disable_editmode__') ?></a>
                         <button
-                                class="framelix-button framelix-button-success framelix-button-small myself-theme-api-call"
-                                data-icon-left="settings" data-action="edit"><?= Lang::get(
-                                '__myself_theme_settings__'
-                            ) ?></button>
+                                class="framelix-button framelix-button-success framelix-button-small myself-open-theme-settings"
+                                data-icon-left="settings"><?= Lang::get('__myself_theme_settings__') ?></button>
                         <button
-                                class="framelix-button framelix-button-warning framelix-button-small myself-website-settings"
+                                class="framelix-button framelix-button-warning framelix-button-small myself-open-website-settings"
                                 data-icon-left="language"><?= Lang::get(
                                 '__myself_websitesettings__'
                             ) ?></button>
@@ -272,22 +276,21 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                     <div class="myself-edit-frame-outer-margin"></div>
                 </div>
                 <div class="myself-edit-frame-outer-right">
-                    <div class="myself-edit-frame-button-row" data-sticky-top="1">
-                        <button class="framelix-button framelix-button-primary myself-page-api-call"
-                                data-icon-left="playlist_add"
-                                data-action="select-new"
-                                data-page-id="<?= $this->page ?>"
-                                title="__myself_pageblock_create__"
-                                style="height: 70px;"></button>
+                    <div class="myself-edit-frame-outer-margin">
+                        <div class="myself-edit-frame-button-row">
+                            <button class="framelix-button framelix-button-primary myself-open-create-page-block"
+                                    data-icon-left="playlist_add"
+                                    title="__myself_pageblock_create__"
+                                    data-page-id="<?= $this->page ?>"></button>
 
+                        </div>
+                        <div class="myself-edit-frame-button-row">
+                            <button class="framelix-button myself-open-layout-block-editor"
+                                    data-icon-left="grid_view"
+                                    title="__myself_blocklayout_openeditor__"
+                                    data-page-id="<?= $this->page ?>"></button>
+                        </div>
                     </div>
-                    <div class="myself-edit-frame-button-row" data-sticky-bottom="1">
-                        <button class="framelix-button framelix-button-primary myself-open-layout-block-editor"
-                                data-icon-left="grid_view"
-                                title="__myself_blocklayout_openeditor__"
-                                style="height: 70px;"></button>
-                    </div>
-                    <div class="myself-edit-frame-outer-margin"></div>
                 </div>
                 <div class="myself-edit-frame-inner">
                     <iframe src="<?= Url::create()->removeParameter('editMode') ?>"></iframe>

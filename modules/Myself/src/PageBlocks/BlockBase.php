@@ -146,7 +146,7 @@ abstract class BlockBase
 
         if (!$this->pageBlock->fixedPlacement) {
             $label .= '<div style="text-align: right">';
-            $label .= '<button class="framelix-button framelix-button-error framelix-button-small myself-page-api-call" data-confirm="1" data-action="delete" data-page-block-id="' . $this->pageBlock . '" data-icon-left="clear">';
+            $label .= '<button class="framelix-button framelix-button-error framelix-button-small myself-delete-page-block" data-page-block-id="' . $this->pageBlock . '" data-icon-left="clear">';
             $label .= Lang::get('__myself_pageblock_edit_internal_delete__');
             $label .= '</button>';
             $label .= '</div>';

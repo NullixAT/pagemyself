@@ -5,7 +5,8 @@ class MyselfThemeHello {
    * Init late
    */
   static initLate() {
-    Framelix.syncScroll($('.myself-themes-hello-sidebar'), $('html'));
+    const sidebar = $('.myself-themes-hello-sidebar');
+    Framelix.syncScroll(sidebar, $('html'));
     const navList = $('nav').find(' .myself-pageblocks-navigation-navlist').first();
     const activeLinks = $('.myself-pageblocks-navigation-active-link');
 
@@ -37,6 +38,13 @@ class MyselfThemeHello {
           config.popup = null;
         });
       });
+      const nav = $('.myself-themes-hello-sidebar').find('nav');
+      const lastLi = nav.children('ul').children('li').last();
+
+      if (lastLi.length) {
+        const boundingRect = lastLi[0].getBoundingClientRect();
+        sidebar.attr('data-more', lastLi.position().left + boundingRect.width - 10 > nav.width() ? '1' : '0');
+      }
     } else {
       $(document).on('click', '.myself-pageblocks-navigation-navlist-group', function () {
         $(this).next('ul').toggleClass('myself-pageblocks-navigation-navlist-show');

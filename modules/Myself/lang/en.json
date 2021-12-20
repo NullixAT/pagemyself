@@ -20,17 +20,38 @@
     "__myself_align_top__": [
         "Top"
     ],
+    "__myself_blocklayout_add_column__": [
+        "Create new column"
+    ],
+    "__myself_blocklayout_add_row__": [
+        "Create new row"
+    ],
     "__myself_blocklayout_columnsetting_padding__": [
         "Padding in px"
     ],
     "__myself_blocklayout_columnsetting_padding_desc__": [
         "Padding is used to create space around an element's content, inside of any defined borders."
     ],
+    "__myself_blocklayout_columnsetting_textalignment__": [
+        "Default Text alignment"
+    ],
+    "__myself_blocklayout_columnsetting_textalignment_desc__": [
+        "Set a default text alignment."
+    ],
     "__myself_blocklayout_empty__": [
         "Empty"
     ],
+    "__myself_blocklayout_grow__": [
+        "Enlargen column (Double the size relative to others)"
+    ],
     "__myself_blocklayout_openeditor__": [
         "Change layout"
+    ],
+    "__myself_blocklayout_remove_column__": [
+        "Remove column"
+    ],
+    "__myself_blocklayout_rowsetting_alignment__": [
+        "Column alignment"
     ],
     "__myself_blocklayout_rowsetting_gap__": [
         "Gap in px"
@@ -46,6 +67,18 @@
     ],
     "__myself_blocklayout_save__": [
         "Save Layout"
+    ],
+    "__myself_blocklayout_settings_column__": [
+        "Column settings"
+    ],
+    "__myself_blocklayout_settings_row__": [
+        "Row settings"
+    ],
+    "__myself_blocklayout_shrink__": [
+        "Shrink column (Half the size relative to others)"
+    ],
+    "__myself_blocklayout_sort_row__": [
+        "Sort row by drag&drop with mouse"
     ],
     "__myself_column_align__": [
         "Column Alignment"
@@ -156,10 +189,13 @@
         "Wrong password"
     ],
     "__myself_pageblock_create__": [
-        "Add a new page block here"
+        "Add a new page block"
     ],
     "__myself_pageblock_create_attention__": [
         "Once you have created a block, you cannot modify the block type anymore. If you've misclicked, delete the block and create a new."
+    ],
+    "__myself_pageblock_created__": [
+        "The page block has been created. Open the layout settings at the top right if you want to configure the settings and layout for this block."
     ],
     "__myself_pageblock_delete__": [
         "Delete this page block"
@@ -188,6 +224,18 @@
     "__myself_pageblocks_backgroundimage__": [
         "Background image"
     ],
+    "__myself_pageblocks_backgroundsize__": [
+        "Background Size"
+    ],
+    "__myself_pageblocks_backgroundsize_contain__": [
+        "Contains (Image\/Video fully visible - No Crop but may have borders)"
+    ],
+    "__myself_pageblocks_backgroundsize_cover__": [
+        "Cover (Background fill complete container - May be cropped but not have borders)"
+    ],
+    "__myself_pageblocks_backgroundsize_desc__": [
+        "How the background image\/video should be sized"
+    ],
     "__myself_pageblocks_backgroundvideo__": [
         "Background video"
     ],
@@ -208,6 +256,9 @@
     ],
     "__myself_pageblocks_edit_form_internal__": [
         "Block Settings"
+    ],
+    "__myself_pageblocks_editor_info__": [
+        "You can drag&drop any column to any other place. Don't forget to save the layout after you have modified something."
     ],
     "__myself_pageblocks_html__": [
         "HTML Code"
@@ -239,6 +290,12 @@
     "__myself_pageblocks_minheight_desc__": [
         "If you want a fixed minimal height for this container, enter a pixel value here."
     ],
+    "__myself_pageblocks_minwidth__": [
+        "Minimal width in px"
+    ],
+    "__myself_pageblocks_minwidth_desc__": [
+        "If you want a fixed minimal width for this container, enter a pixel value here."
+    ],
     "__myself_pageblocks_navigation__": [
         "Navigation"
     ],
@@ -256,6 +313,9 @@
     ],
     "__myself_pageblocks_navigation_logo__": [
         "Your Logo"
+    ],
+    "__myself_pageblocks_pageblock_setting_override__": [
+        "This setting can be overriden by actual used page block."
     ],
     "__myself_pageblocks_slideshow_next__": [
         "Next image"
@@ -280,6 +340,15 @@
     ],
     "__myself_pageblocks_textcolor__": [
         "Text color"
+    ],
+    "__myself_pageblocks_textcolor_desc__": [
+        "The default text color."
+    ],
+    "__myself_pageblocks_textsize__": [
+        "Text color"
+    ],
+    "__myself_pageblocks_textsize_desc__": [
+        "The default text size. 100% is the default."
     ],
     "__myself_storable_liveedit_nomultiline__": [
         "No multiple lines allowed here"

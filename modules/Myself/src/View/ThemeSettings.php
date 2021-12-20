@@ -46,7 +46,6 @@ class ThemeSettings extends View
                 $theme->store();
                 Toast::success('__saved__');
                 Response::showFormAsyncSubmitResponse();
-            case 'create':
             case 'edit':
                 $forms = $themeBlock->getSettingsForms();
 

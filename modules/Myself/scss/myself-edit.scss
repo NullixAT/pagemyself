@@ -71,7 +71,6 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 
   .myself-edit-frame-outer-margin {
     position: absolute;
-    display: flex;
     box-sizing: border-box;
     top: var(--myself-edit-frame-padding);
     height: calc(100vh - var(--myself-edit-frame-padding) * 2);
@@ -96,45 +95,12 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 .myself-edit-frame-button-row {
   display: flex;
   width: 100%;
-  flex-wrap: wrap;
-  flex-basis: 100%;
 
-  &.myself-edit-frame-button-row-active {
-    box-shadow: #009dff 0 0 10px;
-    z-index: 2;
-  }
-
-  &.myself-edit-frame-button-row-disabled-api-call .myself-page-api-call {
-    display: none;
-  }
-
-  > * {
-    flex: 1 1 auto;
-  }
 
   button {
-    padding: 5px;
-    margin: 0;
-
-    &:after {
-      font-size: 20px;
-    }
+    flex: 1 1 auto;
+    min-height: 50px;
   }
-
-  &[data-sticky-top='1'] {
-    top: 0;
-    position: absolute;
-  }
-
-  &[data-sticky-bottom='1'] {
-    bottom: 0;
-    position: absolute;
-  }
-}
-
-.myself-edit-frame-button-row-float {
-  position: absolute;
-  width: 100%;
 }
 
 .myself-page-block-create-entries {
@@ -202,6 +168,20 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 .myself-tab-edited {
   opacity: 0.7;
   margin-right: 10px;
+}
+
+
+.myself-block-layout-editor {
+  .myself-block-layout-row-column-actions [data-action='shrink'],
+  .myself-block-layout-row-column-actions [data-action='grow'] {
+    transform: rotate(90deg);
+  }
+
+  .myself-block-layout-row-column[data-grow='1'] .myself-block-layout-row-column-actions [data-action='shrink'],
+  .myself-block-layout-row[data-columns='1'] .myself-block-layout-row-column-actions [data-action='shrink'],
+  .myself-block-layout-row[data-columns='1'] .myself-block-layout-row-column-actions [data-action='grow'] {
+    display: none;
+  }
 }
 
 .myself-block-layout-row {

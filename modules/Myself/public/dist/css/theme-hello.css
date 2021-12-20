@@ -95,15 +95,20 @@ html[data-screen-size='s'] .myself-themes-hello,
       html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-pageblocks-navigation nav,
       .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-pageblocks-navigation nav {
         flex: 1 1 auto;
-        padding: 10px; }
+        padding: 10px;
+        position: relative; }
     html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-themes-hello-more,
     .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-themes-hello-more {
       min-width: 50px;
       background: white;
-      z-index: 1; }
+      z-index: 1;
+      display: none; }
       html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-themes-hello-more:before,
       .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-themes-hello-more:before {
         font-size: 24px; }
+    html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar[data-more='1'] .myself-themes-hello-more,
+    .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar[data-more='1'] .myself-themes-hello-more {
+      display: block; }
   html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-content,
   .myself-themes-hello[data-navigation='top'] .myself-themes-hello-content {
     padding: 20px 0; }

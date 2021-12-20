@@ -134,6 +134,7 @@ html[data-screen-size='s'] .myself-themes-hello,
       nav {
         flex: 1 1 auto;
         padding: 10px;
+        position: relative;
       }
     }
 
@@ -141,10 +142,15 @@ html[data-screen-size='s'] .myself-themes-hello,
       min-width: 50px;
       background: white;
       z-index: 1;
+      display: none;
 
       &:before {
         font-size: 24px;
       }
+    }
+
+    &[data-more='1'] .myself-themes-hello-more {
+      display: block;
     }
   }
 
