@@ -19,6 +19,7 @@ use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
+use Framelix\Myself\BlockLayoutEditor;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
@@ -217,20 +218,8 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                     )
                 ) . ';
                     MyselfEdit.websiteSettingsEditUrl = ' . JsonUtils::encode(View::getUrl(WebsiteSettings::class)) . ';
-                    MyselfEdit.blockLayoutEditorUrl = ' . JsonUtils::encode(
-                    JsCall::getCallUrl(WebsiteSettings::class, 'editor')
-                ) . ';
-                    MyselfEdit.blockLayoutRowSettingsEditUrl = ' . JsonUtils::encode(
-                    JsCall::getCallUrl(WebsiteSettings::class, 'row-settings')
-                ) . ';
-                    MyselfEdit.blockLayoutColumnSettingsEditUrl = ' . JsonUtils::encode(
-                    JsCall::getCallUrl(WebsiteSettings::class, 'column-settings')
-                ) . ';
-                    MyselfEdit.blockLayoutSaveSettingsUrl = ' . JsonUtils::encode(
-                    JsCall::getCallUrl(WebsiteSettings::class, 'save-settings')
-                ) . ';
-                    MyselfEdit.blockLayoutFetchSettingsUrl = ' . JsonUtils::encode(
-                    JsCall::getCallUrl(WebsiteSettings::class, 'fetch-settings')
+                    MyselfBlockLayoutEditor.apiUrl = ' . JsonUtils::encode(
+                    JsCall::getCallUrl(BlockLayoutEditor::class, '', ['pageId' => $this->page])
                 ) . ';
                 </script>
                 '
@@ -278,14 +267,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 <div class="myself-edit-frame-outer-right">
                     <div class="myself-edit-frame-outer-margin">
                         <div class="myself-edit-frame-button-row">
-                            <button class="framelix-button framelix-button-primary myself-open-create-page-block"
-                                    data-icon-left="playlist_add"
-                                    title="__myself_pageblock_create__"
-                                    data-page-id="<?= $this->page ?>"></button>
-
-                        </div>
-                        <div class="myself-edit-frame-button-row">
-                            <button class="framelix-button myself-open-layout-block-editor"
+                            <button class="framelix-button framelix-button-primary myself-open-layout-block-editor"
                                     data-icon-left="grid_view"
                                     title="__myself_blocklayout_openeditor__"
                                     data-page-id="<?= $this->page ?>"></button>

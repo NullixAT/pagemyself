@@ -15,7 +15,6 @@ use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 use Framelix\Myself\Storable\Theme;
-use Framelix\Myself\Storable\WebsiteSettings;
 use Framelix\Myself\View\Index;
 
 use function basename;
@@ -121,7 +120,7 @@ abstract class ThemeBase
      */
     public function showUserDefinedLayout(): void
     {
-        $config = WebsiteSettings::get('blockLayout');
+        $config = $this->page->blockLayout;
         $pageBlocks = $this->page->getPageBlocks();
         foreach ($pageBlocks as $id => $pageBlock) {
             if ($pageBlock->fixedPlacement) {

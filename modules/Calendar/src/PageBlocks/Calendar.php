@@ -70,7 +70,7 @@ class Calendar extends BlockBase
                     $pageBlock->pageBlockSettings = $settings;
                     $pageBlock->store();
                 }
-                Toast::success('__saved__');
+                Toast::success('__framelix_saved__');
                 Url::getBrowserUrl()->redirect();
             case 'edit':
                 ?>
@@ -112,7 +112,7 @@ class Calendar extends BlockBase
                 $field->defaultValue = $entry['internalInfo'] ?? null;
                 $form->addField($field);
 
-                $form->addSubmitButton('save', '__save__', 'save');
+                $form->addSubmitButton('save', '__framelix_save__', 'save');
                 $form->show();
                 break;
         }

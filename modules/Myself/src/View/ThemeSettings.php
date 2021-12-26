@@ -2,6 +2,8 @@
 
 namespace Framelix\Myself\View;
 
+use Framelix\Framelix\Form\Field\Hidden;
+use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
@@ -44,7 +46,7 @@ class ThemeSettings extends View
                 $form = $forms[Request::getGet('formKey')];
                 $themeBlock->setValuesFromSettingsForm($form);
                 $theme->store();
-                Toast::success('__saved__');
+                Toast::success('__framelix_saved__');
                 Response::showFormAsyncSubmitResponse();
             case 'edit':
                 $forms = $themeBlock->getSettingsForms();
@@ -89,7 +91,13 @@ class ThemeSettings extends View
                         );
                     $form->label = $label;
                     Buffer::start();
-                    $form->addSubmitButton('save', '__save__', 'save');
+                    foreach ($form->fields as $field) {
+                        if ($field instanceof Hidden || $field instanceof Html) {
+                            continue;
+                        }
+                        $form->addSubmitButton('save', '__framelix_save__', 'save');
+                        break;
+                    }
                     $themeBlock->showSettingsForm($form);
                     $content = Buffer::get();
                     $tabs->addTab($form->id, $label, $content);

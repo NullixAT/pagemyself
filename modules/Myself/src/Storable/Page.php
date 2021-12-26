@@ -26,6 +26,7 @@ use function explode;
  * @property mixed|null $settings
  * @property bool $flagDraft
  * @property string $lang
+ * @property mixed|null $blockLayout
  */
 class Page extends StorableExtended
 {

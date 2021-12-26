@@ -3,8 +3,8 @@
 tinymce.PluginManager.add('myself', function (editor, url) {
   /* Add a button that opens a window */
   editor.ui.registry.addButton('myself-save-text', {
-    text: FramelixLang.get('__save__'),
-    tooltip: FramelixLang.get('__save__'),
+    text: FramelixLang.get('__framelix_save__'),
+    tooltip: FramelixLang.get('__framelix_save__'),
     icon: 'save',
     onAction: async function onAction() {
       const container = editor.myself.container;
@@ -17,7 +17,7 @@ tinymce.PluginManager.add('myself', function (editor, url) {
         'arrayKey': container.attr('data-array-key'),
         'content': editor.getContent()
       });
-      FramelixToast.success('__saved__');
+      FramelixToast.success('__framelix_saved__');
       Framelix.showProgressBar(null);
       editor.destroy();
     }
@@ -25,8 +25,8 @@ tinymce.PluginManager.add('myself', function (editor, url) {
   /* Add a button that opens a window */
 
   editor.ui.registry.addButton('myself-cancel-text', {
-    text: FramelixLang.get('__cancel__'),
-    tooltip: FramelixLang.get('__cancel__'),
+    text: FramelixLang.get('__framelix_cancel__'),
+    tooltip: FramelixLang.get('__framelix_cancel__'),
     icon: 'cancel',
     onAction: function onAction() {
       const container = editor.myself.container;
@@ -45,8 +45,8 @@ tinymce.PluginManager.add('myself', function (editor, url) {
 tinymce.PluginManager.get('image', function (editor, url) {
   /* Add a button that opens a window */
   editor.ui.registry.addButton('myself-save-text', {
-    text: FramelixLang.get('__save__'),
-    tooltip: FramelixLang.get('__save__'),
+    text: FramelixLang.get('__framelix_save__'),
+    tooltip: FramelixLang.get('__framelix_save__'),
     icon: 'save',
     onAction: async function onAction() {
       const container = editor.myself.container;
@@ -59,7 +59,7 @@ tinymce.PluginManager.get('image', function (editor, url) {
         'arrayKey': container.attr('data-array-key'),
         'content': editor.getContent()
       });
-      FramelixToast.success('__saved__');
+      FramelixToast.success('__framelix_saved__');
       Framelix.showProgressBar(null);
       editor.destroy();
     }

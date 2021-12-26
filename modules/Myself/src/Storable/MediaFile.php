@@ -138,8 +138,8 @@ class MediaFile extends StorableFile
         if (!$downloadUrl) {
             return '';
         }
-        return '<a href="' . $downloadUrl . '" title="__download_file__" class="myself-tag" title="' . Lang::get(
-                '__download_file__'
+        return '<a href="' . $downloadUrl . '" title="__framelix_downloadfile__" class="myself-tag" title="' . Lang::get(
+                '__framelix_downloadfile__'
             ) . ": " . $this->filename . '"><span class="material-icons">download</span></a>';
     }
 

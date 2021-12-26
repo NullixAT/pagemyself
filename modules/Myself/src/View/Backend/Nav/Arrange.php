@@ -48,7 +48,7 @@ class Arrange extends View
                     }
                 };
                 $storeRecursive($jsCall->parameters['navData'] ?? [], null);
-                Toast::success('__saved__');
+                Toast::success('__framelix_saved__');
                 Url::getBrowserUrl()->redirect();
                 break;
         }
@@ -83,9 +83,9 @@ class Arrange extends View
         <div class="nav-entry-new-child-drop"><?= Lang::get('__myself_view_backend_nav_arrange_drop_main__') ?></div>
         <div class="hidden save-buttons">
             <button class="framelix-button framelix-button-success"
-                    data-icon-left="save"><?= Lang::get('__save__') ?></button>
+                    data-icon-left="save"><?= Lang::get('__framelix_save__') ?></button>
             <a href="<?= Url::getBrowserUrl() ?>" class="framelix-button"
-               data-icon-left="clear"><?= Lang::get('__cancel__') ?></a>
+               data-icon-left="clear"><?= Lang::get('__framelix_cancel__') ?></a>
         </div>
         <style>
           .nav-entries {

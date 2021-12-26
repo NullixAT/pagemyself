@@ -6,7 +6,6 @@ use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Myself\PageBlocks\BlockBase;
 
 use function class_exists;
-use function is_array;
 
 /**
  * PageBlock
@@ -20,30 +19,6 @@ use function is_array;
  */
 class PageBlock extends StorableExtended
 {
-
-    /**
-     * Get all page blocks that not have a dedicated layout column
-     * @return PageBlock[]
-     */
-    public static function getBlocksWithUnassignedLayoutColumn(): array
-    {
-        $config = WebsiteSettings::get('blockLayout');
-        $pageBlockIdAssigned = [];
-        if (is_array($config['rows'] ?? null)) {
-            foreach ($config['rows'] as $rowId => $row) {
-                $columns = $row['columns'] ?? null;
-                if (is_array($columns)) {
-                    foreach ($columns as $columnRow) {
-                        if ($columnRow['pageBlockId'] ?? null) {
-                            $pageBlockIdAssigned[$columnRow['pageBlockId']] = $columnRow['pageBlockId'];
-                        }
-                    }
-                }
-            }
-        }
-        return PageBlock::getByCondition($pageBlockIdAssigned ? 'id NOT IN {0}' : null, [$pageBlockIdAssigned]);
-    }
-
     /**
      * Get layout block
      * @return BlockBase|null

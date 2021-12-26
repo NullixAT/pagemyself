@@ -8,7 +8,7 @@ class GuestbookPageBlocksGuestbook extends MyselfPageBlocks {
     this.blockContainer.on('click', '[data-delete-url]', async function () {
       const el = $(this);
 
-      if ((await FramelixModal.confirm('__sure__').closed).confirmed) {
+      if ((await FramelixModal.confirm('__framelix_sure__').closed).confirmed) {
         await FramelixApi.callPhpMethod($(this).attr('data-delete-url'));
         el.closest('.guestbook-pageblocks-guestbook-entry').remove();
       }

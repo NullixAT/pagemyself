@@ -266,7 +266,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
       $(document).off('click.mediabrowser-delete-file').on('click.mediabrowser-delete-file', '.myself-media-browser-entry-delete[data-delete-file-url]', async function (ev) {
         ev.stopPropagation()
         FramelixPopup.destroyAll()
-        if ((await FramelixModal.confirm('__sure__').closed).confirmed) {
+        if ((await FramelixModal.confirm('__framelix_sure__').closed).confirmed) {
           if (await FramelixApi.callPhpMethod($(this).attr('data-delete-file-url'))) {
             self.reload()
           }

@@ -47,7 +47,7 @@ class Edit extends View
             $form->validate();
             $form->setStorableValues($this->storable);
             $this->storable->store();
-            Toast::success('__saved__');
+            Toast::success('__framelix_saved__');
             Url::getBrowserUrl()->setParameter('id', $this->storable)->redirect();
         }
         $this->showContentBasedOnRequestType();

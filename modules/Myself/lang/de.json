@@ -52,8 +52,16 @@
         "1ddeb"
     ],
     "__myself_blocklayout_empty__": [
-        "Leer",
-        "ce2c8"
+        "Leer - Klicke hier um einen Page-Block zu w\u00e4hlen",
+        "fa0e5"
+    ],
+    "__myself_blocklayout_fixedplacememt__": [
+        "Fixe Platzierung",
+        "58b94"
+    ],
+    "__myself_blocklayout_fixedplacememt_desc__": [
+        "Dieser Page-Block ist fix im verwendeten Stil verankert. Einige Einstellungen werden durch den Stil vorgegeben und k\u00f6nnen nicht bearbeitet werden.",
+        "94591"
     ],
     "__myself_blocklayout_grow__": [
         "Spalte vergr\u00f6\u00dfern (Doppelt die Gr\u00f6\u00dfe relativ zu den anderen)",
@@ -344,8 +352,8 @@
         "4d57e"
     ],
     "__myself_pageblocks_editor_info__": [
-        "Du kannst per Drag&Drop alle Spalten an jeden beliebigen Ort ziehen. Vergiss nach einer \u00c4nderung nicht zu speichern.",
-        "365e9"
+        "Du kannst per Drag&Drop alle Spalten an jeden beliebigen Ort ziehen. Vergiss nach einer \u00c4nderung nicht zu speichern.<br\/>Du kannst Spalten nur entfernen wenn sie leer sind. Um einen Page-Block zu l\u00f6schen gehe auf die Spalteneinstellungen - Blockeinstellungen und l\u00f6sche den Block dort zuerst.",
+        "da555"
     ],
     "__myself_pageblocks_html__": [
         "HTML Code",

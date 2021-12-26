@@ -53,7 +53,7 @@ if (!defined("FRAMELIX_MODULE")) {
                         "files": [
                             {
                                 "type": "file",
-                                "path": "js\/myself-edit.js"
+                                "path": ["js\/myself-edit.js", "js\/myself-block-layout-editor.js"]
                             }
                         ],
                         "options": {
@@ -108,7 +108,7 @@ if (!defined("FRAMELIX_MODULE")) {
                         "files": [
                             {
                                 "type": "file",
-                                "path": "scss\/myself-edit.scss"
+                                "path": ["scss\/myself-edit.scss", "scss\/myself-block-layout-editor.scss"]
                             }
                         ],
                         "options": {

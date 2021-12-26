@@ -342,7 +342,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
         ev.stopPropagation();
         FramelixPopup.destroyAll();
 
-        if ((await FramelixModal.confirm('__sure__').closed).confirmed) {
+        if ((await FramelixModal.confirm('__framelix_sure__').closed).confirmed) {
           if (await FramelixApi.callPhpMethod($(this).attr('data-delete-file-url'))) {
             self.reload();
           }

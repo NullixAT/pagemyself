@@ -39,7 +39,13 @@
         "Set a default text alignment."
     ],
     "__myself_blocklayout_empty__": [
-        "Empty"
+        "Empty - Click here to select a page block"
+    ],
+    "__myself_blocklayout_fixedplacememt__": [
+        "Fixed placement"
+    ],
+    "__myself_blocklayout_fixedplacememt_desc__": [
+        "This is a fixed page-block that is integrated directly in the used theme. Some layout settings are defined by the theme and cannot be edited."
     ],
     "__myself_blocklayout_grow__": [
         "Enlargen column (Double the size relative to others)"
@@ -258,7 +264,7 @@
         "Block Settings"
     ],
     "__myself_pageblocks_editor_info__": [
-        "You can drag&drop any column to any other place. Don't forget to save the layout after you have modified something."
+        "You can drag&drop any column to any other place. Don't forget to save the layout after you have modified something.<br\/>You can only delete an empty column. If you have assigned a page-block already, you must go into column settings -> Block Settings and delete the block there first."
     ],
     "__myself_pageblocks_html__": [
         "HTML Code"
