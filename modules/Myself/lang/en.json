@@ -428,6 +428,9 @@
     "__myself_storable_page_title_label__": [
         "Page title"
     ],
+    "__myself_websitesettings_backend__": [
+        "This feature is editable in the backend. Please click the following button to open the backend."
+    ],
     "__myself_storable_page_title_label_desc__": [
         "This title is used as the browser title and for search engines. In page, if required, you have to add this text separately."
     ],
@@ -518,14 +521,14 @@
     "__myself_view_backend_page_index__": [
         "Pages"
     ],
-    "__myself_view_backend_page_index_missing_homepage__": [
-        "You not have a page with an empty path (Homepage). To make your site working, please create a page without a path in URL."
-    ],
     "__myself_visible_in_editmode__": [
         "This text\/blockinfo is only visible because you are currently in edit mode"
     ],
     "__myself_wait_for_unblock__": [
         "You must wait {0} before you can try again"
+    ],
+    "__myself_websitesettings_meta_": [
+        "Metadata"
     ],
     "__myself_websitesettings__": [
         "Website Settings"

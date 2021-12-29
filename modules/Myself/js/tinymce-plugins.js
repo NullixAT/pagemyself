@@ -6,7 +6,7 @@ tinymce.PluginManager.add('myself', function (editor, url) {
     icon: 'save',
     onAction: async function () {
       const container = editor.myself.container
-      Framelix.showProgressBar(-1)
+      Framelix.showProgressBar(1)
       await FramelixRequest.request('post', editor.myself.pageBlockEditUrl, { 'action': 'save-editable-content' }, {
         'storableId': container.attr('data-id'),
         'propertyName': container.attr('data-property-name'),
@@ -47,7 +47,7 @@ tinymce.PluginManager.get('image', function (editor, url) {
     icon: 'save',
     onAction: async function () {
       const container = editor.myself.container
-      Framelix.showProgressBar(-1)
+      Framelix.showProgressBar(1)
       await FramelixRequest.request('post', editor.myself.pageBlockEditUrl, { 'action': 'save-editable-content' }, {
         'storableId': container.attr('data-id'),
         'propertyName': container.attr('data-property-name'),

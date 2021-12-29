@@ -106,6 +106,7 @@ class BlockLayoutEditor
                     __CLASS__,
                     'save-column-settings',
                     [
+                        'pageId' => $page,
                         'rowId' => $jsCall->parameters['rowId'] ?? null,
                         'columnId' => $jsCall->parameters['columnId'] ?? null
                     ]
@@ -279,7 +280,7 @@ class BlockLayoutEditor
 
         $field = new Select();
         $field->name = 'alignment';
-        $field->label = '__myself_blocklayout_rowsetting_textalignment__';
+        $field->label = '__myself_blocklayout_rowsetting_alignment__';
         $field->labelDescription = '__myself_align_desc__';
         $field->addOption('left', '__myself_align_left__');
         $field->addOption('center', '__myself_align_center__');

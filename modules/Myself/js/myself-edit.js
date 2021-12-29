@@ -50,19 +50,19 @@ class MyselfEdit {
     $(document).on('click', '.myself-open-website-settings', async function () {
       const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true)
       modal.contentContainer.addClass('myself-edit-font')
-      modal.closed.then(function () {
+      modal.destroyed.then(function () {
         location.reload()
       })
     })
     $(document).on('click', '.myself-open-theme-settings', async function () {
       const modal = await FramelixModal.request('post', MyselfEdit.themeSettingsEditUrl, null, null, false, null, true)
       modal.contentContainer.addClass('myself-edit-font')
-      modal.closed.then(function () {
+      modal.destroyed.then(function () {
         location.reload()
       })
     })
     $(document).on('click', '.myself-delete-page-block', async function () {
-      if (!(await FramelixModal.confirm('__framelix_sure__').closed).confirmed) return
+      if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) return
       const urlParams = {
         'action': null,
         'pageId': null,
@@ -80,7 +80,7 @@ class MyselfEdit {
     })
     $(document).on('click', '.myself-open-layout-block-editor', async function () {
       const instance = await MyselfBlockLayoutEditor.open()
-      instance.modal.closed.then(function () {
+      instance.modal.destroyed.then(function () {
         editFrameWindow.location.reload()
       })
     })
@@ -123,7 +123,7 @@ class MyselfEdit {
             }
             await mediaBrowser.render()
             mediaBrowser.openBrowserBtn.trigger('click')
-            mediaBrowser.modal.closed.then(function () {
+            mediaBrowser.modal.destroyed.then(function () {
               let url = null
               if (!mediaBrowser.getValue()) {
                 callback('')
@@ -173,7 +173,7 @@ class MyselfEdit {
       const originalContent = container[0].innerText
       config.saveBtn = frame.$(`<button class="framelix-button framelix-button-success framelix-button-small myself-editable-text-save-button" data-icon-left="save" title="__framelix_save__"></button>`)
       config.saveBtn.on('click', async function () {
-        Framelix.showProgressBar(-1)
+        Framelix.showProgressBar(1)
         await FramelixRequest.request('post', topFrame.eval('MyselfEdit').pageBlockEditUrl, { 'action': 'save-editable-content' }, {
           'storableId': container.attr('data-id'),
           'propertyName': container.attr('data-property-name'),
@@ -187,7 +187,7 @@ class MyselfEdit {
       config.cancelBtn.on('click', async function () {
         container[0].innerText = originalContent
       })
-      config.popup = frame.eval('FramelixPopup').showPopup(container, frame.$('<div>').append(config.saveBtn).append(config.cancelBtn), { closeMethods: 'manual' })
+      config.popup = frame.eval('FramelixPopup').show(container, frame.$('<div>').append(config.saveBtn).append(config.cancelBtn), { closeMethods: 'manual' })
     }).on('change input blur paste', '.myself-live-editable-text', function (ev) {
       ev.stopPropagation()
       let config = configMap.get(this)

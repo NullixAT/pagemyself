@@ -47,19 +47,19 @@ class MyselfEdit {
     $(document).on('click', '.myself-open-website-settings', async function () {
       const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true);
       modal.contentContainer.addClass('myself-edit-font');
-      modal.closed.then(function () {
+      modal.destroyed.then(function () {
         location.reload();
       });
     });
     $(document).on('click', '.myself-open-theme-settings', async function () {
       const modal = await FramelixModal.request('post', MyselfEdit.themeSettingsEditUrl, null, null, false, null, true);
       modal.contentContainer.addClass('myself-edit-font');
-      modal.closed.then(function () {
+      modal.destroyed.then(function () {
         location.reload();
       });
     });
     $(document).on('click', '.myself-delete-page-block', async function () {
-      if (!(await FramelixModal.confirm('__framelix_sure__').closed).confirmed) return;
+      if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) return;
       const urlParams = {
         'action': null,
         'pageId': null,
@@ -79,7 +79,7 @@ class MyselfEdit {
     });
     $(document).on('click', '.myself-open-layout-block-editor', async function () {
       const instance = await MyselfBlockLayoutEditor.open();
-      instance.modal.closed.then(function () {
+      instance.modal.destroyed.then(function () {
         editFrameWindow.location.reload();
       });
     });
@@ -126,7 +126,7 @@ class MyselfEdit {
 
             await mediaBrowser.render();
             mediaBrowser.openBrowserBtn.trigger('click');
-            mediaBrowser.modal.closed.then(function () {
+            mediaBrowser.modal.destroyed.then(function () {
               let url = null;
 
               if (!mediaBrowser.getValue()) {
@@ -182,7 +182,7 @@ class MyselfEdit {
       const originalContent = container[0].innerText;
       config.saveBtn = frame.$(`<button class="framelix-button framelix-button-success framelix-button-small myself-editable-text-save-button" data-icon-left="save" title="__framelix_save__"></button>`);
       config.saveBtn.on('click', async function () {
-        Framelix.showProgressBar(-1);
+        Framelix.showProgressBar(1);
         await FramelixRequest.request('post', topFrame.eval('MyselfEdit').pageBlockEditUrl, {
           'action': 'save-editable-content'
         }, {
@@ -198,7 +198,7 @@ class MyselfEdit {
       config.cancelBtn.on('click', async function () {
         container[0].innerText = originalContent;
       });
-      config.popup = frame.eval('FramelixPopup').showPopup(container, frame.$('<div>').append(config.saveBtn).append(config.cancelBtn), {
+      config.popup = frame.eval('FramelixPopup').show(container, frame.$('<div>').append(config.saveBtn).append(config.cancelBtn), {
         closeMethods: 'manual'
       });
     }).on('change input blur paste', '.myself-live-editable-text', function (ev) {
@@ -311,7 +311,7 @@ class MyselfBlockLayoutEditor {
 
 
   static async open() {
-    Framelix.showProgressBar(-1);
+    Framelix.showProgressBar(1);
     const instance = new MyselfBlockLayoutEditor();
     instance.config = await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
       'action': 'fetch-settings'
@@ -324,7 +324,7 @@ class MyselfBlockLayoutEditor {
       <div class="myself-block-layout-editor"></div>
     `, null, true);
     instance.modal.contentContainer.addClass('myself-edit-font');
-    instance.modal.closed.then(function () {
+    instance.modal.destroyed.then(function () {
       if (MyselfBlockLayoutEditor.current === instance) {
         MyselfBlockLayoutEditor.current = null;
       }
@@ -363,14 +363,14 @@ class MyselfBlockLayoutEditor {
     for (let i = 0; i < self.config.rows.length; i++) {
       const configRow = self.config.rows[i];
 
-      if (!Framelix.hasObjectKeys(configRow.settings) || Array.isArray(configRow.settings)) {
+      if (!FramelixObjectUtils.hasKeys(configRow.settings) || Array.isArray(configRow.settings)) {
         configRow.settings = {};
       }
 
       for (let j = 0; j < configRow.columns.length; j++) {
         const configColumn = configRow.columns[j];
 
-        if (!Framelix.hasObjectKeys(configColumn.settings) || Array.isArray(configColumn.settings)) {
+        if (!FramelixObjectUtils.hasKeys(configColumn.settings) || Array.isArray(configColumn.settings)) {
           configColumn.settings = {};
         }
 
@@ -520,7 +520,7 @@ class MyselfBlockLayoutEditor {
           self.config.allPageBlocks = newSettings.allPageBlocks;
           self.config.rows[rowId].columns[columnId].pageBlockId = newSettings.rows[rowId].columns[columnId].pageBlockId;
           self.render();
-          modal.close();
+          modal.destroy();
         });
       });
       container.on('click', '[data-action]', async function (ev) {
@@ -583,7 +583,7 @@ class MyselfBlockLayoutEditor {
                 const form = FramelixForm.getById('rowsettings');
                 if (!(await form.validate())) return;
                 Object.assign(rowSettings, form.getValues());
-                modal.close();
+                modal.destroy();
                 self.render();
               });
             }
@@ -624,7 +624,7 @@ class MyselfBlockLayoutEditor {
                 settingsChanged = true;
               }); // reload settings from backend as it may have changed for the edited column
 
-              modal.closed.then(async function () {
+              modal.destroyed.then(async function () {
                 if (!settingsChanged) return;
                 self.reload();
               });

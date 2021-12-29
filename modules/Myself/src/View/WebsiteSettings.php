@@ -4,6 +4,7 @@ namespace Framelix\Myself\View;
 
 use Framelix\Framelix\Form\Field\Text;
 use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\Response;
@@ -31,28 +32,54 @@ class WebsiteSettings extends View
      */
     public function onRequest(): void
     {
-        if (Form::isFormSubmitted('globalsettings')) {
-            $form = $this->getForm();
+        if (Form::isFormSubmitted('meta')) {
+            $form = $this->getFormMeta();
             $instance = \Framelix\Myself\Storable\WebsiteSettings::getInstance();
             $form->setStorableValues($instance);
             $instance->store();
             Toast::success('__framelix_saved__');
             Response::showFormAsyncSubmitResponse();
         }
-        $form = $this->getForm();
-        $form->addSubmitButton('save', '__framelix_save__', 'save');
-        $form->show();
+        switch ($this->tabId) {
+            case 'meta':
+                $form = $this->getFormMeta();
+                $form->addSubmitButton('save', '__framelix_save__', 'save');
+                $form->show();
+                break;
+            case 'pages':
+                echo '<p>' . Lang::get('__myself_websitesettings_backend__') . '</p>';
+                echo '<a href="' . View::getUrl(
+                        \Framelix\Myself\View\Backend\Page\Index::class
+                    ) . '" class="framelix-button framelix-button-primary" target="_blank">' . Lang::get(
+                        '__myself_goto_backend__'
+                    ) . '</a>';
+                break;
+            case 'nav':
+                echo '<p>' . Lang::get('__myself_websitesettings_backend__') . '</p>';
+                echo '<a href="' . View::getUrl(
+                        \Framelix\Myself\View\Backend\Nav\Index::class
+                    ) . '" class="framelix-button framelix-button-primary" target="_blank">' . Lang::get(
+                        '__myself_goto_backend__'
+                    ) . '</a>';
+                break;
+            default:
+                $tabs = new Tabs();
+                $tabs->addTab('meta', '__myself_websitesettings_meta_', new self());
+                $tabs->addTab('pages', '__myself_view_backend_page_index__', new self());
+                $tabs->addTab('nav', '__myself_view_backend_nav_index__', new self());
+                $tabs->show();
+        }
     }
 
     /**
      * Get form
      * @return Form
      */
-    private function getForm(): Form
+    private function getFormMeta(): Form
     {
         $instance = \Framelix\Myself\Storable\WebsiteSettings::getInstance();
         $form = new Form();
-        $form->id = "globalsettings";
+        $form->id = "meta";
         $form->submitUrl = Url::create();
 
         $field = new MediaBrowser();

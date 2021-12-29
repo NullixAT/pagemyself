@@ -691,10 +691,6 @@
         "Seiten",
         "453ac"
     ],
-    "__myself_view_backend_page_index_missing_homepage__": [
-        "Du hast noch keine Startseite (Seite ohne Pfad) erstellt. Damit deine Homepage funktioniert, brauchst du eine Startseite.",
-        "cdd07"
-    ],
     "__myself_visible_in_editmode__": [
         "Diese Info ist sichtbar, weil du dich im Bearbeitungsmodus befindest.",
         "306dd"

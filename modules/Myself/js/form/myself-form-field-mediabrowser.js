@@ -77,7 +77,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
         self.selectedInfoContainer.append('<input type="hidden" name="' + self.name + (self.multiple ? '[]' : '') + '" value="' + value[i] + '">')
       }
     }
-    this.selectedInfoContainer.append(FramelixLang.get('__myself_mediabrowser_files_selected__', [Framelix.countObjectKeys(value)]))
+    this.selectedInfoContainer.append(FramelixLang.get('__myself_mediabrowser_files_selected__', [FramelixObjectUtils.countKeys(value)]))
     this.triggerChange(this.field, isUserChange)
   }
 
@@ -155,11 +155,11 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
           values = values.shift()
         }
         self.setValue(values)
-        self.modal.close()
+        self.modal.destroy()
       })
       buttonsRow.append(saveBtn)
       self.modal = FramelixModal.show(self.browserContent, buttonsRow, true)
-      self.modal.closed.then(function () {
+      self.modal.destroyed.then(function () {
         self.modal = null
         self.browserContent = null
       })
@@ -168,7 +168,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
       self.browserContent.on('click', '.myself-media-browser-entry-options-icon', function (ev) {
         ev.stopPropagation()
         FramelixPopup.destroyAll()
-        FramelixPopup.showPopup(this, $(this).next('.myself-media-browser-entry-options').clone().removeClass('hidden'))
+        FramelixPopup.show(this, $(this).next('.myself-media-browser-entry-options').clone().removeClass('hidden'))
       })
       self.browserContent.on('change', '.myself-media-browser-entry-select', async function () {
         let entry = $(this).closest('.myself-media-browser-entry')
@@ -176,7 +176,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
         if (this.checked && self.unfoldSelectedFolders && entry.hasClass('myself-media-browser-entry-folder')) {
           this.checked = false
           entry.addClass('framelix-pulse')
-          Framelix.showProgressBar(-1)
+          Framelix.showProgressBar(1)
           const entries = await FramelixApi.callPhpMethod(self.signedGetBrowserUrl, {
             'unfoldFolder': id
           })
@@ -233,7 +233,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
         self.reload()
       })
       self.browserContent.on('click', '.myself-media-browser-entry-create-folder', async function (ev) {
-        const newName = (await FramelixModal.prompt(null).closed).promptResult
+        const newName = await FramelixModal.prompt(null).promptResult
         if (newName) {
           await FramelixApi.callPhpMethod($(this).attr('data-create-folder'), { 'folderName': newName })
           self.reload()
@@ -256,7 +256,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
       $(document).off('click.mediabrowser-delete-folder').on('click.mediabrowser-delete-folder', '.myself-media-browser-entry-delete[data-delete-folder-url]', async function (ev) {
         ev.stopPropagation()
         FramelixPopup.destroyAll()
-        let result = (await FramelixModal.prompt('__myself_mediabrowser_delete_folder_securequestion__').closed).promptResult
+        let result = await FramelixModal.prompt('__myself_mediabrowser_delete_folder_securequestion__').promptResult
         if (result !== null && result.toLowerCase() === 'yes') {
           if (await FramelixApi.callPhpMethod($(this).attr('data-delete-folder-url'))) {
             self.reload()
@@ -266,7 +266,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
       $(document).off('click.mediabrowser-delete-file').on('click.mediabrowser-delete-file', '.myself-media-browser-entry-delete[data-delete-file-url]', async function (ev) {
         ev.stopPropagation()
         FramelixPopup.destroyAll()
-        if ((await FramelixModal.confirm('__framelix_sure__').closed).confirmed) {
+        if (await FramelixModal.confirm('__framelix_sure__').confirmed) {
           if (await FramelixApi.callPhpMethod($(this).attr('data-delete-file-url'))) {
             self.reload()
           }
@@ -283,7 +283,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
       $(document).off('click.mediabrowser-rename').on('click.mediabrowser-rename', '.myself-media-browser-entry-rename', async function (ev) {
         ev.stopPropagation()
         FramelixPopup.destroyAll()
-        const newName = (await FramelixModal.prompt(null, $(this).attr('data-title')).closed).promptResult
+        const newName = await FramelixModal.prompt(null, $(this).attr('data-title')).promptResult
         if (newName) {
           if (await FramelixApi.callPhpMethod($(this).attr('data-rename-url'), { 'newName': newName })) {
             self.reload()

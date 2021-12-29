@@ -51,7 +51,7 @@ class ImageGalleryPageBlocksImageGallery extends MyselfPageBlocks {
       self.modal.bodyContainer.html(imagePopupContainer)
     } else {
       self.modal = FramelixModal.show(imagePopupContainer, null, true)
-      self.modal.closed.then(function () {
+      self.modal.destroyed.then(function () {
         self.modal = null
       })
       self.modal.container.on('keydown swiped-left swiped-right', function (ev) {

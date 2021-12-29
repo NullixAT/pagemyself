@@ -44,7 +44,7 @@ class MediaFile extends StorableFile
      * Folder
      * @var string|null
      */
-    protected ?string $folder = __DIR__ . "/../../public/uploads";
+    public ?string $folder = __DIR__ . "/../../public/uploads";
 
     /**
      * Get a flat list of all given files and folders recursively with all childs

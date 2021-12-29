@@ -24,11 +24,11 @@ class MyselfThemeHello {
         } else {
           popupContent = el.next('ul').clone()
         }
-        config.popup = FramelixPopup.showPopup(el, popupContent, {
+        config.popup = FramelixPopup.show(el, popupContent, {
           placement: parseInt(popupContent.attr('data-level')) <= 1 ? 'bottom' : 'left',
           color: '#fff'
         })
-        config.popup.onDestroy(function () {
+        config.popup.destroyed.then(function () {
           config.popup = null
         })
       })

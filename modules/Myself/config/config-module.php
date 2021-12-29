@@ -53,7 +53,10 @@ if (!defined("FRAMELIX_MODULE")) {
                         "files": [
                             {
                                 "type": "file",
-                                "path": ["js\/myself-edit.js", "js\/myself-block-layout-editor.js"]
+                                "path": [
+                                    "js\/myself-edit.js",
+                                    "js\/myself-block-layout-editor.js"
+                                ]
                             }
                         ],
                         "options": {
@@ -108,7 +111,10 @@ if (!defined("FRAMELIX_MODULE")) {
                         "files": [
                             {
                                 "type": "file",
-                                "path": ["scss\/myself-edit.scss", "scss\/myself-block-layout-editor.scss"]
+                                "path": [
+                                    "scss\/myself-edit.scss",
+                                    "scss\/myself-block-layout-editor.scss"
+                                ]
                             }
                         ],
                         "options": {
@@ -141,13 +147,6 @@ if (!defined("FRAMELIX_MODULE")) {
                     }
                 }
             }
-        },
-        "systemEventLog": {
-            "1": false,
-            "2": false,
-            "3": false,
-            "4": true,
-            "5": true
         }
     }
 </script>

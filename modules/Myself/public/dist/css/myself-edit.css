@@ -1,5 +1,5 @@
 :root {
-  --myself-edit-font: "Arial", sans-serif;
+  --myself-edit-font: var(--framelix-backend-font);
   --myself-edit-frame-padding: 70px; }
 
 .myself-edit-frame {

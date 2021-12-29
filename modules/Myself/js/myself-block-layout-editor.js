@@ -86,7 +86,7 @@ class MyselfBlockLayoutEditor {
    * @returns {Promise<MyselfBlockLayoutEditor>}
    */
   static async open () {
-    Framelix.showProgressBar(-1)
+    Framelix.showProgressBar(1)
     const instance = new MyselfBlockLayoutEditor()
     instance.config = await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, { 'action': 'fetch-settings' })
     instance.modal = await FramelixModal.show(`
@@ -97,7 +97,7 @@ class MyselfBlockLayoutEditor {
       <div class="myself-block-layout-editor"></div>
     `, null, true)
     instance.modal.contentContainer.addClass('myself-edit-font')
-    instance.modal.closed.then(function () {
+    instance.modal.destroyed.then(function () {
       if (MyselfBlockLayoutEditor.current === instance) {
         MyselfBlockLayoutEditor.current = null
       }
@@ -130,12 +130,12 @@ class MyselfBlockLayoutEditor {
     let unassignedPageBlocks = Object.assign({}, self.config.allPageBlocks)
     for (let i = 0; i < self.config.rows.length; i++) {
       const configRow = self.config.rows[i]
-      if (!Framelix.hasObjectKeys(configRow.settings) || Array.isArray(configRow.settings)) {
+      if (!FramelixObjectUtils.hasKeys(configRow.settings) || Array.isArray(configRow.settings)) {
         configRow.settings = {}
       }
       for (let j = 0; j < configRow.columns.length; j++) {
         const configColumn = configRow.columns[j]
-        if (!Framelix.hasObjectKeys(configColumn.settings) || Array.isArray(configColumn.settings)) {
+        if (!FramelixObjectUtils.hasKeys(configColumn.settings) || Array.isArray(configColumn.settings)) {
           configColumn.settings = {}
         }
         if (configColumn.pageBlockId) {
@@ -268,7 +268,7 @@ class MyselfBlockLayoutEditor {
           self.config.allPageBlocks = newSettings.allPageBlocks
           self.config.rows[rowId].columns[columnId].pageBlockId = newSettings.rows[rowId].columns[columnId].pageBlockId
           self.render()
-          modal.close()
+          modal.destroy()
         })
       })
       container.on('click', '[data-action]', async function (ev) {
@@ -322,7 +322,7 @@ class MyselfBlockLayoutEditor {
               const form = FramelixForm.getById('rowsettings')
               if (!(await form.validate())) return
               Object.assign(rowSettings, form.getValues())
-              modal.close()
+              modal.destroy()
               self.render()
             })
           }
@@ -357,7 +357,7 @@ class MyselfBlockLayoutEditor {
               settingsChanged = true
             })
             // reload settings from backend as it may have changed for the edited column
-            modal.closed.then(async function () {
+            modal.destroyed.then(async function () {
               if (!settingsChanged) return
               self.reload()
             })
