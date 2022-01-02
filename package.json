@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brainfoolong/pagemyself.git"
+    "url": "git+https://github.com/NullixAT/pagemyself.git"
   },
   "keywords": [
     "php",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/brainfoolong/pagemyself#readme",
   "framelix": {
-    "isRootPackage" : true,
+    "isRootPackage": true,
     "builtInModules": [
       "Calendar",
       "ContactForm",
