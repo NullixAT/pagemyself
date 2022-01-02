@@ -131,6 +131,10 @@
         "Bearbeitungsmodus aktivieren",
         "07917"
     ],
+    "__myself_file_not_exist__": [
+        "Datei existiert nicht",
+        "2cf13"
+    ],
     "__myself_form_field_ace_activate__": [
         "Editor aktivieren",
         "50f23"
@@ -707,6 +711,10 @@
         "Autor der Webseite",
         "881eb"
     ],
+    "__myself_websitesettings_backend__": [
+        "Das Feature kann im Backend bearbeitet werden. Klicke auf den folgenden Button um das Backend zu \u00f6ffnen.",
+        "e81b6"
+    ],
     "__myself_websitesettings_favicon__": [
         "Favicon",
         "49e95"
@@ -730,6 +738,10 @@
     "__myself_websitesettings_keywords_desc__": [
         "Keywords sind W\u00f6rter, getrennt mit Beistrich, die deine Webseite\/Service mit Stichw\u00f6rtern beschreiben. Dies wird von Suchmaschinen benutzt. Verwende nicht mehr als 20 W\u00f6rter. Es k\u00f6nnte auch negative Auswirkungen auf Suchmaschinenplatzierung haben wenn du es \u00fcbertreibst.",
         "89810"
+    ],
+    "__myself_websitesettings_meta_": [
+        "Metadaten",
+        "ce214"
     ],
     "__myself_websitesettings_og_data__": [
         "Das ist als Metadaten anzusehen. Diese werden f\u00fcr Suchmaschinenoptimierung und Webseiteninformation f\u00fcr soziale Medien.",

@@ -303,7 +303,9 @@ class MediaBrowser extends Field
         ?>
         <div <?= $attributes ?>>
             <?
-            if ($file->isImageFile() && $file->getSmallestThumbPath()) {
+            if (!$file->getPath()) {
+                echo '<div class="myself-media-browser-entry-icon" title="__myself_file_not_exist__"><span class="material-icons">do_not_disturb</span></div>';
+            } elseif ($file->isImageFile() && $file->getSmallestThumbPath()) {
                 echo '<div class="myself-media-browser-entry-icon myself-lazy-load-parent-anchor">' . $file->getLazyLoadContainer(
                     ) . '</div>';
             } elseif ($file->isVideoFile()) {

@@ -98,6 +98,9 @@
     "__myself_enable_editmode__": [
         "Enable edit mode"
     ],
+    "__myself_file_not_exist__": [
+        "File not exist"
+    ],
     "__myself_form_field_ace_activate__": [
         "Activate editor"
     ],
@@ -428,9 +431,6 @@
     "__myself_storable_page_title_label__": [
         "Page title"
     ],
-    "__myself_websitesettings_backend__": [
-        "This feature is editable in the backend. Please click the following button to open the backend."
-    ],
     "__myself_storable_page_title_label_desc__": [
         "This title is used as the browser title and for search engines. In page, if required, you have to add this text separately."
     ],
@@ -527,14 +527,14 @@
     "__myself_wait_for_unblock__": [
         "You must wait {0} before you can try again"
     ],
-    "__myself_websitesettings_meta_": [
-        "Metadata"
-    ],
     "__myself_websitesettings__": [
         "Website Settings"
     ],
     "__myself_websitesettings_author__": [
         "Author of website"
+    ],
+    "__myself_websitesettings_backend__": [
+        "This feature is editable in the backend. Please click the following button to open the backend."
     ],
     "__myself_websitesettings_favicon__": [
         "Favicon"
@@ -553,6 +553,9 @@
     ],
     "__myself_websitesettings_keywords_desc__": [
         "Keywords are words, separated with comma, that describe your service and website. It is used by search engines but you should not add more than 20 keywords. It can harm your search engine ranking if abused."
+    ],
+    "__myself_websitesettings_meta_": [
+        "Metadata"
     ],
     "__myself_websitesettings_og_data__": [
         "This is a meta information and is used by search engines and social media representation."
