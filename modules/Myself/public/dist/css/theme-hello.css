@@ -88,7 +88,10 @@ html[data-screen-size='s'] .myself-themes-hello,
     background: white;
     display: flex;
     overflow: hidden;
-    justify-content: center; }
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 3; }
     html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-pageblocks-navigation,
     .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-pageblocks-navigation {
       max-width: calc(100% - 50px); }

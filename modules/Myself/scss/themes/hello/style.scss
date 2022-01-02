@@ -127,6 +127,9 @@ html[data-screen-size='s'] .myself-themes-hello,
     display: flex;
     overflow: hidden;
     justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 3;
 
     .myself-pageblocks-navigation {
       max-width: calc(100% - 50px);
