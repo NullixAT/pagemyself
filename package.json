@@ -17,9 +17,9 @@
   "author": "BrainFooLong",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brainfoolong/pagemyself/issues"
+    "url": "https://github.com/NullixAT/pagemyself/issues"
   },
-  "homepage": "https://github.com/brainfoolong/pagemyself#readme",
+  "homepage": "https://github.com/NullixAT/pagemyself#readme",
   "framelix": {
     "isRootPackage": true,
     "builtInModules": [
