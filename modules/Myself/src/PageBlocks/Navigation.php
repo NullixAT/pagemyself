@@ -82,7 +82,6 @@ class Navigation extends BlockBase
         }
     }
 
-
     /**
      * Show navigation entries list
      * @param Nav[] $entries
@@ -110,7 +109,9 @@ class Navigation extends BlockBase
             }
             echo '<li>';
             if ($entry->page || $entry->link) {
-                $url = ($entry->link ?: View::getUrl(Index::class, ['url' => $entry->page->url])->getRelativePath());
+                $url = $entry->linkType === Nav::LINKTYPE_PAGE
+                    ? View::getUrl(Index::class, ['url' => $entry->page->url]) : $entry->link;
+                $url = (string)$url;
                 $active = rtrim($currentUrl, "/") === rtrim($url, "/");
                 echo '<a href="' . $url . '" target="' . ($entry->target ?? '_self') . '" rel="nofollow" class="' . ($active ? 'myself-pageblocks-navigation-active-link' : '') . '">';
             } else {

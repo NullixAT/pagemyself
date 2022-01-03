@@ -7,23 +7,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 class MyselfEdit {
   /**
-   * Page block edit url
-   * @type {string}
+   * Edit config
+   * @type {Object<string, *>}
    */
 
   /**
-   * Theme settings edit url
-   * @type {string}
-   */
-
-  /**
-   * Website settings url
-   * @type {string}
-   */
-
-  /**
-   * Url to tinymce folder
-   * @type {string}
+   * The page id in the edit frame
+   * @type {number}
    */
 
   /**
@@ -37,7 +27,9 @@ class MyselfEdit {
     editFrame.on('load', function () {
       editFrameWindow = editFrame[0].contentWindow;
       editFrameDoc = $(editFrameWindow.document);
-      editFrameDoc[0].querySelector('html').setAttribute('data-edit-frame', '1');
+      const editFrameHtml = editFrameDoc[0].querySelector('html');
+      editFrameHtml.setAttribute('data-edit-frame', '1');
+      MyselfEdit.framePageId = parseInt(editFrameHtml.getAttribute('data-page'));
       let url = new URL(editFrameWindow.location.href);
       url.searchParams.set('editMode', '1');
       window.history.pushState(null, null, url);
@@ -45,14 +37,14 @@ class MyselfEdit {
       MyselfEdit.bindLiveEditableWysiwyg(editFrameWindow);
     });
     $(document).on('click', '.myself-open-website-settings', async function () {
-      const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true);
+      const modal = await FramelixModal.request('post', MyselfEdit.config.websiteSettingsEditUrl, null, null, false, null, true);
       modal.contentContainer.addClass('myself-edit-font');
       modal.destroyed.then(function () {
         location.reload();
       });
     });
     $(document).on('click', '.myself-open-theme-settings', async function () {
-      const modal = await FramelixModal.request('post', MyselfEdit.themeSettingsEditUrl, null, null, false, null, true);
+      const modal = await FramelixModal.request('post', MyselfEdit.config.themeSettingsEditUrl, null, null, false, null, true);
       modal.contentContainer.addClass('myself-edit-font');
       modal.destroyed.then(function () {
         location.reload();
@@ -71,7 +63,7 @@ class MyselfEdit {
         urlParams[k] = this.dataset[k] || null;
       }
 
-      await FramelixRequest.request('post', MyselfEdit.pageBlockEditUrl, {
+      await FramelixRequest.request('post', MyselfEdit.config.pageBlockEditUrl, {
         'action': 'delete',
         'pageBlockId': $(this).attr('data-page-block-id')
       });
@@ -105,7 +97,7 @@ class MyselfEdit {
     }
 
     const mediaBrowser = new MyselfFormFieldMediaBrowser();
-    await frame.eval('FramelixDom').includeResource(MyselfEdit.tinymceUrl, 'tinymce');
+    await frame.eval('FramelixDom').includeResource(MyselfEdit.config.tinymceUrl, 'tinymce');
     frame.eval('FramelixDom').addChangeListener('wysiwyg', async function () {
       $(frameDoc).find('.myself-live-editable-wysiwyg:not(.mce-content-body)').each(async function () {
         const container = frame.$(this);
@@ -121,7 +113,7 @@ class MyselfEdit {
           },
           file_picker_callback: async function file_picker_callback(callback, value, meta) {
             if (!mediaBrowser.signedGetBrowserUrl) {
-              mediaBrowser.signedGetBrowserUrl = (await FramelixRequest.request('get', MyselfEdit.pageBlockEditUrl + '?action=getmediabrowserurl').getJson()).content;
+              mediaBrowser.signedGetBrowserUrl = (await FramelixRequest.request('get', MyselfEdit.config.pageBlockEditUrl + '?action=getmediabrowserurl').getJson()).content;
             }
 
             await mediaBrowser.render();
@@ -147,7 +139,7 @@ class MyselfEdit {
             editor.myself = {
               'container': container,
               'originalContent': originalContent,
-              'pageBlockEditUrl': topFrame.eval('MyselfEdit').pageBlockEditUrl
+              'pageBlockEditUrl': topFrame.eval('MyselfEdit').config.pageBlockEditUrl
             };
           }
         });
@@ -183,13 +175,13 @@ class MyselfEdit {
       config.saveBtn = frame.$(`<button class="framelix-button framelix-button-success framelix-button-small myself-editable-text-save-button" data-icon-left="save" title="__framelix_save__"></button>`);
       config.saveBtn.on('click', async function () {
         Framelix.showProgressBar(1);
-        await FramelixRequest.request('post', topFrame.eval('MyselfEdit').pageBlockEditUrl, {
+        await FramelixRequest.request('post', topFrame.eval('MyselfEdit').config.pageBlockEditUrl, {
           'action': 'save-editable-content'
         }, {
           'storableId': container.attr('data-id'),
           'propertyName': container.attr('data-property-name'),
           'arrayKey': container.attr('data-array-key'),
-          'content': container[0].innerText
+          'content': container[0].innerHTML
         });
         Framelix.showProgressBar(null);
         FramelixToast.success('__framelix_saved__');
@@ -209,15 +201,15 @@ class MyselfEdit {
         return;
       }
 
-      const container = $(this); // remove all styles and replace not supported elements
+      const container = $(this); // cleanup html
 
-      if (container.attr('data-multiline') !== '1') {
-        const newText = this.innerText.replace(/[\r\n]/g, '');
+      const newContent = $(this).clone();
+      const originalHtml = newContent.html();
+      newContent.find('script,style,link').remove();
+      newContent.find('[style],[href]').removeAttr('style').removeAttr('href');
 
-        if (newText !== this.innerText) {
-          frame.eval('FramelixToast').error('__myself_storable_liveedit_nomultiline__');
-          this.innerText = this.innerText.replace(/[\r\n]/g, '');
-        }
+      if (originalHtml !== newContent.html()) {
+        this.innerHTML = newContent.html();
       }
 
       if (ev.type === 'focusout' || ev.type === 'blur') {
@@ -231,13 +223,9 @@ class MyselfEdit {
 
 }
 
-_defineProperty(MyselfEdit, "pageBlockEditUrl", void 0);
+_defineProperty(MyselfEdit, "config", void 0);
 
-_defineProperty(MyselfEdit, "themeSettingsEditUrl", void 0);
-
-_defineProperty(MyselfEdit, "websiteSettingsEditUrl", void 0);
-
-_defineProperty(MyselfEdit, "tinymceUrl", void 0);
+_defineProperty(MyselfEdit, "framePageId", 0);
 
 FramelixInit.late.push(MyselfEdit.initLate);
 /**
@@ -249,6 +237,8 @@ class MyselfBlockLayoutEditor {
     _defineProperty(this, "modal", void 0);
 
     _defineProperty(this, "config", {});
+
+    _defineProperty(this, "showSaveLayoutBtn", false);
   }
 
   /**
@@ -313,7 +303,8 @@ class MyselfBlockLayoutEditor {
   static async open() {
     Framelix.showProgressBar(1);
     const instance = new MyselfBlockLayoutEditor();
-    instance.config = await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+    instance.config = await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+      'pageId': MyselfEdit.framePageId,
       'action': 'fetch-settings'
     });
     instance.modal = await FramelixModal.show(`
@@ -343,9 +334,11 @@ class MyselfBlockLayoutEditor {
 
   async reload() {
     const self = this;
-    self.config = await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+    self.config = await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+      'pageId': MyselfEdit.framePageId,
       'action': 'fetch-settings'
     });
+    self.showSaveLayoutBtn = false;
     return self.render();
   }
   /**
@@ -360,8 +353,8 @@ class MyselfBlockLayoutEditor {
 
     let unassignedPageBlocks = Object.assign({}, self.config.allPageBlocks);
 
-    for (let i = 0; i < self.config.rows.length; i++) {
-      const configRow = self.config.rows[i];
+    for (let i = 0; i < self.config.blockLayout.rows.length; i++) {
+      const configRow = self.config.blockLayout.rows[i];
 
       if (!FramelixObjectUtils.hasKeys(configRow.settings) || Array.isArray(configRow.settings)) {
         configRow.settings = {};
@@ -388,7 +381,7 @@ class MyselfBlockLayoutEditor {
         continue;
       }
 
-      self.config.rows.push({
+      self.config.blockLayout.rows.push({
         'settings': {},
         'columns': [{
           'pageBlockId': pageBlockId,
@@ -398,27 +391,26 @@ class MyselfBlockLayoutEditor {
     } // no rows exist, create a few empty rows
 
 
-    if (!self.config.rows.length) {
+    if (!self.config.blockLayout.rows.length) {
       for (let i = 0; i <= 3; i++) {
-        self.config.rows.push({
+        self.config.blockLayout.rows.push({
           'columns': [{
-            'settings': {
-              'pageBlockId': null
-            }
+            'settings': {},
+            'pageBlockId': 0
           }]
         });
       }
     }
 
-    const fixedRowsEl = $(`<div class="myself-block-layout-fixed-rows"></div>`);
-    container.append(fixedRowsEl);
     const rowsEl = $(`<div class="myself-block-layout-rows"></div>`);
     container.append(rowsEl);
+    const fixedRowsEl = $(`<div class="myself-block-layout-fixed-rows"></div>`);
+    container.append(fixedRowsEl);
 
     for (let pageBlockId in fixedPageBlocks) {
       const pageBlockData = fixedPageBlocks[pageBlockId];
       const row = $(`<div class="myself-block-layout-row myself-block-layout-row-fixed"></div>`);
-      let title = '<div class="myself-block-layout-row-column-title-sub" title="__myself_blocklayout_fixedplacememt_desc__">' + FramelixLang.get('__myself_blocklayout_fixedplacememt__') + '</div>';
+      let title = '<div class="myself-block-layout-row-column-title-sub" title="__myself_blocklayout_fixedplacememt_desc__">' + FramelixLang.get('__myself_blocklayout_fixedplacememt__', [pageBlockData.fixedPlacement]) + '</div>';
       title += FramelixLang.get(pageBlockData.title);
       const blockColumn = $(`<div class="myself-block-layout-row-column" data-page-block-id="${pageBlockId}">
             <div class="myself-block-layout-row-column-title">${title}</div>
@@ -431,8 +423,8 @@ class MyselfBlockLayoutEditor {
       fixedRowsEl.append(row);
     }
 
-    for (let i = 0; i < self.config.rows.length; i++) {
-      const configRow = self.config.rows[i];
+    for (let i = 0; i < self.config.blockLayout.rows.length; i++) {
+      const configRow = self.config.blockLayout.rows[i];
       const row = $(`<div class="myself-block-layout-row"></div>`);
       row.attr('data-columns', configRow.columns.length);
 
@@ -476,10 +468,12 @@ class MyselfBlockLayoutEditor {
     }
 
     container.append(`<div class="myself-block-layout-row framelix-responsive-grid-2">        
-        <button class="myself-block-layout-row-column framelix-button framelix-button-success" data-icon-left="save" data-action="save-layout">${FramelixLang.get('__myself_blocklayout_save__')}</button>
+        <button class="myself-block-layout-row-column framelix-button framelix-button-success hidden" data-icon-left="save" data-action="save-layout">${FramelixLang.get('__myself_blocklayout_save__')}</button>
         <button class="myself-block-layout-row-column framelix-button framelix-button-primary" data-icon-left="add"
                         title="__myself_blocklayout_add_row__" data-action="row-add"></button>
     </div>`);
+    const saveLayoutBtn = container.find('.framelix-button[data-action=\'save-layout\']');
+    if (self.showSaveLayoutBtn) saveLayoutBtn.removeClass('hidden');
     await FramelixDom.includeCompiledFile('Framelix', 'js', 'sortablejs', 'Sortable');
     new Sortable(rowsEl[0], {
       'handle': '.myself-block-layout-sort',
@@ -488,11 +482,12 @@ class MyselfBlockLayoutEditor {
         rowsEl.find('.myself-block-layout-row[data-id]').each(function () {
           const rowId = $(this).attr('data-id');
 
-          if (self.config.rows[rowId]) {
-            rows.push(self.config.rows[rowId]);
+          if (self.config.blockLayout.rows[rowId]) {
+            rows.push(self.config.blockLayout.rows[rowId]);
           }
         });
-        self.config.rows = rows;
+        self.showSaveLayoutBtn = true;
+        self.config.blockLayout.rows = rows;
         self.render();
       }
     });
@@ -504,21 +499,25 @@ class MyselfBlockLayoutEditor {
         const rowId = row.attr('data-id');
         const column = $(this).closest('.myself-block-layout-row-column');
         const columnId = column.attr('data-id');
-        const modal = await FramelixModal.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+        const modal = await FramelixModal.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+          'pageId': MyselfEdit.framePageId,
           'action': 'select-new-page-block'
         }, null, false, null, true);
         modal.contentContainer.on('click', '.myself-page-block-create-entry', async function () {
-          await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+          await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+            'pageId': MyselfEdit.framePageId,
             'action': 'create-page-block',
             'pageBlockClass': $(this).attr('data-page-block-class'),
             'rowId': rowId,
             'columnId': columnId
           });
-          const newSettings = await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+          const newSettings = await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+            'pageId': MyselfEdit.framePageId,
             'action': 'fetch-settings'
           });
+          self.showSaveLayoutBtn = false;
           self.config.allPageBlocks = newSettings.allPageBlocks;
-          self.config.rows[rowId].columns[columnId].pageBlockId = newSettings.rows[rowId].columns[columnId].pageBlockId;
+          self.config.blockLayout.rows[rowId].columns[columnId].pageBlockId = newSettings.blockLayout.rows[rowId].columns[columnId].pageBlockId;
           self.render();
           modal.destroy();
         });
@@ -533,14 +532,14 @@ class MyselfBlockLayoutEditor {
         let pageBlockId = null;
 
         if (rowId) {
-          rowSettings = self.config.rows[rowId].settings;
+          rowSettings = self.config.blockLayout.rows[rowId].settings;
         }
 
         let columnSettings = {};
 
         if (columnId !== undefined) {
-          pageBlockId = self.config.rows[rowId].columns[columnId].pageBlockId;
-          columnSettings = self.config.rows[rowId].columns[columnId].settings;
+          pageBlockId = self.config.blockLayout.rows[rowId].columns[columnId].pageBlockId;
+          columnSettings = self.config.blockLayout.rows[rowId].columns[columnId].settings;
         } else {
           pageBlockId = column.attr('data-page-block-id');
         }
@@ -548,9 +547,10 @@ class MyselfBlockLayoutEditor {
         switch (action) {
           case 'save-layout':
             {
-              await FramelixApi.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+              await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+                'pageId': MyselfEdit.framePageId,
                 'action': action,
-                'rows': self.config.rows
+                'rows': self.config.blockLayout.rows
               });
               location.reload();
             }
@@ -570,12 +570,14 @@ class MyselfBlockLayoutEditor {
 
               columnSettings.grow = grow;
               self.render();
+              self.showSaveLayoutBtn = true;
             }
             break;
 
           case 'row-settings':
             {
-              const modal = await FramelixModal.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+              const modal = await FramelixModal.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+                'pageId': MyselfEdit.framePageId,
                 'action': action,
                 'settings': rowSettings
               }, true);
@@ -583,6 +585,7 @@ class MyselfBlockLayoutEditor {
                 const form = FramelixForm.getById('rowsettings');
                 if (!(await form.validate())) return;
                 Object.assign(rowSettings, form.getValues());
+                self.showSaveLayoutBtn = true;
                 modal.destroy();
                 self.render();
               });
@@ -591,10 +594,11 @@ class MyselfBlockLayoutEditor {
 
           case 'column-settings':
             {
-              const modal = await FramelixModal.callPhpMethod(MyselfBlockLayoutEditor.apiUrl, {
+              const modal = await FramelixModal.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+                'pageId': MyselfEdit.framePageId,
                 'action': action,
                 'settings': columnSettings,
-                'rows': self.config.rows,
+                'rows': self.config.blockLayout.rows,
                 'pageBlockId': pageBlockId,
                 'rowId': rowId,
                 'columnId': columnId
@@ -612,7 +616,7 @@ class MyselfBlockLayoutEditor {
                 }
               });
               let settingsChanged = false;
-              modal.contentContainer.on(FramelixForm.EVENT_SUBMITTED, function (ev) {
+              modal.contentContainer.on(FramelixForm.EVENT_SUBMITTED, function (ev, data) {
                 const target = $(ev.target);
                 const tabContent = target.closest('.framelix-tab-content');
 
@@ -622,6 +626,10 @@ class MyselfBlockLayoutEditor {
                 }
 
                 settingsChanged = true;
+
+                if (data.submitButtonName === 'saveClose') {
+                  modal.destroy();
+                }
               }); // reload settings from backend as it may have changed for the edited column
 
               modal.destroyed.then(async function () {
@@ -632,28 +640,34 @@ class MyselfBlockLayoutEditor {
             break;
 
           case 'column-add':
-            self.config.rows[rowId].columns.push({
-              'title': ''
+            self.config.blockLayout.rows[rowId].columns.push({
+              'pageBlockId': 0,
+              'settings': {}
             });
+            self.showSaveLayoutBtn = true;
             self.render();
             break;
 
           case 'column-remove':
-            self.config.rows[rowId].columns.splice(columnId, 1);
+            self.config.blockLayout.rows[rowId].columns.splice(columnId, 1);
 
-            if (!self.config.rows[rowId].columns.length) {
-              self.config.rows.splice(rowId, 1);
+            if (!self.config.blockLayout.rows[rowId].columns.length) {
+              self.config.blockLayout.rows.splice(rowId, 1);
             }
 
+            self.showSaveLayoutBtn = true;
             self.render();
             break;
 
           case 'row-add':
-            self.config.rows.push({
+            self.config.blockLayout.rows.push({
               'columns': [{
-                'title': ''
-              }]
+                'pageBlockId': 0,
+                'settings': {}
+              }],
+              'settings': {}
             });
+            self.showSaveLayoutBtn = true;
             self.render();
             break;
         }
@@ -662,8 +676,6 @@ class MyselfBlockLayoutEditor {
   }
 
 }
-
-_defineProperty(MyselfBlockLayoutEditor, "apiUrl", void 0);
 
 _defineProperty(MyselfBlockLayoutEditor, "current", void 0);
 

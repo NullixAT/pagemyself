@@ -26,6 +26,12 @@ use function substr;
 abstract class BlockBase
 {
     /**
+     * The block html attributes
+     * @var HtmlAttributes
+     */
+    protected HtmlAttributes $htmlAttributes;
+
+    /**
      * Get array if all available page block classes
      * @return string[]
      */
@@ -55,6 +61,15 @@ abstract class BlockBase
      */
     public function __construct(public PageBlock $pageBlock)
     {
+        $className = ClassUtils::getHtmlClass($this);
+        $this->htmlAttributes = new HtmlAttributes();
+        $this->htmlAttributes->addClass('myself-page-block');
+        $this->htmlAttributes->addClass($className);
+        $this->htmlAttributes->set('id', 'pageblock-' . $this->pageBlock);
+        $this->htmlAttributes->set('data-id', $this->pageBlock);
+        if ($this->pageBlock->flagDraft) {
+            $this->htmlAttributes->set('data-draft', 1);
+        }
     }
 
     /**
@@ -86,21 +101,21 @@ abstract class BlockBase
     }
 
     /**
+     * Called before showLayout() to do some preparations if required
+     * @return void
+     */
+    public function beforeShowLayout(): void
+    {
+    }
+
+    /**
      * Show content with the surrounding required markup
      * @return void
      */
     final public function showLayout(): void
     {
-        $className = ClassUtils::getHtmlClass($this);
-        $htmlAttributes = new HtmlAttributes();
-        $htmlAttributes->addClass('myself-page-block');
-        $htmlAttributes->addClass($className);
-        $htmlAttributes->set('id', 'pageblock-' . $this->pageBlock);
-        $htmlAttributes->set('data-id', $this->pageBlock);
-        if ($this->pageBlock->flagDraft) {
-            $htmlAttributes->set('data-draft', 1);
-        }
-        echo '<div ' . $htmlAttributes . '>';
+        $this->beforeShowLayout();
+        echo '<div ' . $this->htmlAttributes . '>';
         try {
             $this->showContent();
             $jsClassName = substr(get_class($this), 9);
@@ -125,6 +140,16 @@ abstract class BlockBase
             LayoutUtils::handleThrowable($e);
         }
         echo '</div>';
+    }
+
+    /**
+     * Get block layout label
+     * Will be automatically truncated in editor view when too long
+     * @return string
+     */
+    public function getBlockLayoutLabel(): string
+    {
+        return ClassUtils::getLangKey($this->pageBlock->pageBlockClass);
     }
 
     /**

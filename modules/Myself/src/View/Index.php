@@ -19,7 +19,7 @@ use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
-use Framelix\Myself\BlockLayoutEditor;
+use Framelix\Myself\BlockLayout\BlockLayoutEditor;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
@@ -204,26 +204,16 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         $htmlAttributes->set('data-mobile', Request::getGet('mobile') ? '1' : '0');
 
         if ($this->editMode) {
-            $this->addHeadHtml(
-                '
-                <script>
-                MyselfEdit.tinymceUrl = ' . JsonUtils::encode(
-                    Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js")
-                ) . ';
-                    MyselfEdit.pageBlockEditUrl = ' . JsonUtils::encode(View::getUrl(PageBlockEdit::class)) . ';
-                    MyselfEdit.themeSettingsEditUrl = ' . JsonUtils::encode(
-                    View::getUrl(ThemeSettings::class)->setParameter('pageId', $this->page)->setParameter(
-                        'action',
-                        'edit'
-                    )
-                ) . ';
-                    MyselfEdit.websiteSettingsEditUrl = ' . JsonUtils::encode(View::getUrl(WebsiteSettings::class)) . ';
-                    MyselfBlockLayoutEditor.apiUrl = ' . JsonUtils::encode(
-                    JsCall::getCallUrl(BlockLayoutEditor::class, '', ['pageId' => $this->page])
-                ) . ';
-                </script>
-                '
-            );
+            $config = [
+                'tinymceUrl' => Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js"),
+                'pageBlockEditUrl' => View::getUrl(PageBlockEdit::class),
+                'themeSettingsEditUrl' => View::getUrl(ThemeSettings::class)
+                    ->setParameter('pageId', $this->page)
+                    ->setParameter('action', 'edit'),
+                'websiteSettingsEditUrl' => View::getUrl(WebsiteSettings::class),
+                'blockLayoutApiUrl' => JsCall::getCallUrl(BlockLayoutEditor::class, '')
+            ];
+            $this->addHeadHtml('<script>MyselfEdit.config = ' . JsonUtils::encode($config) . '</script>');
         }
         Buffer::start();
         echo '<!DOCTYPE html>';

@@ -4,10 +4,12 @@ namespace Framelix\Myself\Themes;
 
 use Framelix\Framelix\Form\Field\Color;
 use Framelix\Framelix\Form\Field\Select;
+use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\Framelix\Utils\ColorUtils;
 use Framelix\Myself\PageBlocks\Navigation;
+use Framelix\Myself\PageBlocks\Text;
 use Framelix\Myself\View\Index;
 
 use function strtolower;
@@ -26,8 +28,7 @@ class Hello extends ThemeBase
     {
         $htmlClassBase = 'myself-themes-' . strtolower($this->theme->name);
         $navigation = $this->theme->settings['navigation'] ?? 'left';
-        $maxWidth = $this->theme->settings['maxWidth'] ?? 0;
-        $pageAlign = $this->theme->settings['pageAlign'] ?? 'center';
+        $footer = $this->theme->settings['footer'] ?? null;
         $primaryColor = $this->theme->settings['primaryColor'] ?? null;
         if ($primaryColor && !$view->editMode) {
             $hsl = ColorUtils::rgbToHsl(...ColorUtils::hexToRgb($primaryColor));
@@ -55,6 +56,11 @@ class Hello extends ThemeBase
         echo '</div>';
         echo '<div class="' . $htmlClassBase . '-content">';
         $this->showUserDefinedLayout();
+        if ($footer) {
+            echo '<div class="' . $htmlClassBase . '-footer">';
+            $this->getFixedPageBlock('footer', Text::class)->getLayoutBlock()?->showLayout();
+            echo '</div>';
+        }
         echo '</div></div>';
     }
 
@@ -82,6 +88,10 @@ class Hello extends ThemeBase
         $field->label = '__myself_nav_align__';
         $field->addOption('left', '__myself_align_left__');
         $field->addOption('top', '__myself_align_top__');
+        $form->addField($field);
+
+        $field = new Toggle();
+        $field->name = 'settings[footer]';
         $form->addField($field);
 
         return $forms;

@@ -18,6 +18,7 @@ use function htmlentities;
 use function implode;
 use function in_array;
 use function ini_set;
+use function is_array;
 use function is_string;
 
 /**
@@ -359,6 +360,25 @@ class MediaBrowser extends Field
     public function setOnlyVideos(): void
     {
         $this->allowedExtensions = ['mp4', 'webm'];
+    }
+
+    /**
+     * Get converted submitted value
+     * @return string|array|int|null
+     */
+    public function getDefaultConvertedSubmittedValue(): string|array|int|null
+    {
+        $value = $this->getSubmittedValue();
+        if (is_array($value)) {
+            foreach ($value as $key => $v) {
+                $value[$key] = (int)$v;
+            }
+            return $value;
+        }
+        if ($value) {
+            return (int)$value;
+        }
+        return null;
     }
 
     /**

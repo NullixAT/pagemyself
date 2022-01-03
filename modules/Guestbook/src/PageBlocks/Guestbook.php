@@ -145,7 +145,7 @@ class Guestbook extends BlockBase
                     ?>
                     <div class="guestbook-pageblocks-guestbook-entry-name">
                         <?
-                        LayoutUtils::showLiveEditableText(false, false, $entry, "name");
+                        LayoutUtils::showLiveEditableText(false, $entry, "name");
                         ?>
                     </div>
                     <?
@@ -153,7 +153,7 @@ class Guestbook extends BlockBase
                 ?>
                 <div class="guestbook-pageblocks-guestbook-entry-message">
                     <?
-                    LayoutUtils::showLiveEditableText(false, true, $entry, "text");
+                    LayoutUtils::showLiveEditableText(false, $entry, "text");
                     ?>
                 </div>
                 <?

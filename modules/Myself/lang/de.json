@@ -56,7 +56,7 @@
         "fa0e5"
     ],
     "__myself_blocklayout_fixedplacememt__": [
-        "Fixe Platzierung",
+        "Fixe Platzierung ({0})",
         "58b94"
     ],
     "__myself_blocklayout_fixedplacememt_desc__": [
@@ -455,13 +455,12 @@
         "Text Einstellungen",
         "d8519"
     ],
-    "__myself_pageblocks_text_multiline__": [
-        "Erlaube mehrfache Zeilen",
-        "52eba"
-    ],
     "__myself_pageblocks_text_wysiwyg__": [
         "Voller Texteditor mit Formatierungsoptionen",
         "9f2d2"
+    ],
+    "__myself_themes_hello_footer__" : [
+        "Footer anzeigen"
     ],
     "__myself_pageblocks_textcolor__": [
         "Textfarbe",
@@ -478,10 +477,6 @@
     "__myself_pageblocks_textsize_desc__": [
         "Standard Schriftgr\u00f6\u00dfe",
         "c168c"
-    ],
-    "__myself_storable_liveedit_nomultiline__": [
-        "Nur eine Zeile erlaubt",
-        "db5fe"
     ],
     "__myself_storable_nav_flagdraft_label__": [
         "Entwurf",

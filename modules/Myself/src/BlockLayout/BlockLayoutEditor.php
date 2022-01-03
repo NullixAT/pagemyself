@@ -1,6 +1,6 @@
 <?php
 
-namespace Framelix\Myself;
+namespace Framelix\Myself\BlockLayout;
 
 use Framelix\Framelix\Form\Field\Color;
 use Framelix\Framelix\Form\Field\Hidden;
@@ -19,14 +19,14 @@ use Framelix\Framelix\Utils\ArrayUtils;
 use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
-use Framelix\Framelix\Utils\JsonUtils;
+use Framelix\Framelix\Utils\HtmlUtils;
+use Framelix\Framelix\Utils\StringUtils;
 use Framelix\Myself\Form\Field\MediaBrowser;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 
 use function array_unshift;
-use function is_array;
 use function preg_replace;
 use function str_replace;
 
@@ -41,35 +41,29 @@ class BlockLayoutEditor
      */
     public static function onJsCall(JsCall $jsCall): void
     {
-        $page = Page::getById(Request::getGet('pageId'));
+        $page = Page::getById($jsCall->parameters['pageId'] ?? Request::getGet('pageId') ?? 0);
         switch ($jsCall->parameters['action'] ?? Request::getGet('action')) {
             case 'fetch-settings':
-                $config = $page->blockLayout;
+                $blockLayout = $page->getBlockLayout();
                 $pageBlocks = PageBlock::getByCondition(
                     '(fixedPlacement IS NULL && page = {1}) || (fixedPlacement IS NOT NULL && theme = {0})',
                     [$page->getTheme(), $page]
                 );
-                $config['allPageBlocks'] = [];
+                $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
-                    $config['allPageBlocks'][$pageBlock->id] = [
+                    $allPageBlocks[$pageBlock->id] = [
                         'fixedPlacement' => $pageBlock->fixedPlacement,
-                        'title' => ClassUtils::getLangKey($pageBlock->pageBlockClass)
+                        'title' => HtmlUtils::escape(
+                            StringUtils::cut(
+                                strip_tags(
+                                    html_entity_decode(Lang::get($pageBlock->getLayoutBlock()->getBlockLayoutLabel()))
+                                ),
+                                50
+                            )
+                        )
                     ];
                 }
-                if (is_array($config['rows'] ?? null)) {
-                    foreach ($config['rows'] as $rowId => $row) {
-                        $columns = $row['columns'] ?? null;
-                        if (is_array($columns)) {
-                            foreach ($columns as $columnId => $columnRow) {
-                                $config['rows'][$rowId]['columns'][$columnId]['pageBlockId'] = $pageBlocks[$columnRow['pageBlockId'] ?? 0] ?? null;
-                            }
-                        }
-                    }
-                }
-                if (!($config['rows'] ?? null)) {
-                    $config['rows'] = [];
-                }
-                $jsCall->result = $config;
+                $jsCall->result = ['blockLayout' => $blockLayout, 'allPageBlocks' => $allPageBlocks];
                 break;
             case 'save-pageblock-settings':
                 $pageBlock = PageBlock::getById(Request::getGet('pageBlockId') ?? null);
@@ -81,27 +75,57 @@ class BlockLayoutEditor
                 Toast::success('__framelix_saved__');
                 Response::showFormAsyncSubmitResponse();
             case 'save-column-settings':
-                $rows = JsonUtils::decode(Request::getPost('__rows'));
+                $blockLayout = $page->getBlockLayout();
                 $rowId = Request::getGet('rowId');
                 $columnId = Request::getGet('columnId');
-                $columnSettingsForm = self::getFormColumnSettings(null);
-                ArrayUtils::setValue(
-                    $rows,
-                    $rowId . '[columns][' . $columnId . '][settings]',
-                    $columnSettingsForm->getConvertedSubmittedValues()
-                );
-                $page->blockLayout = ['rows' => $rows];
+                $columnSettings = $blockLayout->getColumn($rowId, $columnId)->settings;
+                $columnSettingsForm = self::getFormColumnSettings($columnSettings);
+                foreach ($columnSettingsForm->fields as $field) {
+                    $columnSettings->{$field->name} = $field->getConvertedSubmittedValue();
+                }
+                $page->blockLayout = $blockLayout;
                 $page->store();
                 Toast::success('__framelix_saved__');
                 Response::showFormAsyncSubmitResponse();
             case 'save-layout':
-                $page->blockLayout = ['rows' => $jsCall->parameters['rows']];
+                $oldPost = $_POST;
+                $blockLayout = new BlockLayout();
+                // convert values with form value converter
+                if (isset($jsCall->parameters['rows'])) {
+                    foreach ($jsCall->parameters['rows'] as $rowData) {
+                        $_POST = $rowData['settings'];
+                        $row = BlockLayoutRow::create($rowData);
+                        $row->columns = [];
+                        $blockLayout->rows[] = $row;
+                        $form = self::getFormRowSettings(BlockLayoutRowSettings::create($rowData['settings']));
+                        foreach ($form->fields as $field) {
+                            $row->settings->{$field->name} = $field->getConvertedSubmittedValue();
+                        }
+                        if (isset($rowData['columns'])) {
+                            foreach ($rowData['columns'] as $columnData) {
+                                $_POST = $columnData['settings'];
+                                $column = BlockLayoutColumn::create($columnData);
+                                $row->columns[] = $column;
+                                $form = self::getFormColumnSettings(
+                                    BlockLayoutColumnSettings::create($columnData['settings'])
+                                );
+                                foreach ($form->fields as $field) {
+                                    $column->settings->{$field->name} = $field->getConvertedSubmittedValue();
+                                }
+                            }
+                        }
+                    }
+                }
+                $_POST = $oldPost;
+                $page->blockLayout = $blockLayout;
                 $page->store();
                 Toast::success('__framelix_saved__');
                 break;
             case 'column-settings':
                 $pageBlock = PageBlock::getById($jsCall->parameters['pageBlockId'] ?? null);
-                $columnSettingsForm = self::getFormColumnSettings($jsCall->parameters['settings']);
+                $columnSettingsForm = self::getFormColumnSettings(
+                    BlockLayoutColumnSettings::create($jsCall->parameters['settings'])
+                );
                 $columnSettingsForm->submitUrl = JsCall::getCallUrl(
                     __CLASS__,
                     'save-column-settings',
@@ -111,12 +135,9 @@ class BlockLayoutEditor
                         'columnId' => $jsCall->parameters['columnId'] ?? null
                     ]
                 );
-                $field = new Hidden();
-                $field->name = '__rows';
-                $field->defaultValue = JsonUtils::encode($jsCall->parameters['rows']);
-                $columnSettingsForm->addField($field);
 
-                $columnSettingsForm->addSubmitButton('save', '__framelix_save__', 'save');
+                $columnSettingsForm->addSubmitButton('saveClose', '__myself_blocklayout_save_and_close__', 'save_alt');
+                $columnSettingsForm->addSubmitButton('save', '__framelix_save__', 'save', 'primary');
                 if ($pageBlock) {
                     $block = $pageBlock->getLayoutBlock();
                     $forms = $block->getSettingsForms();
@@ -172,7 +193,8 @@ class BlockLayoutEditor
                             if ($field instanceof Hidden || $field instanceof Html) {
                                 continue;
                             }
-                            $form->addSubmitButton('save', '__framelix_save__', 'save');
+                            $form->addSubmitButton('saveClose', '__myself_blocklayout_save_and_close__', 'save_alt');
+                            $form->addSubmitButton('save', '__framelix_save__', 'save', 'primary');
                             break;
                         }
                         $block->showSettingsForm($form);
@@ -185,7 +207,7 @@ class BlockLayoutEditor
                 }
                 break;
             case 'row-settings':
-                $form = self::getFormRowSettings($jsCall->parameters['settings']);
+                $form = self::getFormRowSettings(BlockLayoutRowSettings::create($jsCall->parameters['settings']));
                 $form->addButton('save', '__framelix_ok__', 'save', 'success');
                 $form->show();
                 break;
@@ -238,12 +260,10 @@ class BlockLayoutEditor
                 $pageBlock->flagDraft = false;
                 $pageBlock->pageBlockClass = $jsCall->parameters['pageBlockClass'];
                 $pageBlock->store();
-                $blockLayout = $page->blockLayout;
-                ArrayUtils::setValue(
-                    $blockLayout,
-                    'rows[' . $rowId . '][columns][' . $columnId . '][pageBlockId]',
-                    $pageBlock->id
-                );
+
+                $blockLayout = $page->getBlockLayout();
+                $column = $blockLayout->getColumn($rowId, $columnId);
+                $column->pageBlockId = $pageBlock->id;
                 $page->blockLayout = $blockLayout;
                 $page->store();
                 break;
@@ -252,10 +272,10 @@ class BlockLayoutEditor
 
     /**
      * Get form for row settings
-     * @param array|null $settings
+     * @param BlockLayoutRowSettings $settings
      * @return Form
      */
-    public static function getFormRowSettings(?array $settings): Form
+    public static function getFormRowSettings(BlockLayoutRowSettings $settings): Form
     {
         $form = new Form();
         $form->id = "rowsettings";
@@ -319,10 +339,10 @@ class BlockLayoutEditor
 
     /**
      * Get form for column settings
-     * @param array|null $settings
+     * @param BlockLayoutColumnSettings $settings
      * @return Form
      */
-    public static function getFormColumnSettings(?array $settings): Form
+    public static function getFormColumnSettings(BlockLayoutColumnSettings $settings): Form
     {
         $form = new Form();
         $form->id = "columnsettings";
@@ -350,6 +370,17 @@ class BlockLayoutEditor
         $field->labelDescription = '__myself_pageblocks_minheight_desc__';
         $field->max = 10000;
         $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Select();
+        $field->name = 'textVerticalAlignment';
+        $field->label = '__myself_pageblocks_textverticalalignment__';
+        $field->labelDescription = '__myself_pageblocks_textverticalalignment_desc__';
+        $field->addOption('top', '__myself_align_top__');
+        $field->addOption('center', '__myself_align_center__');
+        $field->addOption('bottom', '__myself_align_bottom__');
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name) ?? 'center';
+        $field->getVisibilityCondition()->notEmpty('minHeight');
         $form->addField($field);
 
         $field = new Select();

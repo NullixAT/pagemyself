@@ -54,7 +54,6 @@ class LayoutUtils
      * Show live editable text content block
      * If not in editmode, it shows the content right away without editing features
      * @param bool $wysiwyg If true, then it will show a full featured wysiwyg editor
-     * @param bool $multiline If true, then user can enter multiple lines of text
      * @param Storable $storable The storable to store the edited content in
      * @param string $propertyName The property name from the storable to store content in
      * @param string|null $arrayKey If to store in a array, this is the array key to store in $propertyName, example: column[0][content]
@@ -63,7 +62,6 @@ class LayoutUtils
      */
     public static function showLiveEditableText(
         bool $wysiwyg,
-        bool $multiline,
         Storable $storable,
         string $propertyName,
         ?string $arrayKey = null,
@@ -77,18 +75,16 @@ class LayoutUtils
         $class = 'myself-live-editable-text';
         if ($wysiwyg) {
             $class = 'myself-live-editable-wysiwyg';
-        } else {
-            $content = htmlentities($content);
         }
         if (strlen($content) === 0 && $defaultValue !== null) {
-            $content = $wysiwyg ? $defaultValue : htmlentities($defaultValue);
+            $content = $defaultValue;
         }
         if (!self::isEditAllowed()) {
             echo '<div class="' . $class . '">' . $content . '</div>';
         } else {
             // show 2 containers, one with editable when in editframe, one without editable when not in edit frame
-            echo '<div class="myself-hide-if-editmode ' . $class . '" data-multiline="' . (int)$multiline . '">' . $content . '</div>';
-            echo '<div aria-hidden="true" class="myself-show-if-editmode ' . $class . '" data-id="' . $storable . '" data-property-name="' . $propertyName . '" data-array-key="' . $arrayKey . '" contenteditable="true" data-multiline="' . (int)$multiline . '" data-empty-text="' . Lang::get(
+            echo '<div class="myself-hide-if-editmode ' . $class . '">' . $content . '</div>';
+            echo '<div aria-hidden="true" class="myself-show-if-editmode ' . $class . '" data-id="' . $storable . '" data-property-name="' . $propertyName . '" data-array-key="' . $arrayKey . '" contenteditable="true" data-empty-text="' . Lang::get(
                     '__myself_edittext_area__'
                 ) . '">' . $content . '</div>';
         }

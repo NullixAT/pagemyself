@@ -51,6 +51,10 @@ html:not([data-edit-frame]) .myself-page-block[data-draft] {
   position: relative;
 }
 
+.myself-live-editable-text p {
+  margin: 0;
+}
+
 html[data-edit-frame='1'] {
   .myself-live-editable-wysiwyg:empty,
   .myself-live-editable-text:empty {
@@ -59,12 +63,6 @@ html[data-edit-frame='1'] {
       font-style: italic;
       opacity: 0.8;
     }
-  }
-}
-
-.myself-live-editable-text {
-  &[data-multiline='1'] {
-    white-space: pre;
   }
 }
 
@@ -122,5 +120,24 @@ html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
   > video {
     position: absolute;
     z-index: 0;
+  }
+}
+
+.myself-open-edit-mode {
+  z-index: 4;
+  opacity: 0.5;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  text-align: right;
+  background: #414645 linear-gradient(45deg, #262928 25%, #414645 25%, #414645 50%, #262928 50%, #262928 75%, #414645 75%, #414645 100%);
+  background-size: 56.57px 56.57px;
+
+  .framelix-button {
+    margin: 0;
+  }
+
+  &:hover {
+    opacity: 1;
   }
 }

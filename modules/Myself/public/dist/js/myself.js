@@ -149,7 +149,11 @@ class Myself {
     }
 
     if (FramelixLocalStorage.get('myself-edit-mode') && !Myself.isEditModeOuter()) {
-      $('.framelix-page').append(`<a href="?editMode=1" class="framelix-button myself-hide-if-editmode" title="__myself_enable_editmode__" data-icon-left="edit" style="position: fixed; left:0;bottom:0; opacity:0.6; margin: 0"></a>`);
+      const editModeContainer = $(`<div class="myself-open-edit-mode myself-hide-if-editmode"><button class="framelix-button" data-icon-left="clear"title="__myself_hide_editmode_container__"></button> <a href="?editMode=1" class="framelix-button framelix-button-primary" title="__myself_enable_editmode__" data-icon-left="edit"></a></div>`);
+      editModeContainer.on('click', 'button', function () {
+        editModeContainer.remove();
+      });
+      $('.framelix-page').append(editModeContainer);
     }
   }
 

@@ -66,7 +66,7 @@ class Nav extends StorableExtended
      */
     public function getHtmlString(): string
     {
-        return $this->title;
+        return $this->getLabel();
     }
 
     /**
@@ -75,7 +75,7 @@ class Nav extends StorableExtended
      */
     public function getRawTextString(): string
     {
-        return $this->title;
+        return $this->getLabel();
     }
 
 }

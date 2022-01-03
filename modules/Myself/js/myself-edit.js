@@ -4,28 +4,16 @@
 class MyselfEdit {
 
   /**
-   * Page block edit url
-   * @type {string}
+   * Edit config
+   * @type {Object<string, *>}
    */
-  static pageBlockEditUrl
+  static config
 
   /**
-   * Theme settings edit url
-   * @type {string}
+   * The page id in the edit frame
+   * @type {number}
    */
-  static themeSettingsEditUrl
-
-  /**
-   * Website settings url
-   * @type {string}
-   */
-  static websiteSettingsEditUrl
-
-  /**
-   * Url to tinymce folder
-   * @type {string}
-   */
-  static tinymceUrl
+  static framePageId = 0
 
   /**
    * Init late
@@ -40,7 +28,9 @@ class MyselfEdit {
     editFrame.on('load', function () {
       editFrameWindow = editFrame[0].contentWindow
       editFrameDoc = $(editFrameWindow.document)
-      editFrameDoc[0].querySelector('html').setAttribute('data-edit-frame', '1')
+      const editFrameHtml = editFrameDoc[0].querySelector('html')
+      editFrameHtml.setAttribute('data-edit-frame', '1')
+      MyselfEdit.framePageId = parseInt(editFrameHtml.getAttribute('data-page'))
       let url = new URL(editFrameWindow.location.href)
       url.searchParams.set('editMode', '1')
       window.history.pushState(null, null, url)
@@ -48,14 +38,14 @@ class MyselfEdit {
       MyselfEdit.bindLiveEditableWysiwyg(editFrameWindow)
     })
     $(document).on('click', '.myself-open-website-settings', async function () {
-      const modal = await FramelixModal.request('post', MyselfEdit.websiteSettingsEditUrl, null, null, false, null, true)
+      const modal = await FramelixModal.request('post', MyselfEdit.config.websiteSettingsEditUrl, null, null, false, null, true)
       modal.contentContainer.addClass('myself-edit-font')
       modal.destroyed.then(function () {
         location.reload()
       })
     })
     $(document).on('click', '.myself-open-theme-settings', async function () {
-      const modal = await FramelixModal.request('post', MyselfEdit.themeSettingsEditUrl, null, null, false, null, true)
+      const modal = await FramelixModal.request('post', MyselfEdit.config.themeSettingsEditUrl, null, null, false, null, true)
       modal.contentContainer.addClass('myself-edit-font')
       modal.destroyed.then(function () {
         location.reload()
@@ -72,7 +62,7 @@ class MyselfEdit {
       for (let k in urlParams) {
         urlParams[k] = this.dataset[k] || null
       }
-      await FramelixRequest.request('post', MyselfEdit.pageBlockEditUrl, {
+      await FramelixRequest.request('post', MyselfEdit.config.pageBlockEditUrl, {
         'action': 'delete',
         'pageBlockId': $(this).attr('data-page-block-id')
       })
@@ -103,7 +93,7 @@ class MyselfEdit {
       frameDoc.myselfLiveEditableText = new Map()
     }
     const mediaBrowser = new MyselfFormFieldMediaBrowser()
-    await frame.eval('FramelixDom').includeResource(MyselfEdit.tinymceUrl, 'tinymce')
+    await frame.eval('FramelixDom').includeResource(MyselfEdit.config.tinymceUrl, 'tinymce')
     frame.eval('FramelixDom').addChangeListener('wysiwyg', async function () {
       $(frameDoc).find('.myself-live-editable-wysiwyg:not(.mce-content-body)').each(async function () {
         const container = frame.$(this)
@@ -119,7 +109,7 @@ class MyselfEdit {
           },
           file_picker_callback: async function (callback, value, meta) {
             if (!mediaBrowser.signedGetBrowserUrl) {
-              mediaBrowser.signedGetBrowserUrl = (await FramelixRequest.request('get', MyselfEdit.pageBlockEditUrl + '?action=getmediabrowserurl').getJson()).content
+              mediaBrowser.signedGetBrowserUrl = (await FramelixRequest.request('get', MyselfEdit.config.pageBlockEditUrl + '?action=getmediabrowserurl').getJson()).content
             }
             await mediaBrowser.render()
             mediaBrowser.openBrowserBtn.trigger('click')
@@ -143,7 +133,7 @@ class MyselfEdit {
             editor.myself = {
               'container': container,
               'originalContent': originalContent,
-              'pageBlockEditUrl': topFrame.eval('MyselfEdit').pageBlockEditUrl
+              'pageBlockEditUrl': topFrame.eval('MyselfEdit').config.pageBlockEditUrl
             }
           }
         })
@@ -174,11 +164,11 @@ class MyselfEdit {
       config.saveBtn = frame.$(`<button class="framelix-button framelix-button-success framelix-button-small myself-editable-text-save-button" data-icon-left="save" title="__framelix_save__"></button>`)
       config.saveBtn.on('click', async function () {
         Framelix.showProgressBar(1)
-        await FramelixRequest.request('post', topFrame.eval('MyselfEdit').pageBlockEditUrl, { 'action': 'save-editable-content' }, {
+        await FramelixRequest.request('post', topFrame.eval('MyselfEdit').config.pageBlockEditUrl, { 'action': 'save-editable-content' }, {
           'storableId': container.attr('data-id'),
           'propertyName': container.attr('data-property-name'),
           'arrayKey': container.attr('data-array-key'),
-          'content': container[0].innerText
+          'content': container[0].innerHTML
         })
         Framelix.showProgressBar(null)
         FramelixToast.success('__framelix_saved__')
@@ -195,13 +185,13 @@ class MyselfEdit {
         return
       }
       const container = $(this)
-      // remove all styles and replace not supported elements
-      if (container.attr('data-multiline') !== '1') {
-        const newText = this.innerText.replace(/[\r\n]/g, '')
-        if (newText !== this.innerText) {
-          frame.eval('FramelixToast').error('__myself_storable_liveedit_nomultiline__')
-          this.innerText = this.innerText.replace(/[\r\n]/g, '')
-        }
+      // cleanup html
+      const newContent = $(this).clone()
+      const originalHtml = newContent.html()
+      newContent.find('script,style,link').remove()
+      newContent.find('[style],[href]').removeAttr('style').removeAttr('href')
+      if (originalHtml !== newContent.html()) {
+        this.innerHTML = newContent.html()
       }
       if (ev.type === 'focusout' || ev.type === 'blur') {
         setTimeout(function () {

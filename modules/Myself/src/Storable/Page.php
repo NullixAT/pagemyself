@@ -7,6 +7,7 @@ use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\View;
+use Framelix\Myself\BlockLayout\BlockLayout;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Themes\Hello;
 use Framelix\Myself\Themes\ThemeBase;
@@ -26,7 +27,7 @@ use function explode;
  * @property mixed|null $settings
  * @property bool $flagDraft
  * @property string $lang
- * @property mixed|null $blockLayout
+ * @property BlockLayout|null $blockLayout
  */
 class Page extends StorableExtended
 {
@@ -51,6 +52,19 @@ class Page extends StorableExtended
         parent::setupStorableSchema($selfStorableSchema);
         $selfStorableSchema->properties['lang']->length = 5;
         $selfStorableSchema->addIndex('url', 'unique');
+    }
+
+    /**
+     * Get block layout
+     * Create one if not exist
+     * @return BlockLayout
+     */
+    public function getBlockLayout(): BlockLayout
+    {
+        if (!$this->blockLayout) {
+            $this->blockLayout = new BlockLayout();
+        }
+        return $this->blockLayout;
     }
 
     /**

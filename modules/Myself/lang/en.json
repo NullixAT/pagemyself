@@ -1,4 +1,37 @@
 {
+    "__myself_info_use_page_templates_empty_page__" : [
+        "Here you have a fresh new page. You can start creating your very own page layout with the 'Change Layout' button at the right."
+    ],
+    "__myself_blocklayout_save_and_close__" : [
+        "Save and Close window"
+    ],
+    "__myself_pageblocks_text_textshadow__" : [
+        "Text Shadow"
+    ],
+    "__myself_pageblocks_text_textshadowcolor__" : [
+        "Text Shadow Color"
+    ],
+    "__myself_pageblocks_text_textshadowsize__" : [
+        "Text Shadow Size"
+    ],
+    "__myself_pageblocks_text_textshadowtype__" : [
+        "Text Shadow Type"
+    ],
+    "__myself_pageblocks_text_textshadowtype_hard__" : [
+        "Hard"
+    ],
+    "__myself_pageblocks_text_textshadowtype_soft__" : [
+        "Soft"
+    ],
+    "__myself_pageblocks_text_textshadowtype_around__" : [
+        "Around"
+    ],
+    "__myself_pageblocks_textverticalalignment__" : [
+        "Vertical Text Alignment"
+    ],
+    "__myself_pageblocks_textverticalalignment_desc__" : [
+        "When you specify a minimal height, you can also specify how to align the text vertically in this block."
+    ],
     "__myself_align__": [
         "Alignment"
     ],
@@ -42,7 +75,7 @@
         "Empty - Click here to select a page block"
     ],
     "__myself_blocklayout_fixedplacememt__": [
-        "Fixed placement"
+        "Fixed placement ({0})"
     ],
     "__myself_blocklayout_fixedplacememt_desc__": [
         "This is a fixed page-block that is integrated directly in the used theme. Some layout settings are defined by the theme and cannot be edited."
@@ -97,6 +130,9 @@
     ],
     "__myself_enable_editmode__": [
         "Enable edit mode"
+    ],
+    "__myself_hide_editmode_container__": [
+        "Hide this overlay for the moment"
     ],
     "__myself_file_not_exist__": [
         "File not exist"
@@ -341,9 +377,6 @@
     "__myself_pageblocks_text_form_main__": [
         "Text settings"
     ],
-    "__myself_pageblocks_text_multiline__": [
-        "Allow multiple lines"
-    ],
     "__myself_pageblocks_text_wysiwyg__": [
         "Full Text Editor with format options"
     ],
@@ -359,9 +392,6 @@
     "__myself_pageblocks_textsize_desc__": [
         "The default text size. 100% is the default."
     ],
-    "__myself_storable_liveedit_nomultiline__": [
-        "No multiple lines allowed here"
-    ],
     "__myself_storable_nav_flagdraft_label__": [
         "Draft"
     ],
@@ -373,6 +403,9 @@
     ],
     "__myself_storable_nav_lang_label_desc__": [
         "Only visible when on a page with this language<br\/>Not choosen = Visible for every language"
+    ],
+    "__myself_themes_hello_footer__" : [
+        "Show footer"
     ],
     "__myself_storable_nav_link_label__": [
         "Self-defined link"
