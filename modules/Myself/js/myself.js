@@ -129,8 +129,8 @@ class Myself {
     if (Myself.isEditModeOuter() && !FramelixLocalStorage.get('myself-edit-mode')) {
       FramelixLocalStorage.set('myself-edit-mode', true)
     }
-    if (FramelixLocalStorage.get('myself-edit-mode') && !Myself.isEditModeOuter()) {
-      const editModeContainer = $(`<div class="myself-open-edit-mode myself-hide-if-editmode"><button class="framelix-button" data-icon-left="clear"title="__myself_hide_editmode_container__"></button> <a href="?editMode=1" class="framelix-button framelix-button-primary" title="__myself_enable_editmode__" data-icon-left="edit"></a></div>`)
+    if (FramelixLocalStorage.get('myself-edit-mode') && !Myself.isEditModeOuter() && $('html').attr('data-view') === 'Framelix\\Myself\\View\\Index') {
+      const editModeContainer = $(`<div class="myself-open-edit-mode myself-hide-if-editmode"><button class="framelix-button" data-icon-left="clear" title="__myself_hide_editmode_container__"></button> <a href="?editMode=1" class="framelix-button framelix-button-primary" title="__myself_enable_editmode__" data-icon-left="edit"></a></div>`)
       editModeContainer.on('click', 'button', function () {
         editModeContainer.remove()
       })

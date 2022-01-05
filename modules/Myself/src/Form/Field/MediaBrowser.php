@@ -320,7 +320,8 @@ class MediaBrowser extends Field
                 echo htmlentities($file->title ?? $file->filename ?? '');
                 ?>
             </div>
-            <button class="framelix-button myself-media-browser-entry-options-icon" data-icon-left="settings"></button>
+            <button class="framelix-button myself-media-browser-entry-options-icon"
+                    data-icon-left="settings"></button>
             <div class="myself-media-browser-entry-options hidden">
                 <button class="framelix-button myself-media-browser-entry-rename"
                         data-rename-url="<?= $renameUrl ?>"

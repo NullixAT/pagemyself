@@ -2,24 +2,32 @@
 
 namespace Framelix\Myself\BlockLayout;
 
+use Framelix\Framelix\Config;
 use Framelix\Framelix\Form\Field\Color;
+use Framelix\Framelix\Form\Field\File;
 use Framelix\Framelix\Form\Field\Hidden;
 use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Form\Field\Number;
 use Framelix\Framelix\Form\Field\Select;
+use Framelix\Framelix\Form\Field\Text;
+use Framelix\Framelix\Form\Field\Textarea;
 use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Html\ColorName;
 use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Response;
+use Framelix\Framelix\Network\UploadedFile;
+use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
 use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
+use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\Utils\StringUtils;
 use Framelix\Myself\Form\Field\MediaBrowser;
 use Framelix\Myself\PageBlocks\BlockBase;
@@ -27,8 +35,13 @@ use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 
 use function array_unshift;
+use function call_user_func_array;
+use function copy;
+use function file_exists;
 use function preg_replace;
+use function reset;
 use function str_replace;
+use function unlink;
 
 /**
  * BlockLayoutEditor
@@ -43,11 +56,132 @@ class BlockLayoutEditor
     {
         $page = Page::getById($jsCall->parameters['pageId'] ?? Request::getGet('pageId') ?? 0);
         switch ($jsCall->parameters['action'] ?? Request::getGet('action')) {
+            case 'save-template':
+                $blockLayout = BlockLayout::create(JsonUtils::decode(Request::getPost('blockLayout')));
+                $pageBlocks = [];
+                foreach ($blockLayout->rows as $row) {
+                    foreach ($row->columns as $column) {
+                        $pageBlocks[$column->pageBlockId] = $column->pageBlockId;
+                    }
+                }
+                $pageBlocks = PageBlock::getByIds($pageBlocks);
+                $pageBlockData = [];
+                foreach ($pageBlocks as $pageBlock) {
+                    $settings = $pageBlock->pageBlockSettings ?? [];
+                    call_user_func_array(
+                        [BlockBase::class, "prepareTemplateSettingsForExport"],
+                        [&$settings]
+                    );
+                    call_user_func_array(
+                        [$pageBlock->pageBlockClass, "prepareTemplateSettingsForExport"],
+                        [&$settings]
+                    );
+                    $pageBlockData[$pageBlock->id] = [
+                        'pageBlockClass' => $pageBlock->pageBlockClass,
+                        'pageBlockSettings' => $settings
+                    ];
+                }
+                $themeBlock = $page->getThemeBlock();
+                $templates = $themeBlock->getPredefinedBlockLayouts();
+                $templateFolder = $page->getThemeBlock()->getThemePublicFolderPath();
+                $selectedTemplate = Request::getPost('template');
+                if ($selectedTemplate === 'new' || !isset($templates[$selectedTemplate])) {
+                    $count = 0;
+                    while (true) {
+                        $count++;
+                        $selectedTemplate = "template-$count";
+                        $selectedTemplateFile = $templateFolder . "/" . $selectedTemplate . ".json";
+                        if (!file_exists($selectedTemplateFile)) {
+                            break;
+                        }
+                    }
+                    $template = new PredefinedBlockLayout($themeBlock, $selectedTemplate);
+                } else {
+                    $template = $templates[$selectedTemplate];
+                }
+                $form = self::getFormTemplateEditor($jsCall, $page);
+                $formValues = $form->getConvertedSubmittedValues();
+                foreach ($formValues as $key => $value) {
+                    $keyParts = ArrayUtils::splitKeyString($key);
+                    if ($keyParts[0] === 'templateData') {
+                        $template->{$keyParts[1]} = $value;
+                    }
+                }
+                $files = UploadedFile::createFromSubmitData('thumbnailFile');
+                if ($files) {
+                    $file = reset($files);
+                    $oldFile = $template->getThumbnailPath();
+                    if ($oldFile) {
+                        unlink($oldFile);
+                    }
+                    $thumbnailFile = $templateFolder . "/" . $selectedTemplate . "." . $file->getExtension();
+                    copy($file->path, $thumbnailFile);
+                    $template->thumbnailExtension = $file->getExtension();
+                }
+                if (!$template->thumbnailExtension) {
+                    Response::showFormValidationErrorResponse('__myself_templateeditor_thumbnail_required__');
+                }
+                $template->blockLayout = $blockLayout;
+                $template->pageBlockData = $pageBlockData;
+                JsonUtils::writeToFile($templateFolder . "/" . $template->templateFilename . ".json", $template);
+                $jsCall->result = true;
+                Toast::success('__framelix_saved__');
+                break;
+            case 'template-editor':
+                $form = self::getFormTemplateEditor($jsCall, $page);
+                $form->addSubmitButton('save', '__framelix_save__', 'save');
+                $form->show();
+                $params = $jsCall->parameters;
+                ?>
+                <script>
+                  (function () {
+                    const form = FramelixForm.getById('<?=$form->id?>')
+                    form.container.on(FramelixForm.EVENT_SUBMITTED, async function () {
+                      if (await form.submitRequest.getJson() === true) {
+                        location.reload()
+                      }
+                    })
+                    form.fields['template'].container.on(FramelixFormField.EVENT_CHANGE_USER, function () {
+                      let params = <?=JsonUtils::encode($params)?>;
+                      params.template = form.fields['template'].getValue()
+                      FramelixModal.callPhpMethod(<?=JsonUtils::encode(
+                          Url::create()
+                      )?>, params, { instance: FramelixModal.currentInstance })
+                    })
+                  })()
+                </script>
+                <?
+                break;
+            case 'insert-predefined-layout':
+                $predefinedBlockLayouts = $page->getThemeBlock()->getPredefinedBlockLayouts();
+                $predefinedBlockLayout = $predefinedBlockLayouts[$jsCall->parameters['id']] ?? null;
+                if ($predefinedBlockLayout) {
+                    Storable::deleteMultiple($page->getPageBlocks());
+                    $blockLayout = $predefinedBlockLayout->blockLayout;
+                    foreach ($blockLayout->rows as $row) {
+                        foreach ($row->columns as $column) {
+                            if ($column->pageBlockId) {
+                                $pageBlockData = $predefinedBlockLayout->pageBlockData[$column->pageBlockId];
+                                $pageBlock = new PageBlock();
+                                $pageBlock->page = $page;
+                                $pageBlock->flagDraft = false;
+                                $pageBlock->pageBlockClass = $pageBlockData['pageBlockClass'];
+                                $pageBlock->pageBlockSettings = $pageBlockData['pageBlockSettings'];
+                                $pageBlock->store();
+                                $column->pageBlockId = $pageBlock->id;
+                            }
+                        }
+                    }
+                    $page->blockLayout = $blockLayout;
+                    $page->store();
+                    Toast::success('__myself_blocklayout_predefinedlayouts_inserted__');
+                }
+                break;
             case 'fetch-settings':
                 $blockLayout = $page->getBlockLayout();
                 $pageBlocks = PageBlock::getByCondition(
-                    '(fixedPlacement IS NULL && page = {1}) || (fixedPlacement IS NOT NULL && theme = {0})',
-                    [$page->getTheme(), $page]
+                    '(fixedPlacement IS NULL && page = {1}) || (fixedPlacement IS NOT NULL && themeClass = {0})',
+                    [$page->getThemeClass(), $page]
                 );
                 $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
@@ -63,7 +197,20 @@ class BlockLayoutEditor
                         )
                     ];
                 }
-                $jsCall->result = ['blockLayout' => $blockLayout, 'allPageBlocks' => $allPageBlocks];
+                $predefinedBlockLayouts = $page->getThemeBlock()->getPredefinedBlockLayouts();
+                $predefinedBlockLayoutsEditorData = [];
+                foreach ($predefinedBlockLayouts as $key => $predefinedBlockLayout) {
+                    $predefinedBlockLayoutsEditorData[$key] = [
+                        'thumbnailUrl' => Url::getUrlToFile($predefinedBlockLayout->getThumbnailPath())
+                    ];
+                }
+                $jsCall->result = [
+                    'blockLayout' => $blockLayout,
+                    'predefinedBlockLayouts' => $predefinedBlockLayouts,
+                    'predefinedBlockLayoutsEditorData' => $predefinedBlockLayoutsEditorData,
+                    'allPageBlocks' => $allPageBlocks,
+                    'devMode' => Config::isDevMode()
+                ];
                 break;
             case 'save-pageblock-settings':
                 $pageBlock = PageBlock::getById(Request::getGet('pageBlockId') ?? null);
@@ -126,6 +273,7 @@ class BlockLayoutEditor
                 $columnSettingsForm = self::getFormColumnSettings(
                     BlockLayoutColumnSettings::create($jsCall->parameters['settings'])
                 );
+                $columnSettingsForm->stickyFormButtons = true;
                 $columnSettingsForm->submitUrl = JsCall::getCallUrl(
                     __CLASS__,
                     'save-column-settings',
@@ -137,7 +285,7 @@ class BlockLayoutEditor
                 );
 
                 $columnSettingsForm->addSubmitButton('saveClose', '__myself_blocklayout_save_and_close__', 'save_alt');
-                $columnSettingsForm->addSubmitButton('save', '__framelix_save__', 'save', 'primary');
+                $columnSettingsForm->addSubmitButton('save', '__framelix_save__', 'save', ColorName::PRIMARY);
                 if ($pageBlock) {
                     $block = $pageBlock->getLayoutBlock();
                     $forms = $block->getSettingsForms();
@@ -150,6 +298,7 @@ class BlockLayoutEditor
                         $tabs->addTab("columnsettings", '__myself_blocklayout_settings_column__', $content);
                     }
                     foreach ($forms as $key => $form) {
+                        $form->stickyFormButtons = true;
                         $form->id = $form->id ?? $key;
                         $form->submitUrl = JsCall::getCallUrl(
                             __CLASS__,
@@ -194,7 +343,7 @@ class BlockLayoutEditor
                                 continue;
                             }
                             $form->addSubmitButton('saveClose', '__myself_blocklayout_save_and_close__', 'save_alt');
-                            $form->addSubmitButton('save', '__framelix_save__', 'save', 'primary');
+                            $form->addSubmitButton('save', '__framelix_save__', 'save', ColorName::PRIMARY);
                             break;
                         }
                         $block->showSettingsForm($form);
@@ -208,7 +357,8 @@ class BlockLayoutEditor
                 break;
             case 'row-settings':
                 $form = self::getFormRowSettings(BlockLayoutRowSettings::create($jsCall->parameters['settings']));
-                $form->addButton('save', '__framelix_ok__', 'save', 'success');
+                $form->stickyFormButtons = true;
+                $form->addButton('save', '__framelix_ok__', 'save', ColorName::SUCCESS);
                 $form->show();
                 break;
             case 'select-new-page-block':
@@ -268,6 +418,69 @@ class BlockLayoutEditor
                 $page->store();
                 break;
         }
+    }
+
+    /**
+     * Get form for template editing
+     * @param JsCall $jsCall
+     * @param Page $page
+     * @return Form
+     */
+    public static function getFormTemplateEditor(JsCall $jsCall, Page $page): Form
+    {
+        $themeBlock = $page->getThemeBlock();
+        $templates = $themeBlock->getPredefinedBlockLayouts();
+        $selectedTemplate = $templates[$jsCall->parameters['template'] ?? 'new']
+            ?? new PredefinedBlockLayout($themeBlock);
+
+        $form = new Form();
+        $form->id = "template-editor";
+        $form->submitUrl = JsCall::getCallUrl(__CLASS__, 'save-template', ['pageId' => $page]);
+
+        $field = new Hidden();
+        $field->name = 'blockLayout';
+        $field->defaultValue = $jsCall->parameters['blockLayout'] ?? null;
+        $form->addField($field);
+
+        $field = new Select();
+        $field->name = 'template';
+        $field->label = '__myself_templateeditor_choose__';
+        foreach ($templates as $template) {
+            $field->addOption($template->templateFilename, $template->label);
+        }
+        $field->addOption('new', '__myself_templateeditor_choose_new__');
+        $field->defaultValue = $jsCall->parameters['template'] ?? 'new';
+        $form->addField($field);
+
+        $field = new Text();
+        $field->name = 'templateData[label]';
+        $field->label = '__myself_templateeditor_label__';
+        $field->required = true;
+        $field->defaultValue = $selectedTemplate->label;
+        $form->addField($field);
+
+        $field = new Textarea();
+        $field->name = 'templateData[description]';
+        $field->label = '__myself_templateeditor_desc__';
+        $field->defaultValue = $selectedTemplate->description;
+        $field->required = true;
+        $form->addField($field);
+
+        $field = new File();
+        $field->name = 'thumbnailFile';
+        $field->label = '__myself_templateeditor_thumbnail__';
+        $field->setOnlyImages();
+        $form->addField($field);
+
+        $thumbnailFile = $selectedTemplate->getThumbnailPath();
+        if ($thumbnailFile) {
+            $field = new Html();
+            $field->name = 'thumbnailImage';
+            $field->defaultValue = '<img src="' . Url::getUrlToFile($thumbnailFile) . '" alt="" width="200">';
+            $form->addField($field);
+        }
+
+        return $form;
     }
 
     /**

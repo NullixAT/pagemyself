@@ -17,6 +17,18 @@ use function str_starts_with;
  */
 class ImageGallery extends BlockBase
 {
+
+    /**
+     * Prepare settings for template code generator to remove sensible data
+     * Should be used to remove settings like media files or non layout settings from the settings array
+     * @param array $pageBlockSettings
+     */
+    public static function prepareTemplateSettingsForExport(array &$pageBlockSettings): void
+    {
+        // remove files from template
+        unset($pageBlockSettings['files']);
+    }
+
     /**
      * Show content for this block
      * @return void

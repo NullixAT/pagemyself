@@ -64,7 +64,7 @@ class ImageGalleryPageBlocksImageGallery extends MyselfPageBlocks {
     if (self.modal) {
       self.modal.bodyContainer.html(imagePopupContainer)
     } else {
-      self.modal = FramelixModal.show(imagePopupContainer, null, true)
+      self.modal = FramelixModal.show({ bodyContent: imagePopupContainer, maximized: true })
       self.modal.destroyed.then(function () {
         self.modal = null
       })

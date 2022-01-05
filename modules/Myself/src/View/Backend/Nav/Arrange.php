@@ -50,7 +50,6 @@ class Arrange extends View
                 $storeRecursive($jsCall->parameters['navData'] ?? [], null);
                 Toast::success('__framelix_saved__');
                 Url::getBrowserUrl()->redirect();
-                break;
         }
     }
 
@@ -93,9 +92,9 @@ class Arrange extends View
           }
           .nav-entry {
             margin-bottom: 3px;
-            background: var(--color-subtle-bg);
+            background: var(--color-page-bg-stencil);
             padding: 2px 0;
-            border-left: 15px solid var(--color-strong-bg);
+            border-left: 15px solid rgba(0, 0, 0, 0.3);
           }
           .nav-entry[data-level='0'] {
             border-left-color: rgba(0, 0, 0, 0.1);
@@ -138,7 +137,7 @@ class Arrange extends View
           }
           .dragging .nav-entry-drop-highlight {
             opacity: 1;
-            box-shadow: var(--color-success-bg-strong) 0 0 20px, var(--color-success-bg-strong) 0 0 20px;
+            box-shadow: hsla(var(--color-success-hue), 50%, 50%, 1) 0 0 20px;
           }
           .nav-entry-level-warning {
             font-size: 0.9rem;

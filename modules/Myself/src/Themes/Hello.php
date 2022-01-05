@@ -7,6 +7,7 @@ use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\HtmlAttributes;
+use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\ColorUtils;
 use Framelix\Myself\PageBlocks\Navigation;
 use Framelix\Myself\PageBlocks\Text;
@@ -26,10 +27,10 @@ class Hello extends ThemeBase
      */
     public function showLayout(Index $view): void
     {
-        $htmlClassBase = 'myself-themes-' . strtolower($this->theme->name);
-        $navigation = $this->theme->settings['navigation'] ?? 'left';
-        $footer = $this->theme->settings['footer'] ?? null;
-        $primaryColor = $this->theme->settings['primaryColor'] ?? null;
+        $htmlClassBase = 'myself-themes-' . strtolower(ClassUtils::getClassBaseName($this->themeSettings->themeClass));
+        $navigation = $this->themeSettings->settings['navigation'] ?? 'left';
+        $footer = $this->themeSettings->settings['footer'] ?? null;
+        $primaryColor = $this->themeSettings->settings['primaryColor'] ?? null;
         if ($primaryColor && !$view->editMode) {
             $hsl = ColorUtils::rgbToHsl(...ColorUtils::hexToRgb($primaryColor));
             $hsl[1] *= 100;
@@ -37,11 +38,6 @@ class Hello extends ThemeBase
             $view->addHeadHtml(
                 '<style>:root{            
               --color-primary-hue:' . (int)$hsl[0] . ';
-              --color-primary-bg-strong: hsl(' . (int)$hsl[0] . ', calc(var(--color-contrast-modifier) + ' . (int)$hsl[1] . '%), ' . (int)$hsl[2] . '%);
-              --color-primary-bg-strong-text: white;
-              --color-primary-bg-subtle: hsl(' . (int)$hsl[0] . ', calc(var(--color-contrast-modifier) + ' . (int)$hsl[1] . '%), 90%);
-              --color-primary-bg-subtle-text: var(--color-page-text);
-              --color-primary-text: hsl(' . (int)$hsl[0] . ', calc(var(--color-contrast-modifier) + ' . (int)$hsl[1] . '%), 40%);   
             }</style>'
             );
         }
@@ -63,7 +59,6 @@ class Hello extends ThemeBase
         }
         echo '</div></div>';
     }
-
 
     /**
      * Get array of settings forms

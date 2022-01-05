@@ -56,6 +56,27 @@ abstract class BlockBase
     }
 
     /**
+     * Prepare settings that came from a template and are about to be imported as page layout
+     * Should be used to add demo media files/images for example
+     * @param array $pageBlockSettings
+     */
+    public static function prepareTemplateSettingsForImport(array &$pageBlockSettings): void
+    {
+        // by default, nothing is modified
+        // todo make local file browser
+    }
+
+    /**
+     * Prepare settings for template code generator to remove sensible data
+     * Should be used to remove settings like media files or non layout settings from the settings array
+     * @param array $pageBlockSettings
+     */
+    public static function prepareTemplateSettingsForExport(array &$pageBlockSettings): void
+    {
+        // by default, all settings are copied, array is unmodified
+    }
+
+    /**
      * Constructor
      * @param PageBlock $pageBlock The corresponding page block for this layout block
      */

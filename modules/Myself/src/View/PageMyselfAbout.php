@@ -41,7 +41,7 @@ class PageMyselfAbout extends LayoutView
         $this->includeCompiledFilesForModule(FRAMELIX_MODULE);
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "myself");
         $this->includeCompiledFile(FRAMELIX_MODULE, "js", "myself");
-        $this->pageTitle = "This website is generated with PageMyself";
+        $this->pageTitle = "This website is generated with PageMyself - Open Source Self Hosted WYSIWYG Website Builder";
         $this->showContentBasedOnRequestType();
     }
 
@@ -52,24 +52,33 @@ class PageMyselfAbout extends LayoutView
     {
         ?>
         <div class="main">
-            <img src="<?= Url::getUrlToFile(__DIR__ . "/../../public/img/logo-colored-black.svg") ?>" alt="PageMyself"
-                 style="max-width: 80%" width="500">
-            <h1>A full WYSIWYG website builder with live editing features</h1>
-            <p>
-                This page was generated with the open source website builder <a
-                        href="https://github.com/brainfoolong/pagemyself" target="_blank">PageMyself
-                    - A full WYSIWYG website builder with live editing features</a>.
-            </p>
+            <a href="https://github.com/NullixAT/pagemyself" target="_blank">
+                <img
+                        src="<?= Url::getUrlToFile(__DIR__ . "/../../public/img/logo-colored-black.svg") ?>"
+                        alt="PageMyself"
+                        style="max-width: 80%"
+                        width="500">
+            </a>
+            <h1>
+                This page was generated with <a
+                        href="https://github.com/NullixAT/pagemyself" target="_blank">PageMyself - Open Source Self
+                    Hosted WYSIWYG Website Builder</a>
+            </h1>
+            <p style="font-size: 90%; opacity:0.8;">
+                Our goal is to give you the tools to create your private/company website in no time and without coding
+                skills.<br/>
+                It is almost as easy as writing an office document.</p>
         </div>
         <style>
           body {
-            background: #f5f5f5;
             text-align: center;
             padding: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            background: #ffffff linear-gradient(45deg, #f5f5f5 25%, #ffffff 25%, #ffffff 50%, #f5f5f5 50%, #f5f5f5 75%, #ffffff 75%, #ffffff 100%);
+            background-size: 56px 56px;
           }
           .main {
             margin: 0 auto;

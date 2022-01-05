@@ -11,39 +11,27 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
+use Framelix\Myself\BlockLayout\BlockLayoutColumn;
+use Framelix\Myself\BlockLayout\BlockLayoutRow;
 use Framelix\Myself\BlockLayout\PredefinedBlockLayout;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
-use Framelix\Myself\Storable\Theme;
+use Framelix\Myself\Storable\ThemeSettings;
 use Framelix\Myself\View\Index;
 
 use function basename;
 use function class_exists;
+use function get_class;
+use function strtolower;
+use function substr;
 
 /**
  * ThemeBase
  */
 abstract class ThemeBase
 {
-    /**
-     * Create instance from given class name
-     * @param string|null $className
-     * @return static|null Null if class is not a valid ThemeBase class
-     */
-    public static function createFromClassName(?string $className): ?self
-    {
-        if (!$className || !class_exists($className)) {
-            return null;
-        }
-        $instance = new $className();
-        if ($instance instanceof ThemeBase) {
-            return $instance;
-        }
-        return null;
-    }
-
     /**
      * Get array if all available page block classes
      * @return string[]
@@ -71,11 +59,21 @@ abstract class ThemeBase
 
     /**
      * Constructor
-     * @param Theme $theme The current theme data
+     * @param ThemeSettings $themeSettings The current theme data
      * @param Page $page The current page
      */
-    public function __construct(public Theme $theme, public Page $page)
+    public function __construct(public ThemeSettings $themeSettings, public Page $page)
     {
+    }
+
+    /**
+     * Get absolute public folder path on disk
+     * @return string
+     */
+    public function getThemePublicFolderPath(): string
+    {
+        return FileUtils::getModuleRootPath(ClassUtils::getModuleForClass($this->themeSettings->themeClass))
+            . "/public/themes/" . strtolower(ClassUtils::getClassBaseName($this->themeSettings->themeClass));
     }
 
     /**
@@ -102,12 +100,16 @@ abstract class ThemeBase
                 throw new Exception("$typeClass is not an instance of ThemeBase in " . __METHOD__);
             }
         }
+        $themeClass = get_class($this);
         $placement = ClassUtils::getModuleForClass($this) . "_" . $placement;
-        $usePageBlock = PageBlock::getByConditionOne('theme = {0} && fixedPlacement = {1}', [$this->theme, $placement]);
+        $usePageBlock = PageBlock::getByConditionOne(
+            'themeClass = {0} && fixedPlacement = {1}',
+            [$themeClass, $placement]
+        );
         if (!$usePageBlock) {
             $usePageBlock = new PageBlock();
             $usePageBlock->fixedPlacement = $placement;
-            $usePageBlock->theme = $this->theme;
+            $usePageBlock->themeClass = $themeClass;
             $usePageBlock->flagDraft = false;
             $usePageBlock->pageBlockClass = $typeClass;
             $usePageBlock->store();
@@ -134,116 +136,9 @@ abstract class ThemeBase
         }
         $unassignedPageBlocks = $pageBlocks;
         foreach ($blockLayout->rows as $row) {
-            $rowAttributes = new HtmlAttributes();
-            $rowAttributes->addClass('myself-block-layout-row');
-            $columns = $row->columns;
-            $rowAttributes->set('data-columns', count($columns));
-            $rowSettings = $row->settings;
-            $settingValue = $rowSettings->gap;
-            if ($settingValue) {
-                $rowAttributes->setStyle('gap', $rowSettings->gap . "px");
-            }
-            $settingValue = $rowSettings->maxWidth;
-            if ($settingValue) {
-                $rowAttributes->setStyle('max-width', $settingValue . "px");
-            }
-            $settingValue = $rowSettings->alignment;
-            if ($settingValue) {
-                $rowAttributes->set('data-align', $settingValue);
-            }
-            $settingValue = $rowSettings->backgroundSize;
-            if ($settingValue) {
-                $rowAttributes->set('data-background-size', $settingValue);
-            }
-            $backgroundImage = MediaFile::getById($rowSettings->backgroundImage);
-            $backgroundVideo = MediaFile::getById($rowSettings->backgroundVideo);
-            if ($backgroundImage && $backgroundImage->getImageData()) {
-                $rowAttributes->set(
-                    'data-background-image',
-                    Url::getUrlToFile($backgroundImage->getPath())
-                );
-            }
-            if ($backgroundVideo && $backgroundVideo->getPath()) {
-                $rowAttributes->set(
-                    'data-background-video',
-                    Url::getUrlToFile($backgroundVideo->getPath())
-                );
-            }
-            echo '<div ' . $rowAttributes . '>';
-            foreach ($columns as $column) {
-                $columnSettings = $column->settings;
-                $columnAttributes = new HtmlAttributes();
-                $columnAttributes->addClass('myself-block-layout-row-column');
-                $settingValue = $columnSettings->padding;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('padding', $settingValue . "px");
-                }
-                $settingValue = $columnSettings->minWidth;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('min-width', $settingValue . "px");
-                }
-                $settingValue = $columnSettings->minHeight;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('min-height', $settingValue . "px");
-                    $verticalTextAlignment = $columnSettings->textVerticalAlignment;
-                    $textAlignment = $columnSettings->textAlignment;
-                    if ($verticalTextAlignment && $verticalTextAlignment !== 'top') {
-                        $columnAttributes->setStyle('display', 'flex');
-                        if ($verticalTextAlignment === 'center') {
-                            $columnAttributes->setStyle('align-items', 'center');
-                        } elseif ($verticalTextAlignment === 'bottom') {
-                            $columnAttributes->setStyle('align-items', 'flex-end');
-                        }
-                        if ($textAlignment === 'left') {
-                            $columnAttributes->setStyle('justify-content', 'flex-start');
-                        } elseif ($textAlignment === 'center' || !$textAlignment) {
-                            $columnAttributes->setStyle('justify-content', 'center');
-                        } else {
-                            $columnAttributes->setStyle('justify-content', 'flex-end');
-                        }
-                    }
-                }
-                $settingValue = $columnSettings->textColor;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('color', $settingValue);
-                }
-                $settingValue = $columnSettings->backgroundColor;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('background-color', $settingValue);
-                }
-                $settingValue = $columnSettings->textAlignment;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('text-align', $settingValue);
-                }
-                $settingValue = $columnSettings->textSize;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('font-size', $settingValue . "%");
-                }
-                $settingValue = $columnSettings->backgroundSize;
-                if ($settingValue) {
-                    $columnAttributes->set('data-background-size', $settingValue);
-                }
-                $settingValue = $columnSettings->grow;
-                if ($settingValue) {
-                    $columnAttributes->setStyle('flex-grow', $settingValue);
-                }
-                $backgroundImage = MediaFile::getById($columnSettings->backgroundImage);
-                $backgroundVideo = MediaFile::getById($columnSettings->backgroundVideo);
-                if ($backgroundImage && $backgroundImage->getImageData()) {
-                    $columnAttributes->set('data-background-media', '1');
-                    $columnAttributes->set(
-                        'data-background-image',
-                        Url::getUrlToFile($backgroundImage->getPath())
-                    );
-                }
-                if ($backgroundVideo && $backgroundVideo->getPath()) {
-                    $columnAttributes->set('data-background-media', '1');
-                    $columnAttributes->set(
-                        'data-background-video',
-                        Url::getUrlToFile($backgroundVideo->getPath())
-                    );
-                }
-                echo '<div ' . $columnAttributes . '>';
+            echo '<div ' . $this->getRowHtmlAttributes($row) . '>';
+            foreach ($row->columns as $column) {
+                echo '<div ' . $this->getColumnHtmlAttributes($column) . '>';
                 $pageBlock = $pageBlocks[$column->pageBlockId] ?? null;
                 if ($pageBlock) {
                     $pageBlock->getLayoutBlock()?->showLayout();
@@ -263,6 +158,140 @@ abstract class ThemeBase
             $pageBlock->getLayoutBlock()?->showLayout();
             echo '</div></div>';
         }
+    }
+
+
+    /**
+     * Get row html attributes
+     * @param BlockLayoutRow|null $row
+     * @return HtmlAttributes
+     */
+    public function getRowHtmlAttributes(?BlockLayoutRow $row): HtmlAttributes
+    {
+        if (!$row) {
+            $row = new BlockLayoutRow();
+        }
+        $rowAttributes = new HtmlAttributes();
+        $rowAttributes->addClass('myself-block-layout-row');
+        $columns = $row->columns;
+        $rowAttributes->set('data-columns', count($columns));
+        $rowSettings = $row->settings;
+        $settingValue = $rowSettings->gap;
+        if ($settingValue) {
+            $rowAttributes->setStyle('gap', $rowSettings->gap . "px");
+        }
+        $settingValue = $rowSettings->maxWidth;
+        if ($settingValue) {
+            $rowAttributes->setStyle('max-width', $settingValue . "px");
+        }
+        $settingValue = $rowSettings->alignment;
+        if ($settingValue) {
+            $rowAttributes->set('data-align', $settingValue);
+        }
+        $settingValue = $rowSettings->backgroundSize;
+        if ($settingValue) {
+            $rowAttributes->set('data-background-size', $settingValue);
+        }
+        $backgroundImage = MediaFile::getById($rowSettings->backgroundImage);
+        $backgroundVideo = MediaFile::getById($rowSettings->backgroundVideo);
+        if ($backgroundImage && $backgroundImage->getImageData()) {
+            $rowAttributes->set(
+                'data-background-image',
+                Url::getUrlToFile($backgroundImage->getPath())
+            );
+        }
+        if ($backgroundVideo && $backgroundVideo->getPath()) {
+            $rowAttributes->set(
+                'data-background-video',
+                Url::getUrlToFile($backgroundVideo->getPath())
+            );
+        }
+        return $rowAttributes;
+    }
+
+    /**
+     * Get column html attributes
+     * @param BlockLayoutColumn|null $column
+     * @return HtmlAttributes
+     */
+    public function getColumnHtmlAttributes(?BlockLayoutColumn $column): HtmlAttributes
+    {
+        if (!$column) {
+            $column = new BlockLayoutColumn();
+        }
+        $columnSettings = $column->settings;
+        $columnAttributes = new HtmlAttributes();
+        $columnAttributes->addClass('myself-block-layout-row-column');
+        $settingValue = $columnSettings->padding;
+        if ($settingValue) {
+            $columnAttributes->setStyle('padding', $settingValue . "px");
+        }
+        $settingValue = $columnSettings->minWidth;
+        if ($settingValue) {
+            $columnAttributes->setStyle('min-width', $settingValue . "px");
+        }
+        $settingValue = $columnSettings->minHeight;
+        if ($settingValue) {
+            $columnAttributes->setStyle('min-height', $settingValue . "px");
+            $verticalTextAlignment = $columnSettings->textVerticalAlignment;
+            $textAlignment = $columnSettings->textAlignment;
+            if ($verticalTextAlignment && $verticalTextAlignment !== 'top') {
+                $columnAttributes->setStyle('display', 'flex');
+                if ($verticalTextAlignment === 'center') {
+                    $columnAttributes->setStyle('align-items', 'center');
+                } elseif ($verticalTextAlignment === 'bottom') {
+                    $columnAttributes->setStyle('align-items', 'flex-end');
+                }
+                if ($textAlignment === 'left') {
+                    $columnAttributes->setStyle('justify-content', 'flex-start');
+                } elseif ($textAlignment === 'center' || !$textAlignment) {
+                    $columnAttributes->setStyle('justify-content', 'center');
+                } else {
+                    $columnAttributes->setStyle('justify-content', 'flex-end');
+                }
+            }
+        }
+        $settingValue = $columnSettings->textColor;
+        if ($settingValue) {
+            $columnAttributes->setStyle('color', $settingValue);
+        }
+        $settingValue = $columnSettings->backgroundColor;
+        if ($settingValue) {
+            $columnAttributes->setStyle('background-color', $settingValue);
+        }
+        $settingValue = $columnSettings->textAlignment;
+        if ($settingValue) {
+            $columnAttributes->setStyle('text-align', $settingValue);
+        }
+        $settingValue = $columnSettings->textSize;
+        if ($settingValue) {
+            $columnAttributes->setStyle('font-size', $settingValue . "%");
+        }
+        $settingValue = $columnSettings->backgroundSize;
+        if ($settingValue) {
+            $columnAttributes->set('data-background-size', $settingValue);
+        }
+        $settingValue = $columnSettings->grow;
+        if ($settingValue) {
+            $columnAttributes->setStyle('flex-grow', $settingValue);
+        }
+        $backgroundImage = MediaFile::getById($columnSettings->backgroundImage);
+        $backgroundVideo = MediaFile::getById($columnSettings->backgroundVideo);
+        if ($backgroundImage && $backgroundImage->getImageData()) {
+            $columnAttributes->set('data-background-media', '1');
+            $columnAttributes->set(
+                'data-background-image',
+                Url::getUrlToFile($backgroundImage->getPath())
+            );
+        }
+        if ($backgroundVideo && $backgroundVideo->getPath()) {
+            $columnAttributes->set('data-background-media', '1');
+            $columnAttributes->set(
+                'data-background-video',
+                Url::getUrlToFile($backgroundVideo->getPath())
+            );
+        }
+        return $columnAttributes;
     }
 
     /**
@@ -300,7 +329,7 @@ abstract class ThemeBase
      */
     public function setValuesFromSettingsForm(Form $form): void
     {
-        $form->setStorableValues($this->theme);
+        $form->setStorableValues($this->themeSettings);
     }
 
     /**
@@ -309,7 +338,14 @@ abstract class ThemeBase
      */
     public function getPredefinedBlockLayouts(): array
     {
-        return [];
+        $themeFolder = $this->getThemePublicFolderPath();
+        $templateFiles = FileUtils::getFiles($themeFolder, "~/template-.*\.json$~");
+        $arr = [];
+        foreach ($templateFiles as $templateFile) {
+            $layout = new PredefinedBlockLayout($this, substr(basename($templateFile), 0, -5));
+            $arr[$layout->templateFilename] = $layout;
+        }
+        return $arr;
     }
 
     /**

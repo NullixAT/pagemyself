@@ -30,6 +30,7 @@ class Index extends View
      */
     public function showContent(): void
     {
+        // todo move to initialization not index page
         $pages = Page::getByCondition();
         if (!$pages) {
             // create default page
@@ -39,7 +40,6 @@ class Index extends View
             $page->flagDraft = false;
             $page->lang = Lang::$lang;
             $page->store();
-            return;
         }
     }
 }

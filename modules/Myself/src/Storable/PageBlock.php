@@ -2,6 +2,7 @@
 
 namespace Framelix\Myself\Storable;
 
+use Framelix\Framelix\Db\StorableSchema;
 use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Myself\PageBlocks\BlockBase;
 
@@ -10,7 +11,7 @@ use function class_exists;
 /**
  * PageBlock
  * @property Page|null $page
- * @property Theme|null $theme
+ * @property string|null $themeClass
  * @property string|null $fixedPlacement
  * @property string|null $password
  * @property string $pageBlockClass
@@ -19,6 +20,17 @@ use function class_exists;
  */
 class PageBlock extends StorableExtended
 {
+
+    /**
+     * Setup self storable schema
+     * @param StorableSchema $selfStorableSchema
+     */
+    protected static function setupStorableSchema(StorableSchema $selfStorableSchema): void
+    {
+        $selfStorableSchema->addIndex('themeClass', 'index');
+    }
+
+
     /**
      * Get layout block
      * @return BlockBase|null

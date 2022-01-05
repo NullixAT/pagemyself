@@ -128,10 +128,11 @@ html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
   opacity: 0.5;
   position: fixed;
   width: 100%;
+  left: 0;
   bottom: 0;
   text-align: right;
   background: #414645 linear-gradient(45deg, #262928 25%, #414645 25%, #414645 50%, #262928 50%, #262928 75%, #414645 75%, #414645 100%);
-  background-size: 56.57px 56.57px;
+  background-size: 56px 56px;
 
   .framelix-button {
     margin: 0;

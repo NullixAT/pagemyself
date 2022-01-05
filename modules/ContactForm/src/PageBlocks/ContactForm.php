@@ -96,6 +96,21 @@ class ContactForm extends BlockBase
     }
 
     /**
+     * Prepare settings for template code generator to remove sensible data
+     * Should be used to remove settings like media files or non layout settings from the settings array
+     * @param array $pageBlockSettings
+     */
+    public static function prepareTemplateSettingsForExport(array &$pageBlockSettings): void
+    {
+        // only store the type and skip others
+        foreach ($pageBlockSettings as $key => $value) {
+            if ($key !== 'type') {
+                unset($pageBlockSettings[$key]);
+            }
+        }
+    }
+
+    /**
      * Show content for this block
      * @return void
      */

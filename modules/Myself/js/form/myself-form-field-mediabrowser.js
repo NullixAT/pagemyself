@@ -158,7 +158,7 @@ class MyselfFormFieldMediaBrowser extends FramelixFormField {
         self.modal.destroy()
       })
       buttonsRow.append(saveBtn)
-      self.modal = FramelixModal.show(self.browserContent, buttonsRow, true)
+      self.modal = FramelixModal.show({ bodyContent: self.browserContent, footerContent: buttonsRow, maximized: true })
       self.modal.destroyed.then(function () {
         self.modal = null
         self.browserContent = null

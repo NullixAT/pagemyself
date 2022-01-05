@@ -29,7 +29,7 @@ class Sitemap extends View
      * Custom url
      * @var string|null
      */
-    protected ?string $customUrl = "~sitemap.xml~";
+    protected ?string $customUrl = "/sitemap.xml";
 
     /**
      * On request

@@ -14,9 +14,7 @@ use Framelix\Myself\Themes\ThemeBase;
 use Framelix\Myself\View\Backend\Page\Index;
 
 use function array_key_exists;
-use function array_pop;
 use function class_exists;
-use function explode;
 
 /**
  * Page
@@ -38,10 +36,10 @@ class Page extends StorableExtended
     private array $pageBlocks = [];
 
     /**
-     * Cached theme
-     * @var Theme|null
+     * Cached theme settings for getter
+     * @var ThemeSettings|null
      */
-    private ?Theme $theme = null;
+    private ?ThemeSettings $themeSettings = null;
 
     /**
      * Setup self storable schema
@@ -87,36 +85,29 @@ class Page extends StorableExtended
 
     /**
      * Get theme to this page
-     * @return Theme
+     * @return ThemeSettings
      */
-    public function getTheme(): Theme
+    public function getThemeSettings(): ThemeSettings
     {
-        if ($this->theme !== null) {
-            return $this->theme;
+        if ($this->themeSettings !== null) {
+            return $this->themeSettings;
         }
-        $themeName = 'Hello';
-        $themeModule = "Myself";
-        if ($this->themeClass && class_exists($this->themeClass)) {
-            $exp = explode("\\", $this->themeClass);
-            $themeName = array_pop($exp);
-            $themeModule = $exp[1];
+        $themeSettings = ThemeSettings::getByConditionOne('themeClass = {0}', [$this->getThemeClass()]);
+        if (!$themeSettings) {
+            $themeSettings = new ThemeSettings();
+            $themeSettings->themeClass = $this->getThemeClass();
+            $themeSettings->store();
         }
-        $theme = Theme::getByConditionOne('module = {0} && name = {1}', [$themeModule, $themeName]);
-        if (!$theme) {
-            $theme = new Theme();
-            $theme->module = $themeModule;
-            $theme->name = $themeName;
-            $theme->store();
-        }
-        $this->theme = $theme;
-        return $this->theme;
+        $this->themeSettings = $themeSettings;
+        return $this->themeSettings;
     }
 
     /**
-     * Get theme class name
+     * Get theme class for this page
+     * Returns a default class if not set
      * @return string
      */
-    public function getThemeClassName(): string
+    public function getThemeClass(): string
     {
         $className = $this->themeClass ?? Hello::class;
         if (!class_exists($className)) {
@@ -131,8 +122,8 @@ class Page extends StorableExtended
      */
     public function getThemeBlock(): ThemeBase
     {
-        $className = $this->getThemeClassName();
-        return new $className($this->getTheme(), $this);
+        $className = $this->getThemeClass();
+        return new $className($this->getThemeSettings(), $this);
     }
 
     /**

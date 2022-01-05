@@ -38,14 +38,14 @@ class MyselfEdit {
       MyselfEdit.bindLiveEditableWysiwyg(editFrameWindow)
     })
     $(document).on('click', '.myself-open-website-settings', async function () {
-      const modal = await FramelixModal.request('post', MyselfEdit.config.websiteSettingsEditUrl, null, null, false, null, true)
+      const modal = await FramelixModal.request('post', MyselfEdit.config.websiteSettingsEditUrl, null, null, false, null, { maximized: true })
       modal.contentContainer.addClass('myself-edit-font')
       modal.destroyed.then(function () {
         location.reload()
       })
     })
     $(document).on('click', '.myself-open-theme-settings', async function () {
-      const modal = await FramelixModal.request('post', MyselfEdit.config.themeSettingsEditUrl, null, null, false, null, true)
+      const modal = await FramelixModal.request('post', MyselfEdit.config.themeSettingsEditUrl, null, null, false, null, { maximized: true })
       modal.contentContainer.addClass('myself-edit-font')
       modal.destroyed.then(function () {
         location.reload()

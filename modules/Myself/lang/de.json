@@ -57,7 +57,7 @@
     ],
     "__myself_blocklayout_fixedplacememt__": [
         "Fixe Platzierung ({0})",
-        "58b94"
+        "60b27"
     ],
     "__myself_blocklayout_fixedplacememt_desc__": [
         "Dieser Page-Block ist fix im verwendeten Stil verankert. Einige Einstellungen werden durch den Stil vorgegeben und k\u00f6nnen nicht bearbeitet werden.",
@@ -70,6 +70,34 @@
     "__myself_blocklayout_openeditor__": [
         "\u00c4ndere das Layout",
         "a7a66"
+    ],
+    "__myself_blocklayout_pagelayout__": [
+        "Seitenlayout",
+        "47b74"
+    ],
+    "__myself_blocklayout_pagelayout_empty__": [
+        "Deine Seite ist noch leer. Vielleicht m\u00f6chtest du mit einem Template starten, gehe daf\u00fcr auf den Template Tab. Ansonsten klicke auf das Plus Symbol um ein eigenes Layout zu starten.",
+        "40d38"
+    ],
+    "__myself_blocklayout_predefinedlayouts__": [
+        "Templates",
+        "7df96"
+    ],
+    "__myself_blocklayout_predefinedlayouts_desc__": [
+        "Du kannst eine Seite mit einem Template beginnen. Das gibt der einen schnellen Start ohne das du erstmal viel \u00fcber das Layout nachdenken muss. Du kannst eine Seite und das Layout jederzeit bearbeiten, auch wenn du mit einem Template beginnst.",
+        "33ada"
+    ],
+    "__myself_blocklayout_predefinedlayouts_inserted__": [
+        "Template wurde angewendet. Du kannst es nun nach deinen Vorstellungen modifizieren.",
+        "95d9b"
+    ],
+    "__myself_blocklayout_predefinedlayouts_use__": [
+        "Template anwenden",
+        "d013c"
+    ],
+    "__myself_blocklayout_predefinedlayouts_warning__": [
+        "Warnung: Diese Seite beinhalten schon ein Layout. Wenn du ein Template anwendest, dann wird das existierende Layout gel\u00f6scht.",
+        "d5382"
     ],
     "__myself_blocklayout_remove_column__": [
         "Spalte entfernen",
@@ -99,6 +127,10 @@
         "Layout speichern",
         "0f4a5"
     ],
+    "__myself_blocklayout_save_and_close__": [
+        "Speichern und schlie\u00dfen",
+        "40efd"
+    ],
     "__myself_blocklayout_settings_column__": [
         "Spalteneinstellungen",
         "67f40"
@@ -114,6 +146,14 @@
     "__myself_blocklayout_sort_row__": [
         "Sortiere die Zeile mit Drag&Drop",
         "8c1c5"
+    ],
+    "__myself_blocklayout_themeblocks__": [
+        "Fixe Bl\u00f6cke im Stil",
+        "afe17"
+    ],
+    "__myself_blocklayout_themeblocks_desc__": [
+        "Diese Bl\u00f6cke sind direkt im Stil integriert und Platzierung und manch andere Layout Einstellungen k\u00f6nnen nicht bearbeitet werden.",
+        "98528"
     ],
     "__myself_column_align__": [
         "Spaltenausrichtung",
@@ -146,6 +186,14 @@
     "__myself_goto_backend__": [
         "Zum Backend",
         "d7d98"
+    ],
+    "__myself_hide_editmode_container__": [
+        "Verstecke das Overlay f\u00fcr den Moment",
+        "940a1"
+    ],
+    "__myself_info_use_page_templates_empty_page__": [
+        "Hier hast du jetzt eine frische neue Seite. Du kannst beginnen das Layout mit dem Button zum Layout \u00e4ndern rechts bearbeiten.",
+        "0596b"
     ],
     "__myself_layout_exception__": [
         "Hoppla, da ist ein Fehler aufgetreten. Bitte komm sp\u00e4ter wieder oder kontaktieren den Seiteninhaber.",
@@ -356,7 +404,7 @@
         "4d57e"
     ],
     "__myself_pageblocks_editor_info__": [
-        "Du kannst per Drag&Drop alle Spalten an jeden beliebigen Ort ziehen. Vergiss nach einer \u00c4nderung nicht zu speichern.<br\/>Du kannst Spalten nur entfernen wenn sie leer sind. Um einen Page-Block zu l\u00f6schen gehe auf die Spalteneinstellungen - Blockeinstellungen und l\u00f6sche den Block dort zuerst.",
+        "Du kannst per Drag&Drop alle Spalten an jeden beliebigen Ort ziehen. Vergiss nach einer \u00c4nderung nicht zu speichern.<br\/>Du kannst Spalten nur entfernen wenn sie leer sind. Um einen Page-Block zu l\u00f6schen gehe auf die Spalteneinstellungen -> Blockeinstellungen und l\u00f6sche den Block dort zuerst.",
         "da555"
     ],
     "__myself_pageblocks_html__": [
@@ -455,12 +503,37 @@
         "Text Einstellungen",
         "d8519"
     ],
+    "__myself_pageblocks_text_textshadow__": [
+        "Textschatten",
+        "86e47"
+    ],
+    "__myself_pageblocks_text_textshadowcolor__": [
+        "Farbe des Schattens",
+        "eed98"
+    ],
+    "__myself_pageblocks_text_textshadowsize__": [
+        "Gr\u00f6\u00dfe des Schattens",
+        "dd705"
+    ],
+    "__myself_pageblocks_text_textshadowtype__": [
+        "Art des Schattens",
+        "0c634"
+    ],
+    "__myself_pageblocks_text_textshadowtype_around__": [
+        "Rundherum",
+        "9bf34"
+    ],
+    "__myself_pageblocks_text_textshadowtype_hard__": [
+        "Hart",
+        "36561"
+    ],
+    "__myself_pageblocks_text_textshadowtype_soft__": [
+        "Weich",
+        "68216"
+    ],
     "__myself_pageblocks_text_wysiwyg__": [
         "Voller Texteditor mit Formatierungsoptionen",
         "9f2d2"
-    ],
-    "__myself_themes_hello_footer__" : [
-        "Footer anzeigen"
     ],
     "__myself_pageblocks_textcolor__": [
         "Textfarbe",
@@ -477,6 +550,14 @@
     "__myself_pageblocks_textsize_desc__": [
         "Standard Schriftgr\u00f6\u00dfe",
         "c168c"
+    ],
+    "__myself_pageblocks_textverticalalignment__": [
+        "Vertikale Textausrichtung",
+        "fd59c"
+    ],
+    "__myself_pageblocks_textverticalalignment_desc__": [
+        "Wenn du eine minimale H\u00f6he angegeben hast, dann kannst du definieren wie der Text darin ausgerichtet werden soll.",
+        "22309"
     ],
     "__myself_storable_nav_flagdraft_label__": [
         "Entwurf",
@@ -601,6 +682,10 @@
     "__myself_theme_settings_form_internal__": [
         "Stil",
         "d7217"
+    ],
+    "__myself_themes_hello_footer__": [
+        "Footer anzeigen",
+        "554bd"
     ],
     "__myself_themes_hello_form_main__": [
         "Stil-Einstellungen",

@@ -79,6 +79,7 @@ class WebsiteSettings extends View
     {
         $instance = \Framelix\Myself\Storable\WebsiteSettings::getInstance();
         $form = new Form();
+        $form->stickyFormButtons = true;
         $form->id = "meta";
         $form->submitUrl = Url::create();
 

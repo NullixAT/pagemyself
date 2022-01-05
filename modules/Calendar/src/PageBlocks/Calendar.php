@@ -256,6 +256,19 @@ class Calendar extends BlockBase
     }
 
     /**
+     * Prepare settings for template code generator to remove sensible data
+     * Should be used to remove settings like media files or non layout settings from the settings array
+     * @param array $pageBlockSettings
+     */
+    public static function prepareTemplateSettingsForExport(array &$pageBlockSettings): void
+    {
+        // calendar does not have any settings that should be exported
+        foreach ($pageBlockSettings as $key => $value) {
+            unset($pageBlockSettings[$key]);
+        }
+    }
+
+    /**
      * Show content for this block
      * @return void
      */

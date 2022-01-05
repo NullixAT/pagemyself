@@ -37,7 +37,7 @@ class ThemeSettings extends View
     public function onRequest(): void
     {
         $requestPage = Page::getById(Request::getGet('pageId'));
-        $theme = $requestPage->getTheme();
+        $themeSettings = $requestPage->getThemeSettings();
         $themeBlock = $requestPage->getThemeBlock();
         $action = Request::getGet('action');
         switch ($action) {
@@ -45,7 +45,7 @@ class ThemeSettings extends View
                 $forms = $themeBlock->getSettingsForms();
                 $form = $forms[Request::getGet('formKey')];
                 $themeBlock->setValuesFromSettingsForm($form);
-                $theme->store();
+                $themeSettings->store();
                 Toast::success('__framelix_saved__');
                 Response::showFormAsyncSubmitResponse();
             case 'edit':
@@ -55,6 +55,7 @@ class ThemeSettings extends View
                 $tabs = new Tabs();
                 $tabs->id = "themeblocks";
                 foreach ($forms as $key => $form) {
+                    $form->stickyFormButtons = true;
                     $form->submitUrl = Url::create()->setParameter('formKey', $key)->setParameter(
                         'action',
                         'save-settings'
@@ -80,7 +81,7 @@ class ThemeSettings extends View
                             }
                         }
                         $field->defaultValue = ArrayUtils::getValue(
-                                $theme,
+                                $themeSettings,
                                 $keyParts
                             ) ?? $field->defaultValue;
                         array_unshift($keyParts, "settings");

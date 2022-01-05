@@ -23,7 +23,7 @@ use Framelix\Myself\BlockLayout\BlockLayoutEditor;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
-use Framelix\Myself\Storable\Theme;
+use Framelix\Myself\Storable\ThemeSettings;
 
 use function class_exists;
 use function end;
@@ -74,9 +74,9 @@ class Index extends LayoutView
 
     /**
      * The current theme
-     * @var Theme|null
+     * @var ThemeSettings|null
      */
-    private ?Theme $theme = null;
+    private ?ThemeSettings $themeSettings = null;
 
     /**
      * On request
@@ -101,7 +101,7 @@ class Index extends LayoutView
                 $this->editMode = true;
             }
             $this->pageTitle = $this->page->title;
-            $this->theme = $this->page->getTheme();
+            $this->themeSettings = $this->page->getThemeSettings();
             if ($this->page->password && Form::isFormSubmitted('pagepassword') && Request::getPost('password')) {
                 if (Request::getPost('password') === $this->page->password) {
                     Session::set('myself-page-password-' . md5($this->page->password), true);
@@ -207,7 +207,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             $config = [
                 'tinymceUrl' => Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js"),
                 'pageBlockEditUrl' => View::getUrl(PageBlockEdit::class),
-                'themeSettingsEditUrl' => View::getUrl(ThemeSettings::class)
+                'themeSettingsEditUrl' => View::getUrl(\Framelix\Myself\View\ThemeSettings::class)
                     ->setParameter('pageId', $this->page)
                     ->setParameter('action', 'edit'),
                 'websiteSettingsEditUrl' => View::getUrl(WebsiteSettings::class),
@@ -327,7 +327,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             if (!$this->page) {
                 return;
             }
-            $themeClassName = $this->page->getThemeClassName();
+            $themeClassName = $this->page->getThemeClass();
             $themeExp = explode("\\", $themeClassName);
             $themeName = strtolower($themeExp[3]);
             $themeModule = $themeExp[1];
@@ -343,7 +343,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
 
             $pageBlocks = ArrayUtils::merge(
                 $this->page->getPageBlocks(!$this->editMode),
-                $this->theme->getPageBlocks()
+                $this->themeSettings->getPageBlocks()
             );
             $pageBlockClasses = [];
             foreach ($pageBlocks as $pageBlock) {

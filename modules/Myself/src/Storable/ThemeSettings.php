@@ -8,12 +8,11 @@ use Framelix\Framelix\Storable\StorableExtended;
 use function array_key_exists;
 
 /**
- * Theme
- * @property string $module
- * @property string $name
+ * ThemeSettings
+ * @property string $themeClass
  * @property mixed|null $settings
  */
-class Theme extends StorableExtended
+class ThemeSettings extends StorableExtended
 {
     /**
      * Cached page blocks
@@ -27,11 +26,11 @@ class Theme extends StorableExtended
      */
     protected static function setupStorableSchema(StorableSchema $selfStorableSchema): void
     {
-        $selfStorableSchema->addIndex('name', 'unique', ['module', 'name']);
+        $selfStorableSchema->addIndex('themeClass', 'unique');
     }
 
     /**
-     * Get page blocks
+     * Get page blocks for this theme
      * @return PageBlock[]
      */
     public function getPageBlocks(): array
@@ -41,8 +40,8 @@ class Theme extends StorableExtended
             return $this->pageBlocks[$cacheKey];
         }
         $this->pageBlocks[$cacheKey] = PageBlock::getByCondition(
-            'theme = {0}',
-            [$this]
+            'themeClass = {0}',
+            [$this->themeClass]
         );
         return $this->pageBlocks[$cacheKey];
     }
