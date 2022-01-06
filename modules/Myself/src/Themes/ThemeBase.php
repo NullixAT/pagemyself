@@ -13,7 +13,7 @@ use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Myself\BlockLayout\BlockLayoutColumn;
 use Framelix\Myself\BlockLayout\BlockLayoutRow;
-use Framelix\Myself\BlockLayout\PredefinedBlockLayout;
+use Framelix\Myself\BlockLayout\Template;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
@@ -334,7 +334,7 @@ abstract class ThemeBase
 
     /**
      * Get templates for this theme
-     * @return PredefinedBlockLayout[]
+     * @return Template[]
      */
     public function getTemplates(): array
     {
@@ -342,8 +342,8 @@ abstract class ThemeBase
         $templateFiles = FileUtils::getFiles($themeFolder, "~/template-.*\.json$~");
         $arr = [];
         foreach ($templateFiles as $templateFile) {
-            $layout = new PredefinedBlockLayout($this, substr(basename($templateFile), 0, -5));
-            $arr[$layout->templateFilename] = $layout;
+            $template = new Template($this, substr(basename($templateFile), 0, -5));
+            $arr[$template->templateFilename] = $template;
         }
         return $arr;
     }

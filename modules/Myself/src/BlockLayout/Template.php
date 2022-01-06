@@ -9,9 +9,9 @@ use JsonSerializable;
 use function file_exists;
 
 /**
- * PredefinedBlockLayout
+ * Template
  */
-class PredefinedBlockLayout implements JsonSerializable
+class Template implements JsonSerializable
 {
     /**
      * The label for the user interface

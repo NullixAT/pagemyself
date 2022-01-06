@@ -36,9 +36,13 @@ class Hello extends ThemeBase
             $hsl[1] *= 100;
             $hsl[2] *= 100;
             $view->addHeadHtml(
-                '<style>:root{            
-              --color-primary-hue:' . (int)$hsl[0] . ';
-            }</style>'
+                '<style>
+                    .framelix-page{
+                    --color-primary-hue:' . (int)$hsl[0] . ';
+                    --color-primary-text: hsl(var(--color-primary-hue), calc(var(--color-contrast-modifier) + 70%), 40%);  
+                    --color-button-default-bg: hsl(var(--color-primary-hue), 20%, 25%);               
+                  }
+                  </style>'
             );
         }
         $htmlAttributes = new HtmlAttributes();

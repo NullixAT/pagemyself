@@ -95,7 +95,7 @@ class BlockLayoutEditor
                             break;
                         }
                     }
-                    $template = new PredefinedBlockLayout($themeBlock, $selectedTemplate);
+                    $template = new Template($themeBlock, $selectedTemplate);
                 } else {
                     $template = $templates[$selectedTemplate];
                 }
@@ -431,7 +431,7 @@ class BlockLayoutEditor
         $themeBlock = $page->getThemeBlock();
         $templates = $themeBlock->getTemplates();
         $selectedTemplate = $templates[$jsCall->parameters['template'] ?? 'new']
-            ?? new PredefinedBlockLayout($themeBlock);
+            ?? new Template($themeBlock);
 
         $form = new Form();
         $form->id = "template-editor";

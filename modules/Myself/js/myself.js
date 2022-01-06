@@ -134,7 +134,7 @@ class Myself {
       editModeContainer.on('click', 'button', function () {
         editModeContainer.remove()
       })
-      $('.framelix-page').append(editModeContainer)
+      $('.framelix-page').after(editModeContainer)
     }
   }
 }
