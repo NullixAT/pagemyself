@@ -79,23 +79,23 @@
         "Deine Seite ist noch leer. Vielleicht m\u00f6chtest du mit einem Template starten, gehe daf\u00fcr auf den Template Tab. Ansonsten klicke auf das Plus Symbol um ein eigenes Layout zu starten.",
         "40d38"
     ],
-    "__myself_blocklayout_predefinedlayouts__": [
+    "__myself_blocklayout_templates__": [
         "Templates",
         "7df96"
     ],
-    "__myself_blocklayout_predefinedlayouts_desc__": [
+    "__myself_blocklayout_templates_desc__": [
         "Du kannst eine Seite mit einem Template beginnen. Das gibt der einen schnellen Start ohne das du erstmal viel \u00fcber das Layout nachdenken muss. Du kannst eine Seite und das Layout jederzeit bearbeiten, auch wenn du mit einem Template beginnst.",
         "33ada"
     ],
-    "__myself_blocklayout_predefinedlayouts_inserted__": [
+    "__myself_blocklayout_templates_inserted__": [
         "Template wurde angewendet. Du kannst es nun nach deinen Vorstellungen modifizieren.",
         "95d9b"
     ],
-    "__myself_blocklayout_predefinedlayouts_use__": [
+    "__myself_blocklayout_templates_use__": [
         "Template anwenden",
         "d013c"
     ],
-    "__myself_blocklayout_predefinedlayouts_warning__": [
+    "__myself_blocklayout_templates_warning__": [
         "Warnung: Diese Seite beinhalten schon ein Layout. Wenn du ein Template anwendest, dann wird das existierende Layout gel\u00f6scht.",
         "d5382"
     ],

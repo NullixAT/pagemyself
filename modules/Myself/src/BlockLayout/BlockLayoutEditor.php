@@ -82,7 +82,7 @@ class BlockLayoutEditor
                     ];
                 }
                 $themeBlock = $page->getThemeBlock();
-                $templates = $themeBlock->getPredefinedBlockLayouts();
+                $templates = $themeBlock->getTemplates();
                 $templateFolder = $page->getThemeBlock()->getThemePublicFolderPath();
                 $selectedTemplate = Request::getPost('template');
                 if ($selectedTemplate === 'new' || !isset($templates[$selectedTemplate])) {
@@ -152,16 +152,16 @@ class BlockLayoutEditor
                 </script>
                 <?
                 break;
-            case 'insert-predefined-layout':
-                $predefinedBlockLayouts = $page->getThemeBlock()->getPredefinedBlockLayouts();
-                $predefinedBlockLayout = $predefinedBlockLayouts[$jsCall->parameters['id']] ?? null;
-                if ($predefinedBlockLayout) {
+            case 'insert-template':
+                $templates = $page->getThemeBlock()->getTemplates();
+                $template = $templates[$jsCall->parameters['id']] ?? null;
+                if ($template) {
                     Storable::deleteMultiple($page->getPageBlocks());
-                    $blockLayout = $predefinedBlockLayout->blockLayout;
+                    $blockLayout = $template->blockLayout;
                     foreach ($blockLayout->rows as $row) {
                         foreach ($row->columns as $column) {
                             if ($column->pageBlockId) {
-                                $pageBlockData = $predefinedBlockLayout->pageBlockData[$column->pageBlockId];
+                                $pageBlockData = $template->pageBlockData[$column->pageBlockId];
                                 $pageBlock = new PageBlock();
                                 $pageBlock->page = $page;
                                 $pageBlock->flagDraft = false;
@@ -174,7 +174,7 @@ class BlockLayoutEditor
                     }
                     $page->blockLayout = $blockLayout;
                     $page->store();
-                    Toast::success('__myself_blocklayout_predefinedlayouts_inserted__');
+                    Toast::success('__myself_blocklayout_templates_inserted__');
                 }
                 break;
             case 'fetch-settings':
@@ -197,17 +197,17 @@ class BlockLayoutEditor
                         )
                     ];
                 }
-                $predefinedBlockLayouts = $page->getThemeBlock()->getPredefinedBlockLayouts();
-                $predefinedBlockLayoutsEditorData = [];
-                foreach ($predefinedBlockLayouts as $key => $predefinedBlockLayout) {
-                    $predefinedBlockLayoutsEditorData[$key] = [
-                        'thumbnailUrl' => Url::getUrlToFile($predefinedBlockLayout->getThumbnailPath())
+                $templates = $page->getThemeBlock()->getTemplates();
+                $templatesEditorData = [];
+                foreach ($templates as $key => $template) {
+                    $templatesEditorData[$key] = [
+                        'thumbnailUrl' => Url::getUrlToFile($template->getThumbnailPath())
                     ];
                 }
                 $jsCall->result = [
                     'blockLayout' => $blockLayout,
-                    'predefinedBlockLayouts' => $predefinedBlockLayouts,
-                    'predefinedBlockLayoutsEditorData' => $predefinedBlockLayoutsEditorData,
+                    'templates' => $templates,
+                    'templatesEditorData' => $templatesEditorData,
                     'allPageBlocks' => $allPageBlocks,
                     'devMode' => Config::isDevMode()
                 ];
@@ -429,7 +429,7 @@ class BlockLayoutEditor
     public static function getFormTemplateEditor(JsCall $jsCall, Page $page): Form
     {
         $themeBlock = $page->getThemeBlock();
-        $templates = $themeBlock->getPredefinedBlockLayouts();
+        $templates = $themeBlock->getTemplates();
         $selectedTemplate = $templates[$jsCall->parameters['template'] ?? 'new']
             ?? new PredefinedBlockLayout($themeBlock);
 

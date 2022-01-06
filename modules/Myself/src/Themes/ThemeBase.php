@@ -333,10 +333,10 @@ abstract class ThemeBase
     }
 
     /**
-     * Get predefined block layouts for this theme
+     * Get templates for this theme
      * @return PredefinedBlockLayout[]
      */
-    public function getPredefinedBlockLayouts(): array
+    public function getTemplates(): array
     {
         $themeFolder = $this->getThemePublicFolderPath();
         $templateFiles = FileUtils::getFiles($themeFolder, "~/template-.*\.json$~");

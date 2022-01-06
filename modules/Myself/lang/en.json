@@ -86,19 +86,19 @@
   "__myself_blocklayout_pagelayout_empty__": [
     "Your page is empty. Maybe you want to quick start with a template layout. Goto the Templates tab or start by clicking the plus button bellow."
   ],
-  "__myself_blocklayout_predefinedlayouts__": [
+  "__myself_blocklayout_templates__": [
     "Templates"
   ],
-  "__myself_blocklayout_predefinedlayouts_desc__": [
+  "__myself_blocklayout_templates_desc__": [
     "You can start your page by using a template. This get you a quick start without thinking much about layout settings. You can always edit the page in all details in the page layout tab, even if you've started with a template."
   ],
-  "__myself_blocklayout_predefinedlayouts_inserted__": [
+  "__myself_blocklayout_templates_inserted__": [
     "Template has been used. You can now modify it to your needs."
   ],
-  "__myself_blocklayout_predefinedlayouts_use__": [
+  "__myself_blocklayout_templates_use__": [
     "Use Template"
   ],
-  "__myself_blocklayout_predefinedlayouts_warning__": [
+  "__myself_blocklayout_templates_warning__": [
     "Warning: This page already contains a page layout. When you use a template, your existing page layout will be deleted."
   ],
   "__myself_blocklayout_remove_column__": [

@@ -202,55 +202,55 @@ class MyselfBlockLayoutEditor {
       return el
     })
 
-    tabs.addTab('predefinedLayout', '__myself_blocklayout_predefinedlayouts__', function () {
+    tabs.addTab('template', '__myself_blocklayout_templates__', function () {
       const el = $(`<div>`)
       el.append(`<div class="framelix-alert framelix-alert-primary">
-          ${FramelixLang.get('__myself_blocklayout_predefinedlayouts_desc__')}
+          ${FramelixLang.get('__myself_blocklayout_templates_desc__')}
       </div>
       <div class="framelix-spacer"></div>`)
       // rows exist, warning
       if (self.config.blockLayout.rows.length) {
         el.append(`<div class="framelix-alert framelix-alert-error">
-            ${FramelixLang.get('__myself_blocklayout_predefinedlayouts_warning__')}
+            ${FramelixLang.get('__myself_blocklayout_templates_warning__')}
         </div>
         <div class="framelix-spacer"></div>`)
       }
-      el.append(`<div class="myself-predefined-block-layout-picker">
-        <ul class="myself-predefined-block-layout-picker-list"></ul>
-        <div class="myself-predefined-block-layout-picker-preview">
-          <div class="myself-predefined-block-layout-picker-preview-image"></div>
-          <div class="myself-predefined-block-layout-picker-preview-desc"></div>
-            <button class="framelix-button framelix-button-primary framelix-button-block" data-icon-left="check">${FramelixLang.get('__myself_blocklayout_predefinedlayouts_use__')}</button>
+      el.append(`<div class="myself-template-picker">
+        <ul class="myself-template-picker-list"></ul>
+        <div class="myself-template-picker-preview">
+          <div class="myself-template-picker-preview-image"></div>
+          <div class="myself-template-picker-preview-desc"></div>
+            <button class="framelix-button framelix-button-primary framelix-button-block" data-icon-left="check">${FramelixLang.get('__myself_blocklayout_templates_use__')}</button>
         </div>
       </div>`)
-      const list = el.find('.myself-predefined-block-layout-picker-list')
-      const preview = el.find('.myself-predefined-block-layout-picker-preview')
-      for(let templateFilename in self.config.predefinedBlockLayouts){
-        const predefinedBlockLayout = self.config.predefinedBlockLayouts[templateFilename]
+      const list = el.find('.myself-template-picker-list')
+      const preview = el.find('.myself-template-picker-preview')
+      for(let templateFilename in self.config.templates){
+        const template = self.config.templates[templateFilename]
         const li = $(`<li></li>`)
         li.attr('data-id', templateFilename)
-        li.append(`<div class="myself-predefined-block-layout-picker-list-label">${FramelixLang.get(predefinedBlockLayout.label)}</div>`)
-        li.append(`<div class="myself-predefined-block-layout-picker-list-desc">${FramelixStringUtils.cut(FramelixLang.get(predefinedBlockLayout.description), 200)}</div>`)
+        li.append(`<div class="myself-template-picker-list-label">${FramelixLang.get(template.label)}</div>`)
+        li.append(`<div class="myself-template-picker-list-desc">${FramelixStringUtils.cut(FramelixLang.get(template.description), 200)}</div>`)
         list.append(li)
       }
       list.on('click', 'li', function (ev) {
         const li = $(this)
         const id = li.attr('data-id')
-        const predefinedBlockLayout = self.config.predefinedBlockLayouts[id]
-        const predefinedBlockLayoutEditorData = self.config.predefinedBlockLayoutsEditorData[id]
+        const template = self.config.templates[id]
+        const templateEditorData = self.config.templatesEditorData[id]
         preview.attr('data-id', id)
-        preview.find('.myself-predefined-block-layout-picker-preview-image').css('background-image', `url(${predefinedBlockLayoutEditorData.thumbnailUrl})`)
-        preview.find('.myself-predefined-block-layout-picker-preview-desc').html(FramelixLang.get(predefinedBlockLayout.description))
+        preview.find('.myself-template-picker-preview-image').css('background-image', `url(${templateEditorData.thumbnailUrl})`)
+        preview.find('.myself-template-picker-preview-desc').html(FramelixLang.get(template.description))
       })
       preview.on('click', 'button', async function () {
         if (self.config.blockLayout.rows.length) {
-          if (!await FramelixModal.confirm('__myself_blocklayout_predefinedlayouts_warning__').confirmed) {
+          if (!await FramelixModal.confirm('__myself_blocklayout_templates_warning__').confirmed) {
             return
           }
         }
         self.config = await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
           'pageId': MyselfEdit.framePageId,
-          'action': 'insert-predefined-layout',
+          'action': 'insert-template',
           'id': preview.attr('data-id')
         })
         location.reload()
