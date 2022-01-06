@@ -18,9 +18,6 @@ body {
   align-items: center;
   text-decoration: none; }
 
-.myself-live-editable-wysiwyg p {
-  margin: 0; }
-
 .myself-page-block[data-draft] {
   outline: 2px solid red !important; }
 
@@ -38,8 +35,11 @@ html:not([data-edit-frame]) .myself-page-block[data-draft] {
   min-height: 18px;
   position: relative; }
 
-.myself-live-editable-text p {
-  margin: 0; }
+.myself-live-editable-text {
+  white-space: pre-wrap; }
+  .myself-live-editable-text p {
+    margin: 0;
+    padding: 0; }
 
 html[data-edit-frame='1'] .myself-live-editable-wysiwyg:empty:after,
 html[data-edit-frame='1'] .myself-live-editable-text:empty:after {

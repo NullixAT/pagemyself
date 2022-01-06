@@ -84,9 +84,13 @@ class LayoutUtils
         } else {
             // show 2 containers, one with editable when in editframe, one without editable when not in edit frame
             echo '<div class="myself-hide-if-editmode ' . $class . '">' . $content . '</div>';
-            echo '<div aria-hidden="true" class="myself-show-if-editmode ' . $class . '" data-id="' . $storable . '" data-property-name="' . $propertyName . '" data-array-key="' . $arrayKey . '" contenteditable="true" data-empty-text="' . Lang::get(
-                    '__myself_edittext_area__'
-                ) . '">' . $content . '</div>';
+            echo '<div aria-hidden="true" 
+                    class="myself-show-if-editmode ' . $class . '" 
+                    data-id="' . $storable . '" 
+                    data-property-name="' . $propertyName . '" 
+                    data-array-key="' . $arrayKey . '" 
+                    contenteditable="true" 
+                    data-empty-text="' . Lang::get('__myself_edittext_area__') . '">' . $content . '</div>';
         }
     }
 }

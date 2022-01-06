@@ -225,7 +225,7 @@ class MyselfBlockLayoutEditor {
       </div>`)
       const list = el.find('.myself-template-picker-list')
       const preview = el.find('.myself-template-picker-preview')
-      for(let templateFilename in self.config.templates){
+      for (let templateFilename in self.config.templates) {
         const template = self.config.templates[templateFilename]
         const li = $(`<li></li>`)
         li.attr('data-id', templateFilename)
@@ -301,12 +301,14 @@ class MyselfBlockLayoutEditor {
         const configColumn = configRow.columns[j]
         const empty = !configColumn.pageBlockId
         const pageBlockData = empty ? null : self.config.allPageBlocks[configColumn.pageBlockId]
-        let title = pageBlockData ? pageBlockData.title : FramelixLang.get('__myself_blocklayout_empty__')
+        let title = ''
+        if (pageBlockData && pageBlockData.flagDraft) {
+          title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get('__myself_pageblock_edit_internal_draft__') + '</div>'
+        }
+        title += pageBlockData ? FramelixLang.get(pageBlockData.title) : FramelixLang.get('__myself_blocklayout_empty__')
         const grow = configColumn.settings.grow || 1
         const blockColumn = $(`<div class="myself-block-layout-row-column" draggable="true" data-grow="${grow}" data-id="${j}" style="flex-grow: ${grow};">
-            <div class="myself-block-layout-row-column-title ${empty ? 'myself-block-layout-create-new-page-block' : ''}">
-            ${FramelixLang.get(title)}
-            </div>
+            <div class="myself-block-layout-row-column-title ${empty ? 'myself-block-layout-create-new-page-block' : ''}">${title}</div>
             <div class="myself-block-layout-row-column-actions">
               <button class="framelix-button" data-icon-left="vertical_align_center"
                       title="__myself_blocklayout_shrink__" data-action="shrink"></button>

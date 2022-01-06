@@ -41,6 +41,7 @@ use function file_exists;
 use function preg_replace;
 use function reset;
 use function str_replace;
+use function strip_tags;
 use function unlink;
 
 /**
@@ -185,16 +186,12 @@ class BlockLayoutEditor
                 );
                 $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
+                    $title = str_replace("&nbsp;", '', strip_tags(HtmlUtils::unescape(Lang::get($pageBlock->getLayoutBlock()->getBlockLayoutLabel()))));
+                    $title = trim($title);
                     $allPageBlocks[$pageBlock->id] = [
+                        'flagDraft' => $pageBlock->flagDraft,
                         'fixedPlacement' => $pageBlock->fixedPlacement,
-                        'title' => HtmlUtils::escape(
-                            StringUtils::cut(
-                                strip_tags(
-                                    html_entity_decode(Lang::get($pageBlock->getLayoutBlock()->getBlockLayoutLabel()))
-                                ),
-                                50
-                            )
-                        )
+                        'title' => $title
                     ];
                 }
                 $templates = $page->getThemeBlock()->getTemplates();

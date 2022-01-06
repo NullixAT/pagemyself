@@ -161,44 +161,35 @@ class MyselfEdit {
       configMap.set(this, config)
       const container = frame.$(this)
       const originalContent = container[0].innerText
+
       config.saveBtn = frame.$(`<button class="framelix-button framelix-button-success framelix-button-small myself-editable-text-save-button" data-icon-left="save" title="__framelix_save__"></button>`)
       config.saveBtn.on('click', async function () {
+        let html = container[0].innerHTML
+        html = html.replace(/<p.*?>(.*?)<\/p>/gs, '<div>$1</div>')
+        html = html.replace(/<div><br[^>]*><\/div>/gs, '<br/>')
+        container[0].innerHTML = html
+        let text = container[0].innerText
+        container[0].innerText = text
+
         Framelix.showProgressBar(1)
         await FramelixRequest.request('post', topFrame.eval('MyselfEdit').config.pageBlockEditUrl, { 'action': 'save-editable-content' }, {
           'storableId': container.attr('data-id'),
           'propertyName': container.attr('data-property-name'),
           'arrayKey': container.attr('data-array-key'),
-          'content': container[0].innerHTML
+          'content': text
         })
         Framelix.showProgressBar(null)
         FramelixToast.success('__framelix_saved__')
+        config.popup.destroy()
+        configMap.delete(container[0])
       })
       config.cancelBtn = frame.$(`<button class="framelix-button framelix-button-small myself-editable-text-cancel-button" title="__framelix_cancel__" data-icon-left="clear"></button>`)
       config.cancelBtn.on('click', async function () {
         container[0].innerText = originalContent
+        config.popup.destroy()
+        configMap.delete(container[0])
       })
       config.popup = frame.eval('FramelixPopup').show(container, frame.$('<div>').append(config.saveBtn).append(config.cancelBtn), { closeMethods: 'manual' })
-    }).on('change input blur paste', '.myself-live-editable-text', function (ev) {
-      ev.stopPropagation()
-      let config = configMap.get(this)
-      if (!config) {
-        return
-      }
-      const container = $(this)
-      // cleanup html
-      const newContent = $(this).clone()
-      const originalHtml = newContent.html()
-      newContent.find('script,style,link').remove()
-      newContent.find('[style],[href]').removeAttr('style').removeAttr('href')
-      if (originalHtml !== newContent.html()) {
-        this.innerHTML = newContent.html()
-      }
-      if (ev.type === 'focusout' || ev.type === 'blur') {
-        setTimeout(function () {
-          config.popup.destroy()
-          configMap.delete(container[0])
-        }, 100)
-      }
     })
   }
 }
