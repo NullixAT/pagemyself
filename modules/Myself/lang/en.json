@@ -83,6 +83,18 @@
     "__myself_blocklayout_rowsetting_gap__": [
         "Gap in px"
     ],
+    "__myself_themes_fonturls__" : [
+        "Custom fonts from {0}"
+    ],
+    "__myself_themes_fonturls_desc__" : [
+        "If you want to use a custom font that is available on fonts.google.com then enter the URLs bellow. This font's will then be available in texteditor and style settings.<br/>On the Google Website, select a font and click the button 'Select this style'. On the right, a sidebar should appear where you see the include URLs/Code. Just copy and paste the code in here. Our system will automatically find the fonts out of that text. The new font will appear in the font selector.<br/>Notice: Each font you add will increase the loading time of your website. Keep custom fonts as less as possible. More then 2 is not recommended."
+    ],
+    "__myself_themes_defaultfont__" : [
+        "Default Page Font"
+    ],
+    "__myself_themes_defaultfont_desc__" : [
+        "This font will be used by default for all texts, but it can be overriden in the texteditor if you wish."
+    ],
     "__myself_blocklayout_rowsetting_gap_desc__": [
         "The gap defines the size of the gap between the columns, but not at the start or the end of the row."
     ],

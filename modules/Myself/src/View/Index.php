@@ -137,6 +137,10 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         $imageData = $favicon?->getImageData();
         if ($imageData) {
             $this->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
+        } else {
+            $this->addHeadHtml(
+                '<link rel="icon" href="' . Url::getUrlToFile(__DIR__ . "/../../public/img/logo-squared.svg") . '">'
+            );
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_site_name')) {
             $this->addHeadHtml('<meta property="og:site_name" content="' . HtmlUtils::escape($settingValue) . '"/>');
@@ -178,6 +182,18 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             }
         }
         $themeBlock = $this->page->getThemeBlock();
+        $fontUrls = $themeBlock->themeSettings->settings['fontUrls'] ?? null;
+        if ($fontUrls) {
+            $this->addHeadHtml(
+                '<script>Myself.parseCustomFonts(' . JsonUtils::encode($fontUrls) . ')</script>'
+            );
+        }
+        $defaultFont = $themeBlock->themeSettings->settings['defaultFont'] ?? null;
+        if ($defaultFont) {
+            $this->addHeadHtml(
+                '<style>.framelix-page{font-family:' . $defaultFont . ', Arial, sans-serif;}</style>'
+            );
+        }
         $themeBlock->viewSetup($this);
         $themeBlock->showLayout($this);
     }

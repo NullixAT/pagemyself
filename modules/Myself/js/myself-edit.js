@@ -96,7 +96,16 @@ class MyselfEdit {
       container.removeAttr('title').removeAttr('data-tooltip')
       frame.eval('FramelixPopup').destroyTooltips()
       const originalContent = container.html()
+      let content_style = ''
+      let font_formats = 'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats'
+      for (let key in Myself.customFonts) {
+        const row = Myself.customFonts[key]
+        font_formats += '; ' + row.name + '=' + row.name
+        content_style += '@import url(\'' + row.url + '\');'
+      }
       frame.tinymce.init({
+        'font_formats': font_formats,
+        'content_style': content_style,
         language: ['en', 'de'].indexOf(FramelixLang.lang) > -1 ? FramelixLang.lang : 'en',
         target: container[0],
         menubar: false,

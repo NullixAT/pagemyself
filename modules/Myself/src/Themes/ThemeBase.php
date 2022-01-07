@@ -5,6 +5,8 @@ namespace Framelix\Myself\Themes;
 use Exception;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Form\Field\Html;
+use Framelix\Framelix\Form\Field\Select;
+use Framelix\Framelix\Form\Field\Textarea;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\Framelix\Lang;
@@ -23,6 +25,7 @@ use Framelix\Myself\View\Index;
 
 use function basename;
 use function class_exists;
+use function explode;
 use function get_class;
 use function strtolower;
 use function substr;
@@ -32,6 +35,12 @@ use function substr;
  */
 abstract class ThemeBase
 {
+    /**
+     * Custom fonts added in theme settings
+     * @var array
+     */
+    public static array $customFonts = [];
+
     /**
      * Get array if all available page block classes
      * @return string[]
@@ -326,6 +335,41 @@ abstract class ThemeBase
 
         $field = new Html();
         $field->name = "info";
+        $form->addField($field);
+
+        $field = new Textarea();
+        $field->name = "settings[fontUrls]";
+        $field->label = Lang::get('__myself_themes_fonturls__', ['<a href="https://fonts.google.com" target="_blank" rel="nofollow">fonts.google.com</a>']);
+        $field->labelDescription = '__myself_themes_fonturls_desc__';
+        $form->addField($field);
+
+        $list = [
+            "Andale Mono=andale mono,times",
+            "Arial=arial,helvetica,sans-serif",
+            "Arial Black=arial black,avant garde",
+            "Book Antiqua=book antiqua,palatino",
+            "Comic Sans MS=comic sans ms,sans-serif",
+            "Courier New=courier new,courier",
+            "Georgia=georgia,palatino",
+            "Helvetica=helvetica",
+            "Impact=impact,chicago",
+            "Symbol=symbol",
+            "Tahoma=tahoma,arial,helvetica,sans-serif",
+            "Terminal=terminal,monaco",
+            "Times New Roman=times new roman,times",
+            "Trebuchet MS=trebuchet ms,geneva",
+            "Verdana=verdana,geneva",
+            "Webdings=webdings",
+            "Wingdings=wingdings,zapf dingbats"
+        ];
+        $field = new Select();
+        $field->name = "settings[defaultFont]";
+        $field->label = '__myself_themes_defaultfont__';
+        $field->labelDescription = '__myself_themes_defaultfont_desc__';
+        foreach ($list as $item) {
+            $exp = explode("=", $item);
+            $field->addOption($exp[1], $exp[0] . ' | <span style="font-family: ' . $exp[0] . '">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</span>');
+        }
         $form->addField($field);
 
         return $forms;

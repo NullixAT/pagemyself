@@ -100,6 +100,41 @@ class ThemeSettings extends View
                         break;
                     }
                     $themeBlock->showSettingsForm($form);
+                    if ($form->id === 'themesettings') {
+                        ?>
+                        <script>
+                          (async function () {
+                            const form = FramelixForm.getById('themesettings')
+                            await form.rendered
+
+                            function addCustomFonts () {
+                              for (let key in Myself.customFonts) {
+                                const row = Myself.customFonts[key]
+                                fieldFontSelect.addOption(row.name, row.name + ' | <span style="font-family: ' + row.name + '">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</span>')
+                              }
+                              fieldFontSelect.setValue(fieldFontSelect.defaultValue)
+                            }
+
+                            /** @type {FramelixFormFieldSelect} */
+                            const fieldFontSelect = form.fields['settings[defaultFont]']
+                            /** @type {FramelixFormFieldTextarea} */
+                            const fieldFontUrls = form.fields['settings[fontUrls]']
+                            Myself.parseCustomFonts(fieldFontUrls.getValue())
+                            addCustomFonts()
+                            fieldFontUrls.container.on('paste', async function () {
+                              await Framelix.wait(1)
+                              Myself.parseCustomFonts(fieldFontUrls.getValue())
+                              let newContent = ''
+                              for (let key in Myself.customFonts) {
+                                newContent += Myself.customFonts[key].url + '\n'
+                              }
+                              fieldFontUrls.setValue(newContent.trim(), true)
+                              addCustomFonts()
+                            })
+                          })()
+                        </script>
+                        <?php
+                    }
                     $content = Buffer::get();
                     $tabs->addTab($form->id, $label, $content);
                 }

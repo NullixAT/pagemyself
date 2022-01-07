@@ -4,6 +4,48 @@
 class Myself {
 
   /**
+   * Custom fonts added in theme settings
+   * @type {Object<string, *>}
+   */
+  static customFonts = {}
+
+  /**
+   * Parse custom fonts out of settings value and add it to the dom
+   * @param {string} settingsValue
+   */
+  static parseCustomFonts (settingsValue) {
+    const urls = (settingsValue || '').match(/https:\/\/fonts.googleapis.com\/css2([^"'\s]+)/gi)
+    Myself.customFonts = {}
+    if (urls) {
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i]
+        const families = url.match(/family=[^&]+/ig)
+        if (families) {
+          for (let j = 0; j < families.length; j++) {
+            const family = families[j].substr(7).split(':')
+            Myself.customFonts[family[0]] = {
+              'url': 'https://fonts.googleapis.com/css2?family=' + family.join(':') + '&display=swap',
+              'includeParam': family.join(':'),
+              'name': decodeURIComponent(family[0].replace(/\+/g, ' '))
+            }
+          }
+        }
+      }
+    }
+    if (FramelixObjectUtils.hasKeys(Myself.customFonts)) {
+      const head = $('head')
+      head.append('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>')
+      let url = 'https://fonts.googleapis.com/css2?'
+      for (let key in Myself.customFonts) {
+        const row = Myself.customFonts[key]
+        url += '&family=' + row.includeParam
+      }
+      url += '&display=swap'
+      head.append('<link href="' + url + '" rel="stylesheet">')
+    }
+  }
+
+  /**
    * Is page in edit mode (The outer frame)
    * @return {boolean}
    */
