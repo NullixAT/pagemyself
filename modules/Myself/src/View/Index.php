@@ -239,26 +239,25 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             <div class="myself-edit-frame">
                 <div class="myself-edit-frame-outer-top">
                     <div class="myself-edit-frame-outer-margin">
+                        <a href="<?= Url::getBrowserUrl() ?>"><img
+                                    src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
+                                    alt="" height="30"></a>
                         <button
                                 class="framelix-button framelix-button-primary framelix-button-small myself-open-website-settings"
                                 data-icon-left="language"><?= Lang::get('__myself_websitesettings__') ?></button>
                         <a href="<?= Url::create()->setParameter('mobile', Request::getGet('mobile') ? 0 : 1) ?>"
                            class="framelix-button framelix-button-small"
                            data-icon-left="devices" title="__myself_toggle_mobile__"></a>
+                        <a href="<?= Url::create()->removeParameter('editMode') ?>"
+                           class="framelix-button framelix-button-small"
+                           data-icon-left="highlight_off" title="__myself_disable_editmode__"></a>
                     </div>
                 </div>
                 <div class="myself-edit-frame-outer-bottom">
                     <div class="myself-edit-frame-outer-margin">
-                        <a href="<?= Url::getBrowserUrl() ?>"><img
-                                    src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
-                                    alt="" height="30"></a>
-
                         <a href="<?= View::getUrl(Backend\Index::class) ?>"
-                           class="framelix-button framelix-button-small"
+                           class="framelix-button framelix-button-small framelix-button-primary"
                            data-icon-left="link" target="_blank"><?= Lang::get('__myself_goto_backend__') ?></a>
-                        <a href="<?= Url::create()->setParameter('editMode', 0) ?>"
-                           class="framelix-button framelix-button-primary framelix-button-small"
-                           data-icon-left="highlight_off" title="__myself_disable_editmode__"></a>
                     </div>
                 </div>
                 <div class="myself-edit-frame-outer-left">
