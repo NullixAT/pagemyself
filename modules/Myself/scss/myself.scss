@@ -38,25 +38,15 @@ html:not([data-edit-frame]) .myself-page-block[data-draft] {
   }
 }
 
-.myself-live-editable-wysiwyg,
-.myself-live-editable-text {
+.myself-live-editable-wysiwyg {
   cursor: text;
   min-height: 18px;
   position: relative;
 }
 
-.myself-live-editable-text {
-  white-space: pre-wrap;
-
-  p{
-    margin: 0;
-    padding: 0;
-  }
-}
 
 html[data-edit-frame='1'] {
-  .myself-live-editable-wysiwyg:empty,
-  .myself-live-editable-text:empty {
+  .myself-live-editable-wysiwyg:empty {
     &:after {
       content: attr(data-empty-text);
       font-style: italic;
@@ -103,6 +93,41 @@ html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
 
   &[data-background-size='contain'] {
     background-size: cover;
+  }
+
+  &[data-fade-in] {
+    opacity: 0;
+  }
+
+  &[data-fade-in-original='blur'] {
+    filter: blur(100px);
+  }
+
+  &[data-fade-in-original='fly'] {
+    transform: translateX(-90%);
+  }
+
+  &[data-fade-in-original='scale'] {
+    transform: scale(0.01);
+  }
+
+  &[data-fade-in-active] {
+    opacity: 1;
+  }
+
+  &[data-fade-in-active='blur'] {
+    transition: filter 1s;
+    filter: blur(0);
+  }
+
+  &[data-fade-in-active='fly'] {
+    transition: transform 1s;
+    transform: translateX(0);
+  }
+
+  &[data-fade-in-active='scale'] {
+    transition: transform 1s;
+    transform: scale(1);
   }
 }
 

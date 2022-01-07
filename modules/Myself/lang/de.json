@@ -35,6 +35,26 @@
         "Neue Zeile erzeugen",
         "8449e"
     ],
+    "__myself_blocklayout_columnsetting_fadein__": [
+        "Fade-In Effekt",
+        "e57d9"
+    ],
+    "__myself_blocklayout_columnsetting_fadein_blur__": [
+        "Verschwommen",
+        "8b52d"
+    ],
+    "__myself_blocklayout_columnsetting_fadein_desc__": [
+        "Wenn dieser Block im Sichtbereich des Nutzer gelangt, dann wirst der gew\u00fcnschte Effekt angewendet.",
+        "9dd1a"
+    ],
+    "__myself_blocklayout_columnsetting_fadein_fly__": [
+        "Hereinfliegen",
+        "7c9e9"
+    ],
+    "__myself_blocklayout_columnsetting_fadein_scale__": [
+        "Hochskalieren",
+        "22289"
+    ],
     "__myself_blocklayout_columnsetting_padding__": [
         "Padding in px",
         "f7840"
@@ -55,17 +75,17 @@
         "Leer - Klicke hier um einen Page-Block zu w\u00e4hlen",
         "fa0e5"
     ],
-    "__myself_blocklayout_fixedplacememt__": [
-        "Fixe Platzierung ({0})",
-        "60b27"
-    ],
-    "__myself_blocklayout_fixedplacememt_desc__": [
-        "Dieser Page-Block ist fix im verwendeten Stil verankert. Einige Einstellungen werden durch den Stil vorgegeben und k\u00f6nnen nicht bearbeitet werden.",
-        "94591"
-    ],
     "__myself_blocklayout_grow__": [
         "Spalte vergr\u00f6\u00dfern (Doppelt die Gr\u00f6\u00dfe relativ zu den anderen)",
         "0913b"
+    ],
+    "__myself_blocklayout_open_template_editor__": [
+        "Erstelle\/Ver\u00e4ndere ein Template",
+        "30be7"
+    ],
+    "__myself_blocklayout_open_template_editor_info__": [
+        "Als ein Stil-Entwickler kannst du das aktuelle Seitenlayout als Template abspeichern und f\u00fcr deine zuk\u00fcnftigen Benutzer genau so zur Verf\u00fcgung stellen. Es werden fast alle Einstellungen und Texte kopierte, manches davon kann aber nichts kopiert werden. Wie zum Beispiel Bilder, Videos oder sensible Einstellungen, je nach verwendeten Page-Blocks. Dies muss sp\u00e4ter selbst vom Benutzer noch eingestellt werden. Es wird empfohlen das du deine eigenen Templates anwendest und schaust was der Benutzer dann f\u00fcr die korrekte Ben\u00fctzung noch tun muss.",
+        "8fe9c"
     ],
     "__myself_blocklayout_openeditor__": [
         "\u00c4ndere das Layout",
@@ -78,26 +98,6 @@
     "__myself_blocklayout_pagelayout_empty__": [
         "Deine Seite ist noch leer. Vielleicht m\u00f6chtest du mit einem Template starten, gehe daf\u00fcr auf den Template Tab. Ansonsten klicke auf das Plus Symbol um ein eigenes Layout zu starten.",
         "40d38"
-    ],
-    "__myself_blocklayout_templates__": [
-        "Templates",
-        "7df96"
-    ],
-    "__myself_blocklayout_templates_desc__": [
-        "Du kannst eine Seite mit einem Template beginnen. Das gibt der einen schnellen Start ohne das du erstmal viel \u00fcber das Layout nachdenken muss. Du kannst eine Seite und das Layout jederzeit bearbeiten, auch wenn du mit einem Template beginnst.",
-        "33ada"
-    ],
-    "__myself_blocklayout_templates_inserted__": [
-        "Template wurde angewendet. Du kannst es nun nach deinen Vorstellungen modifizieren.",
-        "95d9b"
-    ],
-    "__myself_blocklayout_templates_use__": [
-        "Template anwenden",
-        "d013c"
-    ],
-    "__myself_blocklayout_templates_warning__": [
-        "Warnung: Diese Seite beinhalten schon ein Layout. Wenn du ein Template anwendest, dann wird das existierende Layout gel\u00f6scht.",
-        "d5382"
     ],
     "__myself_blocklayout_remove_column__": [
         "Spalte entfernen",
@@ -147,6 +147,26 @@
         "Sortiere die Zeile mit Drag&Drop",
         "8c1c5"
     ],
+    "__myself_blocklayout_templates__": [
+        "Templates",
+        "7df96"
+    ],
+    "__myself_blocklayout_templates_desc__": [
+        "Du kannst eine Seite mit einem Template beginnen. Das gibt der einen schnellen Start ohne das du erstmal viel \u00fcber das Layout nachdenken muss. Du kannst eine Seite und das Layout jederzeit bearbeiten, auch wenn du mit einem Template beginnst.",
+        "33ada"
+    ],
+    "__myself_blocklayout_templates_inserted__": [
+        "Template wurde angewendet. Du kannst es nun nach deinen Vorstellungen modifizieren.",
+        "95d9b"
+    ],
+    "__myself_blocklayout_templates_use__": [
+        "Template anwenden",
+        "d013c"
+    ],
+    "__myself_blocklayout_templates_warning__": [
+        "Warnung: Diese Seite beinhalten schon ein Layout. Wenn du ein Template anwendest, dann wird das existierende Layout gel\u00f6scht.",
+        "d5382"
+    ],
     "__myself_blocklayout_themeblocks__": [
         "Fixe Bl\u00f6cke im Stil",
         "afe17"
@@ -174,6 +194,10 @@
     "__myself_file_not_exist__": [
         "Datei existiert nicht",
         "2cf13"
+    ],
+    "__myself_for_devs__": [
+        "F\u00fcr Entwickler",
+        "c05ab"
     ],
     "__myself_form_field_ace_activate__": [
         "Editor aktivieren",
@@ -492,12 +516,12 @@
         "ee34f"
     ],
     "__myself_pageblocks_text__": [
-        "Text",
-        "9dffb"
+        "Texteditor",
+        "6aa7a"
     ],
     "__myself_pageblocks_text_desc__": [
-        "Ein einfacher Textblock mit oder ohne Textformatierung.",
-        "4c404"
+        "Ein Texblock wo du jeden beliebigen Text und jedes beliebige Textformat inklusive HTML eingeben kannst.",
+        "44807"
     ],
     "__myself_pageblocks_text_form_main__": [
         "Text Einstellungen",
@@ -530,10 +554,6 @@
     "__myself_pageblocks_text_textshadowtype_soft__": [
         "Weich",
         "68216"
-    ],
-    "__myself_pageblocks_text_wysiwyg__": [
-        "Voller Texteditor mit Formatierungsoptionen",
-        "9f2d2"
     ],
     "__myself_pageblocks_textcolor__": [
         "Textfarbe",
@@ -670,6 +690,30 @@
     "__myself_storable_tag_name_label__": [
         "Bezeichnung",
         "b021d"
+    ],
+    "__myself_templateeditor_choose__": [
+        "W\u00e4hle oder erstelle ein neues Template",
+        "f6f4f"
+    ],
+    "__myself_templateeditor_choose_new__": [
+        "Neues Template erstellen",
+        "81e14"
+    ],
+    "__myself_templateeditor_desc__": [
+        "Beschreibung",
+        "3eba5"
+    ],
+    "__myself_templateeditor_label__": [
+        "Titel",
+        "0835b"
+    ],
+    "__myself_templateeditor_thumbnail__": [
+        "Vorschaubild",
+        "276e5"
+    ],
+    "__myself_templateeditor_thumbnail_required__": [
+        "Vorschaubild wird ben\u00f6tigt",
+        "37b8a"
     ],
     "__myself_theme_not_exist__": [
         "Diese Seite hat keinen Stil gew\u00e4hlt",

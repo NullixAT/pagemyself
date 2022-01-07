@@ -15,12 +15,11 @@ use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Response;
 use Framelix\Framelix\Storable\BruteForceProtection;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Guestbook\Storable\Entry;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\PageBlock;
-
-use function htmlentities;
 
 /**
  * Guestbook
@@ -150,7 +149,7 @@ class Guestbook extends BlockBase
                     ?>
                     <div class="guestbook-pageblocks-guestbook-entry-email myself-show-if-editmode"
                          title="__guestbook_email_hidden__">
-                        <?= htmlentities($entry->email) ?>
+                        <?= HtmlUtils::escape($entry->email) ?>
                     </div>
                     <?
                 }
@@ -158,7 +157,7 @@ class Guestbook extends BlockBase
                     ?>
                     <div class="guestbook-pageblocks-guestbook-entry-name">
                         <?
-                        LayoutUtils::showLiveEditableText(false, $entry, "name");
+                        echo HtmlUtils::escape($entry);
                         ?>
                     </div>
                     <?
@@ -166,7 +165,7 @@ class Guestbook extends BlockBase
                 ?>
                 <div class="guestbook-pageblocks-guestbook-entry-message">
                     <?
-                    LayoutUtils::showLiveEditableText(false, $entry, "text");
+                    echo HtmlUtils::escape($entry, true);
                     ?>
                 </div>
                 <?

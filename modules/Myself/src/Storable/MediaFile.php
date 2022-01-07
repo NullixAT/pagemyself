@@ -9,11 +9,11 @@ use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Storable\StorableFile;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Gumlet\ImageResize;
 
 use function array_reverse;
 use function file_exists;
-use function htmlentities;
 use function implode;
 use function in_array;
 use function strlen;
@@ -267,7 +267,7 @@ class MediaFile extends StorableFile
             }
         }
         return '<div class="myself-lazy-load" data-img="' . implode(";", $sources) . '"
-                         data-alt="' . htmlentities($backgroundImage->title ?? $this->filename) . '"></div>';
+                         data-alt="' . HtmlUtils::escape($backgroundImage->title ?? $this->filename) . '"></div>';
     }
 
     /**

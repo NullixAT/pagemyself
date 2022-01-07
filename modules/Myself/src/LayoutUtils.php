@@ -6,9 +6,9 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Utils\ArrayUtils;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Throwable;
 
-use function htmlentities;
 use function strlen;
 
 /**
@@ -42,7 +42,7 @@ class LayoutUtils
                 ?>
                 <div class="framelix-spacer"></div>
                 <div style="color:red;"><?= $e->getMessage() ?></div>
-                <pre><?= htmlentities($e->getTraceAsString()) ?></pre>
+                <pre><?= HtmlUtils::escape($e->getTraceAsString()) ?></pre>
                 <?
             }
             ?>
@@ -53,7 +53,6 @@ class LayoutUtils
     /**
      * Show live editable text content block
      * If not in editmode, it shows the content right away without editing features
-     * @param bool $wysiwyg If true, then it will show a full featured wysiwyg editor
      * @param Storable $storable The storable to store the edited content in
      * @param string $propertyName The property name from the storable to store content in
      * @param string|null $arrayKey If to store in a array, this is the array key to store in $propertyName, example: column[0][content]
@@ -61,7 +60,6 @@ class LayoutUtils
      * @return void
      */
     public static function showLiveEditableText(
-        bool $wysiwyg,
         Storable $storable,
         string $propertyName,
         ?string $arrayKey = null,
@@ -72,10 +70,7 @@ class LayoutUtils
         } else {
             $content = $storable->{$propertyName} ?? '';
         }
-        $class = 'myself-live-editable-text';
-        if ($wysiwyg) {
-            $class = 'myself-live-editable-wysiwyg';
-        }
+        $class = 'myself-live-editable-wysiwyg';
         if (strlen($content) === 0 && $defaultValue !== null) {
             $content = $defaultValue;
         }
@@ -84,13 +79,14 @@ class LayoutUtils
         } else {
             // show 2 containers, one with editable when in editframe, one without editable when not in edit frame
             echo '<div class="myself-hide-if-editmode ' . $class . '">' . $content . '</div>';
-            echo '<div aria-hidden="true" 
+            echo '<div 
                     class="myself-show-if-editmode ' . $class . '" 
                     data-id="' . $storable . '" 
                     data-property-name="' . $propertyName . '" 
                     data-array-key="' . $arrayKey . '" 
                     contenteditable="true" 
-                    data-empty-text="' . Lang::get('__myself_edittext_area__') . '">' . $content . '</div>';
+                    data-empty-text="' . Lang::get('__myself_edittext_area__') . '"
+                    title="__myself_enable_editmode__">' . $content . '</div>';
         }
     }
 }

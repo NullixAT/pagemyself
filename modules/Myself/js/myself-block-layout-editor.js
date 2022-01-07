@@ -280,8 +280,11 @@ class MyselfBlockLayoutEditor {
     for (let pageBlockId in fixedPageBlocks) {
       const pageBlockData = fixedPageBlocks[pageBlockId]
       const row = $(`<div class="myself-block-layout-row myself-block-layout-row-fixed"></div>`)
-      let title = '<div class="myself-block-layout-row-column-title-sub" title="__myself_blocklayout_fixedplacememt_desc__">' + FramelixLang.get('__myself_blocklayout_fixedplacememt__', [pageBlockData.fixedPlacement]) + '</div>'
-      title += FramelixLang.get(pageBlockData.title)
+      let title = ''
+      if (pageBlockData) {
+        title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get(pageBlockData.blockName) + ' (' + pageBlockData.fixedPlacement + ')</div>'
+      }
+      title += '<div class="myself-block-layout-row-column-title-block">' + FramelixLang.get(pageBlockData.title) + '</div>'
       const blockColumn = $(`<div class="myself-block-layout-row-column" data-page-block-id="${pageBlockId}">
             <div class="myself-block-layout-row-column-title">${title}</div>
             <div class="myself-block-layout-row-column-actions">
@@ -302,10 +305,13 @@ class MyselfBlockLayoutEditor {
         const empty = !configColumn.pageBlockId
         const pageBlockData = empty ? null : self.config.allPageBlocks[configColumn.pageBlockId]
         let title = ''
+        if (pageBlockData) {
+          title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get(pageBlockData.blockName) + '</div>'
+        }
         if (pageBlockData && pageBlockData.flagDraft) {
           title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get('__myself_pageblock_edit_internal_draft__') + '</div>'
         }
-        title += pageBlockData ? FramelixLang.get(pageBlockData.title) : FramelixLang.get('__myself_blocklayout_empty__')
+        title += pageBlockData ? '<div class="myself-block-layout-row-column-title-block">' + FramelixLang.get(pageBlockData.title) + '</div>' : FramelixLang.get('__myself_blocklayout_empty__')
         const grow = configColumn.settings.grow || 1
         const blockColumn = $(`<div class="myself-block-layout-row-column" draggable="true" data-grow="${grow}" data-id="${j}" style="flex-grow: ${grow};">
             <div class="myself-block-layout-row-column-title ${empty ? 'myself-block-layout-create-new-page-block' : ''}">${title}</div>
@@ -322,6 +328,11 @@ class MyselfBlockLayoutEditor {
         </div>`)
         if (empty) blockColumn.attr('data-empty', '1')
         row.append(blockColumn)
+        const titleEl = blockColumn.find('.myself-block-layout-row-column-title-block')
+        if (titleEl.length) {
+          // fix whitespace
+          titleEl[0].innerHTML = titleEl[0].innerText.trim()
+        }
       }
       row.append(`<div class="myself-block-layout-row-column myself-block-layout-row-column-new">
             <div class="myself-block-layout-row-column-title"></div>

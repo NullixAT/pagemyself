@@ -11,6 +11,7 @@ use Framelix\Framelix\Form\Field\Number;
 use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Field\Text;
 use Framelix\Framelix\Form\Field\Textarea;
+use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\ColorName;
 use Framelix\Framelix\Html\Tabs;
@@ -28,7 +29,6 @@ use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
-use Framelix\Framelix\Utils\StringUtils;
 use Framelix\Myself\Form\Field\MediaBrowser;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\Page;
@@ -186,11 +186,14 @@ class BlockLayoutEditor
                 );
                 $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
-                    $title = str_replace("&nbsp;", '', strip_tags(HtmlUtils::unescape(Lang::get($pageBlock->getLayoutBlock()->getBlockLayoutLabel()))));
+                    $title = strip_tags(
+                        HtmlUtils::unescape(Lang::get($pageBlock->getLayoutBlock()->getBlockLayoutLabel()))
+                    );
                     $title = trim($title);
                     $allPageBlocks[$pageBlock->id] = [
                         'flagDraft' => $pageBlock->flagDraft,
                         'fixedPlacement' => $pageBlock->fixedPlacement,
+                        'blockName' => ClassUtils::getLangKey($pageBlock->pageBlockClass),
                         'title' => $title
                     ];
                 }
@@ -655,6 +658,22 @@ class BlockLayoutEditor
         $field->addOption('cover', '__myself_pageblocks_backgroundsize_cover__');
         $field->defaultValue = ArrayUtils::getValue($settings, $field->name) ?? 'cover';
         $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
+        $form->addField($field);
+
+        $field = new Select();
+        $field->name = 'fadeIn';
+        $field->label = '__myself_blocklayout_columnsetting_fadein__';
+        $field->labelDescription = '__myself_blocklayout_columnsetting_fade_desc__';
+        $field->addOption('blur', '__myself_blocklayout_columnsetting_fade_blur__');
+        $field->addOption('fly', '__myself_blocklayout_columnsetting_fade_fly__');
+        $field->addOption('scale', '__myself_blocklayout_columnsetting_fade_scale__');
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
+        $form->addField($field);
+
+        $field = new Toggle();
+        $field->name = 'fadeOut';
+        $field->label = '__myself_blocklayout_columnsetting_fadeout__';
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
         $form->addField($field);
 
         return $form;

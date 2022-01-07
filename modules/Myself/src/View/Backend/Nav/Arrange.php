@@ -7,11 +7,10 @@ use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\Myself\Storable\Nav;
-
-use function htmlentities;
 
 /**
  * Arrange
@@ -276,7 +275,7 @@ class Arrange extends View
     {
         $row = [
             'id' => $nav->id,
-            'title' => htmlentities($nav->getLabel()),
+            'title' => HtmlUtils::escape($nav->getLabel()),
             'flagDraft' => $nav->flagDraft,
             'url' => $nav->page->url ?? null,
             'childs' => []

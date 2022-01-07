@@ -9,9 +9,6 @@ use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Myself\LayoutUtils;
 
-use function html_entity_decode;
-use function strip_tags;
-
 /**
  * Text page block
  */
@@ -44,8 +41,7 @@ class Text extends BlockBase
      */
     public function showContent(): void
     {
-        $wysiwyg = $this->pageBlock->pageBlockSettings['wysiwyg'] ?? false;
-        LayoutUtils::showLiveEditableText($wysiwyg, $this->pageBlock, "pageBlockSettings", "content");
+        LayoutUtils::showLiveEditableText($this->pageBlock, "pageBlockSettings", "content");
     }
 
     /**
@@ -58,7 +54,7 @@ class Text extends BlockBase
         if (!($this->pageBlock->pageBlockSettings['content'] ?? '')) {
             return parent::getBlockLayoutLabel();
         }
-        return strip_tags(html_entity_decode($this->pageBlock->pageBlockSettings['content'] ?? ''));
+        return $this->pageBlock->pageBlockSettings['content'];
     }
 
 
@@ -74,10 +70,6 @@ class Text extends BlockBase
         $form = new Form();
         $form->id = "main";
         $forms[] = $form;
-
-        $field = new Toggle();
-        $field->name = 'pageBlockSettings[wysiwyg]';
-        $form->addField($field);
 
         $field = new Toggle();
         $field->name = 'pageBlockSettings[textShadow]';

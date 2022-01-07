@@ -124,6 +124,23 @@ class Myself {
           })
         })
       }, 500)
+      // fade in / fade out
+      $('.myself-block-layout-row-column[data-fade-in]').each(function () {
+        const el = $(this)
+        const fadeIn = el.attr('data-fade-in')
+        el.removeAttr('data-fade-in')
+        el.attr('data-fade-in-original', fadeIn)
+        FramelixIntersectionObserver.onGetVisible(this, function () {
+          el.attr('data-fade-in-active', fadeIn)
+          if (el.attr('data-fade-out') === '1') {
+            FramelixIntersectionObserver.onGetInvisible(el[0], function () {
+              el.attr('data-fade-in', fadeIn)
+              el.removeAttr('data-fade-in-original')
+              el.removeAttr('data-fade-in-active')
+            })
+          }
+        })
+      })
     })
     // remember edit mode for this device to always show a quick enable edit mode button on the left corner
     if (Myself.isEditModeOuter() && !FramelixLocalStorage.get('myself-edit-mode')) {

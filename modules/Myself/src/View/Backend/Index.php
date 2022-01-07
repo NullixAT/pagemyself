@@ -30,7 +30,6 @@ class Index extends View
      */
     public function showContent(): void
     {
-        // todo move to initialization not index page
         $pages = Page::getByCondition();
         if (!$pages) {
             // create default page

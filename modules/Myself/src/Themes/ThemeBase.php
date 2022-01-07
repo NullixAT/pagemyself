@@ -271,6 +271,14 @@ abstract class ThemeBase
         if ($settingValue) {
             $columnAttributes->set('data-background-size', $settingValue);
         }
+        $settingValue = $columnSettings->fadeIn;
+        if ($settingValue) {
+            $columnAttributes->set('data-fade-in', $settingValue);
+        }
+        $settingValue = $columnSettings->fadeOut;
+        if ($settingValue) {
+            $columnAttributes->set('data-fade-out', (int)$settingValue);
+        }
         $settingValue = $columnSettings->grow;
         if ($settingValue) {
             $columnAttributes->setStyle('flex-grow', $settingValue);

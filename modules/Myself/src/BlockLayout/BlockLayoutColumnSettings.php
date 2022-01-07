@@ -77,6 +77,18 @@ class BlockLayoutColumnSettings implements JsonSerializable
     public ?string $backgroundSize = null;
 
     /**
+     * Fade in effect
+     * @var string|null
+     */
+    public ?string $fadeIn = null;
+
+    /**
+     * Fade out effect
+     * @var string|null
+     */
+    public ?string $fadeOut = null;
+
+    /**
      * Grow
      * @var int
      */

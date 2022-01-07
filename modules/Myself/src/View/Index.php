@@ -16,6 +16,7 @@ use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
 use Framelix\Framelix\Utils\Buffer;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
@@ -28,7 +29,6 @@ use Framelix\Myself\Storable\ThemeSettings;
 use function class_exists;
 use function end;
 use function explode;
-use function htmlentities;
 use function http_response_code;
 use function md5;
 use function strtolower;
@@ -139,7 +139,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             $this->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_site_name')) {
-            $this->addHeadHtml('<meta property="og:site_name" content="' . htmlentities($settingValue) . '"/>');
+            $this->addHeadHtml('<meta property="og:site_name" content="' . HtmlUtils::escape($settingValue) . '"/>');
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_image')) {
             $imageData = MediaFile::getById($settingValue)?->getImageData();
@@ -150,16 +150,16 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             }
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_title')) {
-            $this->addHeadHtml('<meta property="og:title" content="' . htmlentities($settingValue) . '"/>');
+            $this->addHeadHtml('<meta property="og:title" content="' . HtmlUtils::escape($settingValue) . '"/>');
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_description')) {
-            $this->addHeadHtml('<meta property="og:description" content="' . htmlentities($settingValue) . '"/>');
+            $this->addHeadHtml('<meta property="og:description" content="' . HtmlUtils::escape($settingValue) . '"/>');
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('author')) {
-            $this->addHeadHtml('<meta property="author" content="' . htmlentities($settingValue) . '"/>');
+            $this->addHeadHtml('<meta property="author" content="' . HtmlUtils::escape($settingValue) . '"/>');
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('keywords')) {
-            $this->addHeadHtml('<meta property="keywords" content="' . htmlentities($settingValue) . '"/>');
+            $this->addHeadHtml('<meta property="keywords" content="' . HtmlUtils::escape($settingValue) . '"/>');
         }
         $this->addHeadHtml(
             '

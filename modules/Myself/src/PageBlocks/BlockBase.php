@@ -63,7 +63,6 @@ abstract class BlockBase
     public static function prepareTemplateSettingsForImport(array &$pageBlockSettings): void
     {
         // by default, nothing is modified
-        // todo make local file browser
     }
 
     /**

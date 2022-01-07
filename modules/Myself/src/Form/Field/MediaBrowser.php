@@ -10,11 +10,11 @@ use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\UploadedFile;
 use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\MediaFileFolder;
 use Throwable;
 
-use function htmlentities;
 use function implode;
 use function in_array;
 use function ini_set;
@@ -245,7 +245,7 @@ class MediaBrowser extends Field
                 if ($parentFolder) {
                     echo Lang::get('__myself_mediabrowser_parent_folder__');
                 } else {
-                    echo htmlentities($folder->name);
+                    echo HtmlUtils::escape($folder->name);
                 }
                 ?>
             </div>
@@ -257,7 +257,7 @@ class MediaBrowser extends Field
                 <div class="myself-media-browser-entry-options hidden">
                     <button class="framelix-button myself-media-browser-entry-rename"
                             data-rename-url="<?= $renameUrl ?>"
-                            data-title="<?= htmlentities($folder->name) ?>"
+                            data-title="<?= HtmlUtils::escape($folder->name) ?>"
                             data-icon-left="edit"><?= Lang::get(
                             '__myself_mediabrowser_rename__'
                         ) ?></button>
@@ -317,7 +317,7 @@ class MediaBrowser extends Field
             ?>
             <div class="myself-media-browser-entry-label">
                 <?
-                echo htmlentities($file->title ?? $file->filename ?? '');
+                echo HtmlUtils::escape($file->title ?? $file->filename ?? '');
                 ?>
             </div>
             <button class="framelix-button myself-media-browser-entry-options-icon"
@@ -325,7 +325,7 @@ class MediaBrowser extends Field
             <div class="myself-media-browser-entry-options hidden">
                 <button class="framelix-button myself-media-browser-entry-rename"
                         data-rename-url="<?= $renameUrl ?>"
-                        data-title="<?= htmlentities($file->title ?? $file->filename ?? '') ?>"
+                        data-title="<?= HtmlUtils::escape($file->title ?? $file->filename ?? '') ?>"
                         data-icon-left="edit"><?= Lang::get(
                         '__myself_mediabrowser_rename__'
                     ) ?></button>

@@ -10,11 +10,10 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\Response;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
+use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\View;
 use Framelix\Myself\Form\Field\Ace;
 use Framelix\Myself\Form\Field\MediaBrowser;
-
-use function htmlentities;
 
 /**
  * WebsiteSettings
@@ -137,7 +136,7 @@ class WebsiteSettings extends View
         $form->addField($field);
 
         $field = new Ace();
-        $field->label = htmlentities(Lang::get('__myself_websitesettings_headhtml__'));
+        $field->label = HtmlUtils::escape(Lang::get('__myself_websitesettings_headhtml__'));
         $field->labelDescription = '__myself_websitesettings_headhtml_desc__';
         $field->name = 'settings[headHtml]';
         $field->mode = 'html';
