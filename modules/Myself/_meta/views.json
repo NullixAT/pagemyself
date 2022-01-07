@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|2773343947",
+    "directoryListHash": "1|2897190514",
     "views": {
         "Framelix\\Myself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -117,15 +117,6 @@
             "depth": 1,
             "pageTitle": "{classLangKey}",
             "url": "\/sitemap"
-        },
-        "Framelix\\Myself\\View\\ThemeSettings": {
-            "accessRole": "admin,content",
-            "customUrl": null,
-            "devModeOnly": false,
-            "multilanguage": true,
-            "depth": 1,
-            "pageTitle": "{classLangKey}",
-            "url": "\/themesettings"
         },
         "Framelix\\Myself\\View\\WebsiteSettings": {
             "accessRole": "admin,content",

@@ -2,18 +2,22 @@
 
 namespace Framelix\Myself\View;
 
+use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Field\Text;
+use Framelix\Framelix\Form\Field\Textarea;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Response;
-use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
+use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\View;
 use Framelix\Myself\Form\Field\Ace;
 use Framelix\Myself\Form\Field\MediaBrowser;
+use Framelix\Myself\Storable\Page;
 
 /**
  * WebsiteSettings
@@ -27,10 +31,25 @@ class WebsiteSettings extends View
     protected string|bool $accessRole = "admin,content";
 
     /**
+     * The current page
+     * @var Page
+     */
+    private Page $page;
+
+    /**
      * On request
      */
     public function onRequest(): void
     {
+        $this->page = Page::getById(Request::getGet('pageId'));
+        if (Form::isFormSubmitted('themesettings')) {
+            $themeSettings = $this->page->getThemeSettings();
+            $form = $this->getFormThemeSettings();
+            $form->setStorableValues($themeSettings);
+            $themeSettings->store();
+            Toast::success('__framelix_saved__');
+            Response::showFormAsyncSubmitResponse();
+        }
         if (Form::isFormSubmitted('meta')) {
             $form = $this->getFormMeta();
             $instance = \Framelix\Myself\Storable\WebsiteSettings::getInstance();
@@ -40,6 +59,48 @@ class WebsiteSettings extends View
             Response::showFormAsyncSubmitResponse();
         }
         switch ($this->tabId) {
+            case 'themesettings':
+                $form = $this->getFormThemeSettings();
+                $form->addSubmitButton('save', '__framelix_save__', 'save');
+                $form->show();
+                ?>
+                <script>
+                  (async function () {
+                    const form = FramelixForm.getById('<?=$form->id?>')
+                    await form.rendered
+
+                    function addFonts () {
+                      for (let key in Myself.defaultFonts) {
+                        const row = Myself.defaultFonts[key]
+                        fieldFontSelect.addOption(row.name, key + ' | <span style="font-family: ' + row.name + '">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</span>')
+                      }
+                      for (let key in Myself.customFonts) {
+                        const row = Myself.customFonts[key]
+                        fieldFontSelect.addOption(row.name, row.name + ' | <span style="font-family: ' + row.name + '">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</span>')
+                      }
+                      fieldFontSelect.setValue(fieldFontSelect.defaultValue)
+                    }
+
+                    /** @type {FramelixFormFieldSelect} */
+                    const fieldFontSelect = form.fields['settings[defaultFont]']
+                    /** @type {FramelixFormFieldTextarea} */
+                    const fieldFontUrls = form.fields['settings[fontUrls]']
+                    Myself.parseCustomFonts(fieldFontUrls.getValue())
+                    addFonts()
+                    fieldFontUrls.container.on('paste', async function () {
+                      await Framelix.wait(1)
+                      Myself.parseCustomFonts(fieldFontUrls.getValue())
+                      let newContent = ''
+                      for (let key in Myself.customFonts) {
+                        newContent += Myself.customFonts[key].url + '\n'
+                      }
+                      fieldFontUrls.setValue(newContent.trim(), true)
+                      addFonts()
+                    })
+                  })()
+                </script>
+                <?php
+                break;
             case 'meta':
                 $form = $this->getFormMeta();
                 $form->addSubmitButton('save', '__framelix_save__', 'save');
@@ -63,11 +124,69 @@ class WebsiteSettings extends View
                 break;
             default:
                 $tabs = new Tabs();
-                $tabs->addTab('meta', '__myself_websitesettings_meta_', new self());
-                $tabs->addTab('pages', '__myself_view_backend_page_index__', new self());
-                $tabs->addTab('nav', '__myself_view_backend_nav_index__', new self());
+                $tabs->id = "website-settings";
+                $tabs->addTab('themesettings', '__myself_websitesettings_themesettings__', new self(), $_GET);
+                $tabs->addTab('meta', '__myself_websitesettings_meta_', new self(), $_GET);
+                $tabs->addTab('pages', '__myself_view_backend_page_index__', new self(), $_GET);
+                $tabs->addTab('nav', '__myself_view_backend_nav_index__', new self(), $_GET);
                 $tabs->show();
         }
+    }
+
+    /**
+     * Get form theme
+     * @return Form
+     */
+    private function getFormThemeSettings(): Form
+    {
+        $themeSettings = $this->page->getThemeSettings();
+        $themeBlock = $this->page->getThemeBlock();
+
+        $form = new Form();
+        $form->id = "themesettings";
+        $form->stickyFormButtons = true;
+
+        $field = new Textarea();
+        $field->name = "fontUrls";
+        $field->label = Lang::get(
+            '__myself_themes_fonturls__',
+            ['<a href="https://fonts.google.com" target="_blank" rel="nofollow">fonts.google.com</a>']
+        );
+        $field->labelDescription = '__myself_themes_fonturls_desc__';
+        $form->addField($field);
+
+        $field = new Select();
+        $field->name = "defaultFont";
+        $field->label = '__myself_themes_defaultfont__';
+        $field->labelDescription = '__myself_themes_defaultfont_desc__';
+        $form->addField($field);
+
+        $themeBlock->addSettingsFields($form);
+
+        $fields = $form->fields;
+        // unset because we update field names
+        $form->fields = [];
+        foreach ($fields as $field) {
+            if ($field->label === null) {
+                $field->label = ClassUtils::getLangKey(
+                    $themeBlock,
+                    $field->name
+                );
+                $field->labelDescription = ClassUtils::getLangKey(
+                    $themeBlock,
+                    $field->name . "_desc"
+                );
+                if (!Lang::keyExist($field->labelDescription)) {
+                    $field->labelDescription = null;
+                }
+            }
+            $field->defaultValue = $themeSettings->settings[$field->name] ?? null;
+            $field->name = "settings[" . $field->name . "]";
+            // re-add with new field name
+            $form->addField($field);
+        }
+
+        return $form;
     }
 
     /**
@@ -80,7 +199,6 @@ class WebsiteSettings extends View
         $form = new Form();
         $form->stickyFormButtons = true;
         $form->id = "meta";
-        $form->submitUrl = Url::create();
 
         $field = new MediaBrowser();
         $field->name = 'settings[og_image]';

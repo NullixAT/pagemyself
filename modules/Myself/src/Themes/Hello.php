@@ -64,37 +64,28 @@ class Hello extends ThemeBase
         echo '</div></div>';
     }
 
+
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to theme settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new Color();
-        $field->name = 'settings[primaryColor]';
+        $field->name = 'primaryColor';
         $field->defaultValue = '#1f74ad';
         $form->addField($field);
 
         $field = new Select();
-        $field->name = 'settings[navigation]';
+        $field->name = 'navigation';
         $field->label = '__myself_nav_align__';
         $field->addOption('left', '__myself_align_left__');
         $field->addOption('top', '__myself_align_top__');
         $form->addField($field);
 
         $field = new Toggle();
-        $field->name = 'settings[footer]';
+        $field->name = 'footer';
         $form->addField($field);
-
-        return $forms;
     }
-
-
 }

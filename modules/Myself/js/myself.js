@@ -10,6 +10,30 @@ class Myself {
   static customFonts = {}
 
   /**
+   * Default fonts available
+   * @type {Object<string, *>}
+   */
+  static defaultFonts = {
+    'Andale Mono': { 'name': 'andale mono,times,sans-serif' },
+    'Arial': { 'name': 'arial,helvetica,sans-serif' },
+    'Arial Black': { 'name': 'arial black,avant garde,sans-serif' },
+    'Book Antiqua': { 'name': 'book antiqua,palatino,sans-serif' },
+    'Comic Sans MS': { 'name': 'comic sans ms,sans-serif' },
+    'Courier New': { 'name': 'courier new,courier,sans-serif' },
+    'Georgia': { 'name': 'georgia,palatino,sans-serif' },
+    'Helvetica': { 'name': 'helvetica,sans-serif' },
+    'Impact': { 'name': 'impact,chicago,sans-serif' },
+    'Symbol': { 'name': 'symbol,sans-serif' },
+    'Tahoma': { 'name': 'tahoma,arial,helvetica,sans-serif' },
+    'Terminal': { 'name': 'terminal,monaco,sans-serif' },
+    'Times New Roman': { 'name': 'times new roman,times,sans-serif' },
+    'Trebuchet MS': { 'name': 'trebuchet ms,geneva,sans-serif' },
+    'Verdana': { 'name': 'verdana,geneva,sans-serif' },
+    'Webdings': { 'name': 'webdings' },
+    'Wingdings': { 'name': 'wingdings,zapf dingbats' }
+  }
+
+  /**
    * Parse custom fonts out of settings value and add it to the dom
    * @param {string} settingsValue
    */

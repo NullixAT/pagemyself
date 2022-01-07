@@ -223,9 +223,6 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             $config = [
                 'tinymceUrl' => Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js"),
                 'pageBlockEditUrl' => View::getUrl(PageBlockEdit::class),
-                'themeSettingsEditUrl' => View::getUrl(\Framelix\Myself\View\ThemeSettings::class)
-                    ->setParameter('pageId', $this->page)
-                    ->setParameter('action', 'edit'),
                 'websiteSettingsEditUrl' => View::getUrl(WebsiteSettings::class),
                 'blockLayoutApiUrl' => JsCall::getCallUrl(BlockLayoutEditor::class, '')
             ];
@@ -243,13 +240,8 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 <div class="myself-edit-frame-outer-top">
                     <div class="myself-edit-frame-outer-margin">
                         <button
-                                class="framelix-button framelix-button-success framelix-button-small myself-open-theme-settings"
-                                data-icon-left="settings"><?= Lang::get('__myself_theme_settings__') ?></button>
-                        <button
-                                class="framelix-button framelix-button-warning framelix-button-small myself-open-website-settings"
-                                data-icon-left="language"><?= Lang::get(
-                                '__myself_websitesettings__'
-                            ) ?></button>
+                                class="framelix-button framelix-button-primary framelix-button-small myself-open-website-settings"
+                                data-icon-left="language"><?= Lang::get('__myself_websitesettings__') ?></button>
                         <a href="<?= Url::create()->setParameter('mobile', Request::getGet('mobile') ? 0 : 1) ?>"
                            class="framelix-button framelix-button-small"
                            data-icon-left="devices" title="__myself_toggle_mobile__"></a>

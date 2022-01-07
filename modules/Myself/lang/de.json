@@ -719,14 +719,6 @@
         "Diese Seite hat keinen Stil gew\u00e4hlt",
         "a8209"
     ],
-    "__myself_theme_settings__": [
-        "Stil-Einstellungen",
-        "55b8d"
-    ],
-    "__myself_theme_settings_form_internal__": [
-        "Stil",
-        "d7217"
-    ],
     "__myself_themes_defaultfont__": [
         "Standard Schriftart",
         "49392"
@@ -746,10 +738,6 @@
     "__myself_themes_hello_footer__": [
         "Footer anzeigen",
         "554bd"
-    ],
-    "__myself_themes_hello_form_main__": [
-        "Stil-Einstellungen",
-        "e873d"
     ],
     "__myself_themes_hello_info__": [
         "Hello - Ein einfacher Stil ohne viel Schnick-Schnack",
@@ -922,5 +910,9 @@
     "__myself_websitesettings_search_engine_data__": [
         "Das ist als Metadaten anzusehen. Diese werden f\u00fcr Suchmaschinenoptimierung.",
         "1f5d9"
+    ],
+    "__myself_websitesettings_themesettings__": [
+        "Stil-Einstellungen",
+        "e873d"
     ]
 }
