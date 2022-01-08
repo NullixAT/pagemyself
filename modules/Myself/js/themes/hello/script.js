@@ -10,7 +10,7 @@ class MyselfThemeHello {
     const activeLinks = $('.myself-pageblocks-navigation-active-link')
     if (navList.css('display') === 'flex') {
       const groupConfigMap = new Map()
-      $(document).on('click mouseenter touchstart', '.myself-pageblocks-navigation-navlist-group,.myself-themes-hello-more', function () {
+      $(document).on('click', '.myself-pageblocks-navigation-navlist-group,.myself-themes-hello-more', function () {
         let config = groupConfigMap.get(this)
         if (!config) {
           config = {}

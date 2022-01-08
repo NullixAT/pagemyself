@@ -465,10 +465,13 @@
         "Custom URL"
     ],
     "__myself_storable_nav_linktype_2__": [
-        "Choose a page"
+        "Link to one of your pages"
+    ],
+    "__myself_storable_nav_linktype_3__": [
+        "Submenu"
     ],
     "__myself_storable_nav_linktype_label__": [
-        "Link Type"
+        "Type"
     ],
     "__myself_storable_nav_page_label__": [
         "Link to page"

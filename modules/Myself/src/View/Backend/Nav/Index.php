@@ -72,7 +72,7 @@ class Index extends View
      */
     public function onRequest(): void
     {
-        if(Request::getGet('delete')){
+        if (Request::getGet('delete')) {
             $entry = Nav::getById(Request::getGet('delete'));
             $entry?->delete();
             Toast::success('__framelix_deleted__');
@@ -239,6 +239,7 @@ class Index extends View
                         </div>
                         <div class="nav-entry-childs"></div>
                     </div>`)
+                if (row.linkType !== 3) navEntry.find('.nav-entry-new-child-drop').remove()
                 newContainer.append(navEntry)
                 if (row.childs.length) {
                   const childContainer = $(`<div class="nav-entries"></div>`)
@@ -326,6 +327,7 @@ class Index extends View
             'title' => HtmlUtils::escape($nav->getLabel()),
             'flagDraft' => $nav->flagDraft,
             'url' => $nav->page->url ?? null,
+            'linkType' => $nav->linkType,
             'editUrl' => $nav->getEditUrl(),
             'childs' => []
         ];

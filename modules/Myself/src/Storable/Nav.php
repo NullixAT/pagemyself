@@ -26,10 +26,12 @@ class Nav extends StorableExtended
 
     public const LINKTYPE_CUSTOM = 1;
     public const LINKTYPE_PAGE = 2;
+    public const LINKTYPE_GROUP = 3;
 
     public const LINKTYPES = [
         self::LINKTYPE_CUSTOM,
-        self::LINKTYPE_PAGE
+        self::LINKTYPE_PAGE,
+        self::LINKTYPE_GROUP
     ];
 
     /**

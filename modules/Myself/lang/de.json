@@ -620,12 +620,16 @@
         "812a4"
     ],
     "__myself_storable_nav_linktype_2__": [
-        "W\u00e4hle eine Seite",
+        "Link auf eine deiner Seiten",
         "64d66"
     ],
+    "__myself_storable_nav_linktype_3__": [
+        "Untermen\u00fc",
+        "3b0b1"
+    ],
     "__myself_storable_nav_linktype_label__": [
-        "Link-Typ",
-        "a38a1"
+        "Typ",
+        "a1fa2"
     ],
     "__myself_storable_nav_page_label__": [
         "Link auf eine Seite",

@@ -108,7 +108,7 @@ class Navigation extends BlockBase
                 continue;
             }
             echo '<li>';
-            if ($entry->page || $entry->link) {
+            if (($entry->linkType === Nav::LINKTYPE_PAGE && $entry->page) || ($entry->linkType === Nav::LINKTYPE_CUSTOM && $entry->link)) {
                 $url = $entry->linkType === Nav::LINKTYPE_PAGE
                     ? View::getUrl(Index::class, ['url' => $entry->page->url]) : $entry->link;
                 $url = (string)$url;
