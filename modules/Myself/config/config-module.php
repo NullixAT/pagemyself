@@ -9,6 +9,7 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
+        "backendStartUrl" : "/backend",
         "setupDoneRedirect": "/backend",
         "modules": {
             "Calendar": "Calendar",

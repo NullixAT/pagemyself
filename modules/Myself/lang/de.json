@@ -27,6 +27,18 @@
         "Oben",
         "a4ffd"
     ],
+    "__myself_backend_dashboard_welcome1__": [
+        "Willkommen im Backend von PageMyself. Hier kannst du deine Seiten bearbeiten, deine Navigation erstellen und alle systemrelevanten Einstellungen vornehmen, sowie auch App-Updates durchf\u00fchren.<br\/>Bitte schaue in den linke Sidebar, dort findest du alles was du machen kannst.<br\/>PS: Du kannst dieses Dashboard immer durch den Klick auf das Logo in der Sidebar \u00f6ffnen.",
+        "20d68"
+    ],
+    "__myself_backend_dashboard_welcome2__": [
+        "Falls du komplett neu bei PageMyself bist, dann haben wir ein kurzes Einf\u00fchrungsvideo (Englisch) f\u00fcr dich vorbereitet. Das gibt dir eine \u00dcbersicht \u00fcber alle M\u00f6glichkeiten die du mit PageMyself hast.",
+        "1a7a7"
+    ],
+    "__myself_backend_dashboard_welcome__": [
+        "Willkommens-Dashboard",
+        "5f099"
+    ],
     "__myself_blocklayout_add_column__": [
         "Neue Spalte",
         "177a9"
@@ -776,8 +788,8 @@
         "3c7ab"
     ],
     "__myself_view_backend_nav_arrange__": [
-        "Eintr\u00e4ge sortieren",
-        "abe2c"
+        "Eintr\u00e4ge sortieren und bearbeiten",
+        "9f90c"
     ],
     "__myself_view_backend_nav_arrange_drag_move__": [
         "Halte einen dieser Buttons und ziehe den Eintrag auf einen anderen Bereich",
@@ -798,6 +810,10 @@
     "__myself_view_backend_nav_arrange_many_levels__": [
         "Es ist nicht empfohlen mehr als 2 Ebenen zu haben.",
         "22653"
+    ],
+    "__myself_view_backend_nav_delete_warn__": [
+        "Bist du sicher? Das l\u00f6scht auch alle untergeordneten Eintr\u00e4ge und es kann nicht r\u00fcckg\u00e4ngig gemacht werden!",
+        "dabe8"
     ],
     "__myself_view_backend_nav_edit__": [
         "Navigation erstellen \/ Bearbeiten",

@@ -40,5 +40,11 @@ class Index extends View
             $page->lang = Lang::$lang;
             $page->store();
         }
+
+        ?>
+        <h2><?= Lang::get('__myself_backend_dashboard_welcome__') ?></h2>
+        <p class="framelix-alert"><?= Lang::get('__myself_backend_dashboard_welcome1__') ?></p>
+        <p class="framelix-alert"><?= Lang::get('__myself_backend_dashboard_welcome2__') ?></p>
+        <?php
     }
 }

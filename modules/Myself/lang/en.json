@@ -158,6 +158,15 @@
     "__myself_goto_backend__": [
         "Goto backend"
     ],
+    "__myself_backend_dashboard_welcome__": [
+        "Welcome Dashboard"
+    ],
+    "__myself_backend_dashboard_welcome1__": [
+        "Welcome to the PageMyself Backend. Here you can create and edit your pages and navigation entries, as well as doing all system relevant configuration and app updates.<br/>Please check the sidebar on the left, where all possible actions are available.<br/>PS: You can open this welcome page everytime, by clicking the logo on the sidebar."
+    ],
+    "__myself_backend_dashboard_welcome2__": [
+        "If you are completely new to PageMyself, we have prepared a short welcome video (English only) for you. This give you an overview of the capabilities of the backend and generally everything in PageMyself."
+    ],
     "__myself_hide_editmode_container__": [
         "Hide this overlay for the moment"
     ],
@@ -582,7 +591,10 @@
         "PageMyself Backend"
     ],
     "__myself_view_backend_nav_arrange__": [
-        "Sort and arrange entries"
+        "Sort, Edit and arrange entries"
+    ],
+    "__myself_view_backend_nav_delete_warn__": [
+        "Are you sure? This will delete all childs as well and this action cannot be undone!"
     ],
     "__myself_view_backend_nav_arrange_drag_move__": [
         "Hold any of this buttons and drag into another area"
