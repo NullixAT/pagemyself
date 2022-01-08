@@ -98,8 +98,13 @@ class MyselfEdit {
         const row = Myself.customFonts[key]
         font_formats += row.name + '=' + row.name + ';'
       }
+      let fontSizes = []
+      for (let i = 0.6; i <= 8; i += 0.2) {
+        fontSizes.push(i.toFixed(1) + 'rem')
+      }
       frame.tinymce.init({
         'font_formats': font_formats,
+        fontsize_formats: fontSizes.join(' '),
         language: ['en', 'de'].indexOf(FramelixLang.lang) > -1 ? FramelixLang.lang : 'en',
         target: container[0],
         menubar: false,
@@ -108,6 +113,16 @@ class MyselfEdit {
         external_plugins: {
           myself: FramelixConfig.compiledFileUrls['Myself']['js']['tinymce']
         },
+        style_formats: [
+          {
+            title: 'Button Link',
+            inline: 'a',
+            classes: 'framelix-button framelix-button-primary',
+            attributes: { href: '#' }
+          }
+        ],
+        // The following option is used to append style formats rather than overwrite the default style formats.
+        style_formats_merge: true,
         file_picker_callback: async function (callback, value, meta) {
           if (!mediaBrowser.signedGetBrowserUrl) {
             mediaBrowser.signedGetBrowserUrl = (await FramelixRequest.request('get', MyselfEdit.config.pageBlockEditUrl + '?action=getmediabrowserurl').getJson()).content
@@ -126,11 +141,11 @@ class MyselfEdit {
             callback(url)
           })
         },
-        toolbar: 'myself-save-text myself-cancel-text | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | table | forecolor backcolor removeformat | image media pageembed link | code',
-
+        toolbar: 'myself-save-text myself-cancel-text | undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect lineheight | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | table | forecolor backcolor removeformat | image media pageembed link | code',
         powerpaste_word_import: 'clean',
         powerpaste_html_import: 'clean',
         setup: function (editor) {
+          //editor.formatter.register('Button Link', { inline: 'a', classes: 'framelix-button framelix-button-primary' })
           editor.myself = {
             'container': container,
             'originalContent': originalContent,

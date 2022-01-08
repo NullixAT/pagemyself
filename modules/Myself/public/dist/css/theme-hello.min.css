@@ -33,7 +33,9 @@
     opacity: 0.6; }
 
 .framelix-page {
-  text-align: center; }
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5; }
 
 .myself-themes-hello {
   max-width: 1300px;
