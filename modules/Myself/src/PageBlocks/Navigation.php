@@ -13,6 +13,7 @@ use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Nav;
 use Framelix\Myself\View\Index;
+use JetBrains\PhpStorm\ExpectedValues;
 
 use function in_array;
 use function rtrim;
@@ -23,13 +24,28 @@ use function str_repeat;
  */
 class Navigation extends BlockBase
 {
+
+    // no specific layout, just output a html list
+    public const LAYOUT_NONE = "none";
+    // vertical layout
+    public const LAYOUT_VERTICAL = "vertical";
+    // horizontal layout in a single row and does show a "more" button for a popup when there is not enough space
+    public const LAYOUT_HORIZONTAL = "horizontal";
+
+    /**
+     * The layout
+     * @var string
+     */
+    #[ExpectedValues(valuesFromClass: self::class)]
+    public string $layout = self::LAYOUT_NONE;
+
     /**
      * Show content for this block
      * @return void
      */
     public function showContent(): void
     {
-        echo '<nav>';
+        echo '<nav data-layout="' . $this->layout . '">';
         $entries = $this->getNavChilds(null);
         $this->showNavEntries($entries);
         echo '</nav>';
@@ -68,7 +84,7 @@ class Navigation extends BlockBase
     private function addNavSelectOptionRecursive(Select $field, array $entries, int $level = 0): void
     {
         foreach ($entries as $entry) {
-            $field->addOption($entry, str_repeat("&nbstp;", $level * 4) . $entry->getLabel());
+            $field->addOption($entry, str_repeat("&nbsp;", $level * 4) . $entry->getLabel());
             $childs = $this->getNavChilds($entry);
             $this->addNavSelectOptionRecursive($field, $childs, $level + 1);
         }
@@ -121,6 +137,9 @@ class Navigation extends BlockBase
                 $this->showNavEntries($childs, $level + 1);
             }
             echo '</li>';
+        }
+        if ($level === 0 && $this->layout === self::LAYOUT_HORIZONTAL) {
+            echo '<li class="myself-pageblocks-navigation-more"><button class="framelix-button framelix-button-primary" data-icon-left="menu"></button></li>';
         }
         echo '</ul>';
     }

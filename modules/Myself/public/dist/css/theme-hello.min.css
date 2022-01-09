@@ -52,17 +52,12 @@
   margin-top: 20px;
   text-align: center; }
 
-html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-pageblocks-navigation-navlist-logo img {
-  width: 100%; }
-
 html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-themes-hello-sidebar {
   width: 300px;
   height: 100vh;
   position: fixed;
   overflow: auto;
   display: flex; }
-  html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist:not([data-level='0']):not(.myself-pageblocks-navigation-navlist-show) {
-    display: none; }
   html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-themes-hello-sidebar a:any-link,
   html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist-group {
     color: black;
@@ -88,9 +83,6 @@ html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-
 html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] .myself-themes-hello-content {
   padding: 0 20px 0 310px; }
 
-html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] button.myself-themes-hello-more {
-  display: none; }
-
 html[data-screen-size='s'] .myself-themes-hello,
 .myself-themes-hello[data-navigation='top'] {
   display: block;
@@ -104,45 +96,9 @@ html[data-screen-size='s'] .myself-themes-hello,
     position: sticky;
     top: 0;
     z-index: 3; }
-    html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-pageblocks-navigation,
-    .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-pageblocks-navigation {
-      max-width: calc(100% - 50px); }
-      html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-pageblocks-navigation nav,
-      .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-pageblocks-navigation nav {
-        flex: 1 1 auto;
-        padding: 10px;
-        position: relative; }
-    html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-themes-hello-more,
-    .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-themes-hello-more {
-      min-width: 50px;
-      background: white;
-      z-index: 1;
-      display: none; }
-      html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar .myself-themes-hello-more:before,
-      .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar .myself-themes-hello-more:before {
-        font-size: 24px; }
-    html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-sidebar[data-more='1'] .myself-themes-hello-more,
-    .myself-themes-hello[data-navigation='top'] .myself-themes-hello-sidebar[data-more='1'] .myself-themes-hello-more {
-      display: block; }
   html[data-screen-size='s'] .myself-themes-hello .myself-themes-hello-content,
   .myself-themes-hello[data-navigation='top'] .myself-themes-hello-content {
     padding: 20px 0 0; }
-  html[data-screen-size='s'] .myself-themes-hello .myself-pageblocks-navigation-navlist[data-level='0'],
-  .myself-themes-hello[data-navigation='top'] .myself-pageblocks-navigation-navlist[data-level='0'] {
-    display: flex;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-    white-space: nowrap; }
-  html[data-screen-size='s'] .myself-themes-hello .myself-pageblocks-navigation-navlist:not([data-level='0']),
-  .myself-themes-hello[data-navigation='top'] .myself-pageblocks-navigation-navlist:not([data-level='0']) {
-    display: none; }
-  html[data-screen-size='s'] .myself-themes-hello .myself-pageblocks-navigation-navlist-logo,
-  .myself-themes-hello[data-navigation='top'] .myself-pageblocks-navigation-navlist-logo {
-    margin-right: 10px; }
-    html[data-screen-size='s'] .myself-themes-hello .myself-pageblocks-navigation-navlist-logo img,
-    .myself-themes-hello[data-navigation='top'] .myself-pageblocks-navigation-navlist-logo img {
-      width: 150px; }
   html[data-screen-size='s'] .myself-themes-hello a:any-link,
   html[data-screen-size='s'] .myself-themes-hello .myself-pageblocks-navigation-navlist-group,
   .myself-themes-hello[data-navigation='top'] a:any-link,

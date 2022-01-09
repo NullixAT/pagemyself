@@ -37,7 +37,7 @@ class Hello extends ThemeBase
             $hsl[2] *= 100;
             $view->addHeadHtml(
                 '<style>
-                    .framelix-page{
+                    .framelix-page, .myself-pageblocks-navigation-popup {
                     --color-primary-hue:' . (int)$hsl[0] . ';
                     --color-primary-text: hsl(var(--color-primary-hue), calc(var(--color-contrast-modifier) + 70%), 40%);  
                     --color-button-default-bg: hsl(var(--color-primary-hue), 20%, 25%);               
@@ -49,10 +49,16 @@ class Hello extends ThemeBase
         $htmlAttributes->addClass($htmlClassBase);
         $htmlAttributes->set('data-navigation', $navigation);
 
+        /** @var Navigation $navBlock */
+        $navBlock = $this->getFixedPageBlock('nav', Navigation::class)->getLayoutBlock();
+        if ($navigation === 'left') {
+            $navBlock->layout = Navigation::LAYOUT_VERTICAL;
+        } elseif ($navigation === 'top') {
+            $navBlock->layout = Navigation::LAYOUT_HORIZONTAL;
+        }
         echo '<div ' . $htmlAttributes . '>';
         echo '<div class="' . $htmlClassBase . '-sidebar">';
-        $this->getFixedPageBlock('nav', Navigation::class)->getLayoutBlock()?->showLayout();
-        echo '<button class="framelix-button framelix-button-trans ' . $htmlClassBase . '-more" data-icon-left="menu"></button>';
+        $navBlock->showLayout();
         echo '</div>';
         echo '<div class="' . $htmlClassBase . '-content">';
         $this->showUserDefinedLayout();

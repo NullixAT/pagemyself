@@ -86,6 +86,18 @@ if (!defined("FRAMELIX_MODULE")) {
                         "options": {
                             "noInclude": true
                         }
+                    },
+                    "pageblock-navigation": {
+                        "files": [
+                            {
+                                "type": "folder",
+                                "path": "js\/page-blocks\/navigation",
+                                "recursive": true
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
                     }
                 },
                 "scss": {
