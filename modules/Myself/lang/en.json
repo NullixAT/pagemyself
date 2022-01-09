@@ -20,6 +20,12 @@
     "__myself_align_top__": [
         "Top"
     ],
+    "__myself_blocklayout_column_settings_title_pageblock__": [
+        "Specific Block Settings"
+    ],
+    "__myself_blocklayout_column_remove__": [
+        "Are your sure to remove this column? This cannot be undone!"
+    ],
     "__myself_blocklayout_add_column__": [
         "Create new column"
     ],
@@ -28,6 +34,12 @@
     ],
     "__myself_blocklayout_columnsetting_fadein__": [
         "Fade In Effect"
+    ],
+    "__myself_blocklayout_columnsetting_fadeout__": [
+        "Fade Out"
+    ],
+    "__myself_blocklayout_columnsetting_fadeout_desc__": [
+        "It will fade out when getting invisible on screen, to later be able to fade in again."
     ],
     "__myself_blocklayout_columnsetting_fadein_blur__": [
         "Blur"
@@ -66,7 +78,7 @@
         "As a theme developer you can save the current page layout as a template that appears in the template tab. The template will contain the exact same settings and text contents as they are on the current page. But, some things cannot be copied into templates. Things like select media files like background images and videos or sensible settings for several page-blocks. This must modified later by the user that use the template. It is recommended that you test out the template and add a proper description for the end-user of how to use the template if it needs some special settings."
     ],
     "__myself_blocklayout_openeditor__": [
-        "Change layout"
+        "Change layout of this page"
     ],
     "__myself_blocklayout_pagelayout__": [
         "Page Layout"
@@ -91,12 +103,6 @@
     ],
     "__myself_blocklayout_rowsetting_maxwidth_desc__": [
         "The block will not be larger then this width. Useful when you choose center layout with for example 1000 max width. Looks good on all screens."
-    ],
-    "__myself_blocklayout_save__": [
-        "Save Layout"
-    ],
-    "__myself_blocklayout_save_and_close__": [
-        "Save and close window"
     ],
     "__myself_blocklayout_settings_column__": [
         "Column settings"
@@ -171,7 +177,7 @@
         "Hide this overlay for the moment"
     ],
     "__myself_info_use_page_templates_empty_page__": [
-        "Here you have a fresh new page. You can start creating your very own page layout with the 'Change Layout' button at the right."
+        "Here you have a fresh new page. You can start creating your very own page layout with the 'Change layout of this page' button at the right."
     ],
     "__myself_layout_exception__": [
         "Sorry, there is an error on this part of the website. Please come back later or contact the site administrator."
@@ -287,8 +293,8 @@
     "__myself_pageblock_edit_internal_draft__": [
         "Draft"
     ],
-    "__myself_pageblock_edit_internal_draft_desc_": [
-        "Set this page block in draft mode. It is only visible in edit mode."
+    "__myself_pageblock_edit_internal_draft_desc__": [
+        "Draft Mode. It is only visible for site administrators."
     ],
     "__myself_pageblocks_backgroundcolor__": [
         "Background color"
@@ -330,7 +336,7 @@
         "Block Settings"
     ],
     "__myself_pageblocks_editor_info__": [
-        "You can drag&drop any column to any other place. Don't forget to save the layout after you have modified something.<br\/>You can only delete an empty column. If you have assigned a page-block already, you must go into column settings -> Block Settings and delete the block there first."
+        "You can drag&drop any column to any other place."
     ],
     "__myself_pageblocks_html__": [
         "HTML Code"

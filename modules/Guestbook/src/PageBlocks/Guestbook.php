@@ -209,29 +209,23 @@ class Guestbook extends BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[email]';
+        $field->name = 'email';
         $form->addField($field);
 
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[name]';
+        $field->name = 'name';
         $form->addField($field);
 
         if (\Framelix\Framelix\Utils\Email::isAvailable()) {
             $field = new Email();
-            $field->name = 'pageBlockSettings[emailNewEntry]';
+            $field->name = 'emailNewEntry';
             $form->addField($field);
         } else {
             $field = new Html();
@@ -239,7 +233,5 @@ class Guestbook extends BlockBase
             $field->defaultValue = Lang::get('__guestbook_emailconfig_missing__');
             $form->addField($field);
         }
-
-        return $forms;
     }
 }

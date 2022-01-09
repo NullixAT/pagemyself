@@ -57,33 +57,26 @@ class Text extends BlockBase
         return $this->pageBlock->pageBlockSettings['content'];
     }
 
-
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[textShadow]';
+        $field->name = 'textShadow';
         $form->addField($field);
 
         $field = new Color();
-        $field->name = 'pageBlockSettings[textShadowColor]';
-        $field->getVisibilityCondition()->notEmpty('pageBlockSettings[textShadow]');
+        $field->name = 'textShadowColor';
+        $field->getVisibilityCondition()->notEmpty('textShadow');
         $field->defaultValue = "#000000";
         $form->addField($field);
 
         $field = new Select();
-        $field->name = 'pageBlockSettings[textShadowType]';
-        $field->getVisibilityCondition()->notEmpty('pageBlockSettings[textShadow]');
+        $field->name = 'textShadowType';
+        $field->getVisibilityCondition()->notEmpty('textShadow');
         $field->addOption('hard', '__myself_pageblocks_text_textshadowtype_hard__');
         $field->addOption('soft', '__myself_pageblocks_text_textshadowtype_soft__');
         $field->addOption('around', '__myself_pageblocks_text_textshadowtype_around__');
@@ -91,15 +84,13 @@ class Text extends BlockBase
         $form->addField($field);
 
         $field = new Number();
-        $field->name = 'pageBlockSettings[textShadowSize]';
+        $field->name = 'textShadowSize';
         $field->getVisibilityCondition()
-            ->notEmpty('pageBlockSettings[textShadow]')
+            ->notEmpty('textShadow')
             ->and()
-            ->equal('pageBlockSettings[textShadowType]', 'around');
+            ->equal('textShadowType', 'around');
         $field->defaultValue = 10;
         $form->addField($field);
-
-        return $forms;
     }
 
 

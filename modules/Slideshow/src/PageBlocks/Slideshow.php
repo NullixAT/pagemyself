@@ -77,44 +77,36 @@ class Slideshow extends BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[showImageInfo]';
+        $field->name = 'showImageInfo';
         $form->addField($field);
 
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[automatic]';
+        $field->name = 'automatic';
         $form->addField($field);
 
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[random]';
+        $field->name = 'random';
         $form->addField($field);
 
         $field = new Select();
-        $field->name = 'pageBlockSettings[animation]';
+        $field->name = 'animation';
         $field->addOption('fade', '__slideshow_pageblocks_slideshow_animation_fade__');
         $field->addOption('flip', '__slideshow_pageblocks_slideshow_animation_flip__');
         $field->addOption('blur', '__slideshow_pageblocks_slideshow_animation_blur__');
         $form->addField($field);
 
         $field = new MediaBrowser();
-        $field->name = 'pageBlockSettings[files]';
+        $field->name = 'files';
         $field->multiple = true;
         $field->unfoldSelectedFolders = true;
         $field->setOnlyImages();
         $form->addField($field);
-
-        return $forms;
     }
 }

@@ -78,33 +78,25 @@ class ImageGallery extends BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new MediaBrowser();
-        $field->name = 'pageBlockSettings[files]';
+        $field->name = 'files';
         $field->multiple = true;
         $field->unfoldSelectedFolders = true;
         $field->setOnlyImages();
         $form->addField($field);
 
         $field = new Number();
-        $field->name = 'pageBlockSettings[maxWidth]';
+        $field->name = 'maxWidth';
         $field->required = true;
         $field->min = 10;
         $field->max = 10000;
         $field->defaultValue = 200;
         $form->addField($field);
-
-        return $forms;
     }
 }

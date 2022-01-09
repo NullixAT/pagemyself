@@ -3,7 +3,6 @@
 namespace Framelix\Myself\View\Backend\Page;
 
 use Framelix\Framelix\Form\Form;
-use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\Request;

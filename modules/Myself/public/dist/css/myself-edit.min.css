@@ -160,8 +160,6 @@ html[data-mobile='1'] .myself-edit-frame-inner {
   padding: 10px;
   border-radius: 20px;
   display: flex; }
-  .myself-block-layout-row-column:not([data-empty='1']) .framelix-button[data-action='column-remove'] {
-    display: none; }
   .myself-block-layout-row-column[data-empty='1'] {
     background: #f5f5f5;
     cursor: pointer; }

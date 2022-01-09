@@ -112,44 +112,24 @@ class BlockLayout implements StorablePropertyInterface
 
     /**
      * Get row at position
-     * Does create a new row if not exist
-     * Fill up rows if prevId not exist as well - This is required to have a clean array as JS requires it that way
      * @param int $rowId
-     * @return BlockLayoutRow
+     * @return BlockLayoutRow|null
      */
-    public function getRow(int $rowId): BlockLayoutRow
+    public function getRow(int $rowId): ?BlockLayoutRow
     {
-        if (isset($this->rows[$rowId])) {
-            return $this->rows[$rowId];
-        }
-        for ($i = 0; $i <= $rowId; $i++) {
-            if (!isset($this->rows[$i])) {
-                $this->rows[$i] = BlockLayoutRow::create(null);
-            }
-        }
-        return $this->rows[$rowId];
+        return $this->rows[$rowId] ?? null;
     }
 
     /**
      * Get column at position
-     * Does create a new column if not exist
-     * Fill up columns if prevId not exist as well - This is required to have a clean array as JS requires it that way
      * @param int $rowId
      * @param int $columnId
-     * @return BlockLayoutColumn
+     * @return BlockLayoutColumn|null
      */
-    public function getColumn(int $rowId, int $columnId): BlockLayoutColumn
+    public function getColumn(int $rowId, int $columnId): ?BlockLayoutColumn
     {
         $row = $this->getRow($rowId);
-        if (isset($row->columns[$columnId])) {
-            return $row->columns[$columnId];
-        }
-        for ($i = 0; $i <= $columnId; $i++) {
-            if (!isset($row->columns[$i])) {
-                $row->columns[$i] = BlockLayoutColumn::create(null);
-            }
-        }
-        return $row->columns[$columnId];
+        return $row->columns[$columnId] ?? null;
     }
 
     /**

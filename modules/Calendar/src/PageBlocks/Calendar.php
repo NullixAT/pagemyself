@@ -22,6 +22,8 @@ use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\PageBlock;
 
+use function var_dump;
+
 /**
  * Calendar
  */
@@ -289,24 +291,18 @@ class Calendar extends BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new Toggle();
-        $field->name = 'pageBlockSettings[global]';
+        $field->name = 'global';
         $form->addField($field);
 
         $field = new Select();
-        $field->name = 'pageBlockSettings[minDate]';
+        $field->name = 'minDate';
         $field->searchable = true;
         for ($i = 0; $i <= 120; $i++) {
             $date = Date::create("now");
@@ -319,7 +315,7 @@ class Calendar extends BlockBase
         $form->addField($field);
 
         $field = new Select();
-        $field->name = 'pageBlockSettings[maxDate]';
+        $field->name = 'maxDate';
         $field->searchable = true;
         for ($i = 0; $i <= 120; $i++) {
             $date = Date::create("now");
@@ -332,9 +328,7 @@ class Calendar extends BlockBase
         $form->addField($field);
 
         $field = new Color();
-        $field->name = 'pageBlockSettings[cellColor]';
+        $field->name = 'cellColor';
         $form->addField($field);
-
-        return $forms;
     }
 }

@@ -3,11 +3,8 @@
 namespace Framelix\Myself\PageBlocks;
 
 use Framelix\Framelix\Config;
-use Framelix\Framelix\Form\Field\Html;
-use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\HtmlAttributes;
-use Framelix\Framelix\Lang;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\JsonUtils;
@@ -173,52 +170,12 @@ abstract class BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $form = new Form();
-        $form->id = "pageblock";
-        $form->label = '__myself_pageblocks_edit_form_internal__';
-        $forms = [$form];
-
-        $label = '<div class="framelix-responsive-grid-2"><div>' . Lang::get(
-                ClassUtils::getLangKey($this)
-            );
-        $label .= '</div>';
-
-        if (!$this->pageBlock->fixedPlacement) {
-            $label .= '<div style="text-align: right">';
-            $label .= '<button class="framelix-button framelix-button-error framelix-button-small myself-delete-page-block" data-page-block-id="' . $this->pageBlock . '" data-icon-left="clear">';
-            $label .= Lang::get('__myself_pageblock_edit_internal_delete__');
-            $label .= '</button>';
-            $label .= '</div>';
-        }
-
-        $label .= '</div>';
-
-        $descKey = ClassUtils::getLangKey($this, "desc");
-
-        $field = new Html();
-        $field->name = "info";
-        $field->label = $label;
-        if (Lang::keyExist($descKey)) {
-            $field->labelDescription = Lang::get($descKey);
-        }
-        $form->addField($field);
-
-        if (!$this->pageBlock->fixedPlacement) {
-            $field = new Toggle();
-            $field->name = "flagDraft";
-            $field->label = '__myself_pageblock_edit_internal_draft__';
-            $field->labelDescription = '__myself_pageblock_edit_internal_draft_desc_';
-            $field->defaultValue = $this->pageBlock->flagDraft;
-            $form->addField($field);
-        }
-
-        return $forms;
     }
 
     /**

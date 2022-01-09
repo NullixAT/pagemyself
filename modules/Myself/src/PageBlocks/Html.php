@@ -28,23 +28,15 @@ class Html extends BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new Ace();
-        $field->name = 'pageBlockSettings[html]';
+        $field->name = 'html';
         $field->mode = 'html';
         $form->addField($field);
-
-        return $forms;
     }
 }

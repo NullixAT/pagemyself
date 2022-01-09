@@ -36,25 +36,19 @@ class Navigation extends BlockBase
     }
 
     /**
-     * Get array of settings forms
-     * If more then one form is returned, it will create tabs with forms
-     * @return Form[]
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
      */
-    public function getSettingsForms(): array
+    public function addSettingsFields(Form $form): void
     {
-        $forms = parent::getSettingsForms();
-
-        $form = new Form();
-        $form->id = "main";
-        $forms[] = $form;
-
         $field = new MediaBrowser();
-        $field->name = 'pageBlockSettings[logo]';
+        $field->name = 'logo';
         $field->setOnlyImages();
         $form->addField($field);
 
         $field = new Select();
-        $field->name = 'pageBlockSettings[allowedEntries]';
+        $field->name = 'allowedEntries';
         $field->multiple = true;
         $field->dropdown = false;
         $this->addNavSelectOptionRecursive(
@@ -62,8 +56,6 @@ class Navigation extends BlockBase
             $this->getNavChilds(null)
         );
         $form->addField($field);
-
-        return $forms;
     }
 
     /**
@@ -107,8 +99,9 @@ class Navigation extends BlockBase
             if (($settings['allowedEntries'] ?? null) && !in_array((string)$entry->id, $settings['allowedEntries'])) {
                 continue;
             }
+            $hasLink = ($entry->linkType === Nav::LINKTYPE_PAGE && $entry->page) || ($entry->linkType === Nav::LINKTYPE_CUSTOM && $entry->link);
             echo '<li>';
-            if (($entry->linkType === Nav::LINKTYPE_PAGE && $entry->page) || ($entry->linkType === Nav::LINKTYPE_CUSTOM && $entry->link)) {
+            if ($hasLink) {
                 $url = $entry->linkType === Nav::LINKTYPE_PAGE
                     ? View::getUrl(Index::class, ['url' => $entry->page->url]) : $entry->link;
                 $url = (string)$url;
@@ -118,7 +111,7 @@ class Navigation extends BlockBase
                 echo '<div class="' . $htmlClassBase . '-group">';
             }
             echo $entry->getLabel();
-            if ($entry->page || $entry->link) {
+            if ($hasLink) {
                 echo '</a>';
             } else {
                 echo '</div>';

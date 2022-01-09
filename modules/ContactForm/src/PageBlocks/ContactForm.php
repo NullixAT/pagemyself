@@ -145,6 +145,40 @@ class ContactForm extends BlockBase
         }
     }
 
+    /**
+     * Add settings fields to column settings form
+     * Name of field is settings key
+     * @param Form $form
+     */
+    public function addSettingsFields(Form $form): void
+    {
+        $field = new Select();
+        $field->name = 'type';
+        $field->addOption('form', '__contactform_pageblocks_contactform_type_form__');
+        $field->addOption('btn', '__contactform_pageblocks_contactform_type_btn__');
+        $form->addField($field);
+
+        $field = new Email();
+        $field->name = 'email';
+        $form->addField($field);
+
+        $field = new Text();
+        $field->name = 'defaultSubject';
+        $form->addField($field);
+
+        $field = new Textarea();
+        $field->name = 'defaultBody';
+        $field->getVisibilityCondition()->equal("type", "btn");
+        $form->addField($field);
+
+        if (\Framelix\Framelix\Utils\Email::isAvailable()) {
+            $field = new Html();
+            $field->name = 'email_notice';
+            $field->label = '';
+            $field->defaultValue = Lang::get('__contactform_emailconfig_missing__');
+            $form->addField($field);
+        }
+    }
 
     /**
      * Get array of settings forms
@@ -158,33 +192,6 @@ class ContactForm extends BlockBase
         $form = new Form();
         $form->id = "main";
         $forms[] = $form;
-
-        $field = new Select();
-        $field->name = 'pageBlockSettings[type]';
-        $field->addOption('form', '__contactform_pageblocks_contactform_type_form__');
-        $field->addOption('btn', '__contactform_pageblocks_contactform_type_btn__');
-        $form->addField($field);
-
-        $field = new Email();
-        $field->name = 'pageBlockSettings[email]';
-        $form->addField($field);
-
-        $field = new Text();
-        $field->name = 'pageBlockSettings[defaultSubject]';
-        $form->addField($field);
-
-        $field = new Textarea();
-        $field->name = 'pageBlockSettings[defaultBody]';
-        $field->getVisibilityCondition()->equal("pageBlockSettings[type]", "btn");
-        $form->addField($field);
-
-        if (\Framelix\Framelix\Utils\Email::isAvailable()) {
-            $field = new Html();
-            $field->name = 'email_notice';
-            $field->label = '';
-            $field->defaultValue = Lang::get('__contactform_emailconfig_missing__');
-            $form->addField($field);
-        }
 
         return $forms;
     }
