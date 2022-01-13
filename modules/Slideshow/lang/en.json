@@ -31,5 +31,11 @@
     ],
     "__slideshow_pageblocks_slideshow_showimageinfo__": [
         "Show image title and image count"
+    ],
+    "__slideshow_pageblocks_prev_image__": [
+        "Previous Image"
+    ],
+    "__slideshow_pageblocks_next_image__": [
+        "Next Image"
     ]
 }

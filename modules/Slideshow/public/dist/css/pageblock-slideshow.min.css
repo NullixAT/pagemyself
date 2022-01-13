@@ -4,19 +4,6 @@
   overflow: hidden;
   transition: .2s;
   margin: 10px 0; }
-  .slideshow-pageblocks-slideshow-container .framelix-loading {
-    position: absolute;
-    display: none;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    margin-top: -50px;
-    align-items: center;
-    justify-content: center; }
-    .slideshow-pageblocks-slideshow-container .framelix-loading:after {
-      width: 100px; }
-  .slideshow-pageblocks-slideshow-container.slideshow-pageblocks-slideshow-loading .framelix-loading {
-    display: flex; }
   .slideshow-pageblocks-slideshow-container.slideshow-pageblocks-slideshow-loading[data-animation='fade'] .slideshow-pageblocks-slideshow-image {
     outline: 5px solid red; }
   .slideshow-pageblocks-slideshow-container.slideshow-pageblocks-slideshow-loading[data-animation='flip'] .slideshow-pageblocks-slideshow-image {

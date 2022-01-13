@@ -109,7 +109,7 @@ class MyselfEdit {
         target: container[0],
         menubar: false,
         inline: true,
-        plugins: 'image link media table hr advlist lists code',
+        plugins: 'image link media table hr advlist lists code noneditable',
         external_plugins: {
           myself: FramelixConfig.compiledFileUrls['Myself']['js']['tinymce']
         },
@@ -141,7 +141,7 @@ class MyselfEdit {
             callback(url)
           })
         },
-        toolbar: 'myself-save-text myself-cancel-text | undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect lineheight | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | table | forecolor backcolor removeformat | image media pageembed link | code',
+        toolbar: 'myself-save-text myself-cancel-text myself-jump-mark | undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect lineheight | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | table | forecolor backcolor removeformat | image media pageembed link | code',
         powerpaste_word_import: 'clean',
         powerpaste_html_import: 'clean',
         setup: function (editor) {

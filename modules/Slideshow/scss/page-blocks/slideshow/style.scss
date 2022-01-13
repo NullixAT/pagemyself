@@ -5,27 +5,7 @@
   transition: .2s;
   margin: 10px 0;
 
-  .framelix-loading {
-    position: absolute;
-    display: none;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    margin-top: -50px;
-    align-items: center;
-    justify-content: center;
-
-    &:after {
-      width: 100px;
-    }
-  }
-
-
   &.slideshow-pageblocks-slideshow-loading {
-    .framelix-loading {
-      display: flex;
-    }
-
     &[data-animation='fade'] {
       .slideshow-pageblocks-slideshow-image {
         outline: 5px solid red;

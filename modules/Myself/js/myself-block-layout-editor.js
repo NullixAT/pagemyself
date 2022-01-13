@@ -139,6 +139,7 @@ class MyselfBlockLayoutEditor {
           ${FramelixLang.get('__myself_pageblocks_editor_info__')}
       </div>
       <div class="framelix-spacer"></div>`)
+      el.append(fixedRowsEl)
       // no rows exist, add info
       if (!FramelixObjectUtils.hasKeys(self.config.blockLayout.rows)) {
         el.append(`<div class="framelix-alert framelix-alert-warning">
@@ -151,16 +152,6 @@ class MyselfBlockLayoutEditor {
           <button class="myself-block-layout-row-column framelix-button framelix-button-primary" data-icon-left="add"
                           title="__myself_blocklayout_add_row__" data-action="row-add"></button>
       </div>`)
-      return el
-    })
-
-    tabs.addTab('fixedRows', '__myself_blocklayout_themeblocks__', function () {
-      const el = $(`<div>`)
-      el.append(`<div class="framelix-alert framelix-alert-primary">
-          ${FramelixLang.get('__myself_blocklayout_themeblocks_desc__')}
-      </div>
-      <div class="framelix-spacer"></div>`)
-      el.append(fixedRowsEl)
       return el
     })
 
@@ -242,13 +233,13 @@ class MyselfBlockLayoutEditor {
     for (let pageBlockId in fixedPageBlocks) {
       const pageBlockData = fixedPageBlocks[pageBlockId]
       const row = $(`<div class="myself-block-layout-row myself-block-layout-row-fixed"></div>`)
-      let title = ''
+      let title = '<div class="myself-block-layout-row-column-title-block">'
       if (pageBlockData) {
         title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get(pageBlockData.blockName) + ' (' + pageBlockData.fixedPlacement + ')</div>'
       }
-      title += '<div class="myself-block-layout-row-column-title-block">' + FramelixLang.get(pageBlockData.title) + '</div>'
+      title += FramelixLang.get(pageBlockData.title) + '</div>'
       const blockColumn = $(`<div class="myself-block-layout-row-column" data-page-block-id="${pageBlockId}">
-            <div class="myself-block-layout-row-column-title">${title}</div>
+            <div class="myself-block-layout-row-column-title" title="__myself_blocklayout_themeblock__">${title}</div>
             <div class="myself-block-layout-row-column-actions">
               <button class="framelix-button framelix-button-primary" data-icon-left="settings"
                       title="__myself_blocklayout_settings_column__" data-action="column-settings"></button>
@@ -266,14 +257,15 @@ class MyselfBlockLayoutEditor {
         const configColumn = configRow.columns[columnKey]
         const empty = !configColumn.pageBlockId
         const pageBlockData = empty ? null : self.config.allPageBlocks[configColumn.pageBlockId]
-        let title = ''
+        let title = '<div class="myself-block-layout-row-column-title-block">'
         if (pageBlockData) {
           title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get(pageBlockData.blockName) + '</div>'
         }
         if (pageBlockData && pageBlockData.flagDraft) {
           title += '<div class="myself-block-layout-row-column-title-sub">' + FramelixLang.get('__myself_pageblock_edit_internal_draft__') + '</div>'
         }
-        title += pageBlockData ? '<div class="myself-block-layout-row-column-title-block">' + FramelixLang.get(pageBlockData.title) + '</div>' : FramelixLang.get('__myself_blocklayout_empty__')
+        title += pageBlockData ? `<span class="myself-block-layout-row-column-title-text">${FramelixLang.get(pageBlockData.title)}</span>` : FramelixLang.get('__myself_blocklayout_empty__')
+        title += '</div>'
         const grow = configColumn.settings.grow || 1
         const blockColumn = $(`<div class="myself-block-layout-row-column" draggable="true" data-grow="${grow}" data-id="${columnKey}" data-page-block-id="${configColumn.pageBlockId}" style="flex-grow: ${grow};">
             <div class="myself-block-layout-row-column-title ${empty ? 'myself-block-layout-create-new-page-block' : ''}">${title}</div>
@@ -290,10 +282,10 @@ class MyselfBlockLayoutEditor {
         </div>`)
         if (empty) blockColumn.attr('data-empty', '1')
         row.append(blockColumn)
-        const titleEl = blockColumn.find('.myself-block-layout-row-column-title-block')
+        const titleEl = blockColumn.find('.myself-block-layout-row-column-title-text')
         if (titleEl.length) {
-          // fix whitespace
-          titleEl[0].innerHTML = titleEl[0].innerText.trim()
+          // fix whitespace and limit length
+          titleEl[0].innerHTML = FramelixStringUtils.cut(titleEl[0].innerText.trim(), 200)
         }
       }
       row.append(`<div class="myself-block-layout-row-column myself-block-layout-row-column-new">

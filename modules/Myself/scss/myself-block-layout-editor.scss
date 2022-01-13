@@ -52,28 +52,26 @@
 .myself-block-layout-row-column-title {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex: 1 1 auto;
-  flex-wrap: wrap;
-  white-space: normal;
   gap: 10px;
-  flex-direction: column;
-
-  .myself-block-layout-row-column-title-sub {
-    opacity: 0.8;
-    font-size: 80%;
-    background: white;
-    padding: 0 10px;
-    border-radius: 20px;
-  }
 }
 
+.myself-block-layout-row-column-title-sub {
+  opacity: 0.8;
+  font-size: 80%;
+  background: white;
+  padding: 0 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 10px;
+}
 .myself-block-layout-row-column-actions {
   display: flex;
 }
 
 .myself-block-layout-drop-highlight {
   box-shadow: hsla(var(--color-primary-hue), 50%, 50%, 0.7) 0 0 20px;
+
   &.myself-block-layout-drop-highlight-strong {
     box-shadow: hsla(var(--color-success-hue), 50%, 50%, 1) 0 0 20px;
   }

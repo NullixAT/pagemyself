@@ -173,18 +173,17 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 .myself-block-layout-row-column-title {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex: 1 1 auto;
-  flex-wrap: wrap;
-  white-space: normal;
-  gap: 10px;
-  flex-direction: column; }
-  .myself-block-layout-row-column-title .myself-block-layout-row-column-title-sub {
-    opacity: 0.8;
-    font-size: 80%;
-    background: white;
-    padding: 0 10px;
-    border-radius: 20px; }
+  gap: 10px; }
+
+.myself-block-layout-row-column-title-sub {
+  opacity: 0.8;
+  font-size: 80%;
+  background: white;
+  padding: 0 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 10px; }
 
 .myself-block-layout-row-column-actions {
   display: flex; }

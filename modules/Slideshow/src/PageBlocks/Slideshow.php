@@ -5,6 +5,7 @@ namespace Framelix\Slideshow\PageBlocks;
 use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Lang;
 use Framelix\Framelix\Storable\Storable;
 use Framelix\Myself\Form\Field\MediaBrowser;
 use Framelix\Myself\PageBlocks\BlockBase;
@@ -38,11 +39,14 @@ class Slideshow extends BlockBase
         ?>
         <div class="slideshow-pageblocks-slideshow-container myself-lazy-load-parent-anchor"
              data-animation="<?= $this->pageBlock->pageBlockSettings['animation'] ?? 'fade' ?>">
-            <div class="framelix-loading"></div>
             <div class="slideshow-pageblocks-slideshow-image-outer">
-                <button class="framelix-button slideshow-pageblocks-slideshow-left"
+                <button aria-label="<?= Lang::get(
+                    '__slideshow_pageblocks_prev_image__'
+                ) ?>" class="framelix-button slideshow-pageblocks-slideshow-left"
                         data-icon-left="chevron_left"></button>
-                <button class="framelix-button slideshow-pageblocks-slideshow-right"
+                <button aria-label="<?= Lang::get(
+                    '__slideshow_pageblocks_next_image__'
+                ) ?>" class="framelix-button slideshow-pageblocks-slideshow-right"
                         data-icon-left="chevron_right"></button>
                 <div class="slideshow-pageblocks-slideshow-image"></div>
             </div>

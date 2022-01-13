@@ -187,13 +187,9 @@
         "Warnung: Diese Seite beinhalten schon ein Layout. Wenn du ein Template anwendest, dann wird das existierende Layout gel\u00f6scht.",
         "d5382"
     ],
-    "__myself_blocklayout_themeblocks__": [
-        "Fixe Bl\u00f6cke im Stil",
-        "afe17"
-    ],
-    "__myself_blocklayout_themeblocks_desc__": [
-        "Diese Bl\u00f6cke sind direkt im Stil integriert und Platzierung und manch andere Layout Einstellungen k\u00f6nnen nicht bearbeitet werden.",
-        "98528"
+    "__myself_blocklayout_themeblock__": [
+        "Fixer Block im Stil - Manche Layoutoptionen sind nicht verf\u00fcgbar",
+        "a2fef"
     ],
     "__myself_column_align__": [
         "Spaltenausrichtung",
@@ -238,6 +234,22 @@
     "__myself_info_use_page_templates_empty_page__": [
         "Hier hast du jetzt eine frische neue Seite. Du kannst beginnen das Layout mit dem Button zum Layout \u00e4ndern rechts bearbeiten.",
         "a11ac"
+    ],
+    "__myself_jump_mark__": [
+        "Sprungmarke",
+        "b365e"
+    ],
+    "__myself_jump_mark_desc__": [
+        "F\u00fcge eine Sprungmarke ein auf die du sp\u00e4ter verlinken kannst. Das erlaubt zu einem bestimmten Punkt der Seite mit einem Link zu springen.",
+        "a9bfd"
+    ],
+    "__myself_jump_mark_linkto__": [
+        "Verlinke auf diese Sprungmarke mit: {0}<br\/>Du kannst diesen Link in der Navigation oder im Texteditor als Link einf\u00fcgen.",
+        "812ee"
+    ],
+    "__myself_jump_mark_name__": [
+        "Benenne deine Sprungmarke",
+        "257f0"
     ],
     "__myself_layout_exception__": [
         "Hoppla, da ist ein Fehler aufgetreten. Bitte komm sp\u00e4ter wieder oder kontaktieren den Seiteninhaber.",
@@ -522,6 +534,10 @@
     "__myself_pageblocks_navigation_logo__": [
         "Dein Logo",
         "f38db"
+    ],
+    "__myself_pageblocks_navigation_show_more__": [
+        "Zeige mehr Eintr\u00e4ge",
+        "5cb28"
     ],
     "__myself_pageblocks_pageblock_setting_override__": [
         "Diese Einstellung kann durch den verwendeten Page-Block eventuell \u00fcberschrieben werden.",

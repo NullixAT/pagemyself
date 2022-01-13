@@ -335,7 +335,7 @@ class BlockLayoutEditor
                 break;
             case 'save-row-settings':
                 $blockLayout = $page->getBlockLayout();
-                $rowId = Request::getGet('rowId');
+                $rowId = (int)Request::getGet('rowId');
                 $rowSettings = $blockLayout->getRow($rowId)->settings;
                 $form = self::getFormRowSettings($rowSettings);
                 $values = $form->getConvertedSubmittedValues();
@@ -347,7 +347,9 @@ class BlockLayoutEditor
                 Toast::success('__framelix_saved__');
                 Response::showFormAsyncSubmitResponse();
             case 'row-settings':
-                $form = self::getFormRowSettings(BlockLayoutRowSettings::create($jsCall->parameters['settings']));
+                $blockLayout = $page->getBlockLayout();
+                $rowSettings = $blockLayout->getRow($rowId)->settings;
+                $form = self::getFormRowSettings($rowSettings);
                 $form->stickyFormButtons = true;
                 $form->submitUrl = JsCall::getCallUrl(
                     __CLASS__,
@@ -357,7 +359,7 @@ class BlockLayoutEditor
                         'rowId' => $rowId
                     ]
                 );
-                $form->addButton('save', '__framelix_ok__', 'save', ColorName::SUCCESS);
+                $form->addSubmitButton('save', '__framelix_save__', 'save', ColorName::PRIMARY);
                 $form->show();
                 break;
             case 'select-new-page-block':
@@ -588,7 +590,7 @@ class BlockLayoutEditor
 
         if (!$additionalFields) {
             unset($form->fields[$titleField->name]);
-        } else {
+        } elseif ($settings) {
             $titleField = new Html();
             $titleField->name = 'title_columnsettings';
             $titleField->label = '';

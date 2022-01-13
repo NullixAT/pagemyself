@@ -131,14 +131,23 @@
     "__myself_blocklayout_templates_warning__": [
         "Warning: This page already contains a page layout. When you use a template, your existing page layout will be deleted."
     ],
-    "__myself_blocklayout_themeblocks__": [
-        "Fixed blocks in theme"
-    ],
-    "__myself_blocklayout_themeblocks_desc__": [
-        "This blocks are directly integrated into the theme and the placement or some other layout settings cannot be edited."
+    "__myself_blocklayout_themeblock__": [
+        "Fixed block in theme - Some layout settings are not available"
     ],
     "__myself_column_align__": [
         "Column Alignment"
+    ],
+    "__myself_jump_mark__": [
+        "Jump Mark"
+    ],
+    "__myself_jump_mark_name__": [
+        "Name your jumpmark"
+    ],
+    "__myself_jump_mark_desc__": [
+        "Insert a jump mark where you can link to it later. This allow in-page anchors to jump to a specific text mark."
+    ],
+    "__myself_jump_mark_linkto__": [
+        "Link to this jump mark with: {0}<br/>You can link to this in the navigation or directly in any texteditor with a normal link."
     ],
     "__myself_disable_editmode__": [
         "Disable edit mode"
@@ -376,6 +385,9 @@
     ],
     "__myself_pageblocks_navigation__": [
         "Navigation"
+    ],
+    "__myself_pageblocks_navigation_show_more__": [
+        "Show more entries"
     ],
     "__myself_pageblocks_navigation_allowedentries__": [
         "Filter visible entries"

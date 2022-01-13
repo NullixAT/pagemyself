@@ -1,5 +1,6 @@
 :root {
-  --font-default: Arial, sans-serif; }
+  --font-default: Arial, sans-serif;
+  --myself-jump-mark-offset: 20vh; }
 
 body {
   font-family: var(--font-default); }
@@ -114,3 +115,23 @@ html:not([data-edit-frame='1']):not([data-edit='1']) .myself-show-if-editmode {
     margin: 0; }
   .myself-open-edit-mode:hover {
     opacity: 1; }
+
+html:not([data-edit-frame='1']) .myself-jump-mark {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  margin-top: calc(var(--myself-jump-mark-offset) * -1);
+  padding-bottom: var(--myself-jump-mark-offset);
+  display: block; }
+
+html[data-edit-frame='1'] .myself-jump-mark {
+  display: block;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.4);
+  border-radius: 30px;
+  font-size: 0.8rem;
+  text-align: center; }
+
+.tox-tinymce-inline {
+  z-index: 40; }

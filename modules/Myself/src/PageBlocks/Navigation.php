@@ -139,7 +139,9 @@ class Navigation extends BlockBase
             echo '</li>';
         }
         if ($level === 0 && $this->layout === self::LAYOUT_HORIZONTAL) {
-            echo '<li class="myself-pageblocks-navigation-more"><button class="framelix-button framelix-button-primary" data-icon-left="menu"></button></li>';
+            echo '<li class="myself-pageblocks-navigation-more"><button aria-label="' . Lang::get(
+                    '__myself_pageblocks_navigation_show_more__'
+                ) . '" class="framelix-button framelix-button-primary" data-icon-left="menu"></button></li>';
         }
         echo '</ul>';
     }
