@@ -10,6 +10,13 @@ class Myself {
   static customFonts = {}
 
   /**
+   * Add classes that can be position:sticky
+   * This help to provide correct jump marker with a correct offset
+   * @type {string[]}
+   */
+  static possibleStickyClasses = []
+
+  /**
    * Default fonts available
    * @type {Object<string, *>}
    */
@@ -103,6 +110,32 @@ class Myself {
         editModeContainer.remove()
       })
       $('.framelix-page').after(editModeContainer)
+    }
+    window.addEventListener('hashchange', function () {
+      Myself.onHashChange()
+
+    }, false)
+    Myself.onHashChange()
+  }
+
+  /**
+   * On hash change
+   */
+  static onHashChange () {
+    if (!window.location.hash.startsWith('#jumpmark-')) return
+    const target = $('#' + window.location.hash.substr(10))
+    if (!target.length) return
+    let offset = 0
+    for (let i = 0; i < Myself.possibleStickyClasses.length; i++) {
+      const cl = Myself.possibleStickyClasses[i]
+      const el = $('.' + cl).first()
+      if (!el.length) continue
+      const style = window.getComputedStyle(el[0])
+      if (style.position === 'sticky' || style.position === 'fixed') {
+        offset += parseInt(style.height.replace(/[^0-9]/g, ''))
+        Framelix.scrollTo(target, null, offset)
+        break
+      }
     }
   }
 

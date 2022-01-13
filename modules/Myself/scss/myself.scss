@@ -172,8 +172,6 @@ html:not([data-edit-frame='1']) .myself-jump-mark {
   height: 0;
   overflow: hidden;
   visibility: hidden;
-  margin-top: calc(var(--myself-jump-mark-offset) * -1);
-  padding-bottom: var(--myself-jump-mark-offset);
   display: block;
 }
 

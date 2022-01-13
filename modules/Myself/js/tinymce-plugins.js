@@ -35,7 +35,7 @@ tinymce.PluginManager.add('myself', function (editor, url) {
       const text = await FramelixModal.prompt('__myself_jump_mark_name__').promptResult
       if (text) {
         const id = FramelixStringUtils.slugify(text).toLowerCase()
-        editor.execCommand('mceInsertContent', false, '<span class="myself-jump-mark mceNonEditable" id="' + id + '" data-tooltip="' + FramelixLang.get('__myself_jump_mark_linkto__', ['#' + id]) + '">' + FramelixLang.get('__myself_jump_mark__') + ': ' + id + '</span>')
+        editor.execCommand('mceInsertContent', false, '<div class="myself-jump-mark mceNonEditable" id="' + id + '" data-tooltip="' + FramelixLang.get('__myself_jump_mark_linkto__', ['#jumpmark-' + id]) + '">' + FramelixLang.get('__myself_jump_mark__') + ': #jumpmark-' + id + '</div>')
       }
     }
   })

@@ -68,6 +68,7 @@ class Hello extends ThemeBase
             echo '</div>';
         }
         echo '</div></div>';
+        echo '<script>Myself.possibleStickyClasses.push("myself-themes-hello-sidebar")</script>';
     }
 
 
