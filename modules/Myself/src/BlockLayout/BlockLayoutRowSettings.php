@@ -50,6 +50,12 @@ class BlockLayoutRowSettings implements JsonSerializable
     public ?string $backgroundSize = null;
 
     /**
+     * Background position
+     * @var string|null
+     */
+    public ?string $backgroundPosition = null;
+
+    /**
      * Create an instance from given data
      * @param array|null $data
      * @return self

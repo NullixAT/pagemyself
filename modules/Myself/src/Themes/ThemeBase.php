@@ -197,6 +197,10 @@ abstract class ThemeBase
         if ($settingValue) {
             $rowAttributes->set('data-background-size', $settingValue);
         }
+        $settingValue = $rowSettings->backgroundPosition;
+        if ($settingValue) {
+            $rowAttributes->set('data-background-position', $settingValue);
+        }
         $backgroundImage = MediaFile::getById($rowSettings->backgroundImage);
         $backgroundVideo = MediaFile::getById($rowSettings->backgroundVideo);
         if ($backgroundImage && $backgroundImage->getImageData()) {
@@ -275,6 +279,10 @@ abstract class ThemeBase
         $settingValue = $columnSettings->backgroundSize;
         if ($settingValue) {
             $columnAttributes->set('data-background-size', $settingValue);
+        }
+        $settingValue = $columnSettings->backgroundPosition;
+        if ($settingValue) {
+            $columnAttributes->set('data-background-position', $settingValue);
         }
         $settingValue = $columnSettings->fadeIn;
         if ($settingValue) {

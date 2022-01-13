@@ -545,6 +545,16 @@ class BlockLayoutEditor
         $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
         $form->addField($field);
 
+        $field = new Select();
+        $field->name = 'backgroundPosition';
+        $field->label = '__myself_pageblocks_backgroundposition__';
+        $field->addOption('top', '__myself_align_top__');
+        $field->addOption('center', '__myself_align_center__');
+        $field->addOption('bottom', '__myself_align_bottom__');
+        $field->defaultValue = ArrayUtils::getValue($settings, $field->name) ?? 'center';
+        $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
+        $form->addField($field);
+
         return $form;
     }
 
@@ -692,7 +702,16 @@ class BlockLayoutEditor
             $field->addOption('contain', '__myself_pageblocks_backgroundsize_contain__');
             $field->addOption('cover', '__myself_pageblocks_backgroundsize_cover__');
             $field->defaultValue = 'cover';
-            $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
+            $field->getVisibilityCondition()->notEmpty('columnSettings[backgroundImage]')->or()->notEmpty('columnSettings[backgroundVideo]');
+            $form->addField($field);
+
+            $field = new Select();
+            $field->name = 'columnSettings[backgroundPosition]';
+            $field->label = '__myself_pageblocks_backgroundposition__';
+            $field->addOption('top', '__myself_align_top__');
+            $field->addOption('center', '__myself_align_center__');
+            $field->addOption('bottom', '__myself_align_bottom__');
+            $field->getVisibilityCondition()->notEmpty('columnSettings[backgroundImage]')->or()->notEmpty('columnSettings[backgroundVideo]');
             $form->addField($field);
 
             $field = new Select();
