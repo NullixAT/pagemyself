@@ -1,13 +1,8 @@
-:root {
-  --font-size: 16px;
-}
-
 .framelix-popup-customcolor {
-  box-shadow: none;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 20px;
 
   .framelix-popup-inner {
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 0 20px;
 
     .myself-pageblocks-navigation-navlist-logo {
       img {
@@ -74,7 +69,7 @@
   text-align: center;
 }
 
-html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] {
+.myself-themes-hello[data-navigation-layout-inner='vertical'] {
 
   .myself-themes-hello-sidebar {
     width: 300px;
@@ -120,8 +115,7 @@ html[data-screen-size='l'] .myself-themes-hello[data-navigation='left'] {
   }
 }
 
-html[data-screen-size='s'] .myself-themes-hello,
-.myself-themes-hello[data-navigation='top'] {
+.myself-themes-hello[data-navigation-layout-inner='horizontal'] {
   display: block;
   max-width: 100%;
 

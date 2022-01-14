@@ -199,6 +199,18 @@
         "Bearbeitungsmodus deaktivieren",
         "5017a"
     ],
+    "__myself_editor_icons__": [
+        "Icon einf\u00fcgen",
+        "cc689"
+    ],
+    "__myself_editor_icons_info__": [
+        "Du kannst die Gr\u00f6\u00dfe und Farbe einfach \u00fcber die Schriftfarbe\/Gr\u00f6\u00dfe einstellen.",
+        "ad008"
+    ],
+    "__myself_editor_icons_search__": [
+        "Suche nach internen Icon Bezeichnung (Sichtbar bei Mouseover)",
+        "88023"
+    ],
     "__myself_edittext_area__": [
         "Klicke hier um einen Text zu schreiben",
         "9c69e"

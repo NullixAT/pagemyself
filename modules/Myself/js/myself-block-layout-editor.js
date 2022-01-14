@@ -201,7 +201,7 @@ class MyselfBlockLayoutEditor {
             return
           }
         }
-        self.config = await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+        await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
           'pageId': MyselfEdit.framePageId,
           'action': 'insert-template',
           'id': preview.attr('data-id')

@@ -46,6 +46,4 @@ class Css extends BlockBase
         $field->mode = 'css';
         $form->addField($field);
     }
-
-
 }

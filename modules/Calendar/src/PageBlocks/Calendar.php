@@ -6,6 +6,7 @@ use Framelix\Calendar\Storable\Entry;
 use Framelix\Framelix\Date;
 use Framelix\Framelix\DateTime;
 use Framelix\Framelix\Form\Field\Color;
+use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Field\Text;
 use Framelix\Framelix\Form\Field\Textarea;
@@ -21,8 +22,6 @@ use Framelix\Framelix\Utils\ColorUtils;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\Storable\PageBlock;
-
-use function var_dump;
 
 /**
  * Calendar
@@ -297,6 +296,10 @@ class Calendar extends BlockBase
      */
     public function addSettingsFields(Form $form): void
     {
+        $field = new Html();
+        $field->name = 'info1';
+        $form->addField($field);
+
         $field = new Toggle();
         $field->name = 'global';
         $form->addField($field);

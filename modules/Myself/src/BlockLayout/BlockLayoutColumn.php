@@ -2,7 +2,6 @@
 
 namespace Framelix\Myself\BlockLayout;
 
-use Framelix\Myself\Storable\PageBlock;
 use JsonSerializable;
 
 /**
@@ -32,8 +31,7 @@ class BlockLayoutColumn implements JsonSerializable
     {
         $instance = new self();
         $instance->settings = BlockLayoutColumnSettings::create($data['settings'] ?? null);
-        // fetch and set id to valid if id still exist in database
-        $instance->pageBlockId = PageBlock::getById($data['pageBlockId'] ?? null)->id ?? 0;
+        $instance->pageBlockId = $data['pageBlockId'];
         return $instance;
     }
 

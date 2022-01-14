@@ -201,8 +201,8 @@ abstract class ThemeBase
         if ($settingValue) {
             $rowAttributes->set('data-background-position', $settingValue);
         }
-        $backgroundImage = MediaFile::getById($rowSettings->backgroundImage);
-        $backgroundVideo = MediaFile::getById($rowSettings->backgroundVideo);
+        $backgroundImage = MediaFile::getByIdOrDemo($rowSettings->backgroundImage);
+        $backgroundVideo = MediaFile::getByIdOrDemo($rowSettings->backgroundVideo);
         if ($backgroundImage && $backgroundImage->getImageData()) {
             $rowAttributes->set(
                 'data-background-image',
@@ -296,8 +296,8 @@ abstract class ThemeBase
         if ($settingValue) {
             $columnAttributes->setStyle('flex-grow', $settingValue);
         }
-        $backgroundImage = MediaFile::getById($columnSettings->backgroundImage);
-        $backgroundVideo = MediaFile::getById($columnSettings->backgroundVideo);
+        $backgroundImage = MediaFile::getByIdOrDemo($columnSettings->backgroundImage);
+        $backgroundVideo = MediaFile::getByIdOrDemo($columnSettings->backgroundVideo);
         if ($backgroundImage && $backgroundImage->getImageData()) {
             $columnAttributes->set('data-background-media', '1');
             $columnAttributes->set(

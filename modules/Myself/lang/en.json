@@ -389,6 +389,15 @@
     "__myself_pageblocks_navigation__": [
         "Navigation"
     ],
+    "__myself_editor_icons__" : [
+        "Insert Icon"
+    ],
+    "__myself_editor_icons_info__" : [
+        "You can simply modify size and color of inserted icons with font size and font color."
+    ],
+    "__myself_editor_icons_search__" : [
+        "Search by internal icon name (Visible on mouseover)"
+    ],
     "__myself_pageblocks_navigation_show_more__": [
         "Show more entries"
     ],

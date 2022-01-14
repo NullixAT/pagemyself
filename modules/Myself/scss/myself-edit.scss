@@ -3,6 +3,14 @@
   --myself-edit-frame-padding: 70px;
 }
 
+body {
+  font-family: var(--myself-edit-font);
+
+  input, textarea, select, button {
+    font-family: var(--myself-edit-font);
+  }
+}
+
 .myself-edit-frame {
   display: flex;
   padding: var(--myself-edit-frame-padding);
@@ -13,7 +21,6 @@
   background: #414645 linear-gradient(45deg, #262928 25%, #414645 25%, #414645 50%, #262928 50%, #262928 75%, #414645 75%, #414645 100%);
   background-size: 56.57px 56.57px;
   box-sizing: border-box;
-  font-family: var(--myself-edit-font);
 }
 
 html[data-mobile='1'] .myself-edit-frame-inner {
@@ -25,7 +32,6 @@ html[data-mobile='1'] .myself-edit-frame-inner {
   background: white;
   box-shadow: black 0 0 20px;
   display: flex;
-  font-family: var(--font-default);
 
   iframe {
     flex: 1 1 auto;
@@ -163,6 +169,10 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 
 .myself-edit-font {
   font-family: var(--myself-edit-font);
+
+  input, textarea, select, button {
+    font-family: var(--myself-edit-font);
+  }
 }
 
 .myself-tab-edited {

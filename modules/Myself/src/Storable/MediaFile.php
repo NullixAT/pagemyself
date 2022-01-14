@@ -13,7 +13,11 @@ use Framelix\Framelix\Utils\HtmlUtils;
 use Gumlet\ImageResize;
 
 use function array_reverse;
+use function basename;
+use function dirname;
+use function explode;
 use function file_exists;
+use function filesize;
 use function implode;
 use function in_array;
 use function strlen;
@@ -45,6 +49,51 @@ class MediaFile extends StorableFile
      * @var string|null
      */
     public ?string $folder = __DIR__ . "/../../public/uploads";
+
+    /**
+     * Get a simulated media file for a file on disk
+     * This media file has NO id and is not stored in database
+     * It is used only for temporary reasons
+     * @return MediaFile
+     */
+    public static function getSimulatedMediaFile(string $pathOnDisk): MediaFile
+    {
+        $mediaFile = new MediaFile();
+        $mediaFile->folder = dirname($pathOnDisk);
+        $mediaFile->relativePathOnDisk = basename($pathOnDisk);
+        $mediaFile->filename = basename($pathOnDisk);
+        $exp = explode(".", $mediaFile->filename);
+        $mediaFile->extension = end($exp);
+        $mediaFile->filesize = filesize($pathOnDisk);
+        if ($mediaFile->isImageFile()) {
+            require_once __DIR__ . "/../../vendor/php-image-resize/lib/ImageResize.php";
+            require_once __DIR__ . "/../../vendor/php-image-resize/lib/ImageResizeException.php";
+            $image = new ImageResize($pathOnDisk);
+            $metadata = [];
+            $metadata['imageDimensions']['original'] = [
+                'w' => $image->getSourceWidth(),
+                'h' => $image->getSourceHeight()
+            ];
+            $mediaFile->metadata = $metadata;
+        }
+        return $mediaFile;
+    }
+
+    /**
+     * Get media file by id or return a demo file if required
+     * @param string|int|null $id
+     * @return self|null
+     */
+    public static function getByIdOrDemo(mixed $id): ?self
+    {
+        if ($id === 'demo-image') {
+            return self::getSimulatedMediaFile(__DIR__ . "/../../public/img/demo-image.jpg");
+        }
+        if ($id === 'demo-video') {
+            return self::getSimulatedMediaFile(__DIR__ . "/../../public/img/demo-image.jpg");
+        }
+        return self::getById($id);
+    }
 
     /**
      * Get a flat list of all given files and folders recursively with all childs

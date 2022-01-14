@@ -26,8 +26,8 @@ class Slideshow extends BlockBase
      */
     public static function prepareTemplateSettingsForExport(array &$pageBlockSettings): void
     {
-        // remove files from template
-        unset($pageBlockSettings['files']);
+        // reset files with demo image
+        $pageBlockSettings['files'] = 'demo';
     }
 
     /**
@@ -69,7 +69,11 @@ class Slideshow extends BlockBase
      */
     public function getJavascriptConfig(): array
     {
-        $storables = Storable::getByIds($this->pageBlock->pageBlockSettings['files'] ?? []);
+        if (($this->pageBlock->pageBlockSettings['files'] ?? '') === 'demo') {
+            $storables = [MediaFile::getByIdOrDemo('demo-image')];
+        } else {
+            $storables = Storable::getByIds($this->pageBlock->pageBlockSettings['files'] ?? []);
+        }
         $imageData = MediaFile::getFlatListOfImageDataRecursive($storables);
         if ($this->pageBlock->pageBlockSettings['random'] ?? null) {
             shuffle($imageData);

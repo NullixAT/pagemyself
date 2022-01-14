@@ -33,15 +33,17 @@ class BlockLayoutRowSettings implements JsonSerializable
 
     /**
      * Background image media file id
-     * @var int|null
+     * Contains "demo" when should use a demo image
+     * @var int|string|null
      */
-    public ?int $backgroundImage = null;
+    public int|string|null $backgroundImage = null;
 
     /**
      * Background video media file id
-     * @var int|null
+     * Contains "demo" when should use a demo image
+     * @var int|string|null
      */
-    public ?int $backgroundVideo = null;
+    public int|string|null $backgroundVideo = null;
 
     /**
      * Background size

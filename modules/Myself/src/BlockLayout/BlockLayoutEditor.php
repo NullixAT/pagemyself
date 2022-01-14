@@ -58,11 +58,41 @@ class BlockLayoutEditor
         $rowId = $jsCall->parameters['rowId'] ?? null;
         $columnId = $jsCall->parameters['columnId'] ?? null;
         switch ($action) {
+            case 'icon-picker':
+                $listFile = __DIR__ . "/../../../Framelix/public/fonts/material-icons-list.txt";
+                $icons = file($listFile);
+                echo '<p class="framelix-alert">' . Lang::get('__myself_editor_icons_info__') . '</p>';
+                echo '<div><input type="search" class="framelix-form-field-input" placeholder="' . Lang::get(
+                        '__myself_editor_icons_search__'
+                    ) . '" data-continuous-search="1"></div>';
+                foreach ($icons as $icon) {
+                    ?>
+                    <div tabindex="0" class="framelix-space-click" data-name="<?= $icon ?>" title="<?= $icon ?>"
+                         data-insert-self="1"
+                         style="font-size: 24px; padding:10px; display: inline-block; cursor: pointer">
+                        <span class="material-icons"><?= trim($icon) ?></span>
+                    </div>
+                    <?
+                }
+
+                break;
             case 'save-template':
                 $blockLayout = BlockLayout::create(JsonUtils::decode(Request::getPost('blockLayout')));
                 $pageBlocks = [];
                 foreach ($blockLayout->rows as $row) {
+                    if ($row->settings->backgroundVideo) {
+                        $row->settings->backgroundVideo = 'demo-video';
+                    }
+                    if ($row->settings->backgroundImage) {
+                        $row->settings->backgroundImage = 'demo-image';
+                    }
                     foreach ($row->columns as $column) {
+                        if ($column->settings->backgroundVideo) {
+                            $column->settings->backgroundVideo = 'demo-video';
+                        }
+                        if ($column->settings->backgroundImage) {
+                            $column->settings->backgroundImage = 'demo-image';
+                        }
                         $pageBlocks[$column->pageBlockId] = $column->pageBlockId;
                     }
                 }
@@ -168,6 +198,14 @@ class BlockLayoutEditor
                                 $pageBlock->page = $page;
                                 $pageBlock->flagDraft = false;
                                 $pageBlock->pageBlockClass = $pageBlockData['pageBlockClass'];
+                                call_user_func_array(
+                                    [BlockBase::class, "prepareTemplateSettingsForImport"],
+                                    [&$pageBlockData['pageBlockSettings']]
+                                );
+                                call_user_func_array(
+                                    [$pageBlock->pageBlockClass, "prepareTemplateSettingsForImport"],
+                                    [&$pageBlockData['pageBlockSettings']]
+                                );
                                 $pageBlock->pageBlockSettings = $pageBlockData['pageBlockSettings'];
                                 $pageBlock->store();
                                 $column->pageBlockId = $pageBlock->id;
@@ -267,6 +305,7 @@ class BlockLayoutEditor
                     $column = $blockLayout->rows[$rowId]->columns[$columnId];
                     if ($column->pageBlockId) {
                         PageBlock::getById($column->pageBlockId)?->delete();
+                        $column->pageBlockId = 0;
                     }
                     unset($blockLayout->rows[$rowId]->columns[$columnId]);
                 }
@@ -702,7 +741,9 @@ class BlockLayoutEditor
             $field->addOption('contain', '__myself_pageblocks_backgroundsize_contain__');
             $field->addOption('cover', '__myself_pageblocks_backgroundsize_cover__');
             $field->defaultValue = 'cover';
-            $field->getVisibilityCondition()->notEmpty('columnSettings[backgroundImage]')->or()->notEmpty('columnSettings[backgroundVideo]');
+            $field->getVisibilityCondition()->notEmpty('columnSettings[backgroundImage]')->or()->notEmpty(
+                'columnSettings[backgroundVideo]'
+            );
             $form->addField($field);
 
             $field = new Select();
@@ -711,7 +752,9 @@ class BlockLayoutEditor
             $field->addOption('top', '__myself_align_top__');
             $field->addOption('center', '__myself_align_center__');
             $field->addOption('bottom', '__myself_align_bottom__');
-            $field->getVisibilityCondition()->notEmpty('columnSettings[backgroundImage]')->or()->notEmpty('columnSettings[backgroundVideo]');
+            $field->getVisibilityCondition()->notEmpty('columnSettings[backgroundImage]')->or()->notEmpty(
+                'columnSettings[backgroundVideo]'
+            );
             $form->addField($field);
 
             $field = new Select();

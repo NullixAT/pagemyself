@@ -25,8 +25,8 @@ class ImageGallery extends BlockBase
      */
     public static function prepareTemplateSettingsForExport(array &$pageBlockSettings): void
     {
-        // remove files from template
-        unset($pageBlockSettings['files']);
+        // reset files with demo image
+        $pageBlockSettings['files'] = 'demo';
     }
 
     /**
@@ -35,7 +35,11 @@ class ImageGallery extends BlockBase
      */
     public function showContent(): void
     {
-        $storables = Storable::getByIds($this->pageBlock->pageBlockSettings['files'] ?? []);
+        if (($this->pageBlock->pageBlockSettings['files'] ?? '') === 'demo') {
+            $storables = [MediaFile::getByIdOrDemo('demo-image')];
+        } else {
+            $storables = Storable::getByIds($this->pageBlock->pageBlockSettings['files'] ?? []);
+        }
         $files = MediaFile::getFlatListOfFilesRecursive($storables);
         $maxWidth = $this->pageBlock->pageBlockSettings['maxWidth'] ?? 200;
         foreach ($files as $file) {

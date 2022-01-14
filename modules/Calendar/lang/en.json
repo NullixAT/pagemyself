@@ -31,5 +31,8 @@
     ],
     "__calendar_pageblocks_calendar_mindate__": [
         "Min allowed month"
+    ],
+    "__calendar_pageblocks_calendar_info1__": [
+        "You can edit information of each calendar day by clicking on the day directly in the calender, while your are in edit mode."
     ]
 }

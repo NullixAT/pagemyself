@@ -47,12 +47,12 @@ class Hello extends ThemeBase
         }
         $htmlAttributes = new HtmlAttributes();
         $htmlAttributes->addClass($htmlClassBase);
-        $htmlAttributes->set('data-navigation', $navigation);
-
+        // this will be automatically set to Navigation::LAYOUT after checking available screen size with flip is enabled
+        $htmlAttributes->set('data-navigation-layout-inner', 'auto');
         /** @var Navigation $navBlock */
         $navBlock = $this->getFixedPageBlock('nav', Navigation::class)->getLayoutBlock();
         if ($navigation === 'left') {
-            $navBlock->layout = Navigation::LAYOUT_VERTICAL;
+            $navBlock->layout = Navigation::LAYOUT_VERTICAL_FLIP;
         } elseif ($navigation === 'top') {
             $navBlock->layout = Navigation::LAYOUT_HORIZONTAL;
         }

@@ -27,6 +27,8 @@ class Navigation extends BlockBase
 
     // no specific layout, just output a html list
     public const LAYOUT_NONE = "none";
+    // vertical layout but flips to horizontal on small screens
+    public const LAYOUT_VERTICAL_FLIP = "vertical-flip";
     // vertical layout
     public const LAYOUT_VERTICAL = "vertical";
     // horizontal layout in a single row and does show a "more" button for a popup when there is not enough space
@@ -138,7 +140,7 @@ class Navigation extends BlockBase
             }
             echo '</li>';
         }
-        if ($level === 0 && $this->layout === self::LAYOUT_HORIZONTAL) {
+        if ($level === 0) {
             echo '<li class="myself-pageblocks-navigation-more"><button aria-label="' . Lang::get(
                     '__myself_pageblocks_navigation_show_more__'
                 ) . '" class="framelix-button framelix-button-primary" data-icon-left="menu"></button></li>';

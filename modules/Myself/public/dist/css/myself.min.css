@@ -1,9 +1,7 @@
 :root {
-  --font-default: Arial, sans-serif;
-  --myself-jump-mark-offset: 20vh; }
-
-body {
-  font-family: var(--font-default); }
+  --font: Arial, sans-serif;
+  --font-size: 16px;
+  --line-height: 1.4; }
 
 .myself-tag,
 .myself-tag:any-link {

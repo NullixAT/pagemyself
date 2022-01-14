@@ -141,7 +141,7 @@ class MyselfEdit {
             callback(url)
           })
         },
-        toolbar: 'myself-save-text myself-cancel-text myself-jump-mark | undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect lineheight | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | table | forecolor backcolor removeformat | image media pageembed link | code',
+        toolbar: 'myself-save-text myself-cancel-text myself-jump-mark myself-icons | undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect lineheight | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | table | forecolor backcolor removeformat | image media pageembed link | code',
         powerpaste_word_import: 'clean',
         powerpaste_html_import: 'clean',
         setup: function (editor) {
@@ -151,6 +151,7 @@ class MyselfEdit {
             'originalContent': originalContent,
             'pageBlockEditUrl': topFrame.eval('MyselfEdit').config.pageBlockEditUrl
           }
+          editor.MyselfEdit = MyselfEdit
         }
       })
     })
