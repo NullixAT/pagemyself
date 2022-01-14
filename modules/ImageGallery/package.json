@@ -1,7 +1,7 @@
 {
   "name": "pagemyself-imagegallery",
   "description": "A simple built-in image gallery module for PageMyself.",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "framelix": {
     "module": "ImageGallery"
   }
