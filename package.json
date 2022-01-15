@@ -23,13 +23,8 @@
   "framelix": {
     "isRootPackage": true,
     "builtInModules": [
-      "Calendar",
-      "ContactForm",
       "Framelix",
-      "Guestbook",
-      "ImageGallery",
-      "Myself",
-      "Slideshow"
+      "Myself"
     ]
   }
 }
