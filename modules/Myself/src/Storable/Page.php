@@ -2,10 +2,12 @@
 
 namespace Framelix\Myself\Storable;
 
+use Framelix\Framelix\Config;
 use Framelix\Framelix\Db\StorableSchema;
 use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\View;
 use Framelix\Myself\BlockLayout\BlockLayout;
 use Framelix\Myself\LayoutUtils;
@@ -110,7 +112,8 @@ class Page extends StorableExtended
     public function getThemeClass(): string
     {
         $className = $this->themeClass ?? Hello::class;
-        if (!class_exists($className)) {
+        $module = ClassUtils::getModuleForClass($className);
+        if (!(Config::$loadedModules[$module] ?? null) || !class_exists($className)) {
             $className = Hello::class;
         }
         return $className;

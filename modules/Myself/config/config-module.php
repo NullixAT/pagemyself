@@ -9,15 +9,9 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
+        "modulesCallable" : "\\Framelix\\Myself\\Utils\\ConfigLoader::getModules",
         "backendStartUrl" : "/backend",
         "setupDoneRedirect": "/backend",
-        "modules": {
-            "Calendar": "Calendar",
-            "ContactForm": "ContactForm",
-            "Guestbook": "Guestbook",
-            "ImageGallery": "ImageGallery",
-            "Slideshow": "Slideshow"
-        },
         "userRoles": {
             "content": "__myself_user_role_content__",
             "nav": "__myself_user_role_nav__",

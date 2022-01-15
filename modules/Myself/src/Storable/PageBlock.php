@@ -2,8 +2,10 @@
 
 namespace Framelix\Myself\Storable;
 
+use Framelix\Framelix\Config;
 use Framelix\Framelix\Db\StorableSchema;
 use Framelix\Framelix\Storable\StorableExtended;
+use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Myself\PageBlocks\BlockBase;
 
 use function class_exists;
@@ -38,6 +40,10 @@ class PageBlock extends StorableExtended
     public function getLayoutBlock(): ?BlockBase
     {
         if (!$this->pageBlockClass || !class_exists($this->pageBlockClass)) {
+            return null;
+        }
+        $module = ClassUtils::getModuleForClass($this->pageBlockClass);
+        if (!(Config::$loadedModules[$module] ?? null)) {
             return null;
         }
         $instance = new $this->pageBlockClass($this);
