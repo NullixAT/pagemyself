@@ -1,1 +1,0 @@
-*/5 * * * * /opt/bitnami/php/bin/php /pagemyself/modules/Framelix/console.php cron >> /var/log/cron.log 2>&1

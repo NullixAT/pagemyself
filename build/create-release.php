@@ -1,9 +1,30 @@
 <?php
 
-use Framelix\Framelix\Utils\Zip;
+$packageJson = json_decode(file_get_contents(__DIR__ . "/../package.json"), true);
+$changelogLines = file(__DIR__ . "/../CHANGELOG.md");
+$logEntries = [];
+$valid = false;
+$version = $packageJson['version'];
 
-const FRAMELIX_MODULE = "Framelix";
-require_once __DIR__ . "/../modules/Framelix/public/index.php";
+foreach ($changelogLines as $line) {
+    if (str_starts_with($line, "# $version")) {
+        $valid = true;
+        continue;
+    }
+    if ($valid && str_starts_with($line, "#")) {
+        break;
+    }
+    if ($valid) {
+        $logEntries[] = $line;
+    }
+}
+
+if (!$logEntries) {
+    echo "Missing CHANGELOG.md entries for version $version";
+    exit(1);
+}
+
+file_put_contents(__DIR__ . "/dist/release-log.md", trim(implode("\n", $logEntries)));
 
 // running release script from framelix to build default release package
 $framelixBuildFolder = __DIR__ . "/../modules/Framelix/build";
@@ -22,20 +43,3 @@ foreach ($files as $file) {
         break;
     }
 }
-
-// build docker release file
-$dockerZip = __DIR__ . "/dist/" . substr($releaseFilename, 0, -4) . "-docker.zip";
-$dockerFolder = __DIR__ . "/../docker";
-$dockerZipFiles = [
-    "app/index.php" => $dockerFolder . "/app/index.php",
-    "db" => $dockerFolder . "/db",
-    "cronjobs" => $dockerFolder . "/cronjobs",
-    "docker-compose.yml" => $dockerFolder . "/docker-compose.yml",
-    "Dockerfile" => $dockerFolder . "/Dockerfile",
-    ".env" => $dockerFolder . "/env-default",
-    "nginx-config.conf" => $dockerFolder . "/nginx-config.conf",
-    "php.ini" => $dockerFolder . "/php.ini",
-    "php-fpm.conf" => $dockerFolder . "/php-fpm.conf",
-    "php-fpm-entrypoint.sh" => $dockerFolder . "/php-fpm-entrypoint.sh"
-];
-Zip::createZip($dockerZip, $dockerZipFiles);

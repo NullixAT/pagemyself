@@ -1,3 +1,5 @@
-# 0.1.2 - 02. Jan 2022
+# 0.3.0
+- second test release
 
-- first alpha release
+# 0.1.2
+- first test release
