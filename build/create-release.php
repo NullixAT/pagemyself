@@ -25,7 +25,7 @@ foreach ($files as $file) {
 
 // build docker release file
 $dockerZip = __DIR__ . "/dist/" . substr($releaseFilename, 0, -4) . "-docker.zip";
-$dockerFolder = __DIR__ . "/../pagemyself_docker";
+$dockerFolder = __DIR__ . "/../docker";
 $dockerZipFiles = [
     "app/index.php" => $dockerFolder . "/app/index.php",
     "db" => $dockerFolder . "/db",
