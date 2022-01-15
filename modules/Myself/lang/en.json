@@ -1,4 +1,10 @@
 {
+    "__myself_view_backend_modules_index__" : [
+        "Modules and Themes"
+    ],
+    "__myself_view_backend_modules_info__" : [
+        "Here you can add new page-blocks, themes and other functionality from the official module store."
+    ],
     "__myself_align__": [
         "Alignment"
     ],

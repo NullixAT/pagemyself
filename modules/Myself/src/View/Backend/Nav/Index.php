@@ -24,7 +24,7 @@ class Index extends View
      * Access role
      * @var string|bool
      */
-    protected string|bool $accessRole = "admin,nav";
+    protected string|bool $accessRole = "admin,content";
 
     /**
      * The storable

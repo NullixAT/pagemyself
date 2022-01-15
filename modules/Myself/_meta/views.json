@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|4145426383",
+    "directoryListHash": "1|3659235597",
     "views": {
         "Framelix\\Myself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -10,8 +10,17 @@
             "pageTitle": "{classLangKey}",
             "url": "\/backend"
         },
+        "Framelix\\Myself\\View\\Backend\\Modules\\Index": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "depth": 3,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/modules"
+        },
         "Framelix\\Myself\\View\\Backend\\Nav\\Index": {
-            "accessRole": "admin,nav",
+            "accessRole": "admin,content",
             "customUrl": null,
             "devModeOnly": false,
             "multilanguage": true,
@@ -20,7 +29,7 @@
             "url": "\/backend\/nav"
         },
         "Framelix\\Myself\\View\\Backend\\Page\\Index": {
-            "accessRole": "admin,nav",
+            "accessRole": "admin,content",
             "customUrl": null,
             "devModeOnly": false,
             "multilanguage": true,

@@ -41,6 +41,7 @@ class Sidebar extends \Framelix\Framelix\Backend\Sidebar
                 $this->addLink($viewClassIndex);
             }
         }
+        $this->addLink(\Framelix\Myself\View\Backend\Modules\Index::class, icon: "view_module");
         $this->showHtmlForLinkData();
     }
 }

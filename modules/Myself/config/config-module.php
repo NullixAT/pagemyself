@@ -13,9 +13,7 @@ if (!defined("FRAMELIX_MODULE")) {
         "backendStartUrl" : "/backend",
         "setupDoneRedirect": "/backend",
         "userRoles": {
-            "content": "__myself_user_role_content__",
-            "nav": "__myself_user_role_nav__",
-            "page": "__myself_user_role_page__"
+            "content": "__myself_user_role_content__"
         },
         "backendLogo": "img\/logo-colored-white.svg",
         "backendIcon": "img\/logo-squared.svg",
