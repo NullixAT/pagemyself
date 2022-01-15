@@ -17,17 +17,17 @@
     "__myself_align_right__": [
         "Right"
     ],
-    "__myself_pageblocks_backgroundposition__" : [
-        "Background Position"
-    ],
     "__myself_align_top__": [
         "Top"
     ],
-    "__myself_blocklayout_column_settings_title_pageblock__": [
-        "Specific Block Settings"
+    "__myself_backend_dashboard_welcome1__": [
+        "Welcome to the PageMyself Backend. Here you can create and edit your pages and navigation entries, as well as doing all system relevant configuration and app updates.<br\/>Please check the sidebar on the left, where all possible actions are available.<br\/>PS: You can open this welcome page everytime, by clicking the logo on the sidebar."
     ],
-    "__myself_blocklayout_column_remove__": [
-        "Are your sure to remove this column? This cannot be undone!"
+    "__myself_backend_dashboard_welcome2__": [
+        "If you are completely new to PageMyself, we have prepared a short welcome video (English only) for you. This give you an overview of the capabilities of the backend and generally everything in PageMyself."
+    ],
+    "__myself_backend_dashboard_welcome__": [
+        "Welcome Dashboard"
     ],
     "__myself_blocklayout_add_column__": [
         "Create new column"
@@ -35,14 +35,14 @@
     "__myself_blocklayout_add_row__": [
         "Create new row"
     ],
+    "__myself_blocklayout_column_remove__": [
+        "Are your sure to remove this column? This cannot be undone!"
+    ],
+    "__myself_blocklayout_column_settings_title_pageblock__": [
+        "Specific Block Settings"
+    ],
     "__myself_blocklayout_columnsetting_fadein__": [
         "Fade In Effect"
-    ],
-    "__myself_blocklayout_columnsetting_fadeout__": [
-        "Fade Out"
-    ],
-    "__myself_blocklayout_columnsetting_fadeout_desc__": [
-        "It will fade out when getting invisible on screen, to later be able to fade in again."
     ],
     "__myself_blocklayout_columnsetting_fadein_blur__": [
         "Blur"
@@ -55,6 +55,12 @@
     ],
     "__myself_blocklayout_columnsetting_fadein_scale__": [
         "Scale up"
+    ],
+    "__myself_blocklayout_columnsetting_fadeout__": [
+        "Fade Out"
+    ],
+    "__myself_blocklayout_columnsetting_fadeout_desc__": [
+        "It will fade out when getting invisible on screen, to later be able to fade in again."
     ],
     "__myself_blocklayout_columnsetting_padding__": [
         "Padding in px"
@@ -140,20 +146,17 @@
     "__myself_column_align__": [
         "Column Alignment"
     ],
-    "__myself_jump_mark__": [
-        "Jump Mark"
-    ],
-    "__myself_jump_mark_name__": [
-        "Name your jumpmark"
-    ],
-    "__myself_jump_mark_desc__": [
-        "Insert a jump mark where you can link to it later. This allow in-page anchors to jump to a specific text mark."
-    ],
-    "__myself_jump_mark_linkto__": [
-        "Link to this jump mark with: {0}<br/>You can link to this in the navigation or directly in any texteditor with a normal link."
-    ],
     "__myself_disable_editmode__": [
         "Disable edit mode"
+    ],
+    "__myself_editor_icons__": [
+        "Insert Icon"
+    ],
+    "__myself_editor_icons_info__": [
+        "You can simply modify size and color of inserted icons with font size and font color."
+    ],
+    "__myself_editor_icons_search__": [
+        "Search by internal icon name (Visible on mouseover)"
     ],
     "__myself_edittext_area__": [
         "Click here to add a text"
@@ -176,20 +179,23 @@
     "__myself_goto_backend__": [
         "Goto backend"
     ],
-    "__myself_backend_dashboard_welcome__": [
-        "Welcome Dashboard"
-    ],
-    "__myself_backend_dashboard_welcome1__": [
-        "Welcome to the PageMyself Backend. Here you can create and edit your pages and navigation entries, as well as doing all system relevant configuration and app updates.<br/>Please check the sidebar on the left, where all possible actions are available.<br/>PS: You can open this welcome page everytime, by clicking the logo on the sidebar."
-    ],
-    "__myself_backend_dashboard_welcome2__": [
-        "If you are completely new to PageMyself, we have prepared a short welcome video (English only) for you. This give you an overview of the capabilities of the backend and generally everything in PageMyself."
-    ],
     "__myself_hide_editmode_container__": [
         "Hide this overlay for the moment"
     ],
     "__myself_info_use_page_templates_empty_page__": [
         "Here you have a fresh new page. You can start creating your very own page layout with the 'Change layout of this page' button at the right."
+    ],
+    "__myself_jump_mark__": [
+        "Jump Mark"
+    ],
+    "__myself_jump_mark_desc__": [
+        "Insert a jump mark where you can link to it later. This allow in-page anchors to jump to a specific text mark."
+    ],
+    "__myself_jump_mark_linkto__": [
+        "Link to this jump mark with: {0}<br\/>You can link to this in the navigation or directly in any texteditor with a normal link."
+    ],
+    "__myself_jump_mark_name__": [
+        "Name your jumpmark"
     ],
     "__myself_layout_exception__": [
         "Sorry, there is an error on this part of the website. Please come back later or contact the site administrator."
@@ -314,6 +320,9 @@
     "__myself_pageblocks_backgroundimage__": [
         "Background image"
     ],
+    "__myself_pageblocks_backgroundposition__": [
+        "Background Position"
+    ],
     "__myself_pageblocks_backgroundsize__": [
         "Background Size"
     ],
@@ -389,18 +398,6 @@
     "__myself_pageblocks_navigation__": [
         "Navigation"
     ],
-    "__myself_editor_icons__" : [
-        "Insert Icon"
-    ],
-    "__myself_editor_icons_info__" : [
-        "You can simply modify size and color of inserted icons with font size and font color."
-    ],
-    "__myself_editor_icons_search__" : [
-        "Search by internal icon name (Visible on mouseover)"
-    ],
-    "__myself_pageblocks_navigation_show_more__": [
-        "Show more entries"
-    ],
     "__myself_pageblocks_navigation_allowedentries__": [
         "Filter visible entries"
     ],
@@ -415,6 +412,9 @@
     ],
     "__myself_pageblocks_navigation_logo__": [
         "Your Logo"
+    ],
+    "__myself_pageblocks_navigation_show_more__": [
+        "Show more entries"
     ],
     "__myself_pageblocks_pageblock_setting_override__": [
         "This setting can be overriden by actual used page block."
@@ -626,9 +626,6 @@
     "__myself_view_backend_nav_arrange__": [
         "Sort, Edit and arrange entries"
     ],
-    "__myself_view_backend_nav_delete_warn__": [
-        "Are you sure? This will delete all childs as well and this action cannot be undone!"
-    ],
     "__myself_view_backend_nav_arrange_drag_move__": [
         "Hold any of this buttons and drag into another area"
     ],
@@ -643,6 +640,9 @@
     ],
     "__myself_view_backend_nav_arrange_many_levels__": [
         "It is not recommended to have more than 2 levels."
+    ],
+    "__myself_view_backend_nav_delete_warn__": [
+        "Are you sure? This will delete all childs as well and this action cannot be undone!"
     ],
     "__myself_view_backend_nav_edit__": [
         "Create navigation \/ Edit navigation"
