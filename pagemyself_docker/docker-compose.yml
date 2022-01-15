@@ -14,7 +14,7 @@ services:
     networks:
       - pagemyself
     ports:
-      - "8080:80"
+      - "${WEBPORT}:80"
     volumes:
       - ./app:/pagemyself
       - ./nginx-config.conf:/opt/bitnami/nginx/conf/server_blocks/default.conf
