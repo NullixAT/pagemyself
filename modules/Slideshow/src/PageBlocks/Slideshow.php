@@ -50,13 +50,13 @@ class Slideshow extends BlockBase
                         data-icon-left="chevron_right"></button>
                 <div class="slideshow-pageblocks-slideshow-image"></div>
             </div>
-            <?
+            <?php
             if ($this->pageBlock->pageBlockSettings['showImageInfo'] ?? null) {
                 ?>
                 <div class="slideshow-pageblocks-slideshow-info">
                     <div class="slideshow-pageblocks-slideshow-title"></div>
                 </div>
-                <?
+                <?php
             }
             ?>
         </div>

@@ -241,7 +241,7 @@ class MediaBrowser extends Field
             <div class="myself-media-browser-entry-icon myself-media-browser-entry-load-url"><span
                         class="material-icons"><?= $parentFolder ? 'snippet_folder' : 'folder' ?></span></div>
             <div class="myself-media-browser-entry-label">
-                <?
+                <?php
                 if ($parentFolder) {
                     echo Lang::get('__myself_mediabrowser_parent_folder__');
                 } else {
@@ -249,7 +249,7 @@ class MediaBrowser extends Field
                 }
                 ?>
             </div>
-            <?
+            <?php
             if (!$parentFolder) {
                 ?>
                 <button class="framelix-button myself-media-browser-entry-options-icon"
@@ -268,7 +268,7 @@ class MediaBrowser extends Field
                 </div>
                 <input class="myself-media-browser-entry-select" type="checkbox" <?= $selected ? 'checked' : '' ?>
                        title="__myself_mediabrowser_select_entry__">
-                <?
+                <?php
             } ?>
         </div>
         <?php
@@ -303,7 +303,7 @@ class MediaBrowser extends Field
         }
         ?>
         <div <?= $attributes ?>>
-            <?
+            <?php
             if (!$file->getPath()) {
                 echo '<div class="myself-media-browser-entry-icon" title="__myself_file_not_exist__"><span class="material-icons">do_not_disturb</span></div>';
             } elseif ($file->isImageFile() && $file->getSmallestThumbPath()) {
@@ -316,7 +316,7 @@ class MediaBrowser extends Field
             }
             ?>
             <div class="myself-media-browser-entry-label">
-                <?
+                <?php
                 echo HtmlUtils::escape($file->title ?? $file->filename ?? '');
                 ?>
             </div>

@@ -37,13 +37,13 @@ class LayoutUtils
         ?>
         <div class="framelix-alert framelix-alert-error">
             <?= Lang::get('__myself_layout_exception__') ?>
-            <?
+            <?php
             if (self::isEditAllowed()) {
                 ?>
                 <div class="framelix-spacer"></div>
                 <div style="color:red;"><?= $e->getMessage() ?></div>
                 <pre><?= HtmlUtils::escape($e->getTraceAsString()) ?></pre>
-                <?
+                <?php
             }
             ?>
         </div>

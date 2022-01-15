@@ -144,31 +144,31 @@ class Guestbook extends BlockBase
             <div class="guestbook-pageblocks-guestbook-entry">
                 <div class="guestbook-pageblocks-guestbook-entry-time"><?= $entry->createTime->getRawTextString(
                     ) ?></div>
-                <?
+                <?php
                 if ($entry->email && LayoutUtils::isEditAllowed()) {
                     ?>
                     <div class="guestbook-pageblocks-guestbook-entry-email myself-show-if-editmode"
                          title="__guestbook_email_hidden__">
                         <?= HtmlUtils::escape($entry->email) ?>
                     </div>
-                    <?
+                    <?php
                 }
                 if ($entry->name) {
                     ?>
                     <div class="guestbook-pageblocks-guestbook-entry-name">
-                        <?
+                        <?php
                         echo HtmlUtils::escape($entry);
                         ?>
                     </div>
-                    <?
+                    <?php
                 }
                 ?>
                 <div class="guestbook-pageblocks-guestbook-entry-message">
-                    <?
+                    <?php
                     echo HtmlUtils::escape($entry, true);
                     ?>
                 </div>
-                <?
+                <?php
 
                 if (LayoutUtils::isEditAllowed()) {
                     $deleteUrl = JsCall::getCallUrl(__CLASS__, 'delete', ['id' => $entry]);
@@ -179,25 +179,25 @@ class Guestbook extends BlockBase
                                 data-icon-left="clear" data-delete-url="<?= $deleteUrl ?>"><?= Lang::get(
                                 '__guestbook_delete__'
                             ) ?></button>
-                        <?
+                        <?php
                         if (!$entry->flagValidated) {
                             ?>
                             <button class="framelix-button framelix-button-success framelix-button-small"
                                     data-icon-left="check" data-showhide-url="<?= $showHideUrl ?>"><?= Lang::get(
                                     '__guestbook_show__'
                                 ) ?></button>
-                            <?
+                            <?php
                         } else {
                             ?>
                             <button class="framelix-button framelix-button-small"
                                     data-icon-left="hide_source" data-showhide-url="<?= $showHideUrl ?>"><?= Lang::get(
                                     '__guestbook_hide__'
                                 ) ?></button>
-                            <?
+                            <?php
                         }
                         ?>
                     </div>
-                    <?
+                    <?php
                 }
                 ?>
             </div>

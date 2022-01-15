@@ -277,7 +277,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                     <iframe src="<?= Url::create()->removeParameter('editMode') ?>"></iframe>
                 </div>
             </div>
-            <?
+            <?php
         } elseif (
             ($this->page->password ?? null)
             && !Session::get('myself-page-password-' . md5($this->page->password))
@@ -302,7 +302,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         <script>
           Framelix.initLate()
         </script>
-        <?
+        <?php
         if (!$this->editMode) {
             $pageJs = \Framelix\Myself\Storable\WebsiteSettings::get('pagejs');
             if ($pageJs) {

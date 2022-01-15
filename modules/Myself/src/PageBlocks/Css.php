@@ -31,7 +31,7 @@ class Css extends BlockBase
         }
         ?>
         <script>$('head').append($('<style>').html(<?=JsonUtils::encode($css)?>))</script>
-        <?
+        <?php
     }
 
     /**

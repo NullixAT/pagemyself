@@ -31,13 +31,13 @@ class Javascript extends BlockBase
         ?>
         <script>
           try {
-              <? echo $js ?>
+              <?php echo $js ?>
           } catch (e) {
             console.error("ERROR on running page block #<?=$this->pageBlock?>")
             console.error(e)
           }
         </script>
-        <?
+        <?php
     }
 
     /**

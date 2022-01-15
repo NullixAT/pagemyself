@@ -310,7 +310,7 @@ class Index extends View
             })
           })()
         </script>
-        <?
+        <?php
     }
 
     /**

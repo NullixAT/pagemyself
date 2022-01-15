@@ -110,7 +110,7 @@ class PageMyselfAbout extends LayoutView
         <script>
           Framelix.initLate()
         </script>
-        <?
+        <?php
         echo '</body></html>';
         Buffer::flush();
     }

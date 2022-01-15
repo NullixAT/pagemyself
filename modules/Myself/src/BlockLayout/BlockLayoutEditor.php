@@ -72,7 +72,7 @@ class BlockLayoutEditor
                          style="font-size: 24px; padding:10px; display: inline-block; cursor: pointer">
                         <span class="material-icons"><?= trim($icon) ?></span>
                     </div>
-                    <?
+                    <?php
                 }
 
                 break;
@@ -182,7 +182,7 @@ class BlockLayoutEditor
                     })
                   })()
                 </script>
-                <?
+                <?php
                 break;
             case 'insert-template':
                 $templates = $page->getThemeBlock()->getTemplates();

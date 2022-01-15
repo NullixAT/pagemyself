@@ -162,7 +162,7 @@ class Calendar extends BlockBase
         }
         ?>
         <div class="calendar-pageblocks-calendar-month-select">
-            <?
+            <?php
             if ($date->getSortableValue() >= $minDate->getSortableValue()) {
                 ?>
                 <a href="<?= Url::getBrowserUrl()->setParameter(
@@ -173,11 +173,11 @@ class Calendar extends BlockBase
                     'gettable',
                     ['pageBlockId' => $pageBlock, 'date' => $prevMonth]
                 ) ?>" class="framelix-button framelix-button-trans">«</a>
-                <?
+                <?php
             }
             ?>
             <strong><?= $date->dateTime->getMonthNameAndYear() ?></strong>
-            <?
+            <?php
             if ($date->getSortableValue() <= $maxDate->getSortableValue()) {
                 ?>
                 <a href="<?= Url::getBrowserUrl()->setParameter(
@@ -188,7 +188,7 @@ class Calendar extends BlockBase
                     'gettable',
                     ['pageBlockId' => $pageBlock, 'date' => $nextMonth]
                 ) ?>" class="framelix-button framelix-button-trans">»</a>
-                <?
+                <?php
             }
             ?>
         </div>
@@ -282,7 +282,7 @@ class Calendar extends BlockBase
         $this->date->dateTime->setDayOfMonth(1);
         ?>
         <div class="calendar-pageblocks-calendar-table">
-            <?
+            <?php
             self::showTable($this->pageBlock, $this->date);
             ?>
         </div>
