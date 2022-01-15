@@ -34,6 +34,7 @@ $dockerZipFiles = [
     "Dockerfile" => $dockerFolder . "/Dockerfile",
     ".env" => $dockerFolder . "/env-default",
     "nginx-config.conf" => $dockerFolder . "/nginx-config.conf",
+    "php.ini" => $dockerFolder . "/php.ini",
     "php-fpm.conf" => $dockerFolder . "/php-fpm.conf",
     "php-fpm-entrypoint.sh" => $dockerFolder . "/php-fpm-entrypoint.sh"
 ];
