@@ -1,8 +1,0 @@
-{
-  "name": "pagemyself-calendar",
-  "description": "A simple built-in calendar module for PageMyself.",
-  "version": "0.3.0",
-  "framelix": {
-    "module": "Calendar"
-  }
-}
