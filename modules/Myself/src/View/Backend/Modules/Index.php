@@ -125,9 +125,11 @@ class Index extends View
                         if (!$moduleData) {
                             continue;
                         }
-                        $moduleData['localModuleData'] = $packageJsonData;
                         $moduleData['module'] = $folder;
                         $moduleData['version'] = $packageJsonData['version'];
+                        if (isset($packageJsonData['homepage'])) {
+                            $moduleData['homepage'] = $packageJsonData['homepage'];
+                        }
                         $moduleData['lang'][Lang::$lang]['name'] = Lang::get(
                             '__' . $moduleLower . "_module_name__"
                         );
