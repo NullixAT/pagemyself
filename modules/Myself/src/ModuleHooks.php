@@ -3,6 +3,7 @@
 namespace Framelix\Myself;
 
 use Framelix\Framelix\Config;
+use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\View\Index;
 
 use function call_user_func_array;
@@ -46,11 +47,53 @@ class ModuleHooks
     /**
      * Executed before the pages content is shown
      * Use this to add metadata for example
-     * Do not do jobs here the can impact performance as it is done on every page request
+     * Do not do jobs here that can impact performance as it is done on every page request
      * @param Index $view
      * @return void
      */
     public static function beforeViewShowContent(Index $view): void
+    {
+    }
+
+    /**
+     * Executed right after <body> tag has been opened
+     * Use this to add html into that position
+     * Do not do jobs here that can impact performance as it is done on every page request
+     * @return void
+     */
+    public static function afterBodyTagOpened(): void
+    {
+    }
+
+    /**
+     * Executed right before </body> tag is closed
+     * Use this to add html into that position
+     * Do not do jobs here that can impact performance as it is done on every page request
+     * @return void
+     */
+    public static function beforeBodyTagClosed(): void
+    {
+    }
+
+    /**
+     * Executed right before the <div> tag of the given pageblock is opened
+     * Use this to add html into that position
+     * Do not do jobs here that can impact performance as it is done on every page request
+     * @param BlockBase $layoutBlock
+     * @return void
+     */
+    public static function beforePageBlockTagOpened(BlockBase $layoutBlock): void
+    {
+    }
+
+    /**
+     * Executed right after the <div> tag of the given pageblock is closed
+     * Use this to add html into that position
+     * Do not do jobs here that can impact performance as it is done on every page request
+     * @param BlockBase $layoutBlock
+     * @return void
+     */
+    public static function afterPageBlockTagClosed(BlockBase $layoutBlock): void
     {
     }
 }

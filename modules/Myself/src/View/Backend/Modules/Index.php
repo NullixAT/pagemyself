@@ -32,8 +32,6 @@ use function scandir;
 use function strtolower;
 use function unlink;
 
-use function var_dump;
-
 use const FRAMELIX_APP_ROOT;
 
 /**

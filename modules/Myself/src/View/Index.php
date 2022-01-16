@@ -235,6 +235,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         echo '<html lang="' . ($this->page?->lang ?? Lang::$lang) . '" ' . $htmlAttributes . ' data-color-scheme-force="light">';
         $this->showDefaultPageStartHtml();
         echo '<body>';
+        ModuleHooks::callHook('afterBodyTagOpened', [$this]);
         echo '<div class="framelix-page">';
         if ($this->editMode) {
             ?>
@@ -311,6 +312,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 echo '<script>try{' . $pageJs . '}catch (e){console.error(e)}</script>';
             }
         }
+        ModuleHooks::callHook('beforeBodyTagClosed', [$this]);
         echo '</body></html>';
         Buffer::flush();
     }

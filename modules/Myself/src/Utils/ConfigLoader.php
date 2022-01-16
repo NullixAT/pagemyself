@@ -8,8 +8,6 @@ use Framelix\Myself\Storable\WebsiteSettings;
 use function explode;
 use function file_exists;
 
-use function var_dump;
-
 use const FRAMELIX_APP_ROOT;
 
 /**

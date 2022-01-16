@@ -41,7 +41,6 @@ use function reset;
 use function strip_tags;
 use function substr;
 use function unlink;
-use function var_dump;
 
 /**
  * BlockLayoutEditor

@@ -9,6 +9,7 @@ use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Myself\LayoutUtils;
+use Framelix\Myself\ModuleHooks;
 use Framelix\Myself\Storable\PageBlock;
 use Throwable;
 
@@ -131,6 +132,7 @@ abstract class BlockBase
      */
     final public function showLayout(): void
     {
+        ModuleHooks::callHook('beforePageBlockTagOpened', [$this]);
         $this->beforeShowLayout();
         echo '<div ' . $this->htmlAttributes . '>';
         try {
@@ -157,6 +159,7 @@ abstract class BlockBase
             LayoutUtils::handleThrowable($e);
         }
         echo '</div>';
+        ModuleHooks::callHook('afterPageBlockTagClosed', [$this]);
     }
 
     /**
