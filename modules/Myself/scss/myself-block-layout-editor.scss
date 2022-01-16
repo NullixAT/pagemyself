@@ -16,7 +16,6 @@
 .myself-block-layout-row {
   margin-bottom: 5px;
   flex-wrap: nowrap;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   border-radius: 20px;
 
   button.framelix-button {
@@ -24,15 +23,34 @@
   }
 
   &.myself-block-layout-row-fixed {
-    border: 2px dashed #ccc;
+    .myself-block-layout-row-column{
+      background: #d6e7e4;
+    }
   }
 }
 
 .myself-block-layout-row-column {
-  background: #ddd;
+  background: #eee;
   padding: 10px;
   border-radius: 20px;
   display: flex;
+
+  &[data-status*='classnotexist'] {
+    background: #f1e4db;
+  }
+
+  &[data-status*='draft'] {
+    background: #f1dbdb;
+  }
+
+  &[data-empty='1'] {
+    background: #f5f5f5;
+    cursor: pointer;
+
+    &:hover {
+      background: #e5e5e5;
+    }
+  }
 
   &[data-empty='1'] {
     background: #f5f5f5;

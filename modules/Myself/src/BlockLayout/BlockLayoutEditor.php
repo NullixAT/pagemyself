@@ -226,14 +226,21 @@ class BlockLayoutEditor
                 $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
                     $pageBlockLayout = $pageBlock->getLayoutBlock();
-                    if (!$pageBlockLayout) {
-                        continue;
+                    $title = Lang::get('__myself_blocklayout_class_not_exist__', [$pageBlock->pageBlockClass]);
+                    $status = [];
+                    if ($pageBlockLayout) {
+                        if ($pageBlock->flagDraft) {
+                            $status[] = 'draft';
+                        }
+                        $title = strip_tags(
+                            HtmlUtils::unescape(Lang::get($pageBlockLayout->getBlockLayoutLabel()))
+                        );
+                    } else {
+                        $status[] = 'classnotexist';
                     }
-                    $title = strip_tags(
-                        HtmlUtils::unescape(Lang::get($pageBlockLayout->getBlockLayoutLabel()))
-                    );
                     $title = trim($title);
                     $allPageBlocks[$pageBlock->id] = [
+                        'status' => $status,
                         'flagDraft' => $pageBlock->flagDraft,
                         'fixedPlacement' => $pageBlock->fixedPlacement,
                         'blockName' => ClassUtils::getLangKey($pageBlock->pageBlockClass),

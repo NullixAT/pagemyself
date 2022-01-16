@@ -47,6 +47,10 @@
         "Neue Zeile erzeugen",
         "8449e"
     ],
+    "__myself_blocklayout_class_not_exist__": [
+        "Dieses Block Layout existiert nicht mehr ({0}). Das kann passieren wenn du verwendete Module deaktivierst. Dieser Block ist unsichtbar.",
+        "41c9a"
+    ],
     "__myself_blocklayout_column_remove__": [
         "Bist du sicher das du diese Spalte entfernen willst? Das kann nicht r\u00fcckg\u00e4ngig gemacht werden",
         "cb977"

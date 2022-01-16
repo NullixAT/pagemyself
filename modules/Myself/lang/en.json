@@ -35,6 +35,9 @@
     "__myself_blocklayout_add_row__": [
         "Create new row"
     ],
+    "__myself_blocklayout_class_not_exist__": [
+        "This block uses a block layout that doesn't exist anymore ({0}). This can happen when you deactivate modules. The block is invisible."
+    ],
     "__myself_blocklayout_column_remove__": [
         "Are your sure to remove this column? This cannot be undone!"
     ],

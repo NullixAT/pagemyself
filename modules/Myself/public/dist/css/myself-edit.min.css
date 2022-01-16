@@ -153,18 +153,26 @@ html[data-mobile='1'] .myself-edit-frame-inner {
 .myself-block-layout-row {
   margin-bottom: 5px;
   flex-wrap: nowrap;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   border-radius: 20px; }
   .myself-block-layout-row button.framelix-button {
     margin: 0; }
-  .myself-block-layout-row.myself-block-layout-row-fixed {
-    border: 2px dashed #ccc; }
+  .myself-block-layout-row.myself-block-layout-row-fixed .myself-block-layout-row-column {
+    background: #d6e7e4; }
 
 .myself-block-layout-row-column {
-  background: #ddd;
+  background: #eee;
   padding: 10px;
   border-radius: 20px;
   display: flex; }
+  .myself-block-layout-row-column[data-status*='classnotexist'] {
+    background: #f1e4db; }
+  .myself-block-layout-row-column[data-status*='draft'] {
+    background: #f1dbdb; }
+  .myself-block-layout-row-column[data-empty='1'] {
+    background: #f5f5f5;
+    cursor: pointer; }
+    .myself-block-layout-row-column[data-empty='1']:hover {
+      background: #e5e5e5; }
   .myself-block-layout-row-column[data-empty='1'] {
     background: #f5f5f5;
     cursor: pointer; }
