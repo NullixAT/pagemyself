@@ -1,7 +1,7 @@
 {
   "name": "pagemyself-myself",
   "description": "A PageMyself module itself.",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "framelix": {
     "module" : "Myself",
     "release": {
