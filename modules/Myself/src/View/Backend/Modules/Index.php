@@ -32,6 +32,8 @@ use function scandir;
 use function strtolower;
 use function unlink;
 
+use function var_dump;
+
 use const FRAMELIX_APP_ROOT;
 
 /**
@@ -116,8 +118,13 @@ class Index extends View
                 $moduleList = [];
                 // get installed modules
                 $folders = scandir(FRAMELIX_APP_ROOT . "/modules");
+                Lang::loadValues(Lang::$lang);
                 foreach ($folders as $folder) {
-                    $packageJson = FRAMELIX_APP_ROOT . "/modules/$folder/package.json";
+                    if ($folder === "Framelix" || $folder === "Myself") {
+                        continue;
+                    }
+                    $moduleFolder = FRAMELIX_APP_ROOT . "/modules/$folder";
+                    $packageJson = "$moduleFolder/package.json";
                     if (file_exists($packageJson)) {
                         $moduleLower = strtolower($folder);
                         $packageJsonData = JsonUtils::readFromFile($packageJson);
@@ -130,12 +137,10 @@ class Index extends View
                         if (isset($packageJsonData['homepage'])) {
                             $moduleData['homepage'] = $packageJsonData['homepage'];
                         }
-                        $moduleData['lang'][Lang::$lang]['name'] = Lang::get(
-                            '__' . $moduleLower . "_module_name__"
-                        );
-                        $moduleData['lang'][Lang::$lang]['info'] = Lang::get(
-                            '__' . $moduleLower . "_module_info__"
-                        );
+                        Lang::loadValues(Lang::$lang, $folder);
+                        Lang::loadValues("en", $folder);
+                        $moduleData['lang'][Lang::$lang]['name'] = Lang::get('__' . $moduleLower . "_module_name__");
+                        $moduleData['lang'][Lang::$lang]['info'] = Lang::get('__' . $moduleLower . "_module_info__");
                         $moduleList[$folder] = $moduleData;
                     }
                 }
