@@ -22,6 +22,7 @@ use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
 use Framelix\Myself\BlockLayout\BlockLayoutEditor;
 use Framelix\Myself\LayoutUtils;
+use Framelix\Myself\ModuleHooks;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\ThemeSettings;
@@ -194,6 +195,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                 '<style>.framelix-page{font-family:' . $defaultFont . ', Arial, sans-serif;}</style>'
             );
         }
+        ModuleHooks::callHook('beforeViewShowContent', [$this]);
         $themeBlock->viewSetup($this);
         $themeBlock->showLayout($this);
     }

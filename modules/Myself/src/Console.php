@@ -27,23 +27,23 @@ class Console extends \Framelix\Framelix\Console
 {
     /**
      * Create a new module with empty boilerplate
-     * @return void
+     * @return int Status Code, 0 = success
      */
-    public static function createModule(): void
+    public static function createModule(): int
     {
         $moduleName = self::getParameter('module', 'string');
         if (preg_match("~[^a-z0-9]~i", $moduleName)) {
             echo "Modulename can only contain A-Z and 0-9 chars";
-            return;
+            return 1;
         }
         if (!preg_match("~^[A-Z]~", $moduleName)) {
             echo "Modulename must start with an uppercase character";
-            return;
+            return 1;
         }
         $moduleDir = __DIR__ . "/../../$moduleName";
         if (is_dir($moduleDir)) {
             echo "Module Directory " . realpath($moduleDir) . " already exists";
-            return;
+            return 1;
         }
         mkdir($moduleDir);
         mkdir($moduleDir . "/_meta");
@@ -74,13 +74,14 @@ class Console extends \Framelix\Framelix\Console
                 "module" => $moduleName
             ],
         ], true);
+        return 0;
     }
 
     /**
      * Create a new pageblock with empty boilerplate
-     * @return void
+     * @return int Status Code, 0 = success
      */
-    public static function createPageBlock(): void
+    public static function createPageBlock(): int
     {
         $module = self::getParameter('module', 'string');
         $pageBlockName = self::getParameter('pageBlockName', 'string');
@@ -88,12 +89,12 @@ class Console extends \Framelix\Framelix\Console
         $moduleDir = FileUtils::getModuleRootPath($module);
         if (!is_dir($moduleDir)) {
             echo "Module '$module' not exist";
-            return;
+            return 1;
         }
         $blockClass = "\\Framelix\\$module\\PageBlocks\\$pageBlockName";
         if (class_exists($blockClass)) {
             echo "'$blockClass' already exists";
-            return;
+            return 1;
         }
 
         if (!is_dir($moduleDir . "/js/page-blocks")) {
@@ -127,19 +128,20 @@ class Console extends \Framelix\Framelix\Console
         mkdir(dirname($path));
         file_put_contents($path, $templateContent);
         self::updateCompilerConfig();
+        return 0;
     }
 
     /**
      * Update compiler config based on available page blocks and themes
-     * @return void
+     * @return int Status Code, 0 = success
      */
-    public static function updateCompilerConfig(): void
+    public static function updateCompilerConfig(): int
     {
         $module = self::getParameter('module', 'string');
         $moduleDir = FileUtils::getModuleRootPath($module);
         if (!is_dir($moduleDir)) {
             echo "Module '$module' not exist";
-            return;
+            return 1;
         }
         $config = $configOriginal = Config::getConfigFromFile($module, "config-module.php");
         if (isset($config['compiler'][$module])) {
@@ -225,5 +227,6 @@ class Console extends \Framelix\Framelix\Console
         } else {
             echo "Config is already Up2Date";
         }
+        return 0;
     }
 }

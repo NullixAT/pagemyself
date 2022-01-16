@@ -41,6 +41,7 @@ use function reset;
 use function strip_tags;
 use function substr;
 use function unlink;
+use function var_dump;
 
 /**
  * BlockLayoutEditor
@@ -225,8 +226,12 @@ class BlockLayoutEditor
                 );
                 $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
+                    $pageBlockLayout = $pageBlock->getLayoutBlock();
+                    if (!$pageBlockLayout) {
+                        continue;
+                    }
                     $title = strip_tags(
-                        HtmlUtils::unescape(Lang::get($pageBlock->getLayoutBlock()->getBlockLayoutLabel()))
+                        HtmlUtils::unescape(Lang::get($pageBlockLayout->getBlockLayoutLabel()))
                     );
                     $title = trim($title);
                     $allPageBlocks[$pageBlock->id] = [

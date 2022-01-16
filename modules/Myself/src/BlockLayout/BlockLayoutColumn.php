@@ -31,7 +31,7 @@ class BlockLayoutColumn implements JsonSerializable
     {
         $instance = new self();
         $instance->settings = BlockLayoutColumnSettings::create($data['settings'] ?? null);
-        $instance->pageBlockId = $data['pageBlockId'];
+        $instance->pageBlockId = $data['pageBlockId'] ?? 0;
         return $instance;
     }
 

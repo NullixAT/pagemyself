@@ -1,10 +1,4 @@
 {
-    "__myself_view_backend_modules_index__" : [
-        "Modules and Themes"
-    ],
-    "__myself_view_backend_modules_info__" : [
-        "Here you can add new page-blocks, themes and other functionality from the official module store."
-    ],
     "__myself_align__": [
         "Alignment"
     ],
@@ -628,6 +622,99 @@
     ],
     "__myself_view_backend_index__": [
         "PageMyself Backend"
+    ],
+    "__myself_view_backend_module_disabled__": [
+        "Module disabled"
+    ],
+    "__myself_view_backend_module_enable_error__": [
+        "There was an error after this module was enabled. It has been disabled automatically to prevent application damage."
+    ],
+    "__myself_view_backend_module_enabled__": [
+        "Module enabled - You can now use the features of this module."
+    ],
+    "__myself_view_backend_modules_button_disable__": [
+        "Disable"
+    ],
+    "__myself_view_backend_modules_button_enable__": [
+        "Enable"
+    ],
+    "__myself_view_backend_modules_button_install__": [
+        "Install"
+    ],
+    "__myself_view_backend_modules_button_update__": [
+        "Update"
+    ],
+    "__myself_view_backend_modules_category_all__": [
+        "All"
+    ],
+    "__myself_view_backend_modules_category_disabled__": [
+        "Disabled modules"
+    ],
+    "__myself_view_backend_modules_category_enabled__": [
+        "Enabled modules"
+    ],
+    "__myself_view_backend_modules_category_incompatible_local__": [
+        "Installed but incompatible"
+    ],
+    "__myself_view_backend_modules_category_incompatible_online__": [
+        "Installed but with incompatible available update"
+    ],
+    "__myself_view_backend_modules_category_installed__": [
+        "Installed"
+    ],
+    "__myself_view_backend_modules_category_pageblock__": [
+        "PageBlock"
+    ],
+    "__myself_view_backend_modules_category_theme__": [
+        "Theme"
+    ],
+    "__myself_view_backend_modules_category_updatable__": [
+        "Available Updates"
+    ],
+    "__myself_view_backend_modules_homepage__": [
+        "Project Homepage"
+    ],
+    "__myself_view_backend_modules_index__": [
+        "Modules and Themes"
+    ],
+    "__myself_view_backend_modules_info__": [
+        "Here you can add new page-blocks, themes and other functionality from the official module store."
+    ],
+    "__myself_view_backend_modules_install_error__": [
+        "Installation\/Update error - See update log for details"
+    ],
+    "__myself_view_backend_modules_install_info__": [
+        "You are about to install\/update this module from the ZIP Package at {0}.<br\/>Make sure you have a recent backup in case of failure.<br\/>Proceed?"
+    ],
+    "__myself_view_backend_modules_install_success__": [
+        "Installation\/Update successfull - Make sure you enable the module after it has been first installed"
+    ],
+    "__myself_view_backend_modules_repository__": [
+        "GitHub Repository"
+    ],
+    "__myself_view_backend_modules_status_disabled__": [
+        "Disabled"
+    ],
+    "__myself_view_backend_modules_status_enabled__": [
+        "Enabled"
+    ],
+    "__myself_view_backend_modules_status_incompatible_local__": [
+        "Incompatible Installed"
+    ],
+    "__myself_view_backend_modules_status_incompatible_local_info__": [
+        "The current installed module version is incompatiable with the current version if PageMyself. Check if there is an update available."
+    ],
+    "__myself_view_backend_modules_status_incompatible_online__": [
+        "Incompatible Update"
+    ],
+    "__myself_view_backend_modules_status_incompatible_online_info__": [
+        "The available store version is incompatiable with the current version if PageMyself. Goto the GitHub Repository for more information."
+    ],
+    "__myself_view_backend_modules_status_installed__": [
+        "Installed"
+    ],
+    "__myself_view_backend_modules_status_updatable__": [
+        "Update Available"
     ],
     "__myself_view_backend_nav_arrange__": [
         "Sort, Edit and arrange entries"

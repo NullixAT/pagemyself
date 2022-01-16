@@ -831,6 +831,130 @@
         "PageMyself Backend",
         "3c7ab"
     ],
+    "__myself_view_backend_module_disabled__": [
+        "Modul deaktiviert",
+        "efab7"
+    ],
+    "__myself_view_backend_module_enable_error__": [
+        "Ein Fehler ist aufgetreten, nachdem das Modul aktiviert wurde. Es wurde automatisch wieder deaktiviert um Probleme zu vermeiden.",
+        "3c3ab"
+    ],
+    "__myself_view_backend_module_enabled__": [
+        "Modul aktiviert - Du kannst nun die Features dieses Moduls nutzen.",
+        "0abd0"
+    ],
+    "__myself_view_backend_modules_button_disable__": [
+        "Deaktivieren",
+        "bcfac"
+    ],
+    "__myself_view_backend_modules_button_enable__": [
+        "Aktivieren",
+        "2faec"
+    ],
+    "__myself_view_backend_modules_button_install__": [
+        "Installieren",
+        "34983"
+    ],
+    "__myself_view_backend_modules_button_update__": [
+        "Aktualisieren",
+        "06933"
+    ],
+    "__myself_view_backend_modules_category_all__": [
+        "Alle",
+        "b1c94"
+    ],
+    "__myself_view_backend_modules_category_disabled__": [
+        "Deaktivierte Module",
+        "013ac"
+    ],
+    "__myself_view_backend_modules_category_enabled__": [
+        "Aktivierte Module",
+        "17099"
+    ],
+    "__myself_view_backend_modules_category_incompatible_local__": [
+        "Installiert aber inkompatibel",
+        "c9307"
+    ],
+    "__myself_view_backend_modules_category_incompatible_online__": [
+        "Installiert aber mit inkompatiblen verf\u00fcgbaren Updates",
+        "976f4"
+    ],
+    "__myself_view_backend_modules_category_installed__": [
+        "Installiert",
+        "98dd4"
+    ],
+    "__myself_view_backend_modules_category_pageblock__": [
+        "Page-Block",
+        "b6a24"
+    ],
+    "__myself_view_backend_modules_category_theme__": [
+        "Stil",
+        "d7217"
+    ],
+    "__myself_view_backend_modules_category_updatable__": [
+        "Verf\u00fcgbare Updates",
+        "6abed"
+    ],
+    "__myself_view_backend_modules_homepage__": [
+        "Projekt-Homepage",
+        "9fa91"
+    ],
+    "__myself_view_backend_modules_index__": [
+        "Module und Stile",
+        "dfe0f"
+    ],
+    "__myself_view_backend_modules_info__": [
+        "Du kannst auf dieser Seite neue Page-Blocks, Stile oder weitere Funktionalit\u00e4ten aus dem offiziellen Store hinzuf\u00fcgen.",
+        "78eae"
+    ],
+    "__myself_view_backend_modules_install_error__": [
+        "Installation\/Update Fehler - Siehe Update Log f\u00fcr Fehleranalyse",
+        "83047"
+    ],
+    "__myself_view_backend_modules_install_info__": [
+        "Du bist dabei das Modul zu installieren\/aktualisieren vom Paket {0}.<br\/>Stelle sicher das du immer ein aktuelles Update hast, falls was schiefgehen sollte.<br\/>Fortfahren?",
+        "d5b55"
+    ],
+    "__myself_view_backend_modules_install_success__": [
+        "Installation\/Update erfolgreich - Du musst das Modul nun nur noch aktivieren wenn du es neu installiert ist.",
+        "5b1ee"
+    ],
+    "__myself_view_backend_modules_repository__": [
+        "GitHub Repository",
+        "cf087"
+    ],
+    "__myself_view_backend_modules_status_disabled__": [
+        "Deaktiviert",
+        "b9f5c"
+    ],
+    "__myself_view_backend_modules_status_enabled__": [
+        "Aktiviert",
+        "00d23"
+    ],
+    "__myself_view_backend_modules_status_incompatible_local__": [
+        "Inkompatible installierte Version",
+        "e28d1"
+    ],
+    "__myself_view_backend_modules_status_incompatible_local_info__": [
+        "Die aktuell installierte Version ist Inkompatibel mit der aktuellen installierten Version von PageMyself. Checke ob es Updates gibt.",
+        "1b2d1"
+    ],
+    "__myself_view_backend_modules_status_incompatible_online__": [
+        "Inkompatible Updates",
+        "750aa"
+    ],
+    "__myself_view_backend_modules_status_incompatible_online_info__": [
+        "Die verf\u00fcgbare Version aus dem Store  ist Inkompatibel mit der aktuellen installierten Version von PageMyself. Checke das GitHub Repository f\u00fcr weitere Informationen.",
+        "f29c1"
+    ],
+    "__myself_view_backend_modules_status_installed__": [
+        "Installiert",
+        "98dd4"
+    ],
+    "__myself_view_backend_modules_status_updatable__": [
+        "Update verf\u00fcgbar",
+        "8bd76"
+    ],
     "__myself_view_backend_nav_arrange__": [
         "Eintr\u00e4ge sortieren und bearbeiten",
         "9f90c"
