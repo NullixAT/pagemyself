@@ -570,10 +570,10 @@
         "Create a new template"
     ],
     "__myself_templateeditor_desc__": [
-        "Template Description"
+        "Template Description (EN) - For other languages edit the generated template.json file"
     ],
     "__myself_templateeditor_label__": [
-        "Template Title"
+        "Template Title (EN) - For other languages edit the generated template.json file"
     ],
     "__myself_templateeditor_thumbnail__": [
         "Thumbnail Image"

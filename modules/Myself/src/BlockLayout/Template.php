@@ -15,15 +15,15 @@ class Template implements JsonSerializable
 {
     /**
      * The label for the user interface
-     * @var string|null
+     * @var string[]|null
      */
-    public ?string $label = null;
+    public ?array $label = null;
 
     /**
      * The description for the user interface
-     * @var string|null
+     * @var string[]|null
      */
-    public ?string $description = null;
+    public ?array $description = null;
 
     /**
      * The file extension for the image thumbnail

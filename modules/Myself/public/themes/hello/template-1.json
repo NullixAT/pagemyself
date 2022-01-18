@@ -1,0 +1,247 @@
+{
+  "label": {
+    "en" : "Welcome Page"
+  },
+  "description": {
+    "en" : "A template for a welcome site of your template. It contains a few pre-formated text blocks to give you a start idea."
+  },
+  "thumbnailExtension": "png",
+  "blockLayout": {
+    "rows": [
+      {
+        "settings": {
+          "gap": 0,
+          "maxWidth": 0,
+          "alignment": "center",
+          "backgroundImage": "demo-image",
+          "backgroundVideo": null,
+          "backgroundSize": "cover",
+          "backgroundPosition": "bottom"
+        },
+        "columns": [
+          {
+            "settings": {
+              "padding": 20,
+              "minWidth": 0,
+              "minHeight": 300,
+              "textVerticalAlignment": "center",
+              "textSize": 200,
+              "textColor": null,
+              "textAlignment": "center",
+              "backgroundColor": null,
+              "backgroundImage": null,
+              "backgroundVideo": null,
+              "backgroundSize": "cover",
+              "backgroundPosition": null,
+              "fadeIn": "blur",
+              "fadeOut": null,
+              "grow": 1
+            },
+            "pageBlockId": 92
+          }
+        ]
+      },
+      {
+        "settings": {
+          "gap": 0,
+          "maxWidth": 900,
+          "alignment": "center",
+          "backgroundImage": null,
+          "backgroundVideo": null,
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        },
+        "columns": [
+          {
+            "settings": {
+              "padding": 20,
+              "minWidth": 0,
+              "minHeight": 0,
+              "textVerticalAlignment": "center",
+              "textSize": 100,
+              "textColor": null,
+              "textAlignment": "center",
+              "backgroundColor": null,
+              "backgroundImage": null,
+              "backgroundVideo": null,
+              "backgroundSize": "cover",
+              "backgroundPosition": null,
+              "fadeIn": null,
+              "fadeOut": null,
+              "grow": 1
+            },
+            "pageBlockId": 93
+          }
+        ]
+      },
+      {
+        "settings": {
+          "gap": 0,
+          "maxWidth": 900,
+          "alignment": "center",
+          "backgroundImage": null,
+          "backgroundVideo": null,
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        },
+        "columns": [
+          {
+            "settings": {
+              "padding": 10,
+              "minWidth": 0,
+              "minHeight": 0,
+              "textVerticalAlignment": "center",
+              "textSize": 100,
+              "textColor": null,
+              "textAlignment": null,
+              "backgroundColor": "#EAFBF3",
+              "backgroundImage": null,
+              "backgroundVideo": null,
+              "backgroundSize": "cover",
+              "backgroundPosition": null,
+              "fadeIn": null,
+              "fadeOut": null,
+              "grow": 1
+            },
+            "pageBlockId": 94
+          },
+          {
+            "settings": {
+              "padding": 10,
+              "minWidth": 0,
+              "minHeight": 0,
+              "textVerticalAlignment": "center",
+              "textSize": 100,
+              "textColor": null,
+              "textAlignment": null,
+              "backgroundColor": "#EBF4FF",
+              "backgroundImage": null,
+              "backgroundVideo": null,
+              "backgroundSize": "cover",
+              "backgroundPosition": null,
+              "fadeIn": null,
+              "fadeOut": null,
+              "grow": 1
+            },
+            "pageBlockId": 95
+          },
+          {
+            "settings": {
+              "padding": 10,
+              "minWidth": 0,
+              "minHeight": 0,
+              "textVerticalAlignment": "center",
+              "textSize": 100,
+              "textColor": null,
+              "textAlignment": "center",
+              "backgroundColor": "#FCF6FE",
+              "backgroundImage": null,
+              "backgroundVideo": null,
+              "backgroundSize": "cover",
+              "backgroundPosition": null,
+              "fadeIn": null,
+              "fadeOut": null,
+              "grow": 1
+            },
+            "pageBlockId": 96
+          }
+        ]
+      },
+      {
+        "settings": {
+          "gap": 0,
+          "maxWidth": 900,
+          "alignment": "center",
+          "backgroundImage": null,
+          "backgroundVideo": null,
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        },
+        "columns": [
+          {
+            "settings": {
+              "padding": 0,
+              "minWidth": 0,
+              "minHeight": 0,
+              "textVerticalAlignment": "center",
+              "textSize": 100,
+              "textColor": null,
+              "textAlignment": "center",
+              "backgroundColor": null,
+              "backgroundImage": null,
+              "backgroundVideo": null,
+              "backgroundSize": "cover",
+              "backgroundPosition": null,
+              "fadeIn": null,
+              "fadeOut": null,
+              "grow": 1
+            },
+            "pageBlockId": 97
+          }
+        ]
+      }
+    ]
+  },
+  "pageBlockData": {
+    "92": {
+      "pageBlockClass": "Framelix\\Myself\\PageBlocks\\Text",
+      "pageBlockSettings": {
+        "textShadow": true,
+        "textShadowColor": "#000000",
+        "textShadowType": "hard",
+        "textShadowSize": 10,
+        "content": "<p><span style=\"font-size: 7rem;\"><strong><span style=\"color: #ffffff;\">Welcome to my Homepage!<\/span><\/strong><\/span><\/p>"
+      }
+    },
+    "93": {
+      "pageBlockClass": "Framelix\\Myself\\PageBlocks\\Text",
+      "pageBlockSettings": {
+        "textShadow": false,
+        "textShadowColor": "#000000",
+        "textShadowType": "around",
+        "textShadowSize": 10,
+        "content": "<div><span class=\"material-icons\" style=\"font-size: 6rem; color: #7e8c8d;\">blur_on<\/span><\/div>\r\n<div>&nbsp;<\/div>\r\n<div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<\/div>\r\n<div>At vero eos et accusam et justo duo dolores et ea rebum.<\/div>\r\n<div>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>&nbsp;<\/div>"
+      }
+    },
+    "94": {
+      "pageBlockClass": "Framelix\\Myself\\PageBlocks\\Text",
+      "pageBlockSettings": {
+        "textShadow": false,
+        "textShadowColor": "#000000",
+        "textShadowType": "around",
+        "textShadowSize": 10,
+        "content": "<p style=\"text-align: center;\"><span class=\"material-icons\" style=\"font-size: 4rem; color: #169179;\">car_rental<\/span><\/p>\r\n<p style=\"text-align: center;\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\/p>"
+      }
+    },
+    "95": {
+      "pageBlockClass": "Framelix\\Myself\\PageBlocks\\Text",
+      "pageBlockSettings": {
+        "content": "<p style=\"text-align: center;\"><span class=\"material-icons\" style=\"font-size: 4rem; color: #3598db;\">child_care<\/span><\/p>\r\n<p style=\"text-align: center;\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\/p>",
+        "textShadow": false,
+        "textShadowColor": "#000000",
+        "textShadowType": "around",
+        "textShadowSize": 10
+      }
+    },
+    "96": {
+      "pageBlockClass": "Framelix\\Myself\\PageBlocks\\Text",
+      "pageBlockSettings": {
+        "content": "<p style=\"text-align: center;\"><span class=\"material-icons\" style=\"font-size: 4rem; color: #843fa1;\">child_care<\/span><\/p>\r\n<p style=\"text-align: center;\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\/p>",
+        "textShadow": false,
+        "textShadowColor": "#000000",
+        "textShadowType": "around",
+        "textShadowSize": 10
+      }
+    },
+    "97": {
+      "pageBlockClass": "Framelix\\Myself\\PageBlocks\\Text",
+      "pageBlockSettings": {
+        "textShadow": false,
+        "textShadowColor": "#000000",
+        "textShadowType": "around",
+        "textShadowSize": 10,
+        "content": "<p>&nbsp;<\/p>\r\n<p><span class=\"material-icons\" style=\"font-size: 2.8rem; font-family: 'book antiqua', palatino, sans-serif;\">Welcome<\/span><\/p>\r\n<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&nbsp;<\/p>\r\n<p><span style=\"font-family: 'book antiqua', palatino, sans-serif; font-size: 44.8px; white-space: nowrap;\">Welcome<\/span><\/p>\r\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.&nbsp;<\/p>\r\n<p><span style=\"font-family: 'book antiqua', palatino, sans-serif; font-size: 44.8px; white-space: nowrap;\">Welcome<\/span><\/p>\r\n<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.&nbsp;<\/p>\r\n<p>&nbsp;<\/p>"
+      }
+    }
+  }
+}

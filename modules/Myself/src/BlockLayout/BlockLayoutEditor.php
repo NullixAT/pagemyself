@@ -136,7 +136,13 @@ class BlockLayoutEditor
                 foreach ($formValues as $key => $value) {
                     $keyParts = ArrayUtils::splitKeyString($key);
                     if ($keyParts[0] === 'templateData') {
-                        $template->{$keyParts[1]} = $value;
+                        if (count($keyParts) === 3) {
+                            $arrValue = $template->{$keyParts[1]} ?? [];
+                            $arrValue[$keyParts[2]] = $value;
+                            $template->{$keyParts[1]} = $arrValue;
+                        } else {
+                            $template->{$keyParts[1]} = $value;
+                        }
                     }
                 }
                 $files = UploadedFile::createFromSubmitData('thumbnailFile');
@@ -155,7 +161,7 @@ class BlockLayoutEditor
                 }
                 $template->blockLayout = $blockLayout;
                 $template->pageBlockData = $pageBlockData;
-                JsonUtils::writeToFile($templateFolder . "/" . $template->templateFilename . ".json", $template);
+                JsonUtils::writeToFile($templateFolder . "/" . $template->templateFilename . ".json", $template, true);
                 $jsCall->result = true;
                 Toast::success('__framelix_saved__');
                 break;
@@ -495,23 +501,23 @@ class BlockLayoutEditor
         $field->name = 'template';
         $field->label = '__myself_templateeditor_choose__';
         foreach ($templates as $template) {
-            $field->addOption($template->templateFilename, $template->label);
+            $field->addOption($template->templateFilename, $template->label['en']);
         }
         $field->addOption('new', '__myself_templateeditor_choose_new__');
         $field->defaultValue = $jsCall->parameters['template'] ?? 'new';
         $form->addField($field);
 
         $field = new Text();
-        $field->name = 'templateData[label]';
+        $field->name = 'templateData[label][en]';
         $field->label = '__myself_templateeditor_label__';
         $field->required = true;
-        $field->defaultValue = $selectedTemplate->label;
+        $field->defaultValue = $selectedTemplate->label['en'] ?? null;
         $form->addField($field);
 
         $field = new Textarea();
-        $field->name = 'templateData[description]';
+        $field->name = 'templateData[description][en]';
         $field->label = '__myself_templateeditor_desc__';
-        $field->defaultValue = $selectedTemplate->description;
+        $field->defaultValue = $selectedTemplate->description['en'] ?? null;
         $field->required = true;
         $form->addField($field);
 
