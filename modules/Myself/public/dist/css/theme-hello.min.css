@@ -78,6 +78,16 @@
 .myself-themes-hello[data-navigation-layout-inner='vertical'] .myself-themes-hello-content {
   padding: 0 20px 0 310px; }
 
+@keyframes hello-gelatine {
+  from, to {
+    transform: scaleX(1); }
+  25% {
+    transform: scaleX(0.8); }
+  50% {
+    transform: scaleX(1.1); }
+  75% {
+    transform: scaleX(0.9); } }
+
 .myself-themes-hello[data-navigation-layout-inner='horizontal'] {
   display: block;
   max-width: 100%; }
@@ -97,9 +107,23 @@
       padding: 10px;
       user-select: none;
       cursor: pointer; }
+      .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar a:any-link:after,
+      .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist-group:after {
+        content: "";
+        height: 3px;
+        display: block;
+        width: 100%;
+        background: hsl(var(--color-primary-hue), 50%, 50%);
+        border-radius: 20px;
+        transform: scaleX(0); }
       .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar a:any-link.myself-pageblocks-navigation-active-link, .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar a:any-link:hover,
       .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist-group.myself-pageblocks-navigation-active-link,
       .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist-group:hover {
         color: var(--color-primary-text); }
+        .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar a:any-link.myself-pageblocks-navigation-active-link:after, .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar a:any-link:hover:after,
+        .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist-group.myself-pageblocks-navigation-active-link:after,
+        .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-sidebar .myself-pageblocks-navigation-navlist-group:hover:after {
+          animation: hello-gelatine 0.5s;
+          transform: scaleX(1); }
   .myself-themes-hello[data-navigation-layout-inner='horizontal'] .myself-themes-hello-content {
     padding: 20px 0 0; }

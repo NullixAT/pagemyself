@@ -12,13 +12,12 @@
     padding: 0;
     margin: 0;
     align-items: center;
-    white-space: nowrap; }
+    white-space: nowrap;
+    gap: 5px; }
   .myself-pageblocks-navigation[data-layout='horizontal'] .myself-pageblocks-navigation-navlist:not([data-level='0']) {
     display: none; }
-  .myself-pageblocks-navigation[data-layout='horizontal'] .myself-pageblocks-navigation-navlist-logo {
-    margin-right: 10px; }
-    .myself-pageblocks-navigation[data-layout='horizontal'] .myself-pageblocks-navigation-navlist-logo img {
-      width: 150px; }
+  .myself-pageblocks-navigation[data-layout='horizontal'] .myself-pageblocks-navigation-navlist-logo img {
+    width: 150px; }
 
 .myself-pageblocks-navigation[data-layout='vertical'] .myself-pageblocks-navigation-navlist:not([data-level='0']):not(.myself-pageblocks-navigation-navlist-show) {
   display: none; }
