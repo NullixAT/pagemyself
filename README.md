@@ -21,7 +21,7 @@ We are working on a short youtube series that show installation and usage of Pag
 ### Installation with ZIP
 You require a PHP 8.1 installation, a Mysql/MariaDB database and a running webhosting.
 Once you have all that:
-1. Download [https://github.com/NullixAT/pagemyself/releases/latest](latest release package): release-x.x.x.zip - > Which contains `install.php`, `package.zip` and a few other files. Do not unpack `package.zip` by hand, this is handled by the install script.
+1. Download [latest release package](https://github.com/NullixAT/pagemyself/releases/latest): release-x.x.x.zip - > Which contains `install.php`, `package.zip` and a few other files. Do not unpack `package.zip` by hand, this is handled by the install script.
 2. Upload to your webhosting and unpack
 3. Open `https://yourdomain/install.php` in your browser, or whatever path you have choosen
 
@@ -29,7 +29,7 @@ Once you have all that:
 If you already have docker and want to run all that in a docker container, [we have something for you.](https://github.com/NullixAT/pagemyself-docker)
 
 ### Team
-This project was created by me, [brainfoolong](https://github.com/brainfoolong). I hope that this evolves and the open-source team can grow. I do this in my spare time beside my full-time job as a web-dev. Let us discus about ideas here in Github issues or you can join [my discord](https://discord.gg/3TxmE3KZJY). I try to be as active as possible.
+This project was created by me, [brainfoolong](https://github.com/brainfoolong). I hope that this evolves and the open-source team can grow. I do this in my spare time beside my full-time job as a web-dev. Let us discus about ideas here in Github issues or you can join [my discord](https://discord.gg/UAJ8bqPQjS). I try to be as active as possible.
 
 ### Based on Framelix
 This project is based on the [PHP 8.1+ Framework: Framelix](https://github.com/NullixAT/framelix-core) which is primarely designed for backend applications but also work well for PageMyself as it is highly customizable.
