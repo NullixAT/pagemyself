@@ -1,7 +1,5 @@
 ![https://img.shields.io/discord/933406755407409162?label=JoinDiscord](https://discord.gg/UAJ8bqPQjS)
 
-![PageMyself](docs/media/logo-github.png) 
-
 ### PageMyself - Open Source Self Hosted WYSIWYG Website Builder
 
 > The project's goal: Give you the tools to create your private/company website in no time and without coding skills. It is almost as easy as writing an office document.
