@@ -1,4 +1,4 @@
-![https://badgen.net/badge/icon/DiscordChat?icon=discord&label=Join](https://discord.gg/UAJ8bqPQjS)
+![https://img.shields.io/discord/933406755407409162?label=JoinDiscord](https://discord.gg/UAJ8bqPQjS)
 
 ![PageMyself](docs/media/logo-github.png) 
 
