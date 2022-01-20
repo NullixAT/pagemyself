@@ -16,7 +16,7 @@ This app is currently in pre-alpha, in constant changes. But, you can already do
 * Multilanguage interface | Currently there is english and german, but plan is to integrate open-source translations as well
 
 ### Usage tutorial
-We are working on a short youtube series that show installation and usage of PageMyself. Please give us some time.
+We are working on [a short youtube series](https://www.youtube.com/playlist?list=PLFckrKcNoDynWKpyM-_Zc6r-UjLA-BiX8) that show installation and usage of PageMyself. Please give us some time. A first [quick overview video](https://www.youtube.com/watch?v=gDBCgJ9qzvI&list=PLFckrKcNoDynWKpyM-_Zc6r-UjLA-BiX8) is already available.
 
 ### Installation with ZIP
 You require a PHP 8.1 installation, a Mysql/MariaDB database and a running webhosting.
