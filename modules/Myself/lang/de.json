@@ -764,8 +764,8 @@
         "f3f0d"
     ],
     "__myself_templateeditor_label__": [
-        "Titel",
-        "0835b"
+        "Template Titel (EN) - F\u00fcr andere Sprachen editieren das generierte template.json File",
+        "cbdd2"
     ],
     "__myself_templateeditor_thumbnail__": [
         "Vorschaubild",
@@ -886,6 +886,10 @@
     "__myself_view_backend_modules_category_installed__": [
         "Installiert",
         "98dd4"
+    ],
+    "__myself_view_backend_modules_category_other__": [
+        "Andere",
+        "6311a"
     ],
     "__myself_view_backend_modules_category_pageblock__": [
         "Page-Block",
