@@ -1,4 +1,4 @@
-[![](https://img.shields.io/discord/933406755407409162?label=JoinDiscord)](https://discord.gg/UAJ8bqPQjS)
+[![slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://scripts.0x.at/github-webhooks/slack-join/)
 
 ## PageMyself - Open Source Self Hosted WYSIWYG Website Builder
 
@@ -29,7 +29,7 @@ Once you have all that:
 If you already have docker and want to run all that in a docker container, [we have something for you.](https://github.com/NullixAT/pagemyself-docker)
 
 ### Team
-This project was created by me, [brainfoolong](https://github.com/brainfoolong). I hope that this evolves and the open-source team can grow. I do this in my spare time beside my full-time job as a web-dev. Let us discus about ideas here in Github issues or you can join [my discord](https://discord.gg/UAJ8bqPQjS). I try to be as active as possible.
+This project was created by me, [brainfoolong](https://github.com/brainfoolong). I hope that this evolves and the open-source team can grow. I do this in my spare time beside my full-time job as a web-dev. Let us discus about ideas here in Github issues or you can join [my slack chat](https://scripts.0x.at/github-webhooks/slack-join/). I try to be as active as possible.
 
 ### Based on Framelix
 This project is based on the [PHP 8.1+ Framework: Framelix](https://github.com/NullixAT/framelix-core) which is primarely designed for backend applications but also work well for PageMyself as it is highly customizable.
