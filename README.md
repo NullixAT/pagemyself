@@ -1,4 +1,4 @@
-[![slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://scripts.0x.at/github-webhooks/slack-join/)
+[![slack](https://img.shields.io/badge/Join%20our%20Slack%20Chat-4A154B?logo=slack&logoColor=white)](https://scripts.0x.at/github-webhooks/slack-join/)
 
 ## PageMyself - Open Source Self Hosted WYSIWYG Website Builder
 
