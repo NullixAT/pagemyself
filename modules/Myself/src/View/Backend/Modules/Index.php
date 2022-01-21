@@ -274,6 +274,7 @@ class Index extends View
         $field->addOption('all', null);
         $field->addOption('theme', null);
         $field->addOption('pageblock', null);
+        $field->addOption('other', null);
         $field->addOption('installed', null);
         $field->addOption('incompatible_online', null);
         $field->addOption('incompatible_local', null);

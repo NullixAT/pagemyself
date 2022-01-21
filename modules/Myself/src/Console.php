@@ -9,6 +9,7 @@ use Framelix\Framelix\Utils\JsonUtils;
 use function basename;
 use function class_exists;
 use function dirname;
+use function explode;
 use function file_get_contents;
 use function file_put_contents;
 use function is_dir;
@@ -19,6 +20,8 @@ use function str_replace;
 use function str_starts_with;
 use function strtolower;
 use function substr;
+
+use const FRAMELIX_APP_ROOT;
 
 /**
  * Console Runner
@@ -66,12 +69,21 @@ class Console extends \Framelix\Framelix\Console
         $myselfConfig = Config::getConfigFromFile("Myself", "config-editable.php");
         $myselfConfig['modules'][$moduleName] = $moduleName;
         Config::writetConfigToFile("Myself", "config-editable.php", $myselfConfig);
+        $packageJsonRoot = JsonUtils::readFromFile(FRAMELIX_APP_ROOT . "/package.json");
+        $currentMajorVersion = (int)explode(".", $packageJsonRoot['version'])[0];
         JsonUtils::writeToFile($moduleDir . "/package.json", [
             "version" => "0.0.1",
             "name" => "pagemyself-" . strtolower($moduleName),
             "description" => "Your module description",
-            "pagemyself" => [
+            "framelix" => [
                 "module" => $moduleName
+            ],
+            "pagemyself" => [
+                "minMajorVersion" => $currentMajorVersion,
+                "maxMajorVersion" => $currentMajorVersion,
+                "categories" => [
+
+                ]
             ],
         ], true);
         return 0;
