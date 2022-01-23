@@ -114,7 +114,6 @@ abstract class ThemeBase
         if (!$usePageBlock) {
             $usePageBlock = new PageBlock();
             $usePageBlock->fixedPlacement = $placement;
-            $usePageBlock->themeClass = $themeClass;
             $usePageBlock->flagDraft = false;
             $usePageBlock->pageBlockClass = $typeClass;
             $usePageBlock->store();

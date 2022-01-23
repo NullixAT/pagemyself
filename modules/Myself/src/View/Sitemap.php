@@ -3,6 +3,7 @@
 namespace Framelix\Myself\View;
 
 use Framelix\Framelix\View;
+use Framelix\Myself\ModuleHooks;
 use Framelix\Myself\Storable\Page;
 
 use function header;
@@ -36,17 +37,14 @@ class Sitemap extends View
      */
     public function onRequest(): void
     {
-        $pages = Page::getByCondition('flagDraft = false');
         header("content-type: text/xml");
         echo '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-        echo '<url>
-                <loc>' . View::getUrl(PageMyselfAbout::class) . '</loc>
-            </url>';
+        ModuleHooks::showSitemapUrl(View::getUrl(PageMyselfAbout::class));
+        $pages = Page::getByCondition('flagDraft = false');
         foreach ($pages as $page) {
-            echo '<url>
-                <loc>' . View::getUrl(Index::class, ['url' => $page->url]) . '</loc>
-            </url>';
+            ModuleHooks::showSitemapUrl($page->url);
         }
+        ModuleHooks::callHook('showSitemapUrls', []);
         echo '</urlset>';
     }
 }

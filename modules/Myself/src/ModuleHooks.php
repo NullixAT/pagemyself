@@ -3,11 +3,14 @@
 namespace Framelix\Myself;
 
 use Framelix\Framelix\Config;
+use Framelix\Framelix\Url;
+use Framelix\Framelix\View;
 use Framelix\Myself\PageBlocks\BlockBase;
 use Framelix\Myself\View\Index;
 
 use function call_user_func_array;
 use function class_exists;
+use function is_string;
 use function method_exists;
 
 /**
@@ -95,5 +98,23 @@ class ModuleHooks
      */
     public static function afterPageBlockTagClosed(BlockBase $layoutBlock): void
     {
+    }
+
+    /**
+     * Show sitemap urls
+     * @return void
+     */
+    public static function showSitemapUrls(): void
+    {
+    }
+
+    /**
+     * Show additional sitemap url
+     * @param string|Url $url Example: "/docs/hello"
+     * @return void
+     */
+    public static function showSitemapUrl(string|Url $url): void
+    {
+        echo '<url><loc>' . (is_string($url) ? View::getUrl(Index::class, ['url' => $url]) : $url) . '</loc></url>';
     }
 }

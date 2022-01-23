@@ -13,7 +13,6 @@ use function class_exists;
 /**
  * PageBlock
  * @property Page|null $page
- * @property string|null $themeClass
  * @property string|null $fixedPlacement
  * @property string|null $password
  * @property string $pageBlockClass
