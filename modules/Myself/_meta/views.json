@@ -1,0 +1,95 @@
+{
+    "directoryListHash": "1|3659235597",
+    "views": {
+        "Framelix\\Myself\\View\\Backend\\Index": {
+            "accessRole": true,
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend"
+        },
+        "Framelix\\Myself\\View\\Backend\\Modules\\Index": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/modules"
+        },
+        "Framelix\\Myself\\View\\Backend\\Nav\\Index": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/nav"
+        },
+        "Framelix\\Myself\\View\\Backend\\Page\\Index": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/page"
+        },
+        "Framelix\\Myself\\View\\Index": {
+            "accessRole": "*",
+            "customUrl": "~(?<url>.*)~",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": -1,
+            "pageTitle": "{classLangKey}",
+            "url": ""
+        },
+        "Framelix\\Myself\\View\\PageBlockEdit": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/pageblockedit"
+        },
+        "Framelix\\Myself\\View\\PageMyselfAbout": {
+            "accessRole": "*",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/pagemyselfabout"
+        },
+        "Framelix\\Myself\\View\\Robots": {
+            "accessRole": "*",
+            "customUrl": "\/robots.txt",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/robots"
+        },
+        "Framelix\\Myself\\View\\Sitemap": {
+            "accessRole": "*",
+            "customUrl": "\/sitemap.xml",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/sitemap"
+        },
+        "Framelix\\Myself\\View\\WebsiteSettings": {
+            "accessRole": "admin,content",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/websitesettings"
+        }
+    }
+}
