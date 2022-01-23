@@ -3,40 +3,41 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased 0.7.0]
 
-### Added
+### :heart: Added
 - theme templates for devs
 
-### Changed
+### :pencil: Changed
 
 
-### Deprecated
+### :construction: Deprecated
 
 
-### Removed
+### :x: Removed
 
 
-### Fixed
+### :wrench: Fixed
 
 
-### Security
+### :police_car: Security
+
 
 ## [0.6.0] - 2022-01-19
 First "usable" release which you try out.
 
-### Added
+### :heart: Added
 Initial
 
-### Changed
+### :pencil: Changed
 Initial
 
-### Deprecated
+### :construction: Deprecated
 Initial
 
-### Removed
+### :x: Removed
 Initial
 
-### Fixed
+### :wrench: Fixed
 Initial
 
-### Security
+### :police_car: Security
 Initial
