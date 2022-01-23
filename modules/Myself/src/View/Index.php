@@ -42,7 +42,6 @@ use const FRAMELIX_MODULE;
  */
 class Index extends LayoutView
 {
-
     /**
      * Is in editmode
      * @var bool
@@ -62,6 +61,12 @@ class Index extends LayoutView
     protected ?string $customUrl = "~(?<url>.*)~";
 
     /**
+     * Reduce priority to act as a "catch all" fallback when no other url matches
+     * @var int
+     */
+    protected int $urlPriority = -1;
+
+    /**
      * Multilanguage disable
      * @var bool
      */
@@ -71,13 +76,13 @@ class Index extends LayoutView
      * The current page
      * @var Page|null
      */
-    private ?Page $page = null;
+    protected ?Page $page = null;
 
     /**
      * The current theme
      * @var ThemeSettings|null
      */
-    private ?ThemeSettings $themeSettings = null;
+    protected ?ThemeSettings $themeSettings = null;
 
     /**
      * On request
@@ -92,7 +97,7 @@ class Index extends LayoutView
         $applicationUrl = Url::getApplicationUrl();
         $url = Url::create();
         $relativeUrl = trim($url->getRelativePath($applicationUrl), "/");
-        $this->page = Page::getByConditionOne('url = {0}', [$relativeUrl]);
+        $this->page = $this->page ?? Page::getByConditionOne('url = {0}', [$relativeUrl]);
         if (($this->page->flagDraft ?? null) && !LayoutUtils::isEditAllowed()) {
             $this->page = null;
         }

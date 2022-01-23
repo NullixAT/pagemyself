@@ -90,6 +90,52 @@ class Console extends \Framelix\Framelix\Console
     }
 
     /**
+     * Create a new theme with empty boilerplate
+     * @return int Status Code, 0 = success
+     */
+    public static function createTheme(): int
+    {
+        $module = self::getParameter('module', 'string');
+        $themeName = self::getParameter('theme', 'string');
+        $themeNameLower = strtolower($themeName);
+        $themeClass = "\\Framelix\\$module\\PageBlocks\\$themeName";
+        $moduleDir = FileUtils::getModuleRootPath($module);
+        if (class_exists($themeClass)) {
+            echo "'$themeClass' already exists";
+            return 1;
+        }
+
+        if (!is_dir($moduleDir . "/js/themes/$themeNameLower")) {
+            mkdir($moduleDir . "/js/themes/$themeNameLower", 0777, true);
+        }
+        if (!is_dir($moduleDir . "/scss/themes/$themeNameLower")) {
+            mkdir($moduleDir . "/scss/themes/$themeNameLower", 0777, true);
+        }
+        if (!is_dir($moduleDir . "/src/Themes")) {
+            mkdir($moduleDir . "/src/Themes", 0777, true);
+        }
+        if (!is_dir($moduleDir . "/public/themes/$themeNameLower")) {
+            mkdir($moduleDir . "/public/themes/$themeNameLower", 0777, true);
+        }
+        $templateContent = file_get_contents(__DIR__ . "/../templates/Theme.php");
+        $templateContent = str_replace("__THEMENAME__", $themeName, $templateContent);
+        $templateContent = str_replace("__MODULE__", $module, $templateContent);
+        $path = $moduleDir . "/src/Themes/$themeName.php";
+        file_put_contents($path, $templateContent);
+
+        $path = $moduleDir . "/scss/themes/$themeNameLower/style.scss";
+        file_put_contents($path, '');
+
+        $path = $moduleDir . "/js/themes/$themeNameLower/script.js";
+        $templateContent = file_get_contents(__DIR__ . "/../templates/Theme.js");
+        $templateContent = str_replace("__THEMENAMEJS__", $module . "Theme" . $themeName, $templateContent);
+        file_put_contents($path, $templateContent);
+
+        self::updateCompilerConfig();
+        return 0;
+    }
+
+    /**
      * Create a new pageblock with empty boilerplate
      * @return int Status Code, 0 = success
      */
