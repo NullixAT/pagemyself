@@ -359,7 +359,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
 
             $pageBlocks = ArrayUtils::merge(
                 $this->page->getPageBlocks(!$this->editMode),
-                $this->themeSettings->getPageBlocks()
+                $this->themeSettings->getFixedPageBlocks()
             );
             $pageBlockClasses = [];
             foreach ($pageBlocks as $pageBlock) {

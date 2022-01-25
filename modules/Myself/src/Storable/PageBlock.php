@@ -21,16 +21,15 @@ use function class_exists;
  */
 class PageBlock extends StorableExtended
 {
-
     /**
      * Setup self storable schema
      * @param StorableSchema $selfStorableSchema
      */
     protected static function setupStorableSchema(StorableSchema $selfStorableSchema): void
     {
-        $selfStorableSchema->addIndex('themeClass', 'index');
+        parent::setupStorableSchema($selfStorableSchema);
+        $selfStorableSchema->addIndex('fixedPlacement', 'unique');
     }
-
 
     /**
      * Get layout block

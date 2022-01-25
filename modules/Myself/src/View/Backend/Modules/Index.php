@@ -9,7 +9,6 @@ use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
-use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
 use Framelix\Framelix\Utils\Browser;
@@ -17,7 +16,6 @@ use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
-use Framelix\Myself\ModuleHooks;
 use Framelix\Myself\Storable\WebsiteSettings;
 
 use function array_key_first;
@@ -64,12 +62,14 @@ class Index extends View
                 $browser->sendRequest();
                 if ($browser->getResponseCode() === 200) {
                     file_put_contents($tmpZip, $browser->responseBody);
-                    Console::$htmlOutput = true;
+                    $summary = [];
                     Buffer::start();
-                    $status = Console::installZipPackage($tmpZip);
-                    ModuleHooks::callHook('afterInstall', [], $jsCall->parameters['module']);
+                    $status = Console::installZipPackage($tmpZip, $summary);
+                    Console::callMethodInSeparateProcess(
+                        'callAfterInstallHook',
+                        [$jsCall->parameters['module']]
+                    );
                     $output = Buffer::get();
-                    Session::set('myself.modules.update.log', $output);
                     if (!$status) {
                         Toast::success('__myself_view_backend_modules_install_success__');
                     } else {
@@ -88,11 +88,9 @@ class Index extends View
                             unset($modules[$index]);
                             Toast::success('__myself_view_backend_module_disabled__');
                         }
-                    } else {
-                        if ($index === false) {
-                            $modules[] = $module;
-                            Toast::success('__myself_view_backend_module_enabled__');
-                        }
+                    } elseif ($index === false) {
+                        $modules[] = $module;
+                        Toast::success('__myself_view_backend_module_enabled__');
                     }
                     WebsiteSettings::set('enabledModules', $modules);
                 }
@@ -303,7 +301,10 @@ class Index extends View
             <div class="module-entries">
                 <div class="framelix-loading"></div>
             </div>
-            <div class="module-preview"></div>
+            <div class="module-preview">
+                <div class="module-preview-inner">
+                </div>
+            </div>
         </div>
         <style>
           .filters {
@@ -311,7 +312,6 @@ class Index extends View
             gap: 10px;
             align-items: center;
             padding: 10px;
-            background: #f5f5f5;
           }
           .filters .framelix-form-field {
             margin: 0;
@@ -328,20 +328,26 @@ class Index extends View
           }
           .module-entry {
             margin-bottom: 5px;
-            background: #f5f5f5;
+            background: var(--color-page-bg-stencil);
             cursor: pointer;
             padding: 10px;
             border-radius: var(--border-radius);
           }
           .module-entry:hover,
           .module-entry-active {
-            background: #e5e5e5;
+            background: var(--color-page-bg-stencil-strong);
           }
           .module-preview {
             min-width: 40vw;
+            background: var(--color-page-bg-stencil-strong);
+          }
+          .module-preview-inner {
+            position: sticky;
+            top: 0;
           }
           .module-entry-name {
             font-weight: bold;
+            margin: 5px 0;
           }
           .module-badge {
             font-size: 0.8rem;
@@ -365,7 +371,7 @@ class Index extends View
             padding: 10px;
             box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
             margin-bottom: 10px;
-            background: white no-repeat center;
+            background: no-repeat center;
             background-size: contain;
           }
         </style>
@@ -433,7 +439,7 @@ class Index extends View
             updateVisibility()
             entriesContainer.on('click', '.module-entry', function (ev) {
               if ($(ev.target).is('a')) return
-              const preview = $('.module-preview')
+              const preview = $('.module-preview-inner')
               preview.empty()
               const entry = $(this)
               let filterCategoriesAvailable = []

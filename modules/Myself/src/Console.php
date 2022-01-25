@@ -287,4 +287,15 @@ class Console extends \Framelix\Framelix\Console
         }
         return 0;
     }
+
+    /**
+     * All the after install hook for given module
+     * @return int Status Code, 0 = success
+     */
+    public static function callAfterInstallHook(): int
+    {
+        $module = self::getParameter('module', 'string');
+        ModuleHooks::callHook('afterInstall', [], $module);
+        return 0;
+    }
 }

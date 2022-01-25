@@ -22,7 +22,6 @@ use Framelix\Myself\View\Index;
 
 use function basename;
 use function class_exists;
-use function get_class;
 use function strtolower;
 use function substr;
 
@@ -105,11 +104,10 @@ abstract class ThemeBase
                 throw new Exception("$typeClass is not an instance of ThemeBase in " . __METHOD__);
             }
         }
-        $themeClass = get_class($this);
         $placement = ClassUtils::getModuleForClass($this) . "_" . $placement;
         $usePageBlock = PageBlock::getByConditionOne(
-            'themeClass = {0} && fixedPlacement = {1}',
-            [$themeClass, $placement]
+            'fixedPlacement = {0}',
+            [$placement]
         );
         if (!$usePageBlock) {
             $usePageBlock = new PageBlock();

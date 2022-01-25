@@ -225,9 +225,9 @@ class BlockLayoutEditor
                 break;
             case 'fetch-settings':
                 $blockLayout = $page->getBlockLayout();
-                $pageBlocks = PageBlock::getByCondition(
-                    '(fixedPlacement IS NULL && page = {1}) || (fixedPlacement IS NOT NULL && themeClass = {0})',
-                    [$page->getThemeClass(), $page]
+                $pageBlocks = ArrayUtils::merge(
+                    $page->getThemeSettings()->getFixedPageBlocks(),
+                    PageBlock::getByCondition('page = {0}', [$page])
                 );
                 $allPageBlocks = [];
                 foreach ($pageBlocks as $pageBlock) {
@@ -432,7 +432,7 @@ class BlockLayoutEditor
                 $form->addField($field);
 
                 $html = '<div class="myself-page-block-create-entries">';
-                $blockClasses = BlockBase::getAllClasses();
+                $blockClasses = BlockBase::getAllUserChoosableClasses();
                 foreach ($blockClasses as $blockClass) {
                     $blockModule = ClassUtils::getModuleForClass($blockClass);
                     $blockName = strtolower(ClassUtils::getClassBaseName($blockClass));

@@ -11,9 +11,9 @@ use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Myself\LayoutUtils;
 use Framelix\Myself\ModuleHooks;
 use Framelix\Myself\Storable\PageBlock;
+use ReflectionClass;
 use Throwable;
 
-use function basename;
 use function get_class;
 use function str_replace;
 use function substr;
@@ -30,10 +30,17 @@ abstract class BlockBase
     protected HtmlAttributes $htmlAttributes;
 
     /**
-     * Get array if all available page block classes
+     * If true, this block is only available for fixed placement for theme development
+     * To give the user options for this blocks, but not to allow them to be placed by hand
+     * @var bool
+     */
+    protected bool $fixedPlacement = false;
+
+    /**
+     * Get array if all available page block that can be used to add in block layout by the user
      * @return string[]
      */
-    public static function getAllClasses(): array
+    public static function getAllUserChoosableClasses(): array
     {
         $arr = [];
         foreach (Config::$loadedModules as $module) {
@@ -44,7 +51,8 @@ abstract class BlockBase
             );
             foreach ($files as $file) {
                 $className = ClassUtils::getClassNameForFile($file);
-                if (basename($file) === 'BlockBase.php') {
+                $reflection = new ReflectionClass($className);
+                if ($reflection->isAbstract() || ($reflection->getDefaultProperties()['fixedPlacement'] ?? false)) {
                     continue;
                 }
                 $arr[] = $className;
