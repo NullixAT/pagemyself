@@ -665,14 +665,14 @@
     "__myself_view_backend_modules_category_installed__": [
         "Installed"
     ],
+    "__myself_view_backend_modules_category_other__": [
+        "Other"
+    ],
     "__myself_view_backend_modules_category_pageblock__": [
         "PageBlock"
     ],
     "__myself_view_backend_modules_category_theme__": [
         "Theme"
-    ],
-    "__myself_view_backend_modules_category_other__": [
-        "Other"
     ],
     "__myself_view_backend_modules_category_updatable__": [
         "Available Updates"

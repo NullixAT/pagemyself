@@ -155,61 +155,63 @@ class MyselfBlockLayoutEditor {
       return el
     })
 
-    tabs.addTab('template', '__myself_blocklayout_templates__', function () {
-      const el = $(`<div>`)
-      el.append(`<div class="framelix-alert framelix-alert-primary">
+    if (FramelixObjectUtils.hasKeys(self.config.templates)) {
+      tabs.addTab('template', '__myself_blocklayout_templates__', function () {
+        const el = $(`<div>`)
+        el.append(`<div class="framelix-alert framelix-alert-primary">
           ${FramelixLang.get('__myself_blocklayout_templates_desc__')}
       </div>
       <div class="framelix-spacer"></div>`)
-      // rows exist, warning
-      if (!FramelixObjectUtils.hasKeys(self.config.blockLayout.rows)) {
-        el.append(`<div class="framelix-alert framelix-alert-error">
+        // rows exist, warning
+        if (!FramelixObjectUtils.hasKeys(self.config.blockLayout.rows)) {
+          el.append(`<div class="framelix-alert framelix-alert-error">
             ${FramelixLang.get('__myself_blocklayout_templates_warning__')}
         </div>
         <div class="framelix-spacer"></div>`)
-      }
-      el.append(`<div class="myself-template-picker">
+        }
+        el.append(`<div class="myself-template-picker">
         <ul class="myself-template-picker-list"></ul>
         <div class="myself-template-picker-preview">
           <div class="myself-template-picker-preview-image"></div>
             <button class="framelix-button framelix-button-primary framelix-button-block" data-icon-left="check">${FramelixLang.get('__myself_blocklayout_templates_use__')}</button>
         </div>
       </div>`)
-      const list = el.find('.myself-template-picker-list')
-      const preview = el.find('.myself-template-picker-preview')
-      for (let templateFilename in self.config.templates) {
-        const template = self.config.templates[templateFilename]
-        const li = $(`<li></li>`)
-        li.attr('data-id', templateFilename)
-        li.append(`<div class="myself-template-picker-list-label">${FramelixLang.get(template.label[FramelixLang.lang] || template.label['en'])}</div>`)
-        li.append(`<div class="myself-template-picker-list-desc">${FramelixLang.get(template.description[FramelixLang.lang] || template.description['en'])}</div>`)
-        list.append(li)
-      }
-      list.on('click', 'li', function (ev) {
-        const li = $(this)
-        const id = li.attr('data-id')
-        const templateEditorData = self.config.templatesEditorData[id]
-        list.find("li").removeClass('myself-template-picker-list-active')
-        li.addClass('myself-template-picker-list-active')
-        preview.attr('data-id', id)
-        preview.find('.myself-template-picker-preview-image').css('background-image', `url(${templateEditorData.thumbnailUrl})`)
-      })
-      preview.on('click', 'button', async function () {
-        if (FramelixObjectUtils.hasKeys(self.config.blockLayout.rows)) {
-          if (!await FramelixModal.confirm('__myself_blocklayout_templates_warning__').confirmed) {
-            return
-          }
+        const list = el.find('.myself-template-picker-list')
+        const preview = el.find('.myself-template-picker-preview')
+        for (let templateFilename in self.config.templates) {
+          const template = self.config.templates[templateFilename]
+          const li = $(`<li></li>`)
+          li.attr('data-id', templateFilename)
+          li.append(`<div class="myself-template-picker-list-label">${FramelixLang.get(template.label[FramelixLang.lang] || template.label['en'])}</div>`)
+          li.append(`<div class="myself-template-picker-list-desc">${FramelixLang.get(template.description[FramelixLang.lang] || template.description['en'])}</div>`)
+          list.append(li)
         }
-        await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
-          'pageId': MyselfEdit.framePageId,
-          'action': 'insert-template',
-          'id': preview.attr('data-id')
+        list.on('click', 'li', function (ev) {
+          const li = $(this)
+          const id = li.attr('data-id')
+          const templateEditorData = self.config.templatesEditorData[id]
+          list.find('li').removeClass('myself-template-picker-list-active')
+          li.addClass('myself-template-picker-list-active')
+          preview.attr('data-id', id)
+          preview.find('.myself-template-picker-preview-image').css('background-image', `url(${templateEditorData.thumbnailUrl})`)
         })
-        location.reload()
+        preview.on('click', 'button', async function () {
+          if (FramelixObjectUtils.hasKeys(self.config.blockLayout.rows)) {
+            if (!await FramelixModal.confirm('__myself_blocklayout_templates_warning__').confirmed) {
+              return
+            }
+          }
+          await FramelixApi.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
+            'pageId': MyselfEdit.framePageId,
+            'action': 'insert-template',
+            'id': preview.attr('data-id')
+          })
+          location.reload()
+        })
+        list.children().first().trigger('click')
+        return el
       })
-      list.children().first().trigger('click')
-      return el
-    })
+    }
 
     if (self.config.devMode) {
       tabs.addTab('forDevs', '__myself_for_devs__', function () {

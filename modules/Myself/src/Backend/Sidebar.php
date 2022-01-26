@@ -35,9 +35,9 @@ class Sidebar extends \Framelix\Framelix\Backend\Sidebar
             if ($module === "Framelix" || $module === "Myself") {
                 continue;
             }
-            $file = FileUtils::getModuleRootPath($module) . "/src/View/Backend/$module/Index.php";
+            $file = FileUtils::getModuleRootPath($module) . "/src/View/Backend/Index.php";
             if (file_exists($file)) {
-                $viewClassIndex = "Framelix\\$module\\View\\Backend\\$module\\Index";
+                $viewClassIndex = "Framelix\\$module\\View\\Backend\\Index";
                 $this->addLink($viewClassIndex);
             }
         }
