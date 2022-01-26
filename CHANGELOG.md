@@ -1,10 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased 0.7.0]
+## [Unreleased]
 
 ### :heart: Added
-- theme templates for devs
+
 
 ### :pencil: Changed
 
@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 ### :police_car: Security
 
 
-## [0.6.0] - 2022-01-19
+## [0.7.0] - 2022-01-19
 First "usable" release which you try out.
 
 ### :heart: Added
