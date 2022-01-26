@@ -1,8 +1,6 @@
 ---
-title: "Welcome to PageMyself Documentation"
-date: 2022-01-22
-weight: 2
-description: > Find out how you can install, use, adjust and modify PageMyself to your needs.
+title: PageMyself
+description: A full WYSIWYG website builder with live editing features
 ---
 
-Testing content
+The documentation is currently in development. Please come back later.
