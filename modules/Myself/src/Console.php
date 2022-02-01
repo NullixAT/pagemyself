@@ -5,11 +5,14 @@ namespace Framelix\Myself;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\JsonUtils;
+use Framelix\Framelix\Utils\VersionUtils;
+use Framelix\Myself\Utils\ConfigLoader;
+use Framelix\Myself\Utils\ModuleUtils;
 
 use function basename;
 use function class_exists;
 use function dirname;
-use function explode;
+use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function is_dir;
@@ -20,8 +23,8 @@ use function str_replace;
 use function str_starts_with;
 use function strtolower;
 use function substr;
-
-use const FRAMELIX_APP_ROOT;
+use function unlink;
+use function version_compare;
 
 /**
  * Console Runner
@@ -69,8 +72,8 @@ class Console extends \Framelix\Framelix\Console
         $myselfConfig = Config::getConfigFromFile("Myself", "config-editable.php");
         $myselfConfig['modules'][$moduleName] = $moduleName;
         Config::writetConfigToFile("Myself", "config-editable.php", $myselfConfig);
-        $packageJsonRoot = JsonUtils::readFromFile(FRAMELIX_APP_ROOT . "/package.json");
-        $currentMajorVersion = (int)explode(".", $packageJsonRoot['version'])[0];
+        $packageJsonRoot = JsonUtils::getPackageJson(null);
+        $currentMajorVersion = VersionUtils::splitVersionString($packageJsonRoot['version'])["major"];
         JsonUtils::writeToFile($moduleDir . "/package.json", [
             "version" => "0.0.1",
             "name" => "pagemyself-" . strtolower($moduleName),
@@ -284,6 +287,33 @@ class Console extends \Framelix\Framelix\Console
             echo "Updated config for $module";
         } else {
             echo "Config is already Up2Date";
+        }
+        return 0;
+    }
+
+    /**
+     * Check for module updates
+     * @return int Status Code, 0 = success
+     */
+    public static function checkModuleUpdates(): int
+    {
+        $installedModules = ModuleUtils::getInstalledData();
+        $storeModules = ModuleUtils::getStoreData();
+        if (file_exists(ModuleUtils::MODULE_UPDATE_CACHE_FILE)) {
+            unlink(ModuleUtils::MODULE_UPDATE_CACHE_FILE);
+        }
+        foreach ($installedModules as $module => $row) {
+            if (!isset($storeModules[$module])) {
+                continue;
+            }
+            if (version_compare($row['version'], $storeModules[$module]['version'], '<')) {
+                self::line(
+                    'Update available for ' . $module . ' - Available: ' . $storeModules[$module]['version'] . ' | Installed: ' . $row['version']
+                );
+                JsonUtils::writeToFile(ModuleUtils::MODULE_UPDATE_CACHE_FILE, 1);
+            } else {
+                self::line($module . ' is Up2Date');
+            }
         }
         return 0;
     }

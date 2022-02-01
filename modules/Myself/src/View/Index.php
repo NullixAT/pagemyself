@@ -2,6 +2,7 @@
 
 namespace Framelix\Myself\View;
 
+use Framelix\Framelix\AppUpdate;
 use Framelix\Framelix\Config;
 use Framelix\Framelix\Form\Field\Password;
 use Framelix\Framelix\Form\Form;
@@ -26,10 +27,12 @@ use Framelix\Myself\ModuleHooks;
 use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\ThemeSettings;
+use Framelix\Myself\Utils\ModuleUtils;
 
 use function class_exists;
 use function end;
 use function explode;
+use function file_exists;
 use function http_response_code;
 use function md5;
 use function strtolower;
@@ -266,6 +269,26 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
                         <a href="<?= View::getUrl(Backend\Index::class) ?>"
                            class="framelix-button framelix-button-small framelix-button-primary"
                            data-icon-left="link" target="_blank"><?= Lang::get('__myself_goto_backend__') ?></a>
+                        <?php
+                        if (file_exists(AppUpdate::UPDATE_CACHE_FILE)) {
+                            ?>
+                            <a href="<?= View::getUrl(View\Backend\AppUpdate::class) ?>"
+                               class="framelix-button framelix-button-small framelix-button-error"
+                               data-icon-left="link" target="_blank"><?= Lang::get(
+                                    '__myself_appupdate_available__'
+                                ) ?></a>
+                            <?php
+                        }
+                        if (file_exists(ModuleUtils::MODULE_UPDATE_CACHE_FILE)) {
+                            ?>
+                            <a href="<?= View::getUrl(Backend\Modules\Index::class) ?>"
+                               class="framelix-button framelix-button-small framelix-button-error"
+                               data-icon-left="link" target="_blank"><?= Lang::get(
+                                    '__myself_moduleupdate_available__'
+                                ) ?></a>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="myself-edit-frame-outer-left">

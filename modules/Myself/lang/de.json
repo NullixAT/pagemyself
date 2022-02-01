@@ -27,6 +27,10 @@
         "Oben",
         "a4ffd"
     ],
+    "__myself_appupdate_available__": [
+        "App Update verf\u00fcgbar",
+        "bfb47"
+    ],
     "__myself_backend_dashboard_welcome1__": [
         "Willkommen im Backend von PageMyself. Hier kannst du deine Seiten bearbeiten, deine Navigation erstellen und alle systemrelevanten Einstellungen vornehmen, sowie auch App-Updates durchf\u00fchren.<br\/>Bitte schaue in den linke Sidebar, dort findest du alles was du machen kannst.<br\/>PS: Du kannst dieses Dashboard immer durch den Klick auf das Logo in der Sidebar \u00f6ffnen.",
         "20d68"
@@ -346,6 +350,10 @@
     "__myself_modulename__": [
         "PageMyself",
         "125bd"
+    ],
+    "__myself_moduleupdate_available__": [
+        "Modul Update verf\u00fcgbar",
+        "bbffd"
     ],
     "__myself_nav_align__": [
         "Ausrichtung der Navigation",

@@ -9,7 +9,7 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
-        "modulesCallable" : "\\Framelix\\Myself\\Utils\\ConfigLoader::getModules",
+        "modulesCallable" : "\\Framelix\\Myself\\Utils\\ModuleUtils::getModules",
         "backendStartUrl" : "/backend",
         "setupDoneRedirect": "/backend",
         "userRoles": {

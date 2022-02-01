@@ -15,20 +15,20 @@ use Framelix\Framelix\Utils\Browser;
 use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
+use Framelix\Framelix\Utils\VersionUtils;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\Myself\Storable\WebsiteSettings;
+use Framelix\Myself\Utils\ModuleUtils;
 
 use function array_key_first;
 use function array_search;
-use function explode;
 use function file_exists;
 use function file_put_contents;
 use function implode;
 use function in_array;
 use function is_dir;
-use function scandir;
-use function strtolower;
 use function unlink;
+use function version_compare;
 
 use const FRAMELIX_APP_ROOT;
 
@@ -65,6 +65,7 @@ class Index extends View
                     $summary = [];
                     Buffer::start();
                     $status = Console::installZipPackage($tmpZip, $summary);
+                    unlink($tmpZip);
                     Console::callMethodInSeparateProcess(
                         'callAfterInstallHook',
                         [$jsCall->parameters['module']]
@@ -105,42 +106,9 @@ class Index extends View
                     return '<div class="module-badge" style="background: ' . $color . '" data-filter-category="' . $category . '" title="' . $tooltip . '">'
                         . HtmlUtils::escape(Lang::get($label)) . '</div>';
                 };
-                $packageJsonRoot = JsonUtils::readFromFile(FRAMELIX_APP_ROOT . "/package.json");
-                $currentMajorVersion = (int)explode(".", $packageJsonRoot['version'])[0];
-                $browser = Browser::create();
-                $browser->validateSsl = false;
-                $browser->url = 'https://nullixat.github.io/pagemyself-module-store/modulelist.json';
-                $browser->sendRequest();
-                $moduleList = [];
-                // get installed modules
-                $folders = scandir(FRAMELIX_APP_ROOT . "/modules");
-                Lang::loadValues(Lang::$lang);
-                foreach ($folders as $folder) {
-                    if ($folder === "Framelix" || $folder === "Myself") {
-                        continue;
-                    }
-                    $moduleFolder = FRAMELIX_APP_ROOT . "/modules/$folder";
-                    $packageJson = "$moduleFolder/package.json";
-                    if (file_exists($packageJson)) {
-                        $moduleLower = strtolower($folder);
-                        $packageJsonData = JsonUtils::readFromFile($packageJson);
-                        $moduleData = JsonUtils::readFromFile($packageJson)['pagemyself'] ?? null;
-                        if (!$moduleData) {
-                            continue;
-                        }
-                        $moduleData['module'] = $folder;
-                        $moduleData['version'] = $packageJsonData['version'];
-                        if (isset($packageJsonData['homepage'])) {
-                            $moduleData['homepage'] = $packageJsonData['homepage'];
-                        }
-                        Lang::loadValues(Lang::$lang, $folder);
-                        Lang::loadValues("en", $folder);
-                        $moduleData['lang'][Lang::$lang]['name'] = Lang::get('__' . $moduleLower . "_module_name__");
-                        $moduleData['lang'][Lang::$lang]['info'] = Lang::get('__' . $moduleLower . "_module_info__");
-                        $moduleList[$folder] = $moduleData;
-                    }
-                }
-                $moduleList = ArrayUtils::merge($moduleList, JsonUtils::decode($browser->responseBody));
+                $packageJsonRoot = JsonUtils::getPackageJson(null);
+                $currentMajorVersion = VersionUtils::splitVersionString($packageJsonRoot['version'])['major'];
+                $moduleList = ArrayUtils::merge(ModuleUtils::getInstalledData(), ModuleUtils::getStoreData());
                 foreach ($moduleList as $row) {
                     $firstLang = array_key_first($row['lang']);
                     $moduleFolder = FRAMELIX_APP_ROOT . "/modules/" . $row['module'];
@@ -165,7 +133,7 @@ class Index extends View
                         );
                     }
                     if ($status === 'installed') {
-                        $packageJsonModule = JsonUtils::readFromFile($moduleFolder . "/package.json");
+                        $packageJsonModule = JsonUtils::getPackageJson($row['module']);
                         if ($currentMajorVersion < $packageJsonModule['pagemyself']['minMajorVersion'] || $currentMajorVersion > $packageJsonModule['pagemyself']['maxMajorVersion']) {
                             $incompatible = true;
                             $badges[] = $getBadgeHtml(
@@ -182,7 +150,10 @@ class Index extends View
                                 '__myself_view_backend_modules_status_installed__'
                             ) . ' ' . $packageJsonModule['version']
                         );
-                        if ($packageJsonModule['version'] !== $row['version'] && ($row['releaseId'] ?? null) && !$incompatible) {
+                        if (version_compare($packageJsonModule['version'], $row['version'], '<')
+                            && ($row['releaseId'] ?? null)
+                            && !$incompatible
+                        ) {
                             $status = 'updatable';
                             $badges[] = $getBadgeHtml(
                                 'red',

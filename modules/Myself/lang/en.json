@@ -20,6 +20,9 @@
     "__myself_align_top__": [
         "Top"
     ],
+    "__myself_appupdate_available__": [
+        "App Update available"
+    ],
     "__myself_backend_dashboard_welcome1__": [
         "Welcome to the PageMyself Backend. Here you can create and edit your pages and navigation entries, as well as doing all system relevant configuration and app updates.<br\/>Please check the sidebar on the left, where all possible actions are available.<br\/>PS: You can open this welcome page everytime, by clicking the logo on the sidebar."
     ],
@@ -259,6 +262,9 @@
     ],
     "__myself_modulename__": [
         "PageMyself"
+    ],
+    "__myself_moduleupdate_available__": [
+        "Module Update available"
     ],
     "__myself_nav_align__": [
         "Navigation Alignment"
