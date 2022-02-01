@@ -30,7 +30,8 @@ already available.
 
 ### (Recommended) Installation with Docker
 
-Docker is the simplest installation, if you already have docker. It is recommended because of easy installation, security and scalability.
+Docker is the simplest installation, if you already have docker. It is recommended because of easy installation,
+security and scalability.
 [Goto our docker repository.](https://github.com/NullixAT/pagemyself-docker)
 
 ### Installation with ZIP
