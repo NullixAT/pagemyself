@@ -28,6 +28,11 @@ that show installation and usage of PageMyself. Please give us some time. A
 first [quick overview video](https://www.youtube.com/watch?v=gDBCgJ9qzvI&list=PLFckrKcNoDynWKpyM-_Zc6r-UjLA-BiX8) is
 already available.
 
+### (Recommended) Installation with Docker
+
+Docker is the simplest installation, if you already have docker. It is recommended because of easy installation, security and scalability.
+[Goto our docker repository.](https://github.com/NullixAT/pagemyself-docker)
+
 ### Installation with ZIP
 
 You require a PHP 8.1 installation, a Mysql/MariaDB database and a running webhosting. Once you have all that:
@@ -37,11 +42,6 @@ You require a PHP 8.1 installation, a Mysql/MariaDB database and a running webho
    handled by the install script.
 2. Upload to your webhosting and unpack
 3. Open `https://yourdomain/install.php` in your browser, or whatever path you have choosen
-
-### Installation with Docker
-
-If you already have docker and want to run all that in a docker
-container, [we have something for you.](https://github.com/NullixAT/pagemyself-docker)
 
 ### Team
 
