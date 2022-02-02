@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file.
 
 ### :wrench: Fixed
 
+* media browser file store with wrong permissions on linux
+
 ### :police_car: Security
 
 ## [0.8.0] - 2022-02-01

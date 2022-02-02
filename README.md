@@ -6,9 +6,15 @@
 
 ### Alpha
 
-This app is currently in alpha. You can already download and install releases. We have
+This app is currently in alpha. You can already download and install. We have
 a [docker setup](https://github.com/NullixAT/pagemyself-docker) as well, where you get this running inside docker with a
 few commands.
+
+### Live Demo
+
+We have a [live demo here](https://demo.pagemyself.com/). Try PageMyself yourself. The demo reset's automatically every
+full hour and all data is purged. Please do not abuse this service or we must shutdown the demo. Login credentials are
+on the demo homepage itself. If the page is destroyed or credentials are missing, just wait for the next full hour.
 
 ### Features
 
