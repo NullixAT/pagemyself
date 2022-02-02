@@ -1,9 +1,17 @@
 [
   {
-    "title": "Installation",
+    "title": "Welcome",
     "entries": [
       {
         "file": "index.md"
+      }
+    ]
+  },
+  {
+    "title": "Installation",
+    "entries": [
+      {
+        "file": "installation/docker.md"
       }
     ]
   }
