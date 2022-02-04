@@ -9,6 +9,10 @@ always good.
 Furthermore, we already have everything configured for you, with newest Nginx, Mariadb and PHP version. You don't need
 to worry much about technical details, just run the docker container and your a good to go with your new homepage.
 
+## A short setup video
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/hyQUmu4EHJA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Setup
 
 You need `git`, `docker` and `docker-compose` installed. This things exist for almost every OS, even Windows and Mac.
