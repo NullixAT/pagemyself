@@ -36,7 +36,6 @@ However, recommended way is to have a separate webserver running on the host, wh
 handles certificates and other stuff. See config example for Nginx down bellow. With this way, you can setup multiple docker installations of PageMyself on one host and even have other services on the public port.
 
 > If you change https/http and the app is already installed, you must modify `app/modules/Myself/config-editable.php` as well.
-dfsdf
 
 ## Run
 
