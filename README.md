@@ -34,7 +34,7 @@ that show installation and usage of PageMyself. Please give us some time. A
 first [quick overview video](https://www.youtube.com/watch?v=gDBCgJ9qzvI&list=PLFckrKcNoDynWKpyM-_Zc6r-UjLA-BiX8) is
 already available.
 
-### (Recommended) Installation 
+### Installation 
 
 We have a documentation page for [PageMyself installation here](https://pagemyself.com/docs).
 
