@@ -34,21 +34,9 @@ that show installation and usage of PageMyself. Please give us some time. A
 first [quick overview video](https://www.youtube.com/watch?v=gDBCgJ9qzvI&list=PLFckrKcNoDynWKpyM-_Zc6r-UjLA-BiX8) is
 already available.
 
-### (Recommended) Installation with Docker
+### (Recommended) Installation 
 
-Docker is the simplest installation, if you already have docker. It is recommended because of easy installation,
-security and scalability.
-[Goto our docker repository.](https://github.com/NullixAT/pagemyself-docker)
-
-### Installation with ZIP
-
-You require a PHP 8.1 installation, a Mysql/MariaDB database and a running webhosting. Once you have all that:
-
-1. Download [latest release package](https://github.com/NullixAT/pagemyself/releases/latest): release-x.x.x.zip - >
-   Which contains `install.php`, `package.zip` and a few other files. Do not unpack `package.zip` by hand, this is
-   handled by the install script.
-2. Upload to your webhosting and unpack
-3. Open `https://yourdomain/install.php` in your browser, or whatever path you have choosen
+We have a documentation page for [PageMyself installation here](https://pagemyself.com/docs).
 
 ### Team
 
@@ -64,5 +52,4 @@ primarely designed for backend applications but also work well for PageMyself as
 
 ### Theme and Module Development
 
-PageMyself was designed from the ground up to give devs a handsome tool to create own modules and themes easily.
-Currently a good documentation is missing, but i am working it. Please give me some time.
+We have a code documentation page for [PageMyself here](https://pagemyself.com/docs).
