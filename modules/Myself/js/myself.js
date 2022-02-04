@@ -4,6 +4,12 @@
 class Myself {
 
   /**
+   * PageMyself config
+   * @type {Object<string, *>}
+   */
+  static config
+
+  /**
    * Custom fonts added in theme settings
    * @type {Object<string, *>}
    */
@@ -65,14 +71,10 @@ class Myself {
     }
     if (FramelixObjectUtils.hasKeys(Myself.customFonts)) {
       const head = $('head')
-      head.append('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>')
-      let url = 'https://fonts.googleapis.com/css2?'
       for (let key in Myself.customFonts) {
         const row = Myself.customFonts[key]
-        url += '&family=' + row.includeParam
+        head.append('<link href="' + FramelixConfig.modulePublicUrl + '/googlefontsproxy/' + FramelixStringUtils.slugify(row.includeParam).toLowerCase() + '.css?font=' + encodeURIComponent(row.includeParam) + '" rel="stylesheet">')
       }
-      url += '&display=swap'
-      head.append('<link href="' + url + '" rel="stylesheet">')
     }
   }
 

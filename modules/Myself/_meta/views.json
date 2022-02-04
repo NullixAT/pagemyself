@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|3659235597",
+    "directoryListHash": "1|2017265571",
     "views": {
         "Framelix\\Myself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -36,6 +36,15 @@
             "urlPriority": 0,
             "pageTitle": "{classLangKey}",
             "url": "\/backend\/page"
+        },
+        "Framelix\\Myself\\View\\GoogleFontsProxy": {
+            "accessRole": "*",
+            "customUrl": "~\/googlefontsproxy\/(?<font>[a-z0-9-]+)~",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/googlefontsproxy"
         },
         "Framelix\\Myself\\View\\Index": {
             "accessRole": "*",

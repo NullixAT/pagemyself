@@ -142,39 +142,59 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
             echo '</div></div>';
             return;
         }
+
+        if ($this->editMode) {
+            $config = [
+                'tinymceUrl' => Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js"),
+                'pageBlockEditUrl' => View::getUrl(PageBlockEdit::class),
+                'websiteSettingsEditUrl' => View::getUrl(WebsiteSettings::class),
+                'blockLayoutApiUrl' => JsCall::getCallUrl(BlockLayoutEditor::class, '')
+            ];
+            $this->addHeadHtmlAfterInit('<script>MyselfEdit.config = ' . JsonUtils::encode($config) . '</script>');
+        }
+        $config = [];
+        $this->addHeadHtmlAfterInit('<script>Myself.config = ' . JsonUtils::encode($config) . '</script>');
         $favicon = MediaFile::getById(\Framelix\Myself\Storable\WebsiteSettings::get('favicon'));
         $imageData = $favicon?->getImageData();
         if ($imageData) {
-            $this->addHeadHtml('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
+            $this->addHeadHtmlAfterInit('<link rel="icon" href="' . $imageData['sizes']['original']['url'] . '">');
         } else {
-            $this->addHeadHtml(
+            $this->addHeadHtmlAfterInit(
                 '<link rel="icon" href="' . Url::getUrlToFile(__DIR__ . "/../../public/img/logo-squared.svg") . '">'
             );
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_site_name')) {
-            $this->addHeadHtml('<meta property="og:site_name" content="' . HtmlUtils::escape($settingValue) . '"/>');
+            $this->addHeadHtmlAfterInit(
+                '<meta property="og:site_name" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_image')) {
             $imageData = MediaFile::getById($settingValue)?->getImageData();
             if ($imageData) {
-                $this->addHeadHtml(
+                $this->addHeadHtmlAfterInit(
                     '<meta property="og:image" content="' . $imageData['sizes']['original']['url'] . '"/>'
                 );
             }
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_title')) {
-            $this->addHeadHtml('<meta property="og:title" content="' . HtmlUtils::escape($settingValue) . '"/>');
+            $this->addHeadHtmlAfterInit(
+                '<meta property="og:title" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('og_description')) {
-            $this->addHeadHtml('<meta property="og:description" content="' . HtmlUtils::escape($settingValue) . '"/>');
+            $this->addHeadHtmlAfterInit(
+                '<meta property="og:description" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('author')) {
-            $this->addHeadHtml('<meta property="author" content="' . HtmlUtils::escape($settingValue) . '"/>');
+            $this->addHeadHtmlAfterInit('<meta property="author" content="' . HtmlUtils::escape($settingValue) . '"/>');
         }
         if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('keywords')) {
-            $this->addHeadHtml('<meta property="keywords" content="' . HtmlUtils::escape($settingValue) . '"/>');
+            $this->addHeadHtmlAfterInit(
+                '<meta property="keywords" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
         }
-        $this->addHeadHtml(
+        $this->addHeadHtmlAfterInit(
             '
             <meta property="og:type" content="website" />
             <meta property="og:url" content="' . Url::create() . '" />
@@ -184,23 +204,23 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         if (!$this->editMode) {
             $pageCss = \Framelix\Myself\Storable\WebsiteSettings::get('pagecss');
             if ($pageCss) {
-                $this->addHeadHtml('<style>' . $pageCss . '</style>');
+                $this->addHeadHtmlAfterInit('<style>' . $pageCss . '</style>');
             }
             if ($settingValue = \Framelix\Myself\Storable\WebsiteSettings::get('headHtml')) {
-                $this->addHeadHtml($settingValue);
+                $this->addHeadHtmlAfterInit($settingValue);
             }
         }
         $themeBlock = $this->page->getThemeBlock();
         $fontUrls = $themeBlock->themeSettings->settings['fontUrls'] ?? null;
         if ($fontUrls) {
-            $this->addHeadHtml(
+            $this->addHeadHtmlAfterInit(
                 '<script>Myself.parseCustomFonts(' . JsonUtils::encode($fontUrls) . ')</script>'
             );
         }
         $defaultFont = $themeBlock->themeSettings->settings['defaultFont'] ?? null;
         if ($defaultFont) {
-            $this->addHeadHtml(
-                '<style>.framelix-page{font-family:' . $defaultFont . ', Arial, sans-serif;}</style>'
+            $this->addHeadHtmlAfterInit(
+                '<style>.framelix-page{font-family:\'' . $defaultFont . '\', Arial, sans-serif;} :root {--font: \'' . $defaultFont . '\', Arial, sans-serif;}</style>'
             );
         }
         ModuleHooks::callHook('beforeViewShowContent', [$this]);
@@ -228,16 +248,6 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         $htmlAttributes->set('data-edit', $this->editMode ? '1' : '0');
         $htmlAttributes->set('data-page', $this->page);
         $htmlAttributes->set('data-mobile', Request::getGet('mobile') ? '1' : '0');
-
-        if ($this->editMode) {
-            $config = [
-                'tinymceUrl' => Url::getUrlToFile(__DIR__ . "/../../../Framelix/public/vendor/tinymce/tinymce.min.js"),
-                'pageBlockEditUrl' => View::getUrl(PageBlockEdit::class),
-                'websiteSettingsEditUrl' => View::getUrl(WebsiteSettings::class),
-                'blockLayoutApiUrl' => JsCall::getCallUrl(BlockLayoutEditor::class, '')
-            ];
-            $this->addHeadHtml('<script>MyselfEdit.config = ' . JsonUtils::encode($config) . '</script>');
-        }
         Buffer::start();
         echo '<!DOCTYPE html>';
         echo '<html lang="' . ($this->page?->lang ?? Lang::$lang) . '" ' . $htmlAttributes . ' data-color-scheme-force="light">';
