@@ -23,7 +23,7 @@ First, clone and modify environment variables:
 Modify `.env` to your needs. There are 2 ports available inside the service:
 
 * `80` for http handling. Example: `WEBPORT_MAP=8080:80`
-* `443`for https handling. Example: `WEBPORT_MAP=8080:443`
+* `443` for https handling. Example: `WEBPORT_MAP=8080:443`
 
 You can swap `8080` to any port you like. It's the port from which your page is available.
 
