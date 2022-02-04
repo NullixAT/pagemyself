@@ -1,5 +1,5 @@
 ---
-title: PageMyself
+title: PageMyself Documentation
 description: Installation and Dev Docs for our Open Source Self Hosted WYSIWYG Website Builder
 ---
 
