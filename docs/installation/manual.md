@@ -46,19 +46,50 @@ The downloaded `backup.zip` contains 2 folders: `appdatabase` and `appdatabase`.
 
 This is what we use to run the pagemyself docker service through a nginx proxy.
 
+
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        root /path-to-app-docker-root/app;
+        root /path-to-app-root;
         server_name yourdomain.com;
         ssl_certificate     /pathtosslcert.pem;
         ssl_certificate_key /pathtosslkey.pem;    
         client_max_body_size 100M;
-        location / {
-            proxy_pass http://127.0.0.1:7001;
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $remote_addr;
-            proxy_set_header X-Forwarded-Proto https;
-            proxy_ssl_server_name on;
+        # aggresive caching as we use anti-cache parameter anyway
+        location ~* \.(woff|woff2|ttf|otf|svg|js|css|png|jpg|jpeg|gif|ico|webp)$ {
+            expires 1y;
+            log_not_found off;
         }
-    }
+    
+        # try file, folder and at least route to index.php
+        location / {
+            try_files $uri $uri/ @nofile;
+        }
+    
+        # route every non existing file to index.php
+        location @nofile{
+            rewrite (.*) /index.php;
+        }
+    
+        # php handling
+        location ~ \.php$ {
+            fastcgi_pass phpfpm:9000;
+            fastcgi_index index.php;
+            include fastcgi.conf;
+        }
+    
+        # rewrite urls starting with @ points to another module
+        rewrite ^/@([A-Za-z0-9]+)/(.*) /../../$1/public/$2 last;
+    
+        index index.php;
+    
+        client_max_body_size 100M;
+    
+        # some security options
+        add_header X-Content-Type-Options nosniff;
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-XSS-Protection "1; mode=block";
+        add_header X-Download-Options noopen;
+        add_header X-Permitted-Cross-Domain-Policies none;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;    
+    
