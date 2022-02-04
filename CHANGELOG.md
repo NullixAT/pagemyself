@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [unreleased]
 
 ### :heart: Added
+* added google fonts proxy for data protection https://github.com/NullixAT/pagemyself/issues/1
 
 ### :pencil: Changed
 
