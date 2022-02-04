@@ -68,6 +68,8 @@ The downloaded `backup.zip` contains 2 folders: `appdatabase` and `appdatabase`.
 
 ### Example Nginx Config
 
+This is what we use to run the pagemyself docker service through a nginx proxy.
+
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
