@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [unreleased]
 
 ### :heart: Added
 
@@ -14,7 +14,24 @@ All notable changes to this project will be documented in this file.
 
 ### :wrench: Fixed
 
+### :police_car: Security
+
+## [0.9.0] - 2022-02-04
+
+### :heart: Added
+
+### :pencil: Changed
+* first iteration of docs
+* merged Framelix submodule changes
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
 * media browser file store with wrong permissions on linux
+* .htaccess fixed
 
 ### :police_car: Security
 
