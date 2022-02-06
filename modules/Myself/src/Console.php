@@ -69,9 +69,6 @@ class Console extends \Framelix\Framelix\Console
                 ]
             ]
         ]);
-        $myselfConfig = Config::getConfigFromFile("Myself", "config-editable.php");
-        $myselfConfig['modules'][$moduleName] = $moduleName;
-        Config::writetConfigToFile("Myself", "config-editable.php", $myselfConfig);
         $packageJsonRoot = JsonUtils::getPackageJson(null);
         $currentMajorVersion = VersionUtils::splitVersionString($packageJsonRoot['version'])["major"];
         JsonUtils::writeToFile($moduleDir . "/package.json", [
