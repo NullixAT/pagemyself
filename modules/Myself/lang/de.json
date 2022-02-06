@@ -783,6 +783,14 @@
         "Vorschaubild wird ben\u00f6tigt",
         "37b8a"
     ],
+    "__myself_theme_hello_description__": [
+        "Unser Standard Stil",
+        "93bcf"
+    ],
+    "__myself_theme_hello_title__": [
+        "Hello",
+        "8b1a9"
+    ],
     "__myself_theme_not_exist__": [
         "Diese Seite hat keinen Stil gew\u00e4hlt",
         "a8209"
@@ -802,6 +810,10 @@
     "__myself_themes_fonturls_desc__": [
         "Falls du noch mehr Schriftarten haben m\u00f6chtest, dann kannst du auf fonts.google.com gehen und eine Schriftart w\u00e4hlen. Diese Schrift wird dann im Texteditor und Stil-Einstellungen verf\u00fcgbar sein.<br\/>Auf der Webseite von Google w\u00e4hle eine Schriftart und klicke auf 'Select this style'. Rechts sollte dort nun eine Sidebar erscheinen wo ein Code zum einbinden angezeigt wird. Kopiere diesen Code und f\u00fcge in in diesem Feld hier ein. Unser System wird automatisch die entsprechenden Links rausfiltern. Die neue Schriftart ist dann im Select-Feld unterbei ausw\u00e4hlbar.<br\/>Achtung: F\u00fcr jede Schriftart die du hinzuf\u00fcgst erh\u00f6ht sich die Ladezeit deiner Webseite. Halte deshalb die Schriftarten gering. Mehr als 2 sind nicht empfohlen.",
         "aeae4"
+    ],
+    "__myself_themes_fonturls_video__": [
+        "Hier ist ein kurzes Video wie man das ben\u00fctzt (English Only)",
+        "174cc"
     ],
     "__myself_themes_hello_footer__": [
         "Footer anzeigen",
@@ -1110,6 +1122,30 @@
     "__myself_websitesettings_search_engine_data__": [
         "Das ist als Metadaten anzusehen. Diese werden f\u00fcr Suchmaschinenoptimierung.",
         "1f5d9"
+    ],
+    "__myself_websitesettings_theme__": [
+        "Stil",
+        "d7217"
+    ],
+    "__myself_websitesettings_theme_new_themes__": [
+        "Suchst du andere Stile? Gehe auf {0} und installieren neue Stile oder {1}.",
+        "98855"
+    ],
+    "__myself_websitesettings_theme_new_themes_develop__": [
+        "entwickle dein eigenes Theme",
+        "6323d"
+    ],
+    "__myself_websitesettings_theme_new_themes_modulestore__": [
+        "Backend Module Store",
+        "0a2a2"
+    ],
+    "__myself_websitesettings_theme_useall__": [
+        "Nutze den Stil f\u00fcr alle Seiten",
+        "fddc2"
+    ],
+    "__myself_websitesettings_theme_usethis__": [
+        "Nutze den Stil f\u00fcr die aktuelle Seite",
+        "748ca"
     ],
     "__myself_websitesettings_themesettings__": [
         "Stil-Einstellungen",

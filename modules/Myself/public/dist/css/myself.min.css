@@ -131,3 +131,36 @@ html[data-edit-frame='1'] .myself-jump-mark {
 
 .tox-tinymce-inline {
   z-index: 40; }
+
+.theme-chooser {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-direction: row; }
+  .theme-chooser .theme-chooser-theme {
+    min-width: 300px;
+    max-width: 300px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px; }
+    .theme-chooser .theme-chooser-theme:hover {
+      box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px; }
+    .theme-chooser .theme-chooser-theme .theme-chooser-title,
+    .theme-chooser .theme-chooser-theme .theme-chooser-description {
+      background: white;
+      text-align: center;
+      padding: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .theme-chooser .theme-chooser-theme .theme-chooser-title {
+      font-weight: bold; }
+    .theme-chooser .theme-chooser-theme .theme-chooser-screenshot {
+      box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+      text-align: center;
+      width: 100%;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 300px;
+      margin: 10px 0; }
+    .theme-chooser .theme-chooser-theme .theme-chooser-use {
+      text-align: center; }

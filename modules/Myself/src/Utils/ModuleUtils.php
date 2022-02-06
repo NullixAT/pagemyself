@@ -19,7 +19,7 @@ use const FRAMELIX_APP_ROOT;
  */
 class ModuleUtils
 {
-    public const MODULE_UPDATE_CACHE_FILE =__DIR__."/../../tmp/module-update-available.json";
+    public const MODULE_UPDATE_CACHE_FILE = __DIR__ . "/../../tmp/module-update-available.json";
 
     /**
      * Cache

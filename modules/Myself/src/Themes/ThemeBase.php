@@ -51,7 +51,7 @@ abstract class ThemeBase
             );
             foreach ($files as $file) {
                 $className = ClassUtils::getClassNameForFile($file);
-                if (basename($file) === 'BlockBase.php') {
+                if (basename($file) === 'ThemeBase.php') {
                     continue;
                 }
                 $arr[] = $className;

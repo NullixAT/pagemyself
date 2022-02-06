@@ -587,6 +587,12 @@
     "__myself_templateeditor_thumbnail_required__": [
         "Thumbnail Image is required"
     ],
+    "__myself_theme_hello_description__": [
+        "Our default theme"
+    ],
+    "__myself_theme_hello_title__": [
+        "Hello"
+    ],
     "__myself_theme_not_exist__": [
         "Sorry, this page has not theme choosen."
     ],
@@ -601,6 +607,9 @@
     ],
     "__myself_themes_fonturls_desc__": [
         "If you want to use a custom font that is available on fonts.google.com then enter the URLs bellow. This font's will then be available in texteditor and style settings.<br\/>On the Google Website, select a font and click the button 'Select this style'. On the right, a sidebar should appear where you see the include URLs\/Code. Just copy and paste the code in here. Our system will automatically find the fonts out of that text. The new font will appear in the font selector.<br\/>Notice: Each font you add will increase the loading time of your website. Keep custom fonts as less as possible. More then 2 is not recommended."
+    ],
+    "__myself_themes_fonturls_video__": [
+        "Here is a short video how to use this"
     ],
     "__myself_themes_hello_footer__": [
         "Show footer"
@@ -832,6 +841,24 @@
     ],
     "__myself_websitesettings_search_engine_data__": [
         "This is a meta information and is only used for search machine optimization"
+    ],
+    "__myself_websitesettings_theme__": [
+        "Theme"
+    ],
+    "__myself_websitesettings_theme_new_themes__": [
+        "Looking for new themes? Goto your {0} and install new themes or {1}."
+    ],
+    "__myself_websitesettings_theme_new_themes_develop__": [
+        "develop your own"
+    ],
+    "__myself_websitesettings_theme_new_themes_modulestore__": [
+        "Backend Module Store"
+    ],
+    "__myself_websitesettings_theme_useall__": [
+        "Use this theme for all pages"
+    ],
+    "__myself_websitesettings_theme_usethis__": [
+        "Use this theme only for current page"
     ],
     "__myself_websitesettings_themesettings__": [
         "Theme Settings"

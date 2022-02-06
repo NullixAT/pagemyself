@@ -9,15 +9,22 @@ use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Response;
+use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\ArrayUtils;
 use Framelix\Framelix\Utils\ClassUtils;
+use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\View;
 use Framelix\Myself\Form\Field\Ace;
 use Framelix\Myself\Form\Field\MediaBrowser;
 use Framelix\Myself\Storable\Page;
+use Framelix\Myself\Themes\ThemeBase;
+
+use function file_exists;
+use function strtolower;
 
 /**
  * WebsiteSettings
@@ -35,6 +42,28 @@ class WebsiteSettings extends View
      * @var Page
      */
     private Page $page;
+
+    /**
+     * On js call
+     * @param JsCall $jsCall
+     */
+    public static function onJsCall(JsCall $jsCall): void
+    {
+        switch ($jsCall->action) {
+            case 'set-theme':
+                if ($jsCall->parameters['type'] === 'all') {
+                    $pages = Page::getByCondition();
+                } else {
+                    $pages = Page::getByIds([Request::getGet('pageId')]);
+                }
+                foreach ($pages as $page) {
+                    $page->themeClass = $jsCall->parameters['themeClass'];
+                    $page->store();
+                }
+                Toast::success('__framelix_saved__');
+                break;
+        }
+    }
 
     /**
      * On request
@@ -59,6 +88,75 @@ class WebsiteSettings extends View
             Response::showFormAsyncSubmitResponse();
         }
         switch ($this->tabId) {
+            case 'theme':
+                echo '<div class="framelix-alert">'
+                    . Lang::get(
+                        '__myself_websitesettings_theme_new_themes__',
+                        [
+                            '<a href="' . View::getUrl(
+                                \Framelix\Myself\View\Backend\Modules\Index::class
+                            ) . '" target="_blank">' . Lang::get(
+                                '__myself_websitesettings_theme_new_themes_modulestore__'
+                            ) . '</a>',
+                            '<a href="https://pagemyself.com/docs/main/dev/basics" target="_blank">' . Lang::get(
+                                '__myself_websitesettings_theme_new_themes_develop__'
+                            ) . '</a>'
+                        ]
+                    )
+                    . '</div>';
+                echo '<div class="theme-chooser">';
+                $themeClasses = ThemeBase::getAllClasses();
+                foreach ($themeClasses as $themeClass) {
+                    $themeModule = ClassUtils::getModuleForClass($themeClass);
+                    $themeModuleLower = strtolower($themeModule);
+                    $themeName = strtolower(ClassUtils::getClassBaseName($themeClass));
+                    $themeFolder = FileUtils::getModuleRootPath($themeModule) . "/public/themes/" . $themeName;
+                    $screenshotFile = $themeFolder . "/screenshot.png";
+                    if (!file_exists($screenshotFile)) {
+                        $screenshotFile = __DIR__ . "/../../public/img/no-screenshot.png";
+                    }
+                    ?>
+                    <div class="theme-chooser-theme" data-theme-class="<?= $themeClass ?>" tabindex="0">
+                        <div class="theme-chooser-title">
+                            <?= Lang::get('__' . $themeModuleLower . '_theme_' . $themeName . '_title__') ?>
+                        </div>
+                        <div class="theme-chooser-description">
+                            <?= Lang::get('__' . $themeModuleLower . '_theme_' . $themeName . '_description__') ?>
+                        </div>
+                        <div class="theme-chooser-screenshot"
+                             style="background-image: url(<?= Url::getUrlToFile($screenshotFile) ?>)"></div>
+                        <div class="theme-chooser-use">
+                            <button class="framelix-button framelix-button-primary" data-icon-left="check"
+                                    data-type="current"><?= Lang::get(
+                                    '__myself_websitesettings_theme_usethis__'
+                                ) ?></button>
+                            <button class="framelix-button framelix-button-warning"
+                                    data-icon-left="check" data-type="all"><?= Lang::get(
+                                    '__myself_websitesettings_theme_useall__'
+                                ) ?></button>
+                        </div>
+                    </div>
+                    <?php
+                }
+                echo '</div>';
+                ?>
+                <script>
+                  $('.theme-chooser').on('click', '.theme-chooser-use button', async function () {
+                    if (await FramelixModal.confirm('__framelix_sure__').confirmed) {
+                      await FramelixApi.callPhpMethod('<?=JsCall::getCallUrl(
+                          __CLASS__,
+                          'set-theme',
+                          ['pageId' => $this->page]
+                      )?>', {
+                        'type': $(this).attr('data-type'),
+                        'themeClass': $(this).closest('.theme-chooser-theme').attr('data-theme-class')
+                      })
+                      location.reload()
+                    }
+                  })
+                </script>
+                <?php
+                break;
             case 'themesettings':
                 $form = $this->getFormThemeSettings();
                 $form->addSubmitButton('save', '__framelix_save__', 'save');
@@ -125,6 +223,7 @@ class WebsiteSettings extends View
             default:
                 $tabs = new Tabs();
                 $tabs->id = "website-settings";
+                $tabs->addTab('theme', '__myself_websitesettings_theme__', new self(), $_GET);
                 $tabs->addTab('themesettings', '__myself_websitesettings_themesettings__', new self(), $_GET);
                 $tabs->addTab('meta', '__myself_websitesettings_meta_', new self(), $_GET);
                 $tabs->addTab('pages', '__myself_view_backend_page_index__', new self(), $_GET);
@@ -152,7 +251,11 @@ class WebsiteSettings extends View
             '__myself_themes_fonturls__',
             ['<a href="https://fonts.google.com" target="_blank" rel="nofollow">fonts.google.com</a>']
         );
-        $field->labelDescription = '__myself_themes_fonturls_desc__';
+        $field->labelDescription = Lang::get(
+                '__myself_themes_fonturls_desc__'
+            ) . '<br/><a href="https://www.youtube.com/watch?v=gHkSNWZ1UgM&list=PLFckrKcNoDynWKpyM-_Zc6r-UjLA-BiX8&index=3" target="_blank">» ' . Lang::get(
+                '__myself_themes_fonturls_video__'
+            ) . '</a>';
         $form->addField($field);
 
         $field = new Select();
