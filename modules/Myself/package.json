@@ -7,6 +7,7 @@
     "release": {
       "exclude": [
         "^/public/uploads",
+        "^/public/googlefontsproxy",
         "^/templates"
       ]
     }
