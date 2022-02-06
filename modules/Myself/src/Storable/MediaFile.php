@@ -87,10 +87,10 @@ class MediaFile extends StorableFile
     public static function getByIdOrDemo(mixed $id): ?self
     {
         if ($id === 'demo-image') {
-            return self::getSimulatedMediaFile(__DIR__ . "/../../public/img/demo-image.jpg");
+            return self::getSimulatedMediaFile(__DIR__ . "/../../public/img/demo-image.png");
         }
         if ($id === 'demo-video') {
-            return self::getSimulatedMediaFile(__DIR__ . "/../../public/img/demo-image.jpg");
+            return self::getSimulatedMediaFile(__DIR__ . "/../../public/img/demo-image.png");
         }
         return self::getById($id);
     }
