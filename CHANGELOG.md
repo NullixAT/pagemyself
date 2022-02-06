@@ -5,9 +5,25 @@ All notable changes to this project will be documented in this file.
 ## [unreleased]
 
 ### :heart: Added
-* added google fonts proxy for data protection https://github.com/NullixAT/pagemyself/issues/1
 
 ### :pencil: Changed
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
+## [0.10.0 - 2022-02-06]
+
+### :heart: Added
+* added google fonts proxy for data protection #1
+* added theme chooser #2
+
+### :pencil: Changed
+* minor fixes and updates
 
 ### :construction: Deprecated
 
