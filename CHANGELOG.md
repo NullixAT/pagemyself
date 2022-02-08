@@ -16,6 +16,38 @@ All notable changes to this project will be documented in this file.
 
 ### :police_car: Security
 
+## [0.12.0 - 2022-02-08]
+updated to [framelix core version 1.4.0](https://github.com/NullixAT/framelix-core/blob/main/CHANGELOG.md)
+
+### :heart: Added
+
+### :pencil: Changed
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
+## [0.11.0 - 2022-02-06]
+
+### :heart: Added
+* added google fonts proxy for data protection #1
+* added theme chooser #2
+
+### :pencil: Changed
+* a lot of framelix core updated
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
 ## [0.10.0 - 2022-02-06]
 
 ### :heart: Added
