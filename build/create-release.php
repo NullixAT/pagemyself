@@ -50,7 +50,6 @@ $sectionExists = str_contains(implode("\n", $changelogLines), $newSectionHeader)
 
 foreach ($changelogLines as $lineNr => $line) {
     if (($sectionExists && $line === $newSectionHeader) || (!$sectionExists && str_starts_with($line, "## [unreleased]"))) {
-        $unreleasedLogLines[] = $newSectionHeader;
         $newChangeLogContent[$lineNr] = $unreleasedEmptyLog . "\n\n$newSectionHeader";
         $valid = true;
         continue;
