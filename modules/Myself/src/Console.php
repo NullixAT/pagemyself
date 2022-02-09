@@ -61,7 +61,7 @@ class Console extends \Framelix\Framelix\Console
         mkdir($moduleDir . "/public/dist/js", 0777, true);
         mkdir($moduleDir . "/scss", 0777, true);
         mkdir($moduleDir . "/src", 0777, true);
-        Config::writetConfigToFile($moduleName, "config-module.php", [
+        Config::writeConfigToFile($moduleName, "config-module.php", [
             'compiler' => [
                 $moduleName => [
                     'js' => [],
@@ -280,7 +280,7 @@ class Console extends \Framelix\Framelix\Console
             }
         }
         if ($config !== $configOriginal) {
-            Config::writetConfigToFile($module, "config-module.php", $config);
+            Config::writeConfigToFile($module, "config-module.php", $config);
             echo "Updated config for $module";
         } else {
             echo "Config is already Up2Date";

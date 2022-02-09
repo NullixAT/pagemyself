@@ -9,9 +9,8 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
-        "modulesCallable" : "\\Framelix\\Myself\\Utils\\ModuleUtils::getModules",
-        "backendStartUrl" : "/backend",
-        "setupDoneRedirect": "/backend",
+        "modulesCallable" : "Framelix\\Myself\\Utils\\ModuleUtils::getModules",
+        "backendDefaultView" : "Framelix\\Myself\\View\\Backend\\Index",
         "userRoles": {
             "content": "__myself_user_role_content__"
         },

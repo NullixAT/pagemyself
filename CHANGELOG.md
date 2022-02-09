@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+updated to [framelix core version 1.5.0](https://github.com/NullixAT/framelix-core/blob/main/CHANGELOG.md)
 
 ### :construction: Deprecated
 
