@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 ## [unreleased]
 
 ### :heart: Added
+
+### :pencil: Changed
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
+## [0.14.0 - 2022-02-11]
+
+### :heart: Added
 * added CTRL+right-click shortcut to open layout settings of specific block on the page
 
 ### :pencil: Changed
