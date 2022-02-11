@@ -59,10 +59,6 @@
         "Bist du sicher das du diese Spalte entfernen willst? Das kann nicht r\u00fcckg\u00e4ngig gemacht werden",
         "cb977"
     ],
-    "__myself_blocklayout_column_settings_title_pageblock__": [
-        "Spezifische Block Einstellungen",
-        "c61ef"
-    ],
     "__myself_blocklayout_columnsetting_fadein__": [
         "Fade-In Effekt",
         "e57d9"
@@ -159,13 +155,17 @@
         "Der Block wird nicht breiter als diese Angabe. Hilfreich wenn du zb.: einen Block zentrieren willst.",
         "90b5d"
     ],
-    "__myself_blocklayout_settings_column__": [
-        "Spalteneinstellungen",
-        "67f40"
+    "__myself_blocklayout_settings__": [
+        "Einstellungen",
+        "f4f70"
     ],
-    "__myself_blocklayout_settings_row__": [
-        "Zeileneinstellungen",
-        "fab26"
+    "__myself_blocklayout_settings_info_columnsettings_": [
+        "Die Einstellungen in dieser Farbgruppe gelten nur f\u00fcr diese eine Layout Spalte. Sie beeinflussen nicht die Einstellungen der anderen Spalten in dieser Layout Reihe.",
+        "87427"
+    ],
+    "__myself_blocklayout_settings_info_rowsettings_": [
+        "Die Einstellungen in dieser Farbgruppe gelten f\u00fcr alle Layout Spalten in dieser Reihe. Es {{0=1:ist {0} Spalte|0=*:sind {0} Spalten}} in dieser Reihe die sich die selben Einstellungen teilen.",
+        "24013"
     ],
     "__myself_blocklayout_shrink__": [
         "Spalte verkleinern (Halbiert die Gr\u00f6\u00dfe relativ zu den anderen)",
@@ -304,8 +304,8 @@
         "1fc1f"
     ],
     "__myself_mediabrowser_files_selected__": [
-        "{{0=1:Datei|0=*:Dateien}} ausgew\u00e4hlt",
-        "da67f"
+        "{{0=1:{0} Datei|0=*:{0} Dateien}} ausgew\u00e4hlt",
+        "4ca9e"
     ],
     "__myself_mediabrowser_open_folder__": [
         "Ordner \u00f6ffnen",

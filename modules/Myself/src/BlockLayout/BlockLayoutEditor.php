@@ -332,21 +332,28 @@ class BlockLayoutEditor
                 $page->blockLayout = $blockLayout;
                 $page->store();
                 break;
-            case 'save-column-settings':
+            case 'save-settings':
                 $blockLayout = $page->getBlockLayout();
                 $pageBlock = PageBlock::getById(Request::getGet('pageBlockId') ?? null);
                 $layoutBlock = $pageBlock?->getLayoutBlock();
+                $column = null;
+                $row = null;
                 $columnSettings = null;
+                $rowSettings = null;
                 if (is_numeric(Request::getGet('rowId')) && is_numeric(Request::getGet('columnId'))) {
+                    $row = $blockLayout->getRow(Request::getGet('rowId'));
                     $column = $blockLayout->getColumn(Request::getGet('rowId'), Request::getGet('columnId'));
+                    $rowSettings = $row->settings;
                     $columnSettings = $column->settings;
                 }
-                $form = self::getFormColumnSettings($layoutBlock, $columnSettings);
+                $form = self::getFormSettings($layoutBlock, $row, $column);
                 $values = $form->getConvertedSubmittedValues();
                 foreach ($values as $fieldName => $value) {
                     $nameSplit = ArrayUtils::splitKeyString($fieldName);
                     if ($nameSplit[0] === 'pageBlockValues') {
                         $pageBlock->{$nameSplit[1]} = $value;
+                    } elseif ($nameSplit[0] === 'rowSettings') {
+                        $rowSettings->{$nameSplit[1]} = $value;
                     } elseif ($nameSplit[0] === 'columnSettings') {
                         $columnSettings->{$nameSplit[1]} = $value;
                     } elseif ($nameSplit[0] === 'pageBlockSettings') {
@@ -363,22 +370,25 @@ class BlockLayoutEditor
                 $pageBlock?->store();
                 Toast::success('__framelix_saved__');
                 Response::showFormAsyncSubmitResponse();
-            case 'column-settings':
+            case 'settings':
                 $blockLayout = $page->getBlockLayout();
+                $row = null;
                 $column = null;
                 if (is_numeric($rowId) && is_numeric($columnId)) {
+                    $row = $blockLayout->getRow($rowId);
                     $column = $blockLayout->getColumn($rowId, $columnId);
                 }
                 $pageBlock = PageBlock::getById($column->pageBlockId ?? $jsCall->parameters['pageBlockId']);
                 $layoutBlock = $pageBlock?->getLayoutBlock();
-                $form = self::getFormColumnSettings(
+                $form = self::getFormSettings(
                     $layoutBlock,
-                    $column->settings ?? null
+                    $row,
+                    $column
                 );
                 $form->stickyFormButtons = true;
                 $form->submitUrl = JsCall::getCallUrl(
                     __CLASS__,
-                    'save-column-settings',
+                    'save-settings',
                     [
                         'pageId' => $page,
                         'pageBlockId' => $pageBlock,
@@ -388,35 +398,25 @@ class BlockLayoutEditor
                 );
                 $form->addSubmitButton('save', '__framelix_save__', 'save', ColorName::PRIMARY);
                 $form->show();
-                break;
-            case 'save-row-settings':
-                $blockLayout = $page->getBlockLayout();
-                $rowId = (int)Request::getGet('rowId');
-                $rowSettings = $blockLayout->getRow($rowId)->settings;
-                $form = self::getFormRowSettings($rowSettings);
-                $values = $form->getConvertedSubmittedValues();
-                foreach ($values as $key => $value) {
-                    $rowSettings->{$key} = $value;
-                }
-                $page->blockLayout = $blockLayout;
-                $page->store();
-                Toast::success('__framelix_saved__');
-                Response::showFormAsyncSubmitResponse();
-            case 'row-settings':
-                $blockLayout = $page->getBlockLayout();
-                $rowSettings = $blockLayout->getRow($rowId)->settings;
-                $form = self::getFormRowSettings($rowSettings);
-                $form->stickyFormButtons = true;
-                $form->submitUrl = JsCall::getCallUrl(
-                    __CLASS__,
-                    'save-row-settings',
-                    [
-                        'pageId' => $page,
-                        'rowId' => $rowId
-                    ]
-                );
-                $form->addSubmitButton('save', '__framelix_save__', 'save', ColorName::PRIMARY);
-                $form->show();
+                ?>
+                <script>
+                  (async function () {
+                    const form = FramelixForm.getById('<?=$form->id?>')
+                    await form.rendered
+                    let color = ''
+                    for (let fieldName in form.fields) {
+                      const field = form.fields[fieldName]
+                      if (field.name === 'title_columnsettings') {
+                        color = '#81ccff'
+                      }
+                      if (field.name === 'title_rowsettings') {
+                        color = '#ff81a5'
+                      }
+                      if (color.length) field.container.css('border-left', '5px solid ' + color).css('padding-left', '10px')
+                    }
+                  })()
+                </script>
+                <?php
                 break;
             case 'select-new-page-block':
                 ?>
@@ -539,101 +539,31 @@ class BlockLayoutEditor
     }
 
     /**
-     * Get form for row settings
-     * @param BlockLayoutRowSettings $settings
-     * @return Form
-     */
-    public static function getFormRowSettings(BlockLayoutRowSettings $settings): Form
-    {
-        $form = new Form();
-        $form->id = "rowsettings";
-
-        $field = new Number();
-        $field->name = 'gap';
-        $field->label = '__myself_blocklayout_rowsetting_gap__';
-        $field->labelDescription = '__myself_blocklayout_rowsetting_gap_desc__';
-        $field->min = 0;
-        $field->max = 10000;
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
-        $form->addField($field);
-
-        $field = new Number();
-        $field->name = 'maxWidth';
-        $field->label = '__myself_blocklayout_rowsetting_maxwidth__';
-        $field->labelDescription = '__myself_blocklayout_rowsetting_maxwidth_desc__';
-        $field->min = 0;
-        $field->max = 10000;
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
-        $form->addField($field);
-
-        $field = new Select();
-        $field->name = 'alignment';
-        $field->label = '__myself_blocklayout_rowsetting_alignment__';
-        $field->labelDescription = '__myself_align_desc__';
-        $field->addOption('left', '__myself_align_left__');
-        $field->addOption('center', '__myself_align_center__');
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
-        $field->getVisibilityCondition()->notEmpty('maxWidth');
-        $form->addField($field);
-
-        $field = new MediaBrowser();
-        $field->name = 'backgroundImage';
-        $field->label = '__myself_pageblocks_backgroundimage__';
-        $field->setOnlyImages();
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
-        $form->addField($field);
-
-        $field = new MediaBrowser();
-        $field->name = 'backgroundVideo';
-        $field->label = '__myself_pageblocks_backgroundvideo__';
-        $field->labelDescription = '__myself_pageblocks_backgroundvideo_desc__';
-        $field->setOnlyVideos();
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name);
-        $form->addField($field);
-
-        $field = new Select();
-        $field->name = 'backgroundSize';
-        $field->label = '__myself_pageblocks_backgroundsize__';
-        $field->labelDescription = '__myself_pageblocks_backgroundsize_desc__';
-        $field->addOption('contain', '__myself_pageblocks_backgroundsize_contain__');
-        $field->addOption('cover', '__myself_pageblocks_backgroundsize_cover__');
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name) ?? 'cover';
-        $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
-        $form->addField($field);
-
-        $field = new Select();
-        $field->name = 'backgroundPosition';
-        $field->label = '__myself_pageblocks_backgroundposition__';
-        $field->addOption('top', '__myself_align_top__');
-        $field->addOption('center', '__myself_align_center__');
-        $field->addOption('bottom', '__myself_align_bottom__');
-        $field->defaultValue = ArrayUtils::getValue($settings, $field->name) ?? 'center';
-        $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
-        $form->addField($field);
-
-        return $form;
-    }
-
-
-    /**
-     * Get form for column settings
+     * Get form for settings
      * @param BlockBase|null $blockBase
-     * @param BlockLayoutColumnSettings|null $settings
+     * @param BlockLayoutRow|null $row
+     * @param BlockLayoutColumn|null $column
      * @return Form
      */
-    public static function getFormColumnSettings(?BlockBase $blockBase, ?BlockLayoutColumnSettings $settings): Form
-    {
+    public static function getFormSettings(
+        ?BlockBase $blockBase,
+        ?BlockLayoutRow $row,
+        ?BlockLayoutColumn $column
+    ): Form {
         $form = new Form();
-        $form->id = "columnsettings";
+        $form->id = "settings";
 
-        $titleField = new Html();
-        $titleField->name = 'title_pageblock';
-        $titleField->label = '';
-        $titleField->labelDescription = '';
-        $titleField->defaultValue = '<div class="framelix-alert">' . Lang::get(
-                '__myself_blocklayout_column_settings_title_pageblock__'
-            ) . '</div>';
-        $form->addField($titleField);
+        $rowSettings = $row->settings ?? null;
+        $columnSettings = $column->settings ?? null;
+
+        if ($columnSettings) {
+            $field = new Html();
+            $field->name = 'title_columnsettings';
+            $field->defaultValue = '<div class="framelix-alert">' . Lang::get(
+                    '__myself_blocklayout_settings_info_columnsettings_'
+                ) . '</div>';
+            $form->addField($field);
+        }
 
         $prevFields = $form->fields;
         $blockBase?->addSettingsFields($form);
@@ -643,30 +573,16 @@ class BlockLayoutEditor
             unset($form->fields[$field->name]);
             if ($field->hasVisibilityCondition()) {
                 $condition = $field->getVisibilityCondition();
-                foreach ($condition->data as $key => $row) {
-                    if (isset($row['field'])) {
-                        $row['field'] = 'pageBlockSettings[' . $row['field'] . ']';
-                        $condition->data[$key] = $row;
+                foreach ($condition->data as $key => $conditionRow) {
+                    if (isset($conditionRow['field'])) {
+                        $conditionRow['field'] = 'pageBlockSettings[' . $conditionRow['field'] . ']';
+                        $condition->data[$key] = $conditionRow;
                     }
                 }
             }
             $field->name = "pageBlockSettings[$field->name]";
             $form->fields[$field->name] = $field;
         }
-
-        if (!$additionalFields) {
-            unset($form->fields[$titleField->name]);
-        } elseif ($settings) {
-            $titleField = new Html();
-            $titleField->name = 'title_columnsettings';
-            $titleField->label = '';
-            $titleField->labelDescription = '';
-            $titleField->defaultValue = '<div class="framelix-alert">' . Lang::get(
-                    '__myself_blocklayout_settings_column__'
-                ) . '</div>';
-            $form->addField($titleField);
-        }
-
 
         if ($blockBase && !$blockBase->pageBlock->fixedPlacement) {
             $field = new Toggle();
@@ -675,7 +591,7 @@ class BlockLayoutEditor
             $form->addField($field);
         }
 
-        if ($settings) {
+        if ($columnSettings) {
             $field = new Number();
             $field->name = 'columnSettings[padding]';
             $field->label = '__myself_blocklayout_columnsetting_padding__';
@@ -788,6 +704,76 @@ class BlockLayoutEditor
             $form->addField($field);
         }
 
+        if ($rowSettings) {
+            $field = new Html();
+            $field->name = 'title_rowsettings';
+            $field->defaultValue = '<div class="framelix-alert">' . Lang::get(
+                    '__myself_blocklayout_settings_info_rowsettings_', [count($row->columns ?? [])]
+                ) . '</div>';
+            $form->addField($field);
+
+            $field = new Number();
+            $field->name = 'rowSettings[gap]';
+            $field->label = '__myself_blocklayout_rowsetting_gap__';
+            $field->labelDescription = '__myself_blocklayout_rowsetting_gap_desc__';
+            $field->min = 0;
+            $field->max = 10000;
+            $form->addField($field);
+
+            $field = new Number();
+            $field->name = 'rowSettings[maxWidth]';
+            $field->label = '__myself_blocklayout_rowsetting_maxwidth__';
+            $field->labelDescription = '__myself_blocklayout_rowsetting_maxwidth_desc__';
+            $field->min = 0;
+            $field->max = 10000;
+            $form->addField($field);
+
+            $field = new Select();
+            $field->name = 'rowSettings[alignment]';
+            $field->label = '__myself_blocklayout_rowsetting_alignment__';
+            $field->labelDescription = '__myself_align_desc__';
+            $field->addOption('left', '__myself_align_left__');
+            $field->addOption('center', '__myself_align_center__');
+            $field->defaultValue = 'left';
+            $field->getVisibilityCondition()->notEmpty('rowSettings[maxWidth]');
+            $form->addField($field);
+
+            $field = new MediaBrowser();
+            $field->name = 'rowSettings[backgroundImage]';
+            $field->label = '__myself_pageblocks_backgroundimage__';
+            $field->setOnlyImages();
+            $form->addField($field);
+
+            $field = new MediaBrowser();
+            $field->name = 'rowSettings[backgroundVideo]';
+            $field->label = '__myself_pageblocks_backgroundvideo__';
+            $field->labelDescription = '__myself_pageblocks_backgroundvideo_desc__';
+            $field->setOnlyVideos();
+            $form->addField($field);
+
+            $field = new Select();
+            $field->name = 'rowSettings[backgroundSize]';
+            $field->label = '__myself_pageblocks_backgroundsize__';
+            $field->addOption('contain', '__myself_pageblocks_backgroundsize_contain__');
+            $field->addOption('cover', '__myself_pageblocks_backgroundsize_cover__');
+            $field->defaultValue = 'cover';
+            $field->getVisibilityCondition()->notEmpty('backgroundVideo')->or()->notEmpty('backgroundImage');
+            $form->addField($field);
+
+            $field = new Select();
+            $field->name = 'rowSettings[backgroundPosition]';
+            $field->label = '__myself_pageblocks_backgroundposition__';
+            $field->addOption('top', '__myself_align_top__');
+            $field->addOption('center', '__myself_align_center__');
+            $field->addOption('bottom', '__myself_align_bottom__');
+            $field->defaultValue = 'center';
+            $field->getVisibilityCondition()
+                ->notEmpty('rowSettings[backgroundVideo]')
+                ->or()
+                ->notEmpty('rowSettings[backgroundImage]');
+            $form->addField($field);
+        }
+
         foreach ($form->fields as $field) {
             $splitKey = ArrayUtils::splitKeyString($field->name);
             if (count($splitKey) <= 1) {
@@ -806,7 +792,9 @@ class BlockLayoutEditor
                 }
             }
             if ($splitKey[0] === 'columnSettings') {
-                $field->defaultValue = ArrayUtils::getValue($settings, $splitKey[1]) ?? $field->defaultValue;
+                $field->defaultValue = ArrayUtils::getValue($columnSettings, $splitKey[1]) ?? $field->defaultValue;
+            } elseif ($splitKey[0] === 'rowSettings') {
+                $field->defaultValue = ArrayUtils::getValue($rowSettings, $splitKey[1]) ?? $field->defaultValue;
             } elseif ($splitKey[0] === 'pageBlockValues') {
                 $field->defaultValue = ArrayUtils::getValue(
                         $blockBase->pageBlock,

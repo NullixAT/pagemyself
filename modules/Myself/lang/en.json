@@ -44,9 +44,6 @@
     "__myself_blocklayout_column_remove__": [
         "Are your sure to remove this column? This cannot be undone!"
     ],
-    "__myself_blocklayout_column_settings_title_pageblock__": [
-        "Specific Block Settings"
-    ],
     "__myself_blocklayout_columnsetting_fadein__": [
         "Fade In Effect"
     ],
@@ -119,11 +116,14 @@
     "__myself_blocklayout_rowsetting_maxwidth_desc__": [
         "The block will not be larger then this width. Useful when you choose center layout with for example 1000 max width. Looks good on all screens."
     ],
-    "__myself_blocklayout_settings_column__": [
-        "Column settings"
+    "__myself_blocklayout_settings__": [
+        "Settings"
     ],
-    "__myself_blocklayout_settings_row__": [
-        "Row settings"
+    "__myself_blocklayout_settings_info_columnsettings_": [
+        "The settings in this color group define how this single column behaves. It doesn't effect other columns in the same row."
+    ],
+    "__myself_blocklayout_settings_info_rowsettings_": [
+        "The settings in this color group define how all columns in this row behave. There {{0=1:is {0} column|0=*:are {0} columns}} in this row that share this settings."
     ],
     "__myself_blocklayout_shrink__": [
         "Shrink column (Half the size relative to others)"
@@ -228,7 +228,7 @@
         "Please enter YES into the prompt, to confirm the delete action"
     ],
     "__myself_mediabrowser_files_selected__": [
-        "{{0=1:file|0=*:files}} selected"
+        "{{0=1:{0} file|0=*:{0} files}} selected"
     ],
     "__myself_mediabrowser_open_folder__": [
         "Open folder"

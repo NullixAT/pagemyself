@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+* merged row/column/pageblock settings into one page to unclutter the settings as it was a bit hard to use
 
 ### :construction: Deprecated
 

@@ -243,7 +243,7 @@ class MyselfBlockLayoutEditor {
             <div class="myself-block-layout-row-column-title" title="__myself_blocklayout_themeblock__">${title}</div>
             <div class="myself-block-layout-row-column-actions">
               <button class="framelix-button framelix-button-primary" data-icon-left="settings"
-                      title="__myself_blocklayout_settings_column__" data-action="column-settings"></button>
+                      title="__myself_blocklayout_settings__" data-action="settings"></button>
             </div>
         </div>`)
       row.append(blockColumn)
@@ -276,7 +276,7 @@ class MyselfBlockLayoutEditor {
               <button class="framelix-button" data-icon-left="expand"
                       title="__myself_blocklayout_grow__" data-action="grow"></button>
               <button class="framelix-button framelix-button-primary" data-icon-left="settings"
-                      title="__myself_blocklayout_settings_column__" data-action="column-settings"></button>
+                      title="__myself_blocklayout_settings__" data-action="settings"></button>
               <button class="framelix-button" data-icon-left="clear"
                       title="__myself_blocklayout_remove_column__" data-action="column-remove"></button>
             </div>
@@ -292,8 +292,6 @@ class MyselfBlockLayoutEditor {
       row.append(`<div class="myself-block-layout-row-column myself-block-layout-row-column-new">
             <div class="myself-block-layout-row-column-title"></div>
             <div class="myself-block-layout-row-column-actions">
-              <button class="framelix-button framelix-button-primary" data-icon-left="settings"
-                      title="__myself_blocklayout_settings_row__" data-action="row-settings"></button>
               <button class="framelix-button framelix-button-success" data-icon-left="add"
                       title="__myself_blocklayout_add_column__" data-action="column-add"></button>
               <button class="framelix-button myself-block-layout-sort" data-icon-left="swap_vert" title="__myself_blocklayout_sort_row__"></button>
@@ -369,19 +367,7 @@ class MyselfBlockLayoutEditor {
             })
             self.reload()
             break
-          case 'row-settings': {
-            const modal = await FramelixModal.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
-              'pageId': MyselfEdit.framePageId,
-              'action': action,
-              'rowId': rowId
-            }, { maximized: true })
-            modal.contentContainer.on(FramelixForm.EVENT_SUBMITTED, function () {
-              self.reload()
-              modal.destroy()
-            })
-          }
-            break
-          case 'column-settings': {
+          case 'settings': {
             const modal = await FramelixModal.callPhpMethod(MyselfEdit.config.blockLayoutApiUrl, {
               'pageId': MyselfEdit.framePageId,
               'action': action,
