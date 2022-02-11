@@ -7,6 +7,20 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
+## [0.15.0 - 2022-02-11]
+
+### :heart: Added
+
+### :pencil: Changed
 * merged row/column/pageblock settings into one page to unclutter the settings as it was a bit hard to use
 
 ### :construction: Deprecated
