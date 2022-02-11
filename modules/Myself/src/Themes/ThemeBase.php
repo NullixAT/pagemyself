@@ -19,7 +19,6 @@ use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\PageBlock;
 use Framelix\Myself\Storable\ThemeSettings;
 use Framelix\Myself\View\Index;
-
 use function basename;
 use function class_exists;
 use function strtolower;
@@ -175,6 +174,7 @@ abstract class ThemeBase
         }
         $rowAttributes = new HtmlAttributes();
         $rowAttributes->addClass('myself-block-layout-row');
+        $rowAttributes->set('data-row-id', $row->rowId);
         $columns = $row->columns;
         $rowAttributes->set('data-columns', count($columns));
         $rowSettings = $row->settings;
@@ -228,6 +228,7 @@ abstract class ThemeBase
         $columnSettings = $column->settings;
         $columnAttributes = new HtmlAttributes();
         $columnAttributes->addClass('myself-block-layout-row-column');
+        $columnAttributes->set('data-column-id', $column->columnId);
         $settingValue = $columnSettings->padding;
         if ($settingValue) {
             $columnAttributes->setStyle('padding', $settingValue . "px");

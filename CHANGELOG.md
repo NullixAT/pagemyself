@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 ## [unreleased]
 
 ### :heart: Added
+* added CTRL+right-click shortcut to open layout settings of specific block on the page
 
 ### :pencil: Changed
+* refactored edit layout so it is easier to use and not spread across the screen
 
 ### :construction: Deprecated
 

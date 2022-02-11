@@ -17,6 +17,12 @@ class BlockLayoutColumn implements JsonSerializable
     public BlockLayoutColumnSettings $settings;
 
     /**
+     * Internal column id
+     * @var string|null
+     */
+    public ?string $columnId = null;
+
+    /**
      * The assigned page block id
      * @var int
      */
@@ -25,11 +31,13 @@ class BlockLayoutColumn implements JsonSerializable
     /**
      * Create an instance from given data
      * @param array|null $data
+     * @param string|null $columnId
      * @return self
      */
-    public static function create(?array $data): self
+    public static function create(?array $data, ?string $columnId = null): self
     {
         $instance = new self();
+        $instance->columnId = $columnId;
         $instance->settings = BlockLayoutColumnSettings::create($data['settings'] ?? null);
         $instance->pageBlockId = $data['pageBlockId'] ?? 0;
         return $instance;

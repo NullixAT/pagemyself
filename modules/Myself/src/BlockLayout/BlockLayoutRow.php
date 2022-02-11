@@ -23,16 +23,24 @@ class BlockLayoutRow implements JsonSerializable
     public BlockLayoutRowSettings $settings;
 
     /**
+     * Internal row id
+     * @var string|null
+     */
+    public ?string $rowId = null;
+
+    /**
      * Create an instance from given data
      * @param array|null $data
+     * @param string|null $rowId
      * @return self
      */
-    public static function create(?array $data): self
+    public static function create(?array $data, ?string $rowId = null): self
     {
         $instance = new self();
+        $instance->rowId = $rowId;
         if (isset($data['columns'])) {
             foreach ($data['columns'] as $key => $rowData) {
-                $instance->columns[$key] = BlockLayoutColumn::create($rowData);
+                $instance->columns[$key] = BlockLayoutColumn::create($rowData, $key);
             }
         }
         $instance->settings = BlockLayoutRowSettings::create($data['settings'] ?? null);

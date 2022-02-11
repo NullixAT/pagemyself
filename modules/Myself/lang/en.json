@@ -155,6 +155,9 @@
     "__myself_disable_editmode__": [
         "Disable edit mode"
     ],
+    "__myself_edit_nav_protip__": [
+        "Pro Tip: Hold CTRL and right-click any element in your site to open the layout settings directly."
+    ],
     "__myself_editor_icons__": [
         "Insert Icon"
     ],

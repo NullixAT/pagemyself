@@ -57,7 +57,7 @@ class BlockLayout implements StorablePropertyInterface
         $instance = new self();
         if (isset($data['rows'])) {
             foreach ($data['rows'] as $key => $rowData) {
-                $instance->rows[$key] = BlockLayoutRow::create($rowData);
+                $instance->rows[$key] = BlockLayoutRow::create($rowData, $key);
             }
         }
         return $instance;

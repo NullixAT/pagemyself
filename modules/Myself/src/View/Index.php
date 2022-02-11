@@ -28,7 +28,6 @@ use Framelix\Myself\Storable\MediaFile;
 use Framelix\Myself\Storable\Page;
 use Framelix\Myself\Storable\ThemeSettings;
 use Framelix\Myself\Utils\ModuleUtils;
-
 use function class_exists;
 use function end;
 use function explode;
@@ -37,7 +36,6 @@ use function http_response_code;
 use function md5;
 use function strtolower;
 use function trim;
-
 use const FRAMELIX_MODULE;
 
 /**
@@ -257,64 +255,57 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         echo '<div class="framelix-page">';
         if ($this->editMode) {
             ?>
+            <button class="framelix-button myself-edit-frame-nav-toggle"
+                    data-icon-left="menu"></button>
+            <div class="myself-edit-frame-nav">
+                <a href="<?= Url::getBrowserUrl() ?>" class="myself-edit-frame-nav-logo"><img
+                            src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
+                            alt=""></a>
+
+                <button class="framelix-button myself-open-layout-block-editor"
+                        data-icon-left="grid_view"
+                        data-page-id="<?= $this->page ?>"><?= Lang::get('__myself_blocklayout_openeditor__') ?></button>
+
+                <button
+                        class="framelix-button myself-open-website-settings"
+                        data-icon-left="language"><?= Lang::get('__myself_websitesettings__') ?></button>
+                <a href="<?= Url::create()->setParameter('mobile', Request::getGet('mobile') ? 0 : 1) ?>"
+                   class="framelix-button"
+                   data-icon-left="devices"><?= Lang::get('__myself_toggle_mobile__') ?></a>
+                <a href="<?= Url::create()->removeParameter('editMode') ?>"
+                   class="framelix-button"
+                   data-icon-left="highlight_off"><?= Lang::get('__myself_disable_editmode__') ?></a>
+                <a href="<?= View::getUrl(Backend\Index::class) ?>"
+                   class="framelix-button"
+                   data-icon-left="link" target="_blank"><?= Lang::get('__myself_goto_backend__') ?></a>
+                <?php
+                if (file_exists(AppUpdate::UPDATE_CACHE_FILE)) {
+                    ?>
+                    <a href="<?= View::getUrl(View\Backend\AppUpdate::class) ?>"
+                       class="framelix-button framelix-button-error"
+                       data-icon-left="lightbulb" target="_blank"><?= Lang::get(
+                            '__myself_appupdate_available__'
+                        ) ?></a>
+                    <?php
+                }
+                if (file_exists(ModuleUtils::MODULE_UPDATE_CACHE_FILE)) {
+                    ?>
+                    <a href="<?= View::getUrl(Backend\Modules\Index::class) ?>"
+                       class="framelix-button framelix-button-error"
+                       data-icon-left="lightbulb" target="_blank"><?= Lang::get(
+                            '__myself_moduleupdate_available__'
+                        ) ?></a>
+                    <?php
+                }
+                ?>
+                <div class="framelix-spacer"></div>
+                <div style="font-size: 0.9rem">
+                    <span class="material-icons" style="color:yellow;">lightbulb</span>
+                    <?= Lang::get('__myself_edit_nav_protip__') ?>
+                </div>
+            </div>
             <div class="myself-edit-frame">
-                <div class="myself-edit-frame-outer-top">
-                    <div class="myself-edit-frame-outer-margin">
-                        <a href="<?= Url::getBrowserUrl() ?>"><img
-                                    src="<?= Url::getUrlToFile("img/logo-colored-white.svg") ?>"
-                                    alt="" height="30"></a>
-                        <button
-                                class="framelix-button framelix-button-primary framelix-button-small myself-open-website-settings"
-                                data-icon-left="language"><?= Lang::get('__myself_websitesettings__') ?></button>
-                        <a href="<?= Url::create()->setParameter('mobile', Request::getGet('mobile') ? 0 : 1) ?>"
-                           class="framelix-button framelix-button-small"
-                           data-icon-left="devices" title="__myself_toggle_mobile__"></a>
-                        <a href="<?= Url::create()->removeParameter('editMode') ?>"
-                           class="framelix-button framelix-button-small"
-                           data-icon-left="highlight_off" title="__myself_disable_editmode__"></a>
-                    </div>
-                </div>
-                <div class="myself-edit-frame-outer-bottom">
-                    <div class="myself-edit-frame-outer-margin">
-                        <a href="<?= View::getUrl(Backend\Index::class) ?>"
-                           class="framelix-button framelix-button-small framelix-button-primary"
-                           data-icon-left="link" target="_blank"><?= Lang::get('__myself_goto_backend__') ?></a>
-                        <?php
-                        if (file_exists(AppUpdate::UPDATE_CACHE_FILE)) {
-                            ?>
-                            <a href="<?= View::getUrl(View\Backend\AppUpdate::class) ?>"
-                               class="framelix-button framelix-button-small framelix-button-error"
-                               data-icon-left="link" target="_blank"><?= Lang::get(
-                                    '__myself_appupdate_available__'
-                                ) ?></a>
-                            <?php
-                        }
-                        if (file_exists(ModuleUtils::MODULE_UPDATE_CACHE_FILE)) {
-                            ?>
-                            <a href="<?= View::getUrl(Backend\Modules\Index::class) ?>"
-                               class="framelix-button framelix-button-small framelix-button-error"
-                               data-icon-left="link" target="_blank"><?= Lang::get(
-                                    '__myself_moduleupdate_available__'
-                                ) ?></a>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-                <div class="myself-edit-frame-outer-left">
-                    <div class="myself-edit-frame-outer-margin"></div>
-                </div>
-                <div class="myself-edit-frame-outer-right">
-                    <div class="myself-edit-frame-outer-margin">
-                        <div class="myself-edit-frame-button-row">
-                            <button class="framelix-button framelix-button-primary myself-open-layout-block-editor"
-                                    data-icon-left="grid_view"
-                                    title="__myself_blocklayout_openeditor__"
-                                    data-page-id="<?= $this->page ?>"></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="myself-edit-frame-inner">
+                <div class="myself-edit-frame-content">
                     <iframe src="<?= Url::create()->removeParameter('editMode') ?>"></iframe>
                 </div>
             </div>
@@ -341,7 +332,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__myself_page_n
         echo '</div>';
         ?>
         <script>
-          Framelix.initLate()
+            Framelix.initLate()
         </script>
         <?php
         if (!$this->editMode) {

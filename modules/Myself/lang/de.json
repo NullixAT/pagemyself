@@ -207,6 +207,10 @@
         "Bearbeitungsmodus deaktivieren",
         "5017a"
     ],
+    "__myself_edit_nav_protip__": [
+        "Pro Tipp: Halte STRG und klicke mit der rechten Maustaste auf irgendeinen Bereich in deiner Webseite um direkt die Layout Einstellungen zu \u00f6ffnen.",
+        "25893"
+    ],
     "__myself_editor_icons__": [
         "Icon einf\u00fcgen",
         "cc689"
