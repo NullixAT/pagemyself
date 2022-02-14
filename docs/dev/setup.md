@@ -17,7 +17,9 @@ For docker, clone this repository into the `app` folder. For manual installation
 Here is how:
 
     git clone https://github.com/NullixAT/pagemyself pagemyself
-    cd pagemyself/modules/Framelix
+    cd pagemyself
+    git submodule update --init --recursive
+    cd modules/Framelix
     npm install
 
 After that, just open the root of your folder in your browser, you should be guided through the first time setup as in the regular installation.
