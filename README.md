@@ -26,6 +26,11 @@ on the demo homepage itself. If the page is destroyed or credentials are missing
 * :heart: for devs | Built from the ground up for developers to integrate own themes, modules and plugins
 * Multilanguage interface | Currently there is english and german, but plan is to integrate open-source translations as
   well
+* Fully dynamic, no static site generator
+
+### Requirements
+
+PageMyself runs on PHP 8.1+ with a Mysql/Mariadb database. It is recommended to use Nginx as a webserver, but Apache do it as well. Our docker image already have that all included. If you choose to install manually, you have to met this requirements.
 
 ### Usage tutorial
 
