@@ -7,6 +7,20 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
+## [0.16.0 - 2022-02-17]
+
+### :heart: Added
+
+### :pencil: Changed
 * logo and corporate design
 * themes are now only visible in theme chooser when they have a screenshot
 
