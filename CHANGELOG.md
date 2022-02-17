@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### :x: Removed
 
 ### :wrench: Fixed
+fixed error when app update throws an error during update result in update never work again
 
 ### :police_car: Security
 
