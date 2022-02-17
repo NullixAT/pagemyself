@@ -23,6 +23,9 @@ From this point, you can start developing your theme, but let's check each file 
 
 To learn from live examples, just check out the built-in `Hello` themes source files, it is a way easier to see how already existing things are made. Filepaths are the same as your new module, expect everything is in `Myself`.
 
+### Screenshot required
+A `screenshot.png` is required in the folder `modules/YourModuleName/public/themes/YourThemeName`. Without this, your theme won't be available in the theme chooser in the website settings.
+
 ### Compiled files for JS/SCSS
 
 Compiled files comes automatically into `modules/YourModuleName/public/dist` and are updated each time you open any page where you theme is activated in the frontend.

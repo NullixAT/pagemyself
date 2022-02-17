@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+* logo and corporate design
+* themes are now only visible in theme chooser when they have a screenshot
 
 ### :construction: Deprecated
 

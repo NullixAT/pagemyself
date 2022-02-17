@@ -113,7 +113,7 @@ class WebsiteSettings extends View
                     $themeFolder = FileUtils::getModuleRootPath($themeModule) . "/public/themes/" . $themeName;
                     $screenshotFile = $themeFolder . "/screenshot.png";
                     if (!file_exists($screenshotFile)) {
-                        $screenshotFile = __DIR__ . "/../../public/img/no-screenshot.png";
+                        continue;
                     }
                     ?>
                     <div class="theme-chooser-theme" data-theme-class="<?= $themeClass ?>" tabindex="0">
