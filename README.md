@@ -9,7 +9,7 @@
 ### Alpha
 
 This app is currently in alpha. You can already download and install. We have
-a [docker setup](https://github.com/NullixAT/pagemyself-docker) as well, where you get this running inside docker with a
+a [docker setup](https://pagemyself.com/docs/main/installation/docker) as well, where you get this running inside docker with a
 few commands.
 
 ### Live Demo
