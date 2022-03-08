@@ -7,6 +7,20 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+
+### :construction: Deprecated
+
+### :x: Removed
+
+### :wrench: Fixed
+
+### :police_car: Security
+
+## [0.16.2 - 2022-03-08]
+
+### :heart: Added
+
+### :pencil: Changed
 * updated framelix core to 1.6.2 (minor fixes)
 
 ### :construction: Deprecated
