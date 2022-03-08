@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### :heart: Added
 
 ### :pencil: Changed
+* updated framelix core to 1.6.2 (minor fixes)
 
 ### :construction: Deprecated
 
