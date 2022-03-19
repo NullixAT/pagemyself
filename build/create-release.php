@@ -14,12 +14,9 @@ $browser->userPwd = GITHUB_AUTHOKEN;
 
 $packageJson = json_decode(file_get_contents(__DIR__ . "/../package.json"), true);
 $changelogFile = __DIR__ . "/../CHANGELOG.md";
+$unreleasedChangelogFile = __DIR__ . "/../CHANGELOG.md";
 $existingChangelog = file_get_contents($changelogFile);
-$unreleasedChangelog = file_get_contents(__DIR__ . "/../CHANGELOG_unreleased.md");
-if (!$unreleasedChangelog) {
-    echo "No changelog content in CHANGELOG_unreleased.md";
-    exit(1);
-}
+$unreleasedChangelog = file_get_contents($unreleasedChangelogFile);
 $version = $packageJson['version'];
 
 // check if release already exists
@@ -35,11 +32,16 @@ $date = date("Y-m-d");
 $addChangelog = '## [' . $version . ' - ' . $date . ']';
 
 if (!str_contains($existingChangelog, $addChangelog)) {
+    if (!$unreleasedChangelog) {
+        echo "No changelog content in CHANGELOG_unreleased.md";
+        exit(1);
+    }
     // change and commit changelog file
     file_put_contents(
         $changelogFile,
         $addChangelog . "\n\n" . $unreleasedChangelog . "\n\n" . $existingChangelog
     );
+    file_put_contents($unreleasedChangelogFile, '');
     $shell = Shell::prepare(
         'cd {0} && git commit {1} -m {2} && git push',
         [realpath(__DIR__ . "/.."), $changelogFile, ":robot: updated changelog for release $version"]
