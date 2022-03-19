@@ -1,3 +1,7 @@
+## [0.16.3 - 2022-03-19]
+
+* fixed jumpmark not properly work in some cases when subpixel values are calculated
+
 ## [0.16.2 - 2022-03-08]
 
 ### :heart: Added
