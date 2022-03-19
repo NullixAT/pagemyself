@@ -134,11 +134,11 @@ class Myself {
       if (!el.length) continue
       const style = window.getComputedStyle(el[0])
       if (style.position === 'sticky' || style.position === 'fixed') {
-        offset += parseInt(style.height.replace(/[^0-9]/g, ''))
-        Framelix.scrollTo(target, null, offset)
+        offset += parseInt(style.height.replace(/\..*/g, '').replace(/[^0-9]/g, ''))
         break
       }
     }
+    Framelix.scrollTo(target, null, offset)
   }
 
   /**

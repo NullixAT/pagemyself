@@ -13,11 +13,14 @@ $browser = Browser::create();
 $browser->userPwd = GITHUB_AUTHOKEN;
 
 $packageJson = json_decode(file_get_contents(__DIR__ . "/../package.json"), true);
-$changelogLines = explode("\n", str_replace("\r", "", file_get_contents(__DIR__ . "/../CHANGELOG.md")));
-$unreleasedLogLines = [];
-$valid = false;
+$changelogFile = __DIR__ . "/../CHANGELOG.md";
+$existingChangelog = file_get_contents($changelogFile);
+$unreleasedChangelog = file_get_contents(__DIR__ . "/../CHANGELOG_unreleased.md");
+if (!$unreleasedChangelog) {
+    echo "No changelog content in CHANGELOG_unreleased.md";
+    exit(1);
+}
 $version = $packageJson['version'];
-
 
 // check if release already exists
 $browser->url = $repoRootUrl . "/releases/tags/$version";
@@ -27,57 +30,20 @@ if (isset($browser->getResponseJson()['assets_url'])) {
     exit(1);
 }
 
-$newChangeLogContent = $changelogLines;
-
-$unreleasedEmptyLog = '## [unreleased]
-
-### :heart: Added
-
-### :pencil: Changed
-
-### :construction: Deprecated
-
-### :x: Removed
-
-### :wrench: Fixed
-
-### :police_car: Security';
-
 $date = date("Y-m-d");
 
-$newSectionHeader = '## [' . $version . ' - ' . $date . ']';
-$sectionExists = str_contains(implode("\n", $changelogLines), $newSectionHeader);
+$addChangelog = '## [' . $version . ' - ' . $date . ']';
 
-foreach ($changelogLines as $lineNr => $line) {
-    if (($sectionExists && $line === $newSectionHeader) || (!$sectionExists && str_starts_with($line, "## [unreleased]"))) {
-        $newChangeLogContent[$lineNr] = $unreleasedEmptyLog . "\n\n$newSectionHeader";
-        $valid = true;
-        continue;
-    }
-    if ($valid && str_starts_with($line, "## [")) {
-        break;
-    }
-    if ($valid) {
-        $unreleasedLogLines[] = $line;
-    }
-}
-
-
-if (!$unreleasedLogLines && !$sectionExists) {
-    echo "Missing CHANGELOG.md [unreleased] entries";
-    exit(1);
-}
-
-$newChangeLogContent = trim(implode("\n", $newChangeLogContent));
-
-$title = $version;
-$versionChangelog = trim(implode("\n", $unreleasedLogLines));
-
-// change and commit changelog file
-if (!$sectionExists) {
-    $changelogFile = __DIR__ . "/../CHANGELOG.md";
-    file_put_contents(__DIR__ . "/../CHANGELOG.md", $newChangeLogContent);
-    $shell = Shell::prepare('cd {0} && git commit {1} -m {2} && git push', [realpath(__DIR__ . "/.."), $changelogFile, ":robot: updated changelog for release $version"]);
+if (!str_contains($existingChangelog, $addChangelog)) {
+    // change and commit changelog file
+    file_put_contents(
+        $changelogFile,
+        $addChangelog . "\n\n" . $unreleasedChangelog . "\n\n" . $existingChangelog
+    );
+    $shell = Shell::prepare(
+        'cd {0} && git commit {1} -m {2} && git push',
+        [realpath(__DIR__ . "/.."), $changelogFile, ":robot: updated changelog for release $version"]
+    );
     $shell->execute();
     if ($shell->status) {
         var_dump($shell->output);
@@ -101,8 +67,8 @@ $browser->url = $repoRootUrl . "/releases";
 $browser->requestMethod = 'post';
 $browser->requestBody = JsonUtils::encode([
     'tag_name' => $version,
-    'name' => $title,
-    'body' => $versionChangelog,
+    'name' => $version,
+    'body' => $unreleasedChangelog,
     'draft' => true
 ]);
 $browser->sendRequest();
