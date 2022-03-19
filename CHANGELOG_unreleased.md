@@ -1,1 +1,0 @@
-* fixed jumpmark not properly work in some cases when subpixel values are calculated
