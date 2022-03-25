@@ -6,8 +6,9 @@
 
 > We try to give you the tools to create your private/company website in no time and without coding skills. Once setup, it is almost as easy as writing an office document.
 
-### Alpha
+### Alpha - Undergoing refactoring
 
+Some feedback from alpha already comes in. I will do some heavy refactoring regarding UI to make it less confusing and easier to use.
 This app is currently in alpha. You can already download and install. We have
 a [docker setup](https://pagemyself.com/docs/main/installation/docker) as well, where you get this running inside docker with a
 few commands.
