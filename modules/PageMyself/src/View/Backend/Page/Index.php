@@ -37,6 +37,7 @@ class Index extends View
         $this->storable = Page::getByIdOrNew(Request::getGet('id'));
         if (!$this->storable->id) {
             $this->storable->flagNav = true;
+            $this->storable->category = $this->storable::CATEGORY_PAGE;
         }
 
         $this->meta = new \Framelix\PageMyself\StorableMeta\Page($this->storable);
@@ -68,7 +69,6 @@ class Index extends View
             function updateUrl () {
               let inputValue = FramelixStringUtils.slugify(urlField.getValue().toLowerCase(), false, false, /[^a-z0-9\-_\/]/i).replace(/^\/+|\/+$/g, '')
               urlField.setValue(inputValue)
-              urlField.container.find('.framelix-form-field-label-description').html(FramelixLang.get('__myself_storable_page_url_label_desc__', [FramelixConfig.applicationUrl + '/' + inputValue]))
             }
 
             const form = FramelixForm.getById('<?=$form->id?>')
@@ -81,6 +81,9 @@ class Index extends View
                 if (!urlField.getValue().length) urlField.setValue(FramelixStringUtils.slugify(titleField.getValue().toLowerCase()), true)
               })
             }
+            urlField.container.on('input ' + FramelixFormField.EVENT_CHANGE, function () {
+              updateUrl()
+            })
             updateUrl()
           })()
         </script>

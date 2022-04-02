@@ -4,7 +4,6 @@ namespace Framelix\PageMyself\View;
 
 use Framelix\Framelix\Form\Field\Password;
 use Framelix\Framelix\Form\Form;
-use Framelix\Framelix\Html\Compiler;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\Session;
@@ -79,6 +78,12 @@ class Index extends LayoutView
         } else {
             $this->showContent();
         }
+
+        $this->includeCompiledFilesForModule("Framelix");
+        $this->includeCompiledFilesForModule(FRAMELIX_MODULE);
+        $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pagemyself");
+        $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pagemyself");
+
         $pageContent = Buffer::getAll();
 
         $htmlAttributes = new HtmlAttributes();
@@ -129,13 +134,6 @@ class Index extends LayoutView
      */
     public function showContent(): void
     {
-        Compiler::compile("Framelix");
-        Compiler::compile(FRAMELIX_MODULE);
-        $this->includeCompiledFilesForModule("Framelix");
-        $this->includeCompiledFilesForModule(FRAMELIX_MODULE);
-        $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pagemyself");
-        $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pagemyself");
-
         if (!$this->page) {
             http_response_code(404);
             echo '<div style="text-align: center"><div style="display: inline-block; padding:30px;

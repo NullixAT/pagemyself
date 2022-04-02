@@ -1,5 +1,18 @@
 class PageMyselfPageEditor {
+
+  /**
+   * @type {Window}
+   */
+  static iframeWindow
+
+  /**
+   * @type {Document}
+   */
+  static iframeDoc
+
   static initLate () {
+    PageMyselfPageEditor.iframeWindow = $('.pageeditor-frame iframe')[0].contentWindow
+    PageMyselfPageEditor.iframeDoc = PageMyselfPageEditor.iframeWindow.document
     PageMyselfPageEditor.updateFrameSize()
     $(window).on('resize', function () {
       PageMyselfPageEditor.updateFrameSize()

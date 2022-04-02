@@ -2,6 +2,7 @@
 
 namespace Framelix\PageMyself\View\Backend\PageEditor;
 
+use Framelix\Framelix\Html\Compiler;
 use Framelix\Framelix\View\Backend\View;
 
 /**
@@ -14,6 +15,8 @@ class Index extends View
      */
     public function onRequest(): void
     {
+        Compiler::compile("Framelix");
+        Compiler::compile(FRAMELIX_MODULE);
         $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pageeditor");
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pageeditor");
         $this->showContentBasedOnRequestType();

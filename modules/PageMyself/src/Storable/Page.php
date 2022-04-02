@@ -10,10 +10,12 @@ use Framelix\PageMyself\View\Backend\Page\Index;
 
 /**
  * Page
+ * @property int $category
  * @property Page|null $parent
  * @property string $title
  * @property string|null $password
  * @property string|null $url
+ * @property string|null $link
  * @property bool $flagDraft
  * @property bool $flagNav
  * @property bool $flagNewTab
@@ -21,6 +23,16 @@ use Framelix\PageMyself\View\Backend\Page\Index;
  */
 class Page extends StorableExtended
 {
+    public const CATEGORY_PAGE = 1;
+    public const CATEGORY_EXTERNAL = 2;
+    public const CATEGORY_GROUP = 3;
+
+    /**
+     * Categories
+     * @var int[]
+     */
+    public static array $categories = [self::CATEGORY_PAGE, self::CATEGORY_EXTERNAL, self::CATEGORY_GROUP];
+
     /**
      * Setup self storable schema
      * @param StorableSchema $selfStorableSchema
