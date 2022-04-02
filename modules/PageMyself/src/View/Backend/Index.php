@@ -9,11 +9,6 @@ use Framelix\Framelix\View\Backend\View;
  */
 class Index extends View
 {
-    /**
-     * Access role
-     * @var string|bool
-     */
-    protected string|bool $accessRole = true;
 
     /**
      * On request

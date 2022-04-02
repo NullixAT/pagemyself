@@ -11,14 +11,64 @@ if (!defined("FRAMELIX_MODULE")) {
     {
         "modulesCallable": "Framelix\\PageMyself\\Utils\\ModuleUtils::getModules",
         "backendDefaultView": "Framelix\\PageMyself\\View\\Backend\\Index",
-        "userRoles": {
-            "content": "__myself_user_role_content__"
-        },
         "backendLogo": "img\/logo-colored-white.svg",
         "backendIcon": "img\/logo-squared.svg",
         "compiler": {
             "PageMyself": {
-
+                "js": {
+                    "pageeditor": {
+                        "files": [
+                            {
+                                "type": "file",
+                                "path": [
+                                    "js\/backend\/pageeditor.js"
+                                ]
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
+                    },
+                    "pagemyself": {
+                        "files": [
+                            {
+                                "type": "file",
+                                "path": [
+                                    "js\/pagemyself.js"
+                                ]
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
+                    }
+                },
+                "scss": {
+                    "pageeditor": {
+                        "files": [
+                            {
+                                "type": "file",
+                                "path": "scss\/backend\/pageeditor.scss"
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
+                    },
+                    "pagemyself": {
+                        "files": [
+                            {
+                                "type": "file",
+                                "path": [
+                                    "scss\/pagemyself.scss"
+                                ]
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
+                    }
+                }
             }
         }
     }

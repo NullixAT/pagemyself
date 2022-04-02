@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|1969094603",
+    "directoryListHash": "1|4126466331",
     "views": {
         "Framelix\\PageMyself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -9,6 +9,33 @@
             "urlPriority": 0,
             "pageTitle": "{classLangKey}",
             "url": "\/backend"
+        },
+        "Framelix\\PageMyself\\View\\Backend\\Page\\Index": {
+            "accessRole": true,
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/page"
+        },
+        "Framelix\\PageMyself\\View\\Backend\\PageEditor\\Index": {
+            "accessRole": true,
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/pageeditor"
+        },
+        "Framelix\\PageMyself\\View\\Index": {
+            "accessRole": "*",
+            "customUrl": "~(?<url>.*)~",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": -1,
+            "pageTitle": "{classLangKey}",
+            "url": ""
         }
     }
 }

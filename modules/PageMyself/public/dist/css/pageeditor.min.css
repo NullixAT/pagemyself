@@ -1,0 +1,14 @@
+.pageeditor-frame {
+  display: flex;
+  flex-direction: column;
+}
+.pageeditor-frame iframe {
+  flex: 1 1 auto;
+}
+
+.pageeditor-frame-top,
+.pageeditor-frame-bottom {
+  padding: 5px;
+  background: var(--color-page-bg-stencil);
+  border-radius: var(--border-radius);
+}
