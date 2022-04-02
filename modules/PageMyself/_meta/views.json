@@ -1,0 +1,14 @@
+{
+    "directoryListHash": "1|1969094603",
+    "views": {
+        "Framelix\\PageMyself\\View\\Backend\\Index": {
+            "accessRole": true,
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend"
+        }
+    }
+}

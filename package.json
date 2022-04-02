@@ -24,7 +24,7 @@
     "isRootPackage": true,
     "builtInModules": [
       "Framelix",
-      "Myself"
+      "PageMyself"
     ]
   }
 }

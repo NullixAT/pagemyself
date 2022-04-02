@@ -5,3 +5,4 @@ node_modules
 modules/*
 !modules/Framelix
 !modules/Myself
+!modules/PageMyself

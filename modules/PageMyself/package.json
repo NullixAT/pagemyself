@@ -1,0 +1,14 @@
+{
+  "name": "pagemyself",
+  "description": "A PageMyself module itself.",
+  "framelix": {
+    "module": "Myself",
+    "release": {
+      "exclude": [
+        "^/public/uploads",
+        "^/public/googlefontsproxy",
+        "^/templates"
+      ]
+    }
+  }
+}
