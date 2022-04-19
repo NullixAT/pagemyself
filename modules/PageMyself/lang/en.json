@@ -73,5 +73,80 @@
   ],
   "__pagemyself_password_incorrect__": [
     "Password is incorrect"
+  ],
+  "__pagemyself_pageeditor_manage_layout__": [
+    "Manage Page Layouts"
+  ],
+  "__pagemyself_pageeditor_jump_to_page__": [
+    "Jump to page"
+  ],
+  "__pagemyself_pageeditor_page_back__": [
+    "Back"
+  ],
+  "__pagemyself_pageeditor_page_reload__": [
+    "Reload"
+  ],
+  "__pagemyself_pageeditor_page_home__": [
+    "Homepage"
+  ],
+  "__pagemyself_pageeditor_page_mobile__": [
+    "Toggle between mobile and desktop view"
+  ],
+  "__pagemyself_pageeditor_page_open__": [
+    "Click here to open this website in a new tab"
+  ],
+  "__pagemyself_view_index__": [
+    "PageMyself - Open-Source Self-Hosted WYSIWYG Website Builder"
+  ],
+  "__pagemyself_view_backend_index__": [
+    "PageMyself Backend"
+  ],
+  "__pagemyself_view_backend_pagelayout_index__": [
+    "Page Layout"
+  ],
+  "__pagemyself_storable_pagelayout_title_label__": [
+    "Layout name"
+  ],
+  "__pagemyself_storable_pagelayout_flagdefault_label__": [
+    "This is my default layout"
+  ],
+  "__pagemyself_storable_pagelayout_layoutsettings_design_label__": [
+    "Design"
+  ],
+  "__pagemyself_storable_pagelayout_layoutsettings_align_label__": [
+    "Site Alignment"
+  ],
+  "__pagemyself_editor_pagelayout_align_left__": [
+    "Left"
+  ],
+  "__pagemyself_editor_pagelayout_align_center__": [
+    "Center"
+  ],
+  "__pagemyself_storable_pagelayout_layoutsettings_nav_label__": [
+    "Site Navigation"
+  ],
+  "__pagemyself_editor_pagelayout_nav_none__": [
+    "No navigation"
+  ],
+  "__pagemyself_editor_pagelayout_nav_top__": [
+    "At the top of the site"
+  ],
+  "__pagemyself_editor_pagelayout_nav_left__": [
+    "Left sidebar"
+  ],
+  "__pagemyself_storable_pagelayout_layoutsettings_maxwidth_label__": [
+    "Max width of the page container in pixel"
+  ],
+  "__pagemyself_editor_pagelayout_design_default__": [
+    "Default (A Light Theme)"
+  ],
+  "__pagemyself_editor_pagelayout_design_dark__": [
+    "Dark Theme"
+  ],
+  "__pagemyself_pageeditor_choose_layout__": [
+    "Layout"
+  ],
+  "__pagemyself_pageeditor_choose_design__": [
+    "Design"
   ]
 }

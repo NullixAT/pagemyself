@@ -34,6 +34,8 @@ class Index extends View
      */
     public function onRequest(): void
     {
+        // just to create default if not yet exist
+        Page::getDefault();
         $this->storable = Page::getByIdOrNew(Request::getGet('id'));
         if (!$this->storable->id) {
             $this->storable->category = $this->storable::CATEGORY_PAGE;
@@ -45,12 +47,6 @@ class Index extends View
             $form = $this->meta->getEditForm();
             $form->validate();
             $form->setStorableValues($this->storable);
-            if (!$this->storable->id) {
-                $copyFrom = Page::getByConditionOne('url = {0} && category = {1}', ['', Page::CATEGORY_PAGE]);
-                if ($copyFrom && !($copyFrom->layoutSettings['copyFrom'] ?? null)) {
-                    $this->storable->layoutSettings = ['copyFrom' => $copyFrom];
-                }
-            }
             $this->storable->store();
             Toast::success('__framelix_saved__');
             Url::getBrowserUrl()->setParameter('id', $this->storable)->redirect();

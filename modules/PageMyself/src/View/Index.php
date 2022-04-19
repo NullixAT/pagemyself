@@ -17,6 +17,8 @@ use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
 use Framelix\PageMyself\ModuleHooks;
 use Framelix\PageMyself\Storable\Page;
+use Framelix\PageMyself\Storable\PageLayout;
+
 use function trim;
 
 /**
@@ -66,16 +68,22 @@ class Index extends LayoutView
         if (!$this->page && $relativeUrl) {
             Url::getApplicationUrl()->redirect();
         }
+        if (!$this->page) {
+            $this->page = Page::getDefault();
+        }
         if (($this->page->flagDraft ?? null) && !User::get()) {
             $this->page = null;
         }
-        if ($this->page && Request::getPost('framelix-form-pagepassword')) {
-            if (Request::getPost('password') === $this->page->password) {
-                Session::set('pagemyself-page-password-' . md5($this->page->password), true);
-            } else {
-                Toast::error('__pagemyself_password_incorrect__');
+        if ($this->page) {
+            $this->pageTitle = $this->page->title;
+            if (Request::getPost('framelix-form-pagepassword')) {
+                if (Request::getPost('password') === $this->page->password) {
+                    Session::set('pagemyself-page-password-' . md5($this->page->password), true);
+                } else {
+                    Toast::error('__pagemyself_password_incorrect__');
+                }
+                Url::getBrowserUrl()->redirect();
             }
-            Url::getBrowserUrl()->redirect();
         }
         $this->showContentBasedOnRequestType();
     }
@@ -137,14 +145,15 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
             echo '</div></div>';
             return;
         }
-        $nav = $this->page->layoutSettings['nav'] ?? 'top';
-        $align = $this->page->layoutSettings['align'] ?? 'center';
-        $maxWidth = $this->page->layoutSettings['maxwidth'] ?? '900';
+        $layout = $this->page->layout ?? PageLayout::getDefault();
+        $nav = $layout->layoutSettings['nav'] ?? 'top';
+        $align = $layout->layoutSettings['align'] ?? 'center';
+        $maxWidth = $layout->layoutSettings['maxwidth'] ?? '900';
         ?>
         <div class="page page-align-<?= $align ?> page-nav-<?= $nav ?>">
             <div class="page-inner" style="max-width:<?= $maxWidth ?>px;">
-                <?
-                if ($this->page->layoutSettings['showNav'] ?? true) {
+                <?php
+                if ($nav !== 'none') {
                     $condition = 'flagNav = 1';
                     if (!User::get()) {
                         $condition = 'flagDraft = 0';
@@ -153,7 +162,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                     ?>
                     <nav>
                         <ul>
-                            <?
+                            <?php
                             $pagesCollected = [];
                             foreach ($pages as $page) {
                                 if (isset($pagesCollected[$page->id])) {
@@ -176,27 +185,26 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                                     <li>
                                         <button class="nav-entry"><?= HtmlUtils::escape($page->navGroup) ?></button>
                                         <ul class="hidden">
-                                            <?
+                                            <?php
                                             foreach ($group as $subPage) {
                                                 $this->showNavEntry($subPage);
                                             }
                                             ?>
                                         </ul>
                                     </li>
-                                    <?
+                                    <?php
                                 } else {
                                     $this->showNavEntry($page);
                                 }
-
                             }
                             ?>
                         </ul>
                     </nav>
-                    <?
+                    <?php
                 }
                 ?>
                 <div class="page-content">
-                    <?
+                    <?php
                     if (
                         ($this->page->password ?? null)
                         && !Session::get('pagemyself-page-password-' . md5($this->page->password))
@@ -220,7 +228,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                 </div>
             </div>
         </div>
-        <?
+        <?php
     }
 
     /**
@@ -229,14 +237,16 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
      */
     private function showNavEntry(Page $page): void
     {
-        $url = $page->category === Page::CATEGORY_PAGE ? View::getUrl(__CLASS__,
-            ['url' => $page->url]) : $page->link;
+        $url = $page->category === Page::CATEGORY_PAGE ? View::getUrl(
+            __CLASS__,
+            ['url' => $page->url]
+        ) : $page->link;
         $target = $page->category === Page::CATEGORY_PAGE ? '' : 'target="_blank"';
         ?>
         <li>
             <a class="nav-entry"
                href="<?= $url ?>" <?= $target ?>><?= HtmlUtils::escape($page->title) ?></a>
         </li>
-        <?
+        <?php
     }
 }

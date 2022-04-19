@@ -11,14 +11,14 @@ use Framelix\PageMyself\View\Backend\Page\Index;
 /**
  * Page
  * @property int $category
- * @property Page|null $parent
  * @property string $title
  * @property string|null $password
  * @property string|null $url
  * @property string|null $link
  * @property bool $flagDraft
  * @property bool $flagNav
- * @property mixed|null $layoutSettings
+ * @property PageLayout|null $layout
+ * @property string|null $design
  * @property int|null $sort
  * @property string|null $navGroup
  */
@@ -44,12 +44,41 @@ class Page extends StorableExtended
     }
 
     /**
+     * Get the default page
+     * @return Page
+     */
+    public static function getDefault(): Page
+    {
+        $storable = self::getByConditionOne('url = {1} && category = {0}', [self::CATEGORY_PAGE, '']);
+        if (!$storable) {
+            $storable = new self();
+            $storable->category = self::CATEGORY_PAGE;
+            $storable->title = 'Homepage';
+            $storable->flagDraft = false;
+            $storable->flagNav = true;
+            $storable->url = '';
+            $storable->sort = 0;
+            $storable->store();
+        }
+        return $storable;
+    }
+
+    /**
      * Is this storable deletable
      * @return bool
      */
     public function isDeletable(): bool
     {
         return true;
+    }
+
+    /**
+     * Get public url
+     * @return Url
+     */
+    public function getPublicUrl(): Url
+    {
+        return View::getUrl(\Framelix\PageMyself\View\Index::class, ["url" => $this->url]);
     }
 
     /**
@@ -78,15 +107,4 @@ class Page extends StorableExtended
     {
         return $this->title;
     }
-
-    /**
-     * Delete from database
-     * @param bool $force Force deletion even if isDeletable() is false
-     */
-    public function delete(bool $force = false): void
-    {
-        parent::delete($force);
-    }
-
-
 }

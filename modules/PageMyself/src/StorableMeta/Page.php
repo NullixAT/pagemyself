@@ -25,9 +25,11 @@ class Page extends StorableMeta
     protected function init(): void
     {
         $this->addDefaultPropertiesAtStart();
+        $isPartiallyEditable = $this->storable->category === \Framelix\PageMyself\Storable\Page::CATEGORY_PAGE && $this->storable->url === '';
 
         $property = $this->createProperty('category');
         $field = new Select();
+        $field->disabled = $isPartiallyEditable;
         foreach (\Framelix\PageMyself\Storable\Page::$categories as $category) {
             $field->addOption($category, Lang::concatKeys($property->getLabel(), $category));
         }
@@ -39,11 +41,13 @@ class Page extends StorableMeta
         $property = $this->createProperty('link');
         $field = $property->addDefaultField();
         $field->required = true;
+        $field->disabled = $isPartiallyEditable;
         $field->getVisibilityCondition()
             ->equal('category', \Framelix\PageMyself\Storable\Page::CATEGORY_EXTERNAL);
 
         $property = $this->createProperty('url');
         $field = $property->addDefaultField();
+        $field->disabled = $isPartiallyEditable;
         $field->getVisibilityCondition()
             ->equal('category', \Framelix\PageMyself\Storable\Page::CATEGORY_PAGE);
 
@@ -54,6 +58,8 @@ class Page extends StorableMeta
             ->equal('category', \Framelix\PageMyself\Storable\Page::CATEGORY_PAGE);
 
         $property = $this->createProperty('flagDraft');
+        $field = $property->addDefaultField();
+        $field->disabled = $isPartiallyEditable;
         $property->addDefaultField();
 
         $property = $this->createProperty('flagNav');
