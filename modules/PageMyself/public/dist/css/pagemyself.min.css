@@ -1,3 +1,26 @@
 :root {
   --color-page-bg: white;
 }
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  color: black;
+}
+
+.page-inner {
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: left;
+}
+
+.page-align-center {
+  text-align: center;
+}
+
+.page-align-center .page-inner {
+  margin: 0 auto;
+}

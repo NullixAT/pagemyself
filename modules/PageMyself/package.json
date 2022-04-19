@@ -2,7 +2,7 @@
   "name": "pagemyself",
   "description": "A PageMyself module itself.",
   "framelix": {
-    "module": "Myself",
+    "module": "PageMyself",
     "release": {
       "exclude": [
         "^/public/uploads",

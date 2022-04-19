@@ -1,1 +1,77 @@
-{}
+{
+  "__pagemyself_storable_page_category_label__": [
+    "Category"
+  ],
+  "__pagemyself_storable_page_category_label_1__": [
+    "Default"
+  ],
+  "__pagemyself_storable_page_category_label_2__": [
+    "External Site/Link"
+  ],
+  "__pagemyself_storable_page_title_label__": [
+    "Page Title"
+  ],
+  "__pagemyself_storable_page_title_label_desc__": [
+    "The title the appears in your browser tab and in search engine results"
+  ],
+  "__pagemyself_storable_page_url_label__": [
+    "URL Path"
+  ],
+  "__pagemyself_storable_page_url_label_desc__": [
+    "The name that appears in your website url. Special characters are not allowed.<br/>Empty = Homepage"
+  ],
+  "__pagemyself_storable_page_link_label__": [
+    "Link"
+  ],
+  "__pagemyself_storable_page_password_label__": [
+    "Password protection"
+  ],
+  "__pagemyself_storable_page_password_label_desc__": [
+    "If set, an user must enter this password in order to view the page."
+  ],
+  "__pagemyself_storable_page_flagdraft_label__": [
+    "Draft"
+  ],
+  "__pagemyself_storable_page_flagdraft_label_desc__": [
+    "Only visible for site administrators"
+  ],
+  "__pagemyself_view_backend_pageeditor_index__": [
+    "Live Website Editor"
+  ],
+  "__pagemyself_view_backend_page_index__": [
+    "Pages"
+  ],
+  "__pagemyself_pageeditor_page_required__": [
+    "You need to navigate to a page before you can edit the settings."
+  ],
+  "__pagemyself_editor_pagelayout_copyfrom__": [
+    "Same layout as given page"
+  ],
+  "__pagemyself_editor_pagelayout_copyfrom_desc__": [
+    "The current site uses the same layout settings as the selected page"
+  ],
+  "__pagemyself_storable_page_flagnav_label__": [
+    "Visible in site navigation"
+  ],
+  "__pagemyself_storable_page_flagnav_label_desc__": [
+    "If enabled, this page will be displayed in the navigation bar of the website."
+  ],
+  "__pagemyself_storable_page_navgroup_label__": [
+    "Navigation grouping"
+  ],
+  "__pagemyself_storable_page_navgroup_label_desc__": [
+    "If filled out, each entry with the same group name will be grouped under a submenu entry which the user can expand."
+  ],
+  "__pagemyself_page_password__": [
+    "This page is password protected"
+  ],
+  "__pagemyself_page_password_desc__": [
+    "Enter the password"
+  ],
+  "__pagemyself_page_login__": [
+    "Login"
+  ],
+  "__pagemyself_password_incorrect__": [
+    "Password is incorrect"
+  ]
+}

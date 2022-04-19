@@ -2,6 +2,7 @@
 
 namespace Framelix\PageMyself\StorableMeta;
 
+use Framelix\Framelix\Form\Field\Password;
 use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Storable\Storable;
@@ -47,8 +48,9 @@ class Page extends StorableMeta
             ->equal('category', \Framelix\PageMyself\Storable\Page::CATEGORY_PAGE);
 
         $property = $this->createProperty('password');
-        $field = $property->addDefaultField();
-        $field->getVisibilityCondition()
+        $property->field = new Password();
+        $property->setVisibility(self::CONTEXT_TABLE, false);
+        $property->field->getVisibilityCondition()
             ->equal('category', \Framelix\PageMyself\Storable\Page::CATEGORY_PAGE);
 
         $property = $this->createProperty('flagDraft');
@@ -57,7 +59,7 @@ class Page extends StorableMeta
         $property = $this->createProperty('flagNav');
         $property->addDefaultField();
 
-        $property = $this->createProperty('flagNewTab');
+        $property = $this->createProperty('navGroup');
         $property->addDefaultField();
 
         $this->addDefaultPropertiesAtEnd();

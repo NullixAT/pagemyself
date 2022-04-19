@@ -18,20 +18,20 @@ use Framelix\PageMyself\View\Backend\Page\Index;
  * @property string|null $link
  * @property bool $flagDraft
  * @property bool $flagNav
- * @property bool $flagNewTab
+ * @property mixed|null $layoutSettings
  * @property int|null $sort
+ * @property string|null $navGroup
  */
 class Page extends StorableExtended
 {
     public const CATEGORY_PAGE = 1;
     public const CATEGORY_EXTERNAL = 2;
-    public const CATEGORY_GROUP = 3;
 
     /**
      * Categories
      * @var int[]
      */
-    public static array $categories = [self::CATEGORY_PAGE, self::CATEGORY_EXTERNAL, self::CATEGORY_GROUP];
+    public static array $categories = [self::CATEGORY_PAGE, self::CATEGORY_EXTERNAL];
 
     /**
      * Setup self storable schema

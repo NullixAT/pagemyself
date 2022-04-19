@@ -36,8 +36,8 @@ class Index extends View
     {
         $this->storable = Page::getByIdOrNew(Request::getGet('id'));
         if (!$this->storable->id) {
-            $this->storable->flagNav = true;
             $this->storable->category = $this->storable::CATEGORY_PAGE;
+            $this->storable->flagNav = true;
         }
 
         $this->meta = new \Framelix\PageMyself\StorableMeta\Page($this->storable);
@@ -45,6 +45,12 @@ class Index extends View
             $form = $this->meta->getEditForm();
             $form->validate();
             $form->setStorableValues($this->storable);
+            if (!$this->storable->id) {
+                $copyFrom = Page::getByConditionOne('url = {0} && category = {1}', ['', Page::CATEGORY_PAGE]);
+                if ($copyFrom && !($copyFrom->layoutSettings['copyFrom'] ?? null)) {
+                    $this->storable->layoutSettings = ['copyFrom' => $copyFrom];
+                }
+            }
             $this->storable->store();
             Toast::success('__framelix_saved__');
             Url::getBrowserUrl()->setParameter('id', $this->storable)->redirect();
@@ -61,7 +67,7 @@ class Index extends View
         $form->show();
 
         $pages = Page::getByCondition();
-        $this->meta->getTable($pages)->show();
+        $this->meta->getTableWithStorableSorting($pages)->show();
         ?>
         <script>
           (async function () {
