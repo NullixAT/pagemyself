@@ -148,5 +148,14 @@
   ],
   "__pagemyself_pageeditor_choose_design__": [
     "Design"
+  ],
+  "__pagemyself_more_nav__": [
+    "More"
+  ],
+  "__pagemyself_pageblock_text_title__": [
+    "Texteditor"
+  ],
+  "__pagemyself_pageblock_text_desc__": [
+    "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc..."
   ]
 }

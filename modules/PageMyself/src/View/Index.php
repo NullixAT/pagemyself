@@ -18,7 +18,6 @@ use Framelix\Framelix\View\LayoutView;
 use Framelix\PageMyself\ModuleHooks;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\PageLayout;
-
 use function trim;
 
 /**
@@ -160,7 +159,12 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                     }
                     $pages = Page::getByCondition($condition, sort: "+sort");
                     ?>
-                    <nav>
+                    <nav class="page-nav">
+                        <?php
+                        if (User::get() && $nav !== 'top') {
+                            echo '<div class="pageeditor-anchor" data-type="nav-before"></div>';
+                        }
+                        ?>
                         <ul>
                             <?php
                             $pagesCollected = [];
@@ -171,19 +175,21 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                                 $group = [];
                                 if ($page->navGroup) {
                                     foreach ($pages as $subPage) {
-                                        if (isset($pagesCollected[$page->id])) {
+                                        if (isset($pagesCollected[$subPage->id])) {
                                             continue;
                                         }
                                         if ($subPage->navGroup === $page->navGroup) {
                                             $group[$subPage->id] = $subPage;
-                                            $pagesCollected[$page->id] = true;
+                                            $pagesCollected[$subPage->id] = true;
                                         }
                                     }
                                 }
                                 if ($group) {
                                     ?>
                                     <li>
+                                        <span></span>
                                         <button class="nav-entry"><?= HtmlUtils::escape($page->navGroup) ?></button>
+                                        <span></span>
                                         <ul class="hidden">
                                             <?php
                                             foreach ($group as $subPage) {
@@ -197,8 +203,22 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                                     $this->showNavEntry($page);
                                 }
                             }
+                            if ($nav === 'top') {
+                                ?>
+                                <li class="nav-entry-hidden show-more">
+                                    <span></span>
+                                    <button class="nav-entry"><?= Lang::get('__pagemyself_more_nav__') ?></button>
+                                    <span></span>
+                                </li>
+                                <?php
+                            }
                             ?>
                         </ul>
+                        <?php
+                        if (User::get() && $nav !== 'top') {
+                            echo '<div class="pageeditor-anchor" data-type="nav-after"></div>';
+                        }
+                        ?>
                     </nav>
                     <?php
                 }
@@ -222,7 +242,10 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                         $form->addSubmitButton('login', '__pagemyself_page_login__');
                         $form->show();
                     } else {
-                        echo "oof";
+                        if (User::get()) {
+                            echo '<div class="pageeditor-anchor" data-type="content"></div>';
+                        }
+                        echo '';
                     }
                     ?>
                 </div>
@@ -244,8 +267,10 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
         $target = $page->category === Page::CATEGORY_PAGE ? '' : 'target="_blank"';
         ?>
         <li>
-            <a class="nav-entry"
+            <span></span>
+            <a class="nav-entry <?= $page === $this->page ? 'nav-entry-active' : '' ?>"
                href="<?= $url ?>" <?= $target ?>><?= HtmlUtils::escape($page->title) ?></a>
+            <span></span>
         </li>
         <?php
     }

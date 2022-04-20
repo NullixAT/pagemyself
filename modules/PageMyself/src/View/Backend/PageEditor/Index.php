@@ -7,6 +7,7 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\View\Backend\View;
+use Framelix\PageMyself\PageBlock\Base;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\PageLayout;
 
@@ -37,6 +38,9 @@ class Index extends View
                     $page->store();
                 }
                 break;
+            case 'newPageBlock':
+                $jsCall->result = Base::getAvailableList();
+                break;
         }
     }
 
@@ -56,7 +60,8 @@ class Index extends View
     public function showContent(): void
     {
         ?>
-        <div class="pageeditor-frame" data-edit-url="<?= JsCall::getCallUrl(__CLASS__, 'custom') ?>">
+        <div data-color-scheme="dark" class="pageeditor-frame"
+             data-edit-url="<?= JsCall::getCallUrl(__CLASS__, 'custom') ?>">
             <div class="pageeditor-frame-top">
                 <div class="pageeditor-frame-top-addressbar">
                     <a href="<?= \Framelix\Framelix\View::getUrl(
@@ -85,8 +90,8 @@ class Index extends View
                         ?>
                     </div>
                     <div class="pageeditor-address"></div>
-                    <button class="framelix-button ide-if-no-page" data-icon-left="smartphone"
-                            title="__pagemyself_pageeditor_page_mobile__"></button>
+                    <button class="framelix-button hide-if-no-page" data-icon-left="smartphone"
+                            title="__pagemyself_pageeditor_page_mobile__" data-frame-action="mobile"></button>
                 </div>
 
                 <?php

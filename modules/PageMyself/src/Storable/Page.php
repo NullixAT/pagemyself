@@ -107,4 +107,23 @@ class Page extends StorableExtended
     {
         return $this->title;
     }
+
+    /**
+     * Get all page blocks to this page
+     * @return PageBlock[]
+     */
+    public function getPageBlocks(): array
+    {
+        return PageBlock::getByCondition('page = {0}', [$this], "+sort");
+    }
+
+    /**
+     * Delete
+     * @param bool $force
+     */
+    public function delete(bool $force = false): void
+    {
+        self::deleteMultiple($this->getPageBlocks());
+        parent::delete($force);
+    }
 }
