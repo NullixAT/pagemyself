@@ -93,7 +93,7 @@
     "Toggle between mobile and desktop view"
   ],
   "__pagemyself_pageeditor_page_open__": [
-    "Click here to open this website in a new tab"
+    "Click here to open this website in a new tab to see your changes"
   ],
   "__pagemyself_view_index__": [
     "PageMyself - Open-Source Self-Hosted WYSIWYG Website Builder"
@@ -157,5 +157,20 @@
   ],
   "__pagemyself_pageblock_text_desc__": [
     "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc..."
+  ],
+  "__pagemyself_pageblock_text_help__": [
+    "To add a new line without a paragraph (Vertical space), Hold CTRL and hit enter, instead of just pressing Enter only"
+  ],
+  "__pagemyself_pageblock_add__": [
+    "Add a new block bellow"
+  ],
+  "__pagemyself_pageblock_delete__": [
+    "Delete this block"
+  ],
+  "__pagemyself_pageblock_help__": [
+    "Open help on how to use this block"
+  ],
+  "__pagemyself_pageblock_sort__": [
+    "Sort with drag & drop"
   ]
 }

@@ -114,7 +114,7 @@ class Page extends StorableExtended
      */
     public function getPageBlocks(): array
     {
-        return PageBlock::getByCondition('page = {0}', [$this], "+sort");
+        return PageBlock::getByCondition('page = {0}', [$this], ["+sort", "+id"]);
     }
 
     /**

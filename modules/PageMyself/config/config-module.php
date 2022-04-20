@@ -41,6 +41,37 @@ if (!defined("FRAMELIX_MODULE")) {
                         "options": {
                             "noInclude": true
                         }
+                    },
+                    "pageblocks": {
+                        "files": [
+                            {
+                                "type": "file",
+                                "path": [
+                                    "js\/page-block.js"
+                                ]
+                            },
+                            {
+                                "type": "folder",
+                                "path": "js\/pageblocks"
+
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
+                    },
+                    "tinymce-plugins": {
+                        "files": [
+                            {
+                                "type": "file",
+                                "path": [
+                                    "js\/tinymce-plugins.js"
+                                ]
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
                     }
                 },
                 "scss": {
@@ -62,6 +93,17 @@ if (!defined("FRAMELIX_MODULE")) {
                                 "path": [
                                     "scss\/pagemyself.scss"
                                 ]
+                            }
+                        ],
+                        "options": {
+                            "noInclude": true
+                        }
+                    },
+                    "pageblocks": {
+                        "files": [
+                            {
+                                "type": "folder",
+                                "path": "scss\/pageblocks"
                             }
                         ],
                         "options": {

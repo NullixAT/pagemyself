@@ -2,13 +2,17 @@
 
 namespace Framelix\PageMyself\View\Backend\PageEditor;
 
+use Framelix\Framelix\Form\Field\Editor;
 use Framelix\Framelix\Form\Field\Select;
+use Framelix\Framelix\Html\Compiler;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\PageMyself\PageBlock\Base;
 use Framelix\PageMyself\Storable\Page;
+use Framelix\PageMyself\Storable\PageBlock;
 use Framelix\PageMyself\Storable\PageLayout;
 
 /**
@@ -23,6 +27,22 @@ class Index extends View
      */
     public static function onJsCall(JsCall $jsCall): void
     {
+        if ($jsCall->action === 'pageBlockApiRequest') {
+            $pageBlock = PageBlock::getById($jsCall->parameters['blockId'] ?? null);
+            if (!$pageBlock) {
+                return;
+            }
+            $params = $jsCall->parameters['params'] ?? null;
+            switch ($jsCall->parameters['action']) {
+                case 'save-text':
+                    $settings = $pageBlock->settings;
+                    $settings['text'][$params['id']] = $params['text'];
+                    $pageBlock->settings = $settings;
+                    $pageBlock->store();
+                    break;
+            }
+            return;
+        }
         $page = Page::getById($jsCall->parameters['page'] ?? null);
         switch ($jsCall->parameters['action'] ?? null) {
             case 'pageData':
@@ -38,8 +58,53 @@ class Index extends View
                     $page->store();
                 }
                 break;
-            case 'newPageBlock':
+            case 'getPageBlockList':
                 $jsCall->result = Base::getAvailableList();
+                break;
+            case 'getPageBlockInfos':
+                $blockList = Base::getAvailableList();
+                $blocks = PageBlock::getByIds($jsCall->parameters['blockIds']);
+                $arr = [];
+                foreach ($blocks as $block) {
+                    $arr[$block->id] = [
+                        'id' => $block->id,
+                        'title' => $blockList[$block->blockClass]['title'],
+                        'help' => $blockList[$block->blockClass]['help'],
+                    ];
+                }
+                $jsCall->result = $arr;
+                break;
+            case 'updateBlockSort':
+                $blocks = PageBlock::getByIds($jsCall->parameters['blockIds'] ?? null);
+                $sort = 0;
+                foreach ($blocks as $block) {
+                    $block->sort = $sort++;
+                    $block->preserveUpdateUserAndTime();
+                    $block->store();
+                }
+                break;
+            case 'createNewPageBlock':
+                $bellow = PageBlock::getById($jsCall->parameters['bellow'] ?? null);
+                $pageBlock = new PageBlock();
+                $pageBlock->page = $page;
+                $pageBlock->blockClass = $jsCall->parameters['blockClass'];
+                $pageBlock->placement = $bellow->placement ?? $jsCall->parameters['placement'];
+                $pageBlock->sort = ($bellow->sort ?? -1);
+                $pageBlock->store();
+                $blocks = $page->getPageBlocks();
+                $sort = 0;
+                // resort blocks
+                foreach ($blocks as $block) {
+                    $block->sort = $sort++;
+                    $block->preserveUpdateUserAndTime();
+                    $block->store();
+                }
+                $jsCall->result = [
+                    'url' => $pageBlock->getPublicUrl()
+                ];
+                break;
+            case 'deleteBlock':
+                PageBlock::getById($jsCall->parameters['blockId'])?->delete();
                 break;
         }
     }
@@ -59,6 +124,11 @@ class Index extends View
      */
     public function showContent(): void
     {
+        $config = [
+            'apiRequestUrl' => JsCall::getCallUrl(__CLASS__, 'pageBlockApiRequest'),
+            'tinymceUrl' => Url::getUrlToFile(Editor::TINYMCE_PATH, antiCacheParameter: false),
+            'tinymcePluginsUrl' => Compiler::getDistUrl(FRAMELIX_MODULE, 'js', 'tinymce-plugins')
+        ];
         ?>
         <div data-color-scheme="dark" class="pageeditor-frame"
              data-edit-url="<?= JsCall::getCallUrl(__CLASS__, 'custom') ?>">
@@ -116,6 +186,9 @@ class Index extends View
             <iframe src="<?= \Framelix\Framelix\View::getUrl(\Framelix\PageMyself\View\Index::class) ?>" width="100%"
                     frameborder="0"></iframe>
         </div>
+        <script>
+          PageMyselfPageEditor.config = <?=JsonUtils::encode($config)?>;
+        </script>
         <?php
     }
 }

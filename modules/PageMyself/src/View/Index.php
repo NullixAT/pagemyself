@@ -12,12 +12,16 @@ use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\Buffer;
+use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\View;
 use Framelix\Framelix\View\LayoutView;
 use Framelix\PageMyself\ModuleHooks;
+use Framelix\PageMyself\PageBlock\Base;
 use Framelix\PageMyself\Storable\Page;
+use Framelix\PageMyself\Storable\PageBlock;
 use Framelix\PageMyself\Storable\PageLayout;
+
 use function trim;
 
 /**
@@ -56,6 +60,12 @@ class Index extends LayoutView
     private ?Page $page;
 
     /**
+     * Current page blocks
+     * @var PageBlock[]
+     */
+    private array $pageBlocks = [];
+
+    /**
      * On request
      */
     public function onRequest(): void
@@ -83,6 +93,7 @@ class Index extends LayoutView
                 }
                 Url::getBrowserUrl()->redirect();
             }
+            $this->pageBlocks = $this->page->getPageBlocks();
         }
         $this->showContentBasedOnRequestType();
     }
@@ -103,7 +114,9 @@ class Index extends LayoutView
         $this->includeCompiledFilesForModule("Framelix");
         $this->includeCompiledFilesForModule(FRAMELIX_MODULE);
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pagemyself");
+        $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pageblocks");
         $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pagemyself");
+        $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pageblocks");
 
         $pageContent = Buffer::getAll();
 
@@ -161,8 +174,8 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                     ?>
                     <nav class="page-nav">
                         <?php
-                        if (User::get() && $nav !== 'top') {
-                            echo '<div class="pageeditor-anchor" data-type="nav-before"></div>';
+                        if ($nav !== 'top') {
+                            $this->showPageBlocks('nav-before');
                         }
                         ?>
                         <ul>
@@ -215,8 +228,8 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                             ?>
                         </ul>
                         <?php
-                        if (User::get() && $nav !== 'top') {
-                            echo '<div class="pageeditor-anchor" data-type="nav-after"></div>';
+                        if ($nav !== 'top') {
+                            $this->showPageBlocks('nav-after');
                         }
                         ?>
                     </nav>
@@ -242,10 +255,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
                         $form->addSubmitButton('login', '__pagemyself_page_login__');
                         $form->show();
                     } else {
-                        if (User::get()) {
-                            echo '<div class="pageeditor-anchor" data-type="content"></div>';
-                        }
-                        echo '';
+                        $this->showPageBlocks('content');
                     }
                     ?>
                 </div>
@@ -273,5 +283,36 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
             <span></span>
         </li>
         <?php
+    }
+
+    /**
+     * Show page blocks
+     * @param string $placement
+     * @return void
+     */
+    private function showPageBlocks(string $placement): void
+    {
+        echo '<div class="page-blocks" data-placement="' . $placement . '">';
+        foreach ($this->pageBlocks as $pageBlock) {
+            /** @var Base $instance */
+            $instance = new $pageBlock->blockClass();
+            $instance->block = $pageBlock;
+            $jsClassName = "PageBlock" . ClassUtils::getClassBaseName($pageBlock->blockClass);
+            ?>
+            <div class="page-block <?= ClassUtils::getHtmlClass($pageBlock->blockClass) ?>"
+                 id="block-<?= $pageBlock ?>" data-id="<?= $pageBlock ?>">
+                <?php
+                $instance->show();
+                ?>
+            </div>
+            <script>
+              (function () {
+                const block = new <?=$jsClassName?>(<?=$pageBlock?>)
+                block.init()
+              })()
+            </script>
+            <?php
+        }
+        echo '</div>';
     }
 }

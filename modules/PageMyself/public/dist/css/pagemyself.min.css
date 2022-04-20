@@ -100,7 +100,6 @@ body {
   background: var(--color-page-bg);
   padding: 10px;
   border-radius: 10px;
-  overflow: visible;
   margin-bottom: 20px;
   text-align: center;
 }

@@ -75,10 +75,36 @@
 
 .pageeditor-website {
   .pageeditor-block-options {
-    padding: 10px;
+    font-weight: bold;
+    padding: 5px;
     border-radius: var(--border-radius);
-    background: #414645 linear-gradient(45deg, #262928 25%, #414645 25%, #414645 50%, #262928 50%, #262928 75%, #414645 75%, #414645 100%);
+    background: #eee linear-gradient(45deg, #ccc 25%, #eee 25%, #eee 50%, #ccc 50%, #ccc 75%, #eee 75%, #eee 100%);
     background-size: 56.57px 56.57px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 2px solid #ddd;
+
+    &.sortable-chosen {
+      border-color: red;
+    }
+
+    button {
+      margin-bottom: 0;
+    }
+
+    &:hover + .page-block {
+      box-shadow: var(--color-alert-primary-bg) 0 0 20px;
+    }
+  }
+
+  .pageeditor-block-options-title {
+    flex: 1 1 auto;
+  }
+
+  &[data-sorting] .page-block {
+    opacity: 0.1;
+    pointer-events: none;
   }
 }

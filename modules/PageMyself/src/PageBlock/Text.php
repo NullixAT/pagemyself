@@ -13,6 +13,6 @@ class Text extends Base
      */
     public function show(): void
     {
-
+        echo '<div data-id="text">' . ($this->block->settings['text']['text'] ?? '') . '</div>';
     }
 }

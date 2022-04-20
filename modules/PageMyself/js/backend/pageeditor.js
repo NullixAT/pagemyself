@@ -1,4 +1,9 @@
 class PageMyselfPageEditor {
+  /**
+   * Editor config
+   * @type {{}}
+   */
+  static config = {}
 
   /**
    * @type {Cash}
@@ -54,9 +59,6 @@ class PageMyselfPageEditor {
       PageMyselfPageEditor.onIframeLoad()
     })
     PageMyselfPageEditor.updateFrameSize()
-    $(window).on('resize', function () {
-      PageMyselfPageEditor.updateFrameSize()
-    })
     $('button[data-modal-url]').on('click', function () {
       FramelixModal.callPhpMethod($(this).attr('data-modal-url'), { 'page': PageMyselfPageEditor.iframeHtml.attr('data-page') })
     })
@@ -69,7 +71,7 @@ class PageMyselfPageEditor {
           PageMyselfPageEditor.iframeWindow.location.reload()
           break
         case 'loadurl':
-          PageMyselfPageEditor.iframe.attr('src', $(this).attr('data-url'))
+          PageMyselfPageEditor.setIframeUrl($(this).attr('data-url'))
           break
         case 'mobile':
           PageMyselfPageEditor.frame.attr('data-mobile', PageMyselfPageEditor.frame.attr('data-mobile') === '1' ? '0' : '1')
@@ -77,7 +79,7 @@ class PageMyselfPageEditor {
       }
     })
     FramelixFormField.onValueChange(PageMyselfPageEditor.frame, 'jumpToPage', true, function (field) {
-      PageMyselfPageEditor.iframe.attr('src', field.getValue())
+      PageMyselfPageEditor.setIframeUrl(field.getValue())
       field.setValue(null)
     })
     FramelixFormField.onValueChange(PageMyselfPageEditor.frame, 'pageLayout', true, async function (field) {
@@ -88,6 +90,21 @@ class PageMyselfPageEditor {
       })
       PageMyselfPageEditor.iframeWindow.location.reload()
     })
+  }
+
+  /**
+   * Set iframe url
+   * @param {string} url
+   */
+  static setIframeUrl (url) {
+    const urlNow = new URL(url)
+    const urlPrev = new URL(PageMyselfPageEditor.iframeWindow.location.href)
+    if (urlNow.pathname === urlPrev.pathname && urlNow.search === urlPrev.search) {
+      PageMyselfPageEditor.iframeWindow.location.hash = urlNow.hash
+      PageMyselfPageEditor.iframeWindow.location.reload()
+    } else {
+      PageMyselfPageEditor.iframe.attr('src', url)
+    }
   }
 
   /**
@@ -118,33 +135,141 @@ class PageMyselfPageEditor {
     PageMyselfPageEditor.iframeHtml.addClass('pageeditor-website')
 
     // insert editor containers
-    PageMyselfPageEditor.iframeHtml.find('.pageeditor-anchor').each(function () {
-      $(this).after(`<div class="pageeditor-block-options" data-type="${$(this).attr('data-type')}"><button class="framelix-button framelix-button-small add-new-block">Add a new block</button></div>`)
-      $(this).remove()
+    PageMyselfPageEditor.iframeHtml.find('.page-blocks').each(function () {
+      $(this).before(`
+        <div class="pageeditor-block-options" data-placement="${$(this).attr('data-placement')}">
+          <div class="pageeditor-block-options-title"></div>
+          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_pageblock_add__"></button>
+        </div>
+      `)
     })
 
     // add new block button
     $(PageMyselfPageEditor.iframeDoc).on('click', '.add-new-block', async function () {
+      const placement = $(this).closest('.pageeditor-block-options').attr('data-placement')
+      const bellow = $(this).closest('.pageeditor-block-options').attr('data-block-id')
       const data = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
-        'action': 'newPageBlock'
+        'action': 'getPageBlockList'
       })
       const content = $('<div></div>')
       for (let i in data) {
         const row = data[i]
         content.append(`
-          <div class="pageeditor-block-list-entry">
+          <div class="pageeditor-block-list-entry" data-block-class="${row.blockClass}">
             <div><b>${FramelixLang.get(row.title)}</b></div>
             <div>${FramelixLang.get(row.desc)}</div>
           </div>
         `)
       }
-      FramelixModal.show({ bodyContent: content, maxWidth: 900 })
+      const modal = FramelixModal.show({ bodyContent: content, maxWidth: 900 })
+      content.on('click', '.pageeditor-block-list-entry', async function () {
+        modal.destroy()
+        Framelix.showProgressBar(1)
+        const data = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+          'page': PageMyselfPageEditor.currentPage,
+          'action': 'createNewPageBlock',
+          'blockClass': this.dataset.blockClass,
+          'placement': placement,
+          'bellow': bellow
+        })
+        Framelix.showProgressBar(null)
+        PageMyselfPageEditor.setIframeUrl(data.url)
+      })
+    })
+
+    // delete block button
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.delete-block', async function () {
+      if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) {
+        return
+      }
+      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'deleteBlock',
+        'blockId': $(this).closest('.pageeditor-block-options').attr('data-block-id')
+      })
+      PageMyselfPageEditor.iframeWindow.location.reload()
+    })
+
+    // add editing options of existing blocks
+    const blockElMap = new Map()
+    PageMyselfPageEditor.iframeHtml.find('.page-block').each(function () {
+      const block = $(this)
+      const blockId = block.attr('data-id')
+      const options = $(`
+        <div class="pageeditor-block-options" data-block-id="${blockId}">
+          <div class="pageeditor-block-options-title"><span class="framelix-loading"></span></div>
+          <button class="framelix-button framelix-button-error framelix-button-small delete-block" data-icon-left="delete" title="__pagemyself_pageblock_delete__"></button>   
+          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_pageblock_add__"></button>   
+          <button class="framelix-button framelix-button-small open-help hidden" data-icon-left="info" title="__pagemyself_pageblock_help__"></button>    
+          <button class="framelix-button framelix-button-small sort-block" data-icon-left="swap_vert" title="__pagemyself_pageblock_sort__"></button>           
+        </div>
+      `)
+      block.before(options)
+      const blockInstance = PageMyselfPageEditor.iframeWindow.eval('PageBlock.instances[' + blockId + ']')
+      blockInstance.backendOptionsContainer = options
+      blockInstance.enableEditing()
+      blockElMap.set(blockId, blockInstance)
+    })
+
+    // enable block sorting
+    FramelixDom.includeCompiledFile('Framelix', 'js', 'sortablejs', 'Sortable').then(function () {
+      PageMyselfPageEditor.iframeHtml.find('.page-blocks').each(function () {
+        const el = $(this)
+        new Sortable(this, {
+          'filter': '.page-block',
+          'handle': '.sort-block',
+          'onStart': function () {
+            PageMyselfPageEditor.iframeHtml.attr('data-sorting', '1')
+            blockElMap.forEach(function (blockInstance) {
+              //blockInstance.disableEditing()
+            })
+          },
+          'onEnd': function () {
+            PageMyselfPageEditor.iframeHtml.removeAttr('data-sorting')
+            blockElMap.forEach(function (blockInstance) {
+              //blockInstance.enableEditing()
+            })
+          },
+          'onSort': async function () {
+            const ids = []
+            el.children('.pageeditor-block-options').each(function () {
+              ids.push($(this).attr('data-block-id'))
+            })
+            await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+              'page': PageMyselfPageEditor.currentPage,
+              'action': 'updateBlockSort',
+              'blockIds': ids
+            })
+            PageMyselfPageEditor.iframeWindow.location.reload()
+          }
+        })
+      })
+    })
+
+    // update block infos
+    FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+      'page': PageMyselfPageEditor.currentPage,
+      'action': 'getPageBlockInfos',
+      'blockIds': Array.from(blockElMap.keys())
+    }).then(function (data) {
+      for (let id in data) {
+        const row = data[id]
+        const blockInstance = blockElMap.get(id)
+        blockInstance.backendOptionsContainer.find('.pageeditor-block-options-title').text('#' + row.id + ' ' + FramelixLang.get(row.title))
+        if (row.help) {
+          const openHelp = blockInstance.backendOptionsContainer.find('.open-help')
+          openHelp.removeClass('hidden')
+          openHelp.on('click', function () {
+            FramelixModal.show({ bodyContent: FramelixLang.get(row.help) })
+          })
+        }
+      }
     })
 
     // bypass resize event into the page frame
     let resizeTo = null
-    $(window).on('resize', function () {
+    $(window).off('resize.iframe').on('resize.iframe', function () {
       if (resizeTo) return
       resizeTo = setTimeout(function () {
         resizeTo = null
