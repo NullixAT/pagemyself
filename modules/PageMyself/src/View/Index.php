@@ -294,6 +294,9 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
     {
         echo '<div class="page-blocks" data-placement="' . $placement . '">';
         foreach ($this->pageBlocks as $pageBlock) {
+            if ($pageBlock->placement !== $placement) {
+                continue;
+            }
             $instance = Base::createInstance($pageBlock);
             $jsClassName = "PageBlock" . ClassUtils::getClassBaseName($pageBlock->blockClass);
             ?>

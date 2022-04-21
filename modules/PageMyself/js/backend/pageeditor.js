@@ -179,7 +179,7 @@ class PageMyselfPageEditor {
     })
 
     // delete block button
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.delete-block', async function () {
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options .delete-block', async function () {
       if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) {
         return
       }
@@ -192,7 +192,7 @@ class PageMyselfPageEditor {
     })
 
     // sorting blocks
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.sort-block-up, .sort-block-down', async function () {
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options  .sort-block-up, .pageeditor-block-options  .sort-block-down', async function () {
       const blockNow = $(this).closest('.pageeditor-block-options').next()
       const blockNext = $(this).hasClass('sort-block-up') ? blockNow.prevUntil('.page-block').last().prev() : blockNow.next().nextUntil('.page-block').last().next()
       await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
@@ -204,16 +204,25 @@ class PageMyselfPageEditor {
       PageMyselfPageEditor.iframeWindow.location.reload()
     })
 
+    // block settings
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options .settings', async function () {
+      const blockNow = $(this).closest('.pageeditor-block-options')
+      await FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'blockSettings',
+        'block': blockNow.attr('data-block-id')
+      }, { maxWidth: 900 })
+    })
+
     // add editing options of existing blocks
     const blockElMap = new Map()
     PageMyselfPageEditor.iframeHtml.find('.page-block').each(function () {
       const block = $(this)
       const blockId = block.attr('data-id')
       const options = $(`
-        <div class="pageeditor-block-options" data-block-id="${blockId}">
-          <div class="pageeditor-block-options-title"><span class="framelix-loading"></span></div>
-          <button class="framelix-button framelix-button-small open-help hidden framelix-button-trans" data-icon-left="info" title="__pagemyself_pageblock_help__"></button>
-          <button class="framelix-button framelix-button-error framelix-button-small delete-block" data-icon-left="delete" title="__pagemyself_pageblock_delete__"></button>     
+        <div class="pageeditor-block-options" data-block-id="${blockId}">  
+          <button class="framelix-button framelix-button-small settings" data-icon-left="settings" title="__pagemyself_pageblock_settings__"></button> 
+          <div class="pageeditor-block-options-title"><span class="framelix-loading"></span></div>   
           <button class="framelix-button framelix-button-small sort-block-down framelix-button-customcolor" data-icon-left="south" style="--color-custom-bg:#2190af; --color-custom-text:white;" title="__pagemyself_pageblock_sort_down__"></button>    
           <button class="framelix-button framelix-button-small sort-block-up framelix-button-customcolor" data-icon-left="north" style="--color-custom-bg:#216daf; --color-custom-text:white;" title="__pagemyself_pageblock_sort_up__"></button>     
           <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_pageblock_add__"></button>          
@@ -230,41 +239,6 @@ class PageMyselfPageEditor {
       const childs = $(this).children('.pageeditor-block-options')
       childs.first().addClass('pageeditor-block-options-first')
       childs.last().addClass('pageeditor-block-options-last')
-    })
-
-    // enable block sorting
-    FramelixDom.includeCompiledFile('Framelix', 'js', 'sortablejs', 'Sortable').then(function () {
-      PageMyselfPageEditor.iframeHtml.find('.page-blocks').each(function () {
-        const el = $(this)
-        new Sortable(this, {
-          'filter': '.page-block',
-          'handle': '.sort-block',
-          'onStart': function () {
-            PageMyselfPageEditor.iframeHtml.attr('data-sorting', '1')
-            blockElMap.forEach(function (blockInstance) {
-              //blockInstance.disableEditing()
-            })
-          },
-          'onEnd': function () {
-            PageMyselfPageEditor.iframeHtml.removeAttr('data-sorting')
-            blockElMap.forEach(function (blockInstance) {
-              //blockInstance.enableEditing()
-            })
-          },
-          'onSort': async function () {
-            const ids = []
-            el.children('.pageeditor-block-options').each(function () {
-              ids.push($(this).attr('data-block-id'))
-            })
-            await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-              'page': PageMyselfPageEditor.currentPage,
-              'action': 'updateBlockSort',
-              'blockIds': ids
-            })
-            PageMyselfPageEditor.iframeWindow.location.reload()
-          }
-        })
-      })
     })
 
     // update block infos

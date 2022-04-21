@@ -76,15 +76,13 @@
 .pageeditor-website {
   .pageeditor-block-options {
     font-weight: bold;
-    padding: 5px;
     border-radius: var(--border-radius);
-    background: #eee linear-gradient(45deg, #ccc 25%, #eee 25%, #eee 50%, #ccc 50%, #ccc 75%, #eee 75%, #eee 100%);
-    background-size: 56.57px 56.57px;
-    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.12);
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
     gap: 5px;
-    border: 2px solid #ddd;
+    opacity: 0.2;
 
     &.pageeditor-block-options-first .sort-block-up {
       display: none;
@@ -102,12 +100,26 @@
       font-size: 18px;
     }
 
+    &:hover {
+      opacity: 1;
+    }
+
     &:hover + .page-block {
-      box-shadow: var(--color-alert-primary-bg) 0 0 20px;
+      outline: 2px solid var(--color-alert-primary-bg);
     }
   }
 
   .pageeditor-block-options-title {
     flex: 1 1 auto;
+    padding: 2px 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pageeditor-block-options-title:empty {
+    background: transparent;
   }
 }

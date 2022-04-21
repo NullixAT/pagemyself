@@ -88,6 +88,12 @@ class Index extends View
                     $blockB->store();
                 }
                 break;
+            case 'blockSettings':
+                $block = PageBlock::getById($jsCall->parameters['block'] ?? null);
+                if ($block) {
+                    echo $block->id;
+                }
+                break;
             case 'createNewPageBlock':
                 $bellow = PageBlock::getById($jsCall->parameters['bellow'] ?? null);
                 $pageBlock = new PageBlock();

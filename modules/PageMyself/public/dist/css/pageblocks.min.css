@@ -1,7 +1,3 @@
-.pagemyself-pageblock-text {
-  margin: 10px 0;
-}
 .pagemyself-pageblock-text[data-editing="1"] {
-  min-height: 30px;
   cursor: pointer;
 }

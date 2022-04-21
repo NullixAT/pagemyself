@@ -187,5 +187,8 @@
   ],
   "__pagemyself_reset_text__": [
     "Revert text changes"
+  ],
+  "__pagemyself_pageblock_settings__": [
+    "Settings"
   ]
 }
