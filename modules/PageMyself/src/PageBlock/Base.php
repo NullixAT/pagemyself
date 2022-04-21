@@ -4,7 +4,6 @@ namespace Framelix\PageMyself\PageBlock;
 
 use Framelix\Framelix\Lang;
 use Framelix\PageMyself\Storable\PageBlock;
-
 use function scandir;
 use function str_ends_with;
 use function strtolower;
@@ -55,6 +54,28 @@ abstract class Base
         }
         self::$cache[$cacheKey] = $arr;
         return $arr;
+    }
+
+    /**
+     * Create an instance based on the pageblock
+     * @param PageBlock $pageBlock
+     * @return Base
+     */
+    public static function createInstance(PageBlock $pageBlock): Base
+    {
+        /** @var Base $instance */
+        $instance = new $pageBlock->blockClass();
+        $instance->block = $pageBlock;
+        return $instance;
+    }
+
+    /**
+     * Get default settings for this block
+     * @return array
+     */
+    public function getDefaultSettings(): array
+    {
+        return [];
     }
 
     /**

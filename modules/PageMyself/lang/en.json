@@ -170,7 +170,10 @@
   "__pagemyself_pageblock_help__": [
     "Open help on how to use this block"
   ],
-  "__pagemyself_pageblock_sort__": [
-    "Sort with drag & drop"
+  "__pagemyself_pageblock_sort_up__": [
+    "Move this block up"
+  ],
+  "__pagemyself_pageblock_sort_down__": [
+    "Move this block down"
   ]
 }

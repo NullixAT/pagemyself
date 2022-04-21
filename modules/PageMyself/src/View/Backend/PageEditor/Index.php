@@ -75,12 +75,17 @@ class Index extends View
                 $jsCall->result = $arr;
                 break;
             case 'updateBlockSort':
-                $blocks = PageBlock::getByIds($jsCall->parameters['blockIds'] ?? null);
-                $sort = 0;
-                foreach ($blocks as $block) {
-                    $block->sort = $sort++;
-                    $block->preserveUpdateUserAndTime();
-                    $block->store();
+                $blockA = PageBlock::getById($jsCall->parameters['blockA'] ?? null);
+                $blockB = PageBlock::getById($jsCall->parameters['blockB'] ?? null);
+                if ($blockA && $blockB) {
+                    $sortA = $blockA->sort;
+                    $sortB = $blockB->sort;
+                    $blockA->sort = $sortB;
+                    $blockB->sort = $sortA;
+                    $blockA->preserveUpdateUserAndTime();
+                    $blockA->store();
+                    $blockB->preserveUpdateUserAndTime();
+                    $blockB->store();
                 }
                 break;
             case 'createNewPageBlock':
@@ -90,6 +95,8 @@ class Index extends View
                 $pageBlock->blockClass = $jsCall->parameters['blockClass'];
                 $pageBlock->placement = $bellow->placement ?? $jsCall->parameters['placement'];
                 $pageBlock->sort = ($bellow->sort ?? -1);
+                $blockInstance = Base::createInstance($pageBlock);
+                $pageBlock->settings = $blockInstance->getDefaultSettings();
                 $pageBlock->store();
                 $blocks = $page->getPageBlocks();
                 $sort = 0;
@@ -124,6 +131,10 @@ class Index extends View
      */
     public function showContent(): void
     {
+        // call defaults will initialize them when not yet added
+        // useful because this is the first page the user will open after setup
+        PageLayout::getDefault();
+        Page::getDefault();
         $config = [
             'apiRequestUrl' => JsCall::getCallUrl(__CLASS__, 'pageBlockApiRequest'),
             'tinymceUrl' => Url::getUrlToFile(Editor::TINYMCE_PATH, antiCacheParameter: false),

@@ -8,6 +8,17 @@ namespace Framelix\PageMyself\PageBlock;
 class Text extends Base
 {
     /**
+     * Get default settings for this block
+     * @return array
+     */
+    public function getDefaultSettings(): array
+    {
+        return [
+            'text' => ['text' => 'Your text here']
+        ];
+    }
+
+    /**
      * Show content for this block
      * @return void
      */

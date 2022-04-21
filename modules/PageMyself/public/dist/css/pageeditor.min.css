@@ -71,8 +71,11 @@
   gap: 5px;
   border: 2px solid #ddd;
 }
-.pageeditor-website .pageeditor-block-options.sortable-chosen {
-  border-color: red;
+.pageeditor-website .pageeditor-block-options.pageeditor-block-options-first .sort-block-up {
+  display: none;
+}
+.pageeditor-website .pageeditor-block-options.pageeditor-block-options-last .sort-block-down {
+  display: none;
 }
 .pageeditor-website .pageeditor-block-options button {
   margin-bottom: 0;

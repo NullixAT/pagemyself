@@ -21,7 +21,6 @@ use Framelix\PageMyself\PageBlock\Base;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\PageBlock;
 use Framelix\PageMyself\Storable\PageLayout;
-
 use function trim;
 
 /**
@@ -294,9 +293,7 @@ background: white; color:#222; font-weight: bold">' . Lang::get('__pagemyself_pa
     {
         echo '<div class="page-blocks" data-placement="' . $placement . '">';
         foreach ($this->pageBlocks as $pageBlock) {
-            /** @var Base $instance */
-            $instance = new $pageBlock->blockClass();
-            $instance->block = $pageBlock;
+            $instance = Base::createInstance($pageBlock);
             $jsClassName = "PageBlock" . ClassUtils::getClassBaseName($pageBlock->blockClass);
             ?>
             <div class="page-block <?= ClassUtils::getHtmlClass($pageBlock->blockClass) ?>"

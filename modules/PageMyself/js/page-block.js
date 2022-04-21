@@ -63,7 +63,6 @@ class PageBlock {
    */
   async enableEditing () {
     this.container.attr('data-editing', '1')
-    if (this.editor) return
   }
 
   /**
@@ -78,7 +77,9 @@ class PageBlock {
     }
     const self = this
     await FramelixDom.includeResource(window.top.eval('PageMyselfPageEditor.config.tinymceUrl'), 'tinymce')
-    await FramelixDom.includeResource(window.top.eval('PageMyselfPageEditor.config.tinymcePluginsUrl'))
+    await FramelixDom.includeResource(window.top.eval('PageMyselfPageEditor.config.tinymcePluginsUrl'), function () {
+      return !!(tinymce && tinymce.PluginManager.get('pagemyself'))
+    })
 
     let fontSizes = []
     for (let i = 0.6; i <= 8; i += 0.2) {
@@ -111,6 +112,9 @@ class PageBlock {
       setup: function (instance) {
         instance.pageBlock = self
         self.editor = instance
+        instance.on('init', function (e) {
+          instance.initialContent = instance.getContent()
+        })
       }
     })
   }

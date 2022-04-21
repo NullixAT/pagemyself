@@ -86,8 +86,12 @@
     gap: 5px;
     border: 2px solid #ddd;
 
-    &.sortable-chosen {
-      border-color: red;
+    &.pageeditor-block-options-first .sort-block-up {
+      display: none;
+    }
+
+    &.pageeditor-block-options-last .sort-block-down {
+      display: none;
     }
 
     button {

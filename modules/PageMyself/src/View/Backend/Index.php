@@ -15,7 +15,7 @@ class Index extends View
      */
     public function onRequest(): void
     {
-        $this->showContentBasedOnRequestType();
+        \Framelix\Framelix\View::getUrl(PageEditor\Index::class)->redirect();
     }
 
     /**
