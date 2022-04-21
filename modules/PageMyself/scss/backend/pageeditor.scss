@@ -98,6 +98,10 @@
       margin-bottom: 0;
     }
 
+    button[data-icon-left]:before {
+      font-size: 18px;
+    }
+
     &:hover + .page-block {
       box-shadow: var(--color-alert-primary-bg) 0 0 20px;
     }
@@ -105,10 +109,5 @@
 
   .pageeditor-block-options-title {
     flex: 1 1 auto;
-  }
-
-  &[data-sorting] .page-block {
-    opacity: 0.1;
-    pointer-events: none;
   }
 }

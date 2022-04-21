@@ -3,9 +3,9 @@
 namespace Framelix\PageMyself\PageBlock;
 
 /**
- * A simple text block
+ * A JumpMark
  */
-class Text extends Base
+class JumpMark extends Base
 {
     /**
      * Get default settings for this block
@@ -13,9 +13,7 @@ class Text extends Base
      */
     public function getDefaultSettings(): array
     {
-        return [
-            'text' => ['text' => '<p>Your text here</p>']
-        ];
+        return [];
     }
 
     /**
@@ -24,6 +22,5 @@ class Text extends Base
      */
     public function show(): void
     {
-        echo '<div data-id="text">' . ($this->block->settings['text']['text'] ?? '') . '</div>';
     }
 }

@@ -21,6 +21,7 @@ use Framelix\PageMyself\PageBlock\Base;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\PageBlock;
 use Framelix\PageMyself\Storable\PageLayout;
+
 use function trim;
 
 /**

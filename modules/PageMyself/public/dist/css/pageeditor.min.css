@@ -80,13 +80,12 @@
 .pageeditor-website .pageeditor-block-options button {
   margin-bottom: 0;
 }
+.pageeditor-website .pageeditor-block-options button[data-icon-left]:before {
+  font-size: 18px;
+}
 .pageeditor-website .pageeditor-block-options:hover + .page-block {
   box-shadow: var(--color-alert-primary-bg) 0 0 20px;
 }
 .pageeditor-website .pageeditor-block-options-title {
   flex: 1 1 auto;
-}
-.pageeditor-website[data-sorting] .page-block {
-  opacity: 0.1;
-  pointer-events: none;
 }
