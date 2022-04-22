@@ -60,6 +60,7 @@ class WebsiteSettings extends View
         $field = new MediaBrowser();
         $field->name = 'websitesetting_favicon';
         $field->label = '__pagemyself_' . $field->name . '__';
+        $field->labelDescription = '__pagemyself_' . $field->name . '_desc__';
         $field->defaultValue = \Framelix\PageMyself\Storable\WebsiteSettings::get($field->name);
         $field->setOnlyImages();
         $form->addField($field);

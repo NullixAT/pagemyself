@@ -110,6 +110,8 @@ class PageMyselfPageEditor {
     PageMyselfPageEditor.frame.attr('data-page', PageMyselfPageEditor.currentPage)
     PageMyselfPageEditor.frameTop.find('.pageeditor-address').html(`<a href="${PageMyselfPageEditor.iframeWindow.location.href}" target="_blank" title="__pagemyself_pageeditor_page_open__">${PageMyselfPageEditor.iframeWindow.location.href}</a>`)
 
+    if (!PageMyselfPageEditor.currentPage) return
+
     // update editor bar information on frame load
     const pageData = await FramelixApi.callPhpMethod(PageMyselfPageEditor.frame.attr('data-edit-url'), {
       'page': PageMyselfPageEditor.currentPage,

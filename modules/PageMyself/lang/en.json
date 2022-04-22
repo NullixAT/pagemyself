@@ -157,5 +157,47 @@
   ],
   "__pagemyself_view_backend_websitesettings__": [
     "Website Settings"
+  ],
+  "__pagemyself_mediabrowser_open__": [
+    "Open Media Browser"
+  ],
+  "__pagemyself_mediabrowser_replace__": [
+    "Replace file"
+  ],
+  "__pagemyself_mediabrowser_upload_failed__": [
+    "Upload failed: {0}"
+  ],
+  "__pagemyself_mediabrowser_files_selected__": [
+    "{{0=1:{0} file|0=*:{0} files}} selected"
+  ],
+  "__pagemyself_websitesetting_og_image__": [
+    "Website Logo"
+  ],
+  "__pagemyself_websitesetting_og_site_name__": [
+    "Website Short Name"
+  ],
+  "__pagemyself_websitesetting_og_title__": [
+    "Website Full Name"
+  ],
+  "__pagemyself_websitesetting_og_description__": [
+    "Website Description"
+  ],
+  "__pagemyself_websitesetting_headhtml__": [
+    "HTML Code that appears inside <head> tag"
+  ],
+  "__pagemyself_websitesettings_headhtml_desc__": [
+    "Use this to including scripts, adding external stylesheets, etc..."
+  ],
+  "__pagemyself_websitesetting_favicon__": [
+    "Favicon"
+  ],
+  "__pagemyself_websitesetting_favicon_desc__": [
+    "The tiny icon that is displayed beside the browser page title and in search engines. Should be a squared image with 512x512."
+  ],
+  "__pagemyself_websitesetting_author__": [
+    "Author of website"
+  ],
+  "__pagemyself_websitesetting_keywords__": [
+    "Website keywords"
   ]
 }

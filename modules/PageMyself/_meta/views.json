@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|1608502335",
+    "directoryListHash": "1|1898312766",
     "views": {
         "Framelix\\PageMyself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -36,6 +36,15 @@
             "urlPriority": 0,
             "pageTitle": "{classLangKey}",
             "url": "\/backend\/websitesettings"
+        },
+        "Framelix\\PageMyself\\View\\ImageResizeView": {
+            "accessRole": "*",
+            "customUrl": "~\/uploads\/(?<folder>[0-9]+)\/t-(?<thumbSize>100|500|1000|1500|1920)-(?<filename>.*)\\.(?<extension>jpg|jpeg|png|gif|webp)$~",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/imageresizeview"
         },
         "Framelix\\PageMyself\\View\\Index": {
             "accessRole": "*",

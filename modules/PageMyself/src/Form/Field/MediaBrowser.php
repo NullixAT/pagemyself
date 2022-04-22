@@ -4,6 +4,11 @@ namespace Framelix\PageMyself\Form\Field;
 
 use Framelix\Framelix\Form\Field;
 use Framelix\Framelix\Network\JsCall;
+use Framelix\Framelix\Network\Request;
+use Framelix\Framelix\Network\UploadedFile;
+use Framelix\Framelix\Utils\HtmlUtils;
+use Framelix\PageMyself\Storable\MediaFile;
+
 use function is_array;
 
 /**
@@ -29,9 +34,100 @@ class MediaBrowser extends Field
      */
     public static function onJsCall(JsCall $jsCall): void
     {
-        switch ($jsCall->action) {
-            case 'list':
+        $disabled = (bool)(Request::getGet('disabled'));
+        $multiple = (bool)(Request::getGet('multiple'));
+        $allowedExtensions = Request::getGet('allowedExtensions');
+        if (isset($_FILES['file'])) {
+            ini_set("memory_limit", "2G");
+            $uploadedFiles = UploadedFile::createFromSubmitData('file');
+            try {
+                foreach ($uploadedFiles as $uploadedFile) {
+                    if (!in_array($uploadedFile->getExtension(), $allowedExtensions)) {
+                        continue;
+                    }
+                    $replaceFile = MediaFile::getById(Request::getPost('replaceId'));
+                    if ($replaceFile) {
+                        $replaceFile->store($uploadedFile);
+                    } else {
+                        $mediaFile = new MediaFile();
+                        $mediaFile->store($uploadedFile);
+                    }
+                    $jsCall->result = true;
+                    return;
+                }
+            } catch (\Throwable $e) {
+                $jsCall->result = $e->getMessage();
+                return;
+            }
+            $jsCall->result = false;
+            return;
+        }
 
+        $selectedValues = $jsCall->parameters['selectedValues'] ?? null;
+        if (!is_array($selectedValues)) {
+            $selectedValues = [$selectedValues];
+        }
+        $selectedValues = array_combine($selectedValues, $selectedValues);
+        foreach ($selectedValues as $value) {
+            $selectedValues[(int)$value] = (int)$value;
+        }
+        switch ($jsCall->parameters['action']) {
+            case 'deleteFile':
+                $mediaFile = MediaFile::getById($jsCall->parameters['id'] ?? null);
+                $mediaFile?->delete();
+                break;
+            case 'browser':
+                echo '<div class="mediabrowser">';
+                if (!$disabled) {
+                    $arr = [];
+                    if (is_array($allowedExtensions)) {
+                        foreach ($allowedExtensions as $allowedExtension) {
+                            $arr[] = "." . $allowedExtension;
+                        }
+                    }
+                    $field = new Field\File();
+                    $field->name = "newFile";
+                    $field->multiple = $multiple;
+                    $field->allowedFileTypes = implode(",", $arr);
+                    $field->show();
+                }
+
+                $files = MediaFile::getByCondition(sort: "+filename");
+                foreach ($files as $file) {
+                    ?>
+                    <div class="mediabrowser-file" data-id="<?= $file ?>"
+                         data-extension="<?= HtmlUtils::escape($file->extension) ?>">
+                        <span class="mediabrowser-file-checkbox"><input
+                                    type="checkbox" <?= isset($selectedValues[$file->id]) ? 'checked' : '' ?>/></span>
+                        <?php
+                        if ($file->isImageFile()) {
+                            ?>
+                            <span class="mediabrowser-file-preview"
+                                  style="background-image:url(<?= $file->getUrl(100) ?>)"></span>
+                            <?php
+                        }
+                        ?>
+                        <span class="mediabrowser-file-filename"><a href="<?= $file->getUrl() ?>"
+                                                                    target="_blank"><?= HtmlUtils::escape(
+                                    $file->filename
+                                ) ?></a></span>
+                        <?php
+                        if (!$disabled) {
+                            ?>
+                            <span class="mediabrowser-file-actions">
+                                <button class="framelix-button replace-file" data-icon-left="autorenew"
+                                        title="__pagemyself_mediabrowser_replace__"></button>
+                            </span>
+                            <span class="mediabrowser-file-actions">
+                                <button class="framelix-button delete-file" data-icon-left="delete"
+                                        title="__framelix_deleteentry__"></button>
+                            </span>
+                            <?php
+                        } ?>
+                    </div>
+                    <?php
+                }
+                echo '</div>';
                 break;
         }
     }
@@ -82,8 +178,12 @@ class MediaBrowser extends Field
         $data = parent::jsonSerialize();
         $data['properties']['apiUrl'] = JsCall::getCallUrl(
             __CLASS__,
-            'list',
-            ['allowedExtensions' => $this->allowedExtensions]
+            'api',
+            [
+                'allowedExtensions' => $this->allowedExtensions,
+                'multiple' => $this->multiple,
+                'disabled' => $this->disabled
+            ]
         );
         return $data;
     }

@@ -7,7 +7,7 @@ use Framelix\Framelix\Storable\Storable;
 /**
  * Website Settings
  * @property string $key
- * @property mixed $value
+ * @property mixed|null $value
  */
 class WebsiteSettings extends Storable
 {

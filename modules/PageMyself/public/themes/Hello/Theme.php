@@ -17,12 +17,12 @@ class Theme extends ThemeBase
         ?>
         <div class="page">
             <div class="page-inner">
-                <?
+                <?php
                 $this->showNavigation();
                 $this->showComponentBlocks('content');
                 ?>
             </div>
         </div>
-        <?
+        <?php
     }
 }
