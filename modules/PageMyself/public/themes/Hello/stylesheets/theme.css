@@ -1,0 +1,132 @@
+:root {
+  --font: Arial, sans-serif;
+  --font-size: 16px;
+  --line-height: 20px;
+  --color-page-bg: white;
+  --color-page-text: black;
+  --nav-color-text: var(--color-page-text);
+  --nav-color-text-highlight: var(--color-primary-text);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.page {
+  text-align: center;
+}
+
+.page-inner {
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: left;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-nav {
+  overflow: hidden;
+  background: var(--color-page-bg);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.page-nav .invisible {
+  opacity: 0;
+}
+
+.page-nav ul {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.page-nav ul,
+.page-nav li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-nav-wrap ul {
+  flex-wrap: wrap;
+}
+
+.page-nav .nav-entry,
+.page-nav .nav-entry:any-link {
+  background: transparent;
+  border: 0;
+  padding: 5px 5px 0;
+  margin: 0;
+  color: var(--nav-color-text);
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.page-nav .nav-entry + span,
+.page-nav .nav-entry:any-link + span {
+  display: inline-block;
+  max-width: 60px;
+  width: 100%;
+  height: 4px;
+  background: var(--nav-color-text-highlight);
+  border-radius: 20px;
+  transform: scaleX(0);
+}
+
+.page-nav .nav-entry.nav-entry-active, .page-nav .nav-entry:hover,
+.page-nav .nav-entry:any-link.nav-entry-active,
+.page-nav .nav-entry:any-link:hover {
+  color: var(--nav-color-text-highlight);
+}
+
+.page-nav .nav-entry.nav-entry-active + span, .page-nav .nav-entry:hover + span,
+.page-nav .nav-entry:any-link.nav-entry-active + span,
+.page-nav .nav-entry:any-link:hover + span {
+  animation: nav-gelatine 0.5s;
+  transform: scaleX(1);
+}
+
+.page-nav button.nav-entry {
+  display: flex;
+  align-items: center;
+}
+.page-nav button.nav-entry:after {
+  content: "expand_more";
+  font-family: "Material Icons", sans-serif;
+  margin-left: 5px;
+}
+
+@keyframes nav-gelatine {
+  from, to {
+    transform: scaleX(1);
+  }
+  25% {
+    transform: scaleX(0.8);
+  }
+  50% {
+    transform: scaleX(1.1);
+  }
+  75% {
+    transform: scaleX(0.9);
+  }
+}
+
+.popup-nav {
+  padding: 10px 20px 5px;
+  --color-popup-default-bg: var(--color-page-bg);
+  --arrow-color: var(--color-page-bg);
+  --color-popup-default-text: var(--color-page-text);
+  text-align: center;
+}
+.popup-nav .nav-entry,
+.popup-nav .nav-entry:any-link {
+  font-size: 1rem;
+  font-weight: normal;
+}
