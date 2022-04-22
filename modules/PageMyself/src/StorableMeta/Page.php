@@ -65,8 +65,15 @@ class Page extends StorableMeta
         $property = $this->createProperty('flagNav');
         $property->addDefaultField();
 
+        $property = $this->createProperty('titleNav');
+        $property->addDefaultField();
+        $property->field->getVisibilityCondition()
+            ->equal('flagNav', '1');
+
         $property = $this->createProperty('navGroup');
         $property->addDefaultField();
+        $property->field->getVisibilityCondition()
+            ->equal('flagNav', '1');
 
         $this->addDefaultPropertiesAtEnd();
     }

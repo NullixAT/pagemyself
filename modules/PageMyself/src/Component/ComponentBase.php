@@ -1,18 +1,18 @@
 <?php
 
-namespace Framelix\PageMyself\PageBlock;
+namespace Framelix\PageMyself\Component;
 
 use Framelix\Framelix\Lang;
-use Framelix\PageMyself\Storable\PageBlock;
+use Framelix\PageMyself\Storable\ComponentBlock;
 use function scandir;
 use function str_ends_with;
 use function strtolower;
 use function substr;
 
 /**
- * Base class for page block
+ * Base class for a component
  */
-abstract class Base
+abstract class ComponentBase
 {
     /**
      * Cache
@@ -22,9 +22,9 @@ abstract class Base
 
     /**
      * The attached page block
-     * @var PageBlock
+     * @var ComponentBlock
      */
-    public PageBlock $block;
+    public ComponentBlock $block;
 
     /**
      * Get list of available page blocks
@@ -39,12 +39,12 @@ abstract class Base
         $files = scandir(__DIR__);
         $arr = [];
         foreach ($files as $file) {
-            if ($file[0] === "." || $file === 'Base.php' || !str_ends_with($file, ".php")) {
+            if ($file[0] === "." || $file === 'ComponentBase.php' || !str_ends_with($file, ".php")) {
                 continue;
             }
             $blockName = substr($file, 0, -4);
-            $class = "Framelix\\PageMyself\\PageBlock\\" . $blockName;
-            $langPrefix = '__pagemyself_pageblock_' . strtolower($blockName);
+            $class = "Framelix\\PageMyself\\Component\\" . $blockName;
+            $langPrefix = '__pagemyself_component_' . strtolower($blockName);
             $arr[$class] = [
                 'blockClass' => $class,
                 'title' => "{$langPrefix}_title__",
@@ -57,15 +57,15 @@ abstract class Base
     }
 
     /**
-     * Create an instance based on the pageblock
-     * @param PageBlock $pageBlock
-     * @return Base
+     * Create an instance based on the block
+     * @param ComponentBlock $componentBlock
+     * @return ComponentBase
      */
-    public static function createInstance(PageBlock $pageBlock): Base
+    public static function createInstance(ComponentBlock $componentBlock): ComponentBase
     {
-        /** @var Base $instance */
-        $instance = new $pageBlock->blockClass();
-        $instance->block = $pageBlock;
+        /** @var ComponentBase $instance */
+        $instance = new $componentBlock->blockClass();
+        $instance->block = $componentBlock;
         return $instance;
     }
 

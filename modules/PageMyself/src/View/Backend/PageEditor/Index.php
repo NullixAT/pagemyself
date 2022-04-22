@@ -10,10 +10,10 @@ use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
-use Framelix\PageMyself\PageBlock\Base;
+use Framelix\PageMyself\Component\ComponentBase;
+use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
-use Framelix\PageMyself\Storable\PageBlock;
-use Framelix\PageMyself\Storable\PageLayout;
+use Framelix\PageMyself\ThemeBase;
 
 /**
  * Index
@@ -27,18 +27,18 @@ class Index extends View
      */
     public static function onJsCall(JsCall $jsCall): void
     {
-        if ($jsCall->action === 'pageBlockApiRequest') {
-            $pageBlock = PageBlock::getById($jsCall->parameters['blockId'] ?? null);
-            if (!$pageBlock) {
+        if ($jsCall->action === 'componentApiRequest') {
+            $componentBlock = ComponentBlock::getById($jsCall->parameters['blockId'] ?? null);
+            if (!$componentBlock) {
                 return;
             }
             $params = $jsCall->parameters['params'] ?? null;
             switch ($jsCall->parameters['action']) {
                 case 'save-text':
-                    $settings = $pageBlock->settings;
+                    $settings = $componentBlock->settings;
                     $settings['text'][$params['id']] = $params['text'];
-                    $pageBlock->settings = $settings;
-                    $pageBlock->store();
+                    $componentBlock->settings = $settings;
+                    $componentBlock->store();
                     break;
             }
             return;
@@ -47,23 +47,19 @@ class Index extends View
         switch ($jsCall->parameters['action'] ?? null) {
             case 'pageData':
                 $jsCall->result = [
-                    'layout' => $page->layout ?? PageLayout::getDefault(),
-                    'design' => $page->design ?? 'default'
+                    'theme' => $page->getThemeInstance()->getThemeId()
                 ];
                 break;
-            case 'changeLayout':
-                $layout = PageLayout::getById($jsCall->parameters['layout'] ?? null);
-                if ($layout) {
-                    $page->layout = $layout->flagDefault ? null : $layout;
-                    $page->store();
-                }
+            case 'changeTheme':
+                $page->theme = $jsCall->parameters['theme'];
+                $page->store();
                 break;
-            case 'getPageBlockList':
-                $jsCall->result = Base::getAvailableList();
+            case 'getComponentList':
+                $jsCall->result = ComponentBase::getAvailableList();
                 break;
-            case 'getPageBlockInfos':
-                $blockList = Base::getAvailableList();
-                $blocks = PageBlock::getByIds($jsCall->parameters['blockIds']);
+            case 'getComponentBlockInfos':
+                $blockList = ComponentBase::getAvailableList();
+                $blocks = ComponentBlock::getByIds($jsCall->parameters['blockIds']);
                 $arr = [];
                 foreach ($blocks as $block) {
                     $arr[$block->id] = [
@@ -75,8 +71,8 @@ class Index extends View
                 $jsCall->result = $arr;
                 break;
             case 'updateBlockSort':
-                $blockA = PageBlock::getById($jsCall->parameters['blockA'] ?? null);
-                $blockB = PageBlock::getById($jsCall->parameters['blockB'] ?? null);
+                $blockA = ComponentBlock::getById($jsCall->parameters['blockA'] ?? null);
+                $blockB = ComponentBlock::getById($jsCall->parameters['blockB'] ?? null);
                 if ($blockA && $blockB) {
                     $sortA = $blockA->sort;
                     $sortB = $blockB->sort;
@@ -89,22 +85,22 @@ class Index extends View
                 }
                 break;
             case 'blockSettings':
-                $block = PageBlock::getById($jsCall->parameters['block'] ?? null);
+                $block = ComponentBlock::getById($jsCall->parameters['block'] ?? null);
                 if ($block) {
                     echo $block->id;
                 }
                 break;
-            case 'createNewPageBlock':
-                $bellow = PageBlock::getById($jsCall->parameters['bellow'] ?? null);
-                $pageBlock = new PageBlock();
-                $pageBlock->page = $page;
-                $pageBlock->blockClass = $jsCall->parameters['blockClass'];
-                $pageBlock->placement = $bellow->placement ?? $jsCall->parameters['placement'];
-                $pageBlock->sort = ($bellow->sort ?? -1);
-                $blockInstance = Base::createInstance($pageBlock);
-                $pageBlock->settings = $blockInstance->getDefaultSettings();
-                $pageBlock->store();
-                $blocks = $page->getPageBlocks();
+            case 'createComponentBlock':
+                $bellow = ComponentBlock::getById($jsCall->parameters['bellow'] ?? null);
+                $componentBlock = new ComponentBlock();
+                $componentBlock->page = $page;
+                $componentBlock->blockClass = $jsCall->parameters['blockClass'];
+                $componentBlock->placement = $bellow->placement ?? $jsCall->parameters['placement'];
+                $componentBlock->sort = ($bellow->sort ?? -1);
+                $blockInstance = ComponentBase::createInstance($componentBlock);
+                $componentBlock->settings = $blockInstance->getDefaultSettings();
+                $componentBlock->store();
+                $blocks = $page->getComponentBlocks();
                 $sort = 0;
                 // resort blocks
                 foreach ($blocks as $block) {
@@ -113,11 +109,11 @@ class Index extends View
                     $block->store();
                 }
                 $jsCall->result = [
-                    'url' => $pageBlock->getPublicUrl()
+                    'url' => $componentBlock->getPublicUrl()
                 ];
                 break;
             case 'deleteBlock':
-                PageBlock::getById($jsCall->parameters['blockId'])?->delete();
+                ComponentBlock::getById($jsCall->parameters['blockId'])?->delete();
                 break;
         }
     }
@@ -139,10 +135,9 @@ class Index extends View
     {
         // call defaults will initialize them when not yet added
         // useful because this is the first page the user will open after setup
-        PageLayout::getDefault();
         Page::getDefault();
         $config = [
-            'apiRequestUrl' => JsCall::getCallUrl(__CLASS__, 'pageBlockApiRequest'),
+            'apiRequestUrl' => JsCall::getCallUrl(__CLASS__, 'componentApiRequest'),
             'tinymceUrl' => Url::getUrlToFile(Editor::TINYMCE_PATH, antiCacheParameter: false),
             'tinymcePluginsUrl' => Compiler::getDistUrl(FRAMELIX_MODULE, 'js', 'tinymce-plugins')
         ];
@@ -151,12 +146,6 @@ class Index extends View
              data-edit-url="<?= JsCall::getCallUrl(__CLASS__, 'custom') ?>">
             <div class="pageeditor-frame-top">
                 <div class="pageeditor-frame-top-addressbar">
-                    <a href="<?= \Framelix\Framelix\View::getUrl(
-                        \Framelix\PageMyself\View\Backend\PageLayout\Index::class
-                    ) ?>"
-                       class="framelix-button hide-if-no-page"
-                       data-icon-left="grid_view"
-                       title="__pagemyself_pageeditor_manage_layout__"></a>
                     <button class="framelix-button hide-if-no-page" data-icon-left="chevron_left"
                             title="__pagemyself_pageeditor_page_back__" data-frame-action="back"></button>
                     <button class="framelix-button hide-if-no-page" data-icon-left="autorenew"
@@ -183,21 +172,20 @@ class Index extends View
 
                 <?php
                 $field = new Select();
-                $field->name = 'pageLayout';
-                $field->chooseOptionLabel = '__pagemyself_pageeditor_choose_layout__';
+                $field->name = 'theme';
+                $field->chooseOptionLabel = '__pagemyself_theme__';
                 $field->showResetButton = false;
-                $layouts = PageLayout::getByCondition(sort: ["-flagDefault", "+title"]);
-                foreach ($layouts as $layout) {
+                $themes = ThemeBase::getAvailableList();
+                foreach ($themes as $themeId => $row) {
                     $field->addOption(
-                        $layout->id,
-                        Lang::get('__pagemyself_pageeditor_choose_layout__') . ": " . $layout->title
+                        $themeId,
+                        Lang::get('__pagemyself_theme__') . ": " . $themeId
                     );
-                    if ($layout->flagDefault) {
-                        $field->defaultValue = $layout;
-                    }
                 }
+                $field->defaultValue = 'Hello';
                 $field->show();
                 ?>
+                <?= Lang::get('__pagemyself_pagetitle__') ?>:
                 <span class="pageeditor-frame-top-title"></span>
             </div>
             <iframe src="<?= \Framelix\Framelix\View::getUrl(\Framelix\PageMyself\View\Index::class) ?>" width="100%"

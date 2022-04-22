@@ -1,11 +1,11 @@
 <?php
 
-namespace Framelix\PageMyself\PageBlock;
+namespace Framelix\PageMyself\Component;
 
 /**
  * A simple text block
  */
-class Text extends Base
+class Text extends ComponentBase
 {
     /**
      * Get default settings for this block

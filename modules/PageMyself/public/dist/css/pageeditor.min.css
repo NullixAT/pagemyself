@@ -84,7 +84,7 @@
 .pageeditor-website .pageeditor-block-options:hover {
   opacity: 1;
 }
-.pageeditor-website .pageeditor-block-options:hover + .page-block {
+.pageeditor-website .pageeditor-block-options:hover + .component-block {
   outline: 2px solid var(--color-alert-primary-bg);
 }
 .pageeditor-website .pageeditor-block-options-title {

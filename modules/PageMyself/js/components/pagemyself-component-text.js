@@ -1,4 +1,4 @@
-class PageBlockText extends PageBlock {
+class PageMyselfComponentText extends PageMyselfComponent {
 
   /**
    * Initialize the block

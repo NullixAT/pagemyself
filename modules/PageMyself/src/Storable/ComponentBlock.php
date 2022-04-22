@@ -6,14 +6,14 @@ use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Framelix\Url;
 
 /**
- * Page block
+ * Component block
  * @property Page $page
  * @property string $blockClass
  * @property string $placement
  * @property int $sort
  * @property mixed|null $settings
  */
-class PageBlock extends StorableExtended
+class ComponentBlock extends StorableExtended
 {
     /**
      * Get public url

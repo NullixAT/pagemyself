@@ -1,3 +1,0 @@
-class PageBlockJumpMark extends PageBlock {
-
-}

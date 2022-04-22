@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|142033049",
+    "directoryListHash": "1|1608502335",
     "views": {
         "Framelix\\PageMyself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -28,14 +28,14 @@
             "pageTitle": "{classLangKey}",
             "url": "\/backend\/pageeditor"
         },
-        "Framelix\\PageMyself\\View\\Backend\\PageLayout\\Index": {
+        "Framelix\\PageMyself\\View\\Backend\\WebsiteSettings": {
             "accessRole": true,
             "customUrl": null,
             "devModeOnly": false,
             "multilanguage": true,
             "urlPriority": 0,
             "pageTitle": "{classLangKey}",
-            "url": "\/backend\/pagelayout"
+            "url": "\/backend\/websitesettings"
         },
         "Framelix\\PageMyself\\View\\Index": {
             "accessRole": "*",

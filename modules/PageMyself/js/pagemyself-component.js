@@ -1,8 +1,8 @@
-class PageBlock {
+class PageMyselfComponent {
 
   /**
-   * Page Block instances
-   * @type {Object<string, PageBlock>}
+   * Instances
+   * @type {Object<string, PageMyselfComponent>}
    */
   static instances = {}
 
@@ -35,9 +35,9 @@ class PageBlock {
    * @param {number} id
    */
   constructor (id) {
-    PageBlock.instances[id] = this
+    PageMyselfComponent.instances[id] = this
     this.id = id
-    this.container = $('.page-block').filter('[data-id=\'' + id + '\']')
+    this.container = $('.component-block').filter('[data-id=\'' + id + '\']')
   }
 
   /**
@@ -110,7 +110,7 @@ class PageBlock {
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
       setup: function (instance) {
-        instance.pageBlock = self
+        instance.pagemyselfComponent = self
         self.editor = instance
         instance.on('init', function (e) {
           instance.initialContent = instance.getContent()

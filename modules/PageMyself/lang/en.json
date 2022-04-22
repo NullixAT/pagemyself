@@ -44,12 +44,6 @@
   "__pagemyself_pageeditor_page_required__": [
     "You need to navigate to a page before you can edit the settings."
   ],
-  "__pagemyself_editor_pagelayout_copyfrom__": [
-    "Same layout as given page"
-  ],
-  "__pagemyself_editor_pagelayout_copyfrom_desc__": [
-    "The current site uses the same layout settings as the selected page"
-  ],
   "__pagemyself_storable_page_flagnav_label__": [
     "Visible in site navigation"
   ],
@@ -101,94 +95,67 @@
   "__pagemyself_view_backend_index__": [
     "PageMyself Backend"
   ],
-  "__pagemyself_view_backend_pagelayout_index__": [
-    "Page Layout"
+  "__pagemyself_theme__": [
+    "Theme"
   ],
-  "__pagemyself_storable_pagelayout_title_label__": [
-    "Layout name"
-  ],
-  "__pagemyself_storable_pagelayout_flagdefault_label__": [
-    "This is my default layout"
-  ],
-  "__pagemyself_storable_pagelayout_layoutsettings_design_label__": [
-    "Design"
-  ],
-  "__pagemyself_storable_pagelayout_layoutsettings_align_label__": [
-    "Site Alignment"
-  ],
-  "__pagemyself_editor_pagelayout_align_left__": [
-    "Left"
-  ],
-  "__pagemyself_editor_pagelayout_align_center__": [
-    "Center"
-  ],
-  "__pagemyself_storable_pagelayout_layoutsettings_nav_label__": [
-    "Site Navigation"
-  ],
-  "__pagemyself_editor_pagelayout_nav_none__": [
-    "No navigation"
-  ],
-  "__pagemyself_editor_pagelayout_nav_top__": [
-    "At the top of the site"
-  ],
-  "__pagemyself_editor_pagelayout_nav_left__": [
-    "Left sidebar"
-  ],
-  "__pagemyself_storable_pagelayout_layoutsettings_maxwidth_label__": [
-    "Max width of the page container in pixel"
-  ],
-  "__pagemyself_editor_pagelayout_design_default__": [
-    "Default (A Light Theme)"
-  ],
-  "__pagemyself_editor_pagelayout_design_dark__": [
-    "Dark Theme"
-  ],
-  "__pagemyself_pageeditor_choose_layout__": [
-    "Layout"
-  ],
-  "__pagemyself_pageeditor_choose_design__": [
-    "Design"
+  "__pagemyself_pagetitle__": [
+    "Page title"
   ],
   "__pagemyself_more_nav__": [
     "More"
   ],
-  "__pagemyself_pageblock_text_title__": [
+  "__pagemyself_storable_page_titlenav_label__": [
+    "Override title for navigation"
+  ],
+  "__pagemyself_storable_page_titlenav_label_desc__": [
+    "If filled out, then this title will be shown in the sites navigation instead of the page title."
+  ],
+  "__pagemyself_websitesettings_search_engine_data__": [
+    "This is a meta information and is only used for search machine optimization"
+  ],
+  "__pagemyself_websitesettings_og_data__": [
+    "This is a meta information and is used by search engines and social media representation"
+  ],
+  "__pagemyself_component_text_title__": [
     "Texteditor"
   ],
-  "__pagemyself_pageblock_text_desc__": [
+  "__pagemyself_component_text_desc__": [
     "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc..."
   ],
-  "__pagemyself_pageblock_text_help__": [
+  "__pagemyself_component_text_help__": [
     "To add a new line without a paragraph (Vertical space), Hold CTRL and hit enter, instead of just pressing Enter only"
   ],
-  "__pagemyself_pageblock_jumpmark_title__": [
+  "__pagemyself_component_jumpmark_title__": [
     "Jumpmark"
   ],
-  "__pagemyself_pageblock_jumpmark_desc__": [
+  "__pagemyself_component_jumpmark_desc__": [
     "Allow to jump to this element with a jumpark (#xxx) in pagelink. This will allow to use links in your navigation that point to this jumpmark. Mostly used for single page applications."
   ],
-  "__pagemyself_pageblock_jumpmark_link__": [
+  "__pagemyself_component_jumpmark_link__": [
     "Use this URL to link to this jumpmark"
   ],
-  "__pagemyself_pageblock_add__": [
+  "__pagemyself_component_add__": [
     "Add a new block bellow"
   ],
-  "__pagemyself_pageblock_delete__": [
+  "__pagemyself_component_delete__": [
     "Delete this block"
   ],
-  "__pagemyself_pageblock_help__": [
+  "__pagemyself_component_help__": [
     "Open help on how to use this block"
   ],
-  "__pagemyself_pageblock_sort_up__": [
+  "__pagemyself_component_sort_up__": [
     "Move this block up"
   ],
-  "__pagemyself_pageblock_sort_down__": [
+  "__pagemyself_component_sort_down__": [
     "Move this block down"
   ],
   "__pagemyself_reset_text__": [
     "Revert text changes"
   ],
-  "__pagemyself_pageblock_settings__": [
+  "__pagemyself_component_settings__": [
     "Settings"
+  ],
+  "__pagemyself_view_backend_websitesettings__": [
+    "Website Settings"
   ]
 }

@@ -82,14 +82,6 @@ class PageMyselfPageEditor {
       PageMyselfPageEditor.setIframeUrl(field.getValue())
       field.setValue(null)
     })
-    FramelixFormField.onValueChange(PageMyselfPageEditor.frame, 'pageLayout', true, async function (field) {
-      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-        'page': PageMyselfPageEditor.currentPage,
-        'action': 'changeLayout',
-        'layout': field.getValue()
-      })
-      PageMyselfPageEditor.iframeWindow.location.reload()
-    })
   }
 
   /**
@@ -125,8 +117,8 @@ class PageMyselfPageEditor {
     })
     PageMyselfPageEditor.frameTop.find('.pageeditor-frame-top-title').text(PageMyselfPageEditor.iframeDoc.title)
 
-    const pageLayoutField = FramelixFormField.getFieldByName(PageMyselfPageEditor.frameTop, 'pageLayout')
-    pageLayoutField.setValue(pageData.layout)
+    const themeField = FramelixFormField.getFieldByName(PageMyselfPageEditor.frameTop, 'theme')
+    themeField.setValue(pageData.theme)
 
     // inject editor css into website
     $('head link[href*="pageeditor.min.css"]').each(function () {
@@ -135,11 +127,11 @@ class PageMyselfPageEditor {
     PageMyselfPageEditor.iframeHtml.addClass('pageeditor-website')
 
     // insert editor containers
-    PageMyselfPageEditor.iframeHtml.find('.page-blocks').each(function () {
+    PageMyselfPageEditor.iframeHtml.find('.component-blocks').each(function () {
       $(this).before(`
         <div class="pageeditor-block-options" data-placement="${$(this).attr('data-placement')}">
           <div class="pageeditor-block-options-title"></div>
-          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_pageblock_add__"></button>
+          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_component_add__"></button>
         </div>
       `)
     })
@@ -150,7 +142,7 @@ class PageMyselfPageEditor {
       const bellow = $(this).closest('.pageeditor-block-options').attr('data-block-id')
       const data = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
-        'action': 'getPageBlockList'
+        'action': 'getComponentList'
       })
       const content = $('<div></div>')
       for (let i in data) {
@@ -168,7 +160,7 @@ class PageMyselfPageEditor {
         Framelix.showProgressBar(1)
         const data = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
           'page': PageMyselfPageEditor.currentPage,
-          'action': 'createNewPageBlock',
+          'action': 'createComponentBlock',
           'blockClass': this.dataset.blockClass,
           'placement': placement,
           'bellow': bellow
@@ -194,7 +186,7 @@ class PageMyselfPageEditor {
     // sorting blocks
     $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options  .sort-block-up, .pageeditor-block-options  .sort-block-down', async function () {
       const blockNow = $(this).closest('.pageeditor-block-options').next()
-      const blockNext = $(this).hasClass('sort-block-up') ? blockNow.prevUntil('.page-block').last().prev() : blockNow.next().nextUntil('.page-block').last().next()
+      const blockNext = $(this).hasClass('sort-block-up') ? blockNow.prevUntil('.component-block').last().prev() : blockNow.next().nextUntil('.component-block').last().next()
       await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
         'action': 'updateBlockSort',
@@ -216,26 +208,26 @@ class PageMyselfPageEditor {
 
     // add editing options of existing blocks
     const blockElMap = new Map()
-    PageMyselfPageEditor.iframeHtml.find('.page-block').each(function () {
+    PageMyselfPageEditor.iframeHtml.find('.component-block').each(function () {
       const block = $(this)
       const blockId = block.attr('data-id')
       const options = $(`
         <div class="pageeditor-block-options" data-block-id="${blockId}">  
-          <button class="framelix-button framelix-button-small settings" data-icon-left="settings" title="__pagemyself_pageblock_settings__"></button> 
+          <button class="framelix-button framelix-button-small settings" data-icon-left="settings" title="__pagemyself_component_settings__"></button> 
           <div class="pageeditor-block-options-title"><span class="framelix-loading"></span></div>   
-          <button class="framelix-button framelix-button-small sort-block-down framelix-button-customcolor" data-icon-left="south" style="--color-custom-bg:#2190af; --color-custom-text:white;" title="__pagemyself_pageblock_sort_down__"></button>    
-          <button class="framelix-button framelix-button-small sort-block-up framelix-button-customcolor" data-icon-left="north" style="--color-custom-bg:#216daf; --color-custom-text:white;" title="__pagemyself_pageblock_sort_up__"></button>     
-          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_pageblock_add__"></button>          
+          <button class="framelix-button framelix-button-small sort-block-down framelix-button-customcolor" data-icon-left="south" style="--color-custom-bg:#2190af; --color-custom-text:white;" title="__pagemyself_component_sort_down__"></button>    
+          <button class="framelix-button framelix-button-small sort-block-up framelix-button-customcolor" data-icon-left="north" style="--color-custom-bg:#216daf; --color-custom-text:white;" title="__pagemyself_component_sort_up__"></button>     
+          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_component_add__"></button>          
         </div>
       `)
       block.before(options)
-      const blockInstance = PageMyselfPageEditor.iframeWindow.eval('PageBlock.instances[' + blockId + ']')
-      blockInstance.backendOptionsContainer = options
-      blockInstance.enableEditing()
-      blockElMap.set(blockId, blockInstance)
+      const component = PageMyselfPageEditor.iframeWindow.eval('PageMyselfComponent.instances[' + blockId + ']')
+      component.backendOptionsContainer = options
+      component.enableEditing()
+      blockElMap.set(blockId, component)
     })
 
-    PageMyselfPageEditor.iframeHtml.find('.page-blocks').each(function () {
+    PageMyselfPageEditor.iframeHtml.find('.component-blocks').each(function () {
       const childs = $(this).children('.pageeditor-block-options')
       childs.first().addClass('pageeditor-block-options-first')
       childs.last().addClass('pageeditor-block-options-last')
@@ -244,7 +236,7 @@ class PageMyselfPageEditor {
     // update block infos
     FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
       'page': PageMyselfPageEditor.currentPage,
-      'action': 'getPageBlockInfos',
+      'action': 'getComponentBlockInfos',
       'blockIds': Array.from(blockElMap.keys())
     }).then(function (data) {
       for (let id in data) {

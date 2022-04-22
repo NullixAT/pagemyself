@@ -1,11 +1,11 @@
 <?php
 
-namespace Framelix\PageMyself\PageBlock;
+namespace Framelix\PageMyself\Component;
 
 /**
  * A JumpMark
  */
-class JumpMark extends Base
+class JumpMark extends ComponentBase
 {
     /**
      * Get default settings for this block

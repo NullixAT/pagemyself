@@ -1,6 +1,6 @@
 tinymce.PluginManager.add('pagemyself', function (editor, url) {
-  /** @type {PageBlock} */
-  const pageBlock = editor.pageBlock
+  /** @type {PageMyselfComponent} */
+  const component = editor.pagemyselfComponent
   const el = $(editor.targetElm)
   editor.ui.registry.addButton('pagemyself-save-text', {
     text: FramelixLang.get('__framelix_save__'),
@@ -8,12 +8,12 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
     icon: 'save',
     onAction: async function () {
       Framelix.showProgressBar(1)
-      await pageBlock.apiRequest('save-text', { 'id': el.attr('data-id'), 'text': editor.getContent() })
+      await component.apiRequest('save-text', { 'id': el.attr('data-id'), 'text': editor.getContent() })
       FramelixToast.success('__framelix_saved__')
       Framelix.showProgressBar(null)
       editor.initialContent = editor.getContent()
       editor.destroy()
-      pageBlock.enableTextEditor(el)
+      component.enableTextEditor(el)
     }
   })
   editor.ui.registry.addButton('pagemyself-cancel-text', {
@@ -22,7 +22,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
     onAction: function () {
       editor.setContent(editor.initialContent)
       editor.destroy()
-      pageBlock.enableTextEditor(el)
+      component.enableTextEditor(el)
     }
   })
   editor.ui.registry.addButton('pagemyself-jump-mark', {

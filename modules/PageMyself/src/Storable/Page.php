@@ -6,19 +6,21 @@ use Framelix\Framelix\Db\StorableSchema;
 use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\View;
+use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Backend\Page\Index;
+use function file_exists;
 
 /**
  * Page
  * @property int $category
  * @property string $title
+ * @property string|null $titleNav
  * @property string|null $password
  * @property string|null $url
  * @property string|null $link
  * @property bool $flagDraft
  * @property bool $flagNav
- * @property PageLayout|null $layout
- * @property string|null $design
+ * @property string|null $theme
  * @property int|null $sort
  * @property string|null $navGroup
  */
@@ -61,6 +63,26 @@ class Page extends StorableExtended
             $storable->store();
         }
         return $storable;
+    }
+
+    /**
+     * Get theme instance
+     * @return ThemeBase
+     */
+    public function getThemeInstance(): ThemeBase
+    {
+        $theme = $this->theme ?? 'Hello';
+        $classFile = __DIR__ . "/../../public/themes/$theme/Theme.php";
+        if (!file_exists($classFile)) {
+            $theme = 'Hello';
+            $classFile = __DIR__ . "/../../public/themes/Hello/Theme.php";
+        }
+        require_once $classFile;
+        $className = "Framelix\\PageMyself\\Themes\\$theme\\Theme";
+        /** @var ThemeBase $instance */
+        $instance = new $className();
+        $instance->page = $this;
+        return $instance;
     }
 
     /**
@@ -110,11 +132,11 @@ class Page extends StorableExtended
 
     /**
      * Get all page blocks to this page
-     * @return PageBlock[]
+     * @return ComponentBlock[]
      */
-    public function getPageBlocks(): array
+    public function getComponentBlocks(): array
     {
-        return PageBlock::getByCondition('page = {0}', [$this], ["+sort", "+id"]);
+        return ComponentBlock::getByCondition('page = {0}', [$this], ["+sort", "+id"]);
     }
 
     /**
@@ -123,7 +145,7 @@ class Page extends StorableExtended
      */
     public function delete(bool $force = false): void
     {
-        self::deleteMultiple($this->getPageBlocks());
+        self::deleteMultiple($this->getComponentBlocks());
         parent::delete($force);
     }
 }

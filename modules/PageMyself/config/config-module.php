@@ -9,7 +9,6 @@ if (!defined("FRAMELIX_MODULE")) {
 ?>
 <script type="application/json">
     {
-        "modulesCallable": "Framelix\\PageMyself\\Utils\\ModuleUtils::getModules",
         "backendDefaultView": "Framelix\\PageMyself\\View\\Backend\\Index",
         "backendLogo": "img\/logo-colored-white.svg",
         "backendIcon": "img\/logo-squared.svg",
@@ -29,6 +28,15 @@ if (!defined("FRAMELIX_MODULE")) {
                             "noInclude": true
                         }
                     },
+                    "form": {
+                        "files": [
+                            {
+                                "type": "folder",
+                                "path": "js\/form"
+
+                            }
+                        ]
+                    },
                     "pagemyself": {
                         "files": [
                             {
@@ -42,17 +50,17 @@ if (!defined("FRAMELIX_MODULE")) {
                             "noInclude": true
                         }
                     },
-                    "pageblocks": {
+                    "components": {
                         "files": [
                             {
                                 "type": "file",
                                 "path": [
-                                    "js\/page-block.js"
+                                    "js\/pagemyself-component.js"
                                 ]
                             },
                             {
                                 "type": "folder",
-                                "path": "js\/pageblocks"
+                                "path": "js\/components"
 
                             }
                         ],
@@ -86,6 +94,14 @@ if (!defined("FRAMELIX_MODULE")) {
                             "noInclude": true
                         }
                     },
+                    "form": {
+                        "files": [
+                            {
+                                "type": "folder",
+                                "path": "scss\/form"
+                            }
+                        ]
+                    },
                     "pagemyself": {
                         "files": [
                             {
@@ -99,11 +115,11 @@ if (!defined("FRAMELIX_MODULE")) {
                             "noInclude": true
                         }
                     },
-                    "pageblocks": {
+                    "components": {
                         "files": [
                             {
                                 "type": "folder",
-                                "path": "scss\/pageblocks"
+                                "path": "scss\/components"
                             }
                         ],
                         "options": {

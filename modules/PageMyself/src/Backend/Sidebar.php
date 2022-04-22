@@ -2,8 +2,8 @@
 
 namespace Framelix\PageMyself\Backend;
 
-
 use Framelix\PageMyself\View\Backend\PageEditor\Index;
+use Framelix\PageMyself\View\Backend\WebsiteSettings;
 
 /**
  * Backend sidebar
@@ -21,7 +21,7 @@ class Sidebar extends \Framelix\Framelix\Backend\Sidebar
         $this->addLink(\Framelix\PageMyself\View\Backend\Page\Index::class);
         $this->showHtmlForLinkData();
 
-        $this->addLink(\Framelix\PageMyself\View\Backend\PageLayout\Index::class);
+        $this->addLink(WebsiteSettings::class);
         $this->showHtmlForLinkData();
     }
 }
