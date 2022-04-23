@@ -69,7 +69,10 @@ class Index extends LayoutView
         $applicationUrl = Url::getApplicationUrl();
         $url = Url::create();
         $relativeUrl = trim($url->getRelativePath($applicationUrl), "/");
-        $this->page = $this->page ?? Page::getByConditionOne('url = {0}', [$relativeUrl]);
+        $this->page = $this->page ?? Page::getByConditionOne(
+                'url = {0} && category = {1}',
+                [$relativeUrl, Page::CATEGORY_PAGE]
+            );
         if (!$this->page && $relativeUrl) {
             Url::getApplicationUrl()->redirect();
         }
@@ -106,7 +109,7 @@ class Index extends LayoutView
             $this->showContent();
         }
 
-        $themeFolder = __DIR__ . "/../../public/themes/" . $this->theme->getThemeId();
+        $themeFolder = __DIR__ . "/../../public/themes/" . $this->theme->themeId;
 
         $this->includeCompiledFilesForModule("Framelix");
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pagemyself");

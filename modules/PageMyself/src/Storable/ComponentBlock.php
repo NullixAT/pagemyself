@@ -4,6 +4,7 @@ namespace Framelix\PageMyself\Storable;
 
 use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Framelix\Url;
+use Framelix\PageMyself\Component\ComponentBase;
 
 /**
  * Component block
@@ -33,4 +34,15 @@ class ComponentBlock extends StorableExtended
         return true;
     }
 
+    /**
+     * Get component instance
+     * @return ComponentBase
+     */
+    public function getComponentInstance(): ComponentBase
+    {
+        /** @var ComponentBase $instance */
+        $instance = new $this->blockClass();
+        $instance->block = $this;
+        return $instance;
+    }
 }

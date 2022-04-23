@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|1898312766",
+    "directoryListHash": "1|547740728",
     "views": {
         "Framelix\\PageMyself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -54,6 +54,33 @@
             "urlPriority": -1,
             "pageTitle": "{classLangKey}",
             "url": ""
+        },
+        "Framelix\\PageMyself\\View\\PageMyselfAbout": {
+            "accessRole": "*",
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/pagemyselfabout"
+        },
+        "Framelix\\PageMyself\\View\\Robots": {
+            "accessRole": "*",
+            "customUrl": "\/robots.txt",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/robots"
+        },
+        "Framelix\\PageMyself\\View\\Sitemap": {
+            "accessRole": "*",
+            "customUrl": "\/sitemap.xml",
+            "devModeOnly": false,
+            "multilanguage": false,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/sitemap"
         }
     }
 }

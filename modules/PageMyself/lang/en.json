@@ -202,5 +202,11 @@
   ],
   "__pagemyself_websitesetting_keywords__": [
     "Website keywords"
+  ],
+  "__pagemyself_pageeditor_theme_settings__": [
+    "Theme Settings"
+  ],
+  "__pagemyself_pageeditor_theme_settings_desc__": [
+    "All settings in this window are applied to the choosen theme. Changes to this settings will change appearance of all pages that use this theme."
   ]
 }

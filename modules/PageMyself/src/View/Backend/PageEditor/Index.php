@@ -9,8 +9,10 @@ use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\ColorName;
 use Framelix\Framelix\Html\Compiler;
+use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
+use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
@@ -18,6 +20,7 @@ use Framelix\PageMyself\Component\ComponentBase;
 use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
+use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\ThemeBase;
 
 /**
@@ -62,12 +65,45 @@ class Index extends View
         switch ($jsCall->parameters['action'] ?? null) {
             case 'pageData':
                 $jsCall->result = [
-                    'theme' => $page->getThemeInstance()->getThemeId()
+                    'theme' => $page->getThemeInstance()->themeId
                 ];
                 break;
             case 'changeTheme':
                 $page->theme = $jsCall->parameters['theme'];
                 $page->store();
+                break;
+            case 'themeSettings':
+                $instance = $page->getThemeInstance();
+                echo '<h2>' . $instance->themeId . ': ' . Lang::get(
+                        '__pagemyself_pageeditor_theme_settings__'
+                    ) . '</h2>';
+                echo '<p class="framelix-alert">' . Lang::get('__pagemyself_pageeditor_theme_settings_desc__') . '</p>';
+                $form = new Form();
+                $form->id = "themeSettings";
+                $form->submitUrl = Url::getBrowserUrl();
+
+                $fieldsEditable = 0;
+                $instance->addSettingFields($form);
+                foreach ($form->fields as $field) {
+                    if (!($field instanceof Hidden) && !($field instanceof Html)) {
+                        $fieldsEditable++;
+                    }
+                    $field->defaultValue = WebsiteSettings::get(
+                            'theme_' . $instance->themeId . "_" . $field->name
+                        ) ?? $field->defaultValue;
+                    $field->label = Lang::get($field->label ?? '');
+                    $field->labelDescription = Lang::get($field->labelDescription ?? '');
+                }
+
+                $field = new Hidden();
+                $field->name = "page";
+                $field->defaultValue = $page->id;
+                $form->addField($field);
+
+                if ($fieldsEditable) {
+                    $form->addSubmitButton();
+                }
+                $form->show();
                 break;
             case 'getComponentList':
                 $jsCall->result = ComponentBase::getAvailableList();
@@ -105,13 +141,9 @@ class Index extends View
                     $list = ComponentBase::getAvailableList();
                     $listRow = $list[$componentBlock->blockClass];
 
-                    $instance = ComponentBase::createInstance($componentBlock);
+                    $instance = $componentBlock->getComponentInstance();
                     $form = new Form();
-
-                    $field = new Hidden();
-                    $field->name = "componentBlockId";
-                    $field->defaultValue = $componentBlock;
-                    $form->addField($field);
+                    $form->id = "blockSettings";
 
                     $field = new Html();
                     $field->name = "_desc";
@@ -126,11 +158,20 @@ class Index extends View
                         $form->addField($field);
                     }
 
-                    $fieldsDefault = count($form->fields);
                     $instance->addSettingFields($form);
-                    $fieldsAll = count($form->fields);
+                    $fieldsEditable = 0;
+                    foreach ($form->fields as $field) {
+                        if (!($field instanceof Hidden) && !($field instanceof Html)) {
+                            $fieldsEditable++;
+                        }
+                    }
 
-                    if ($fieldsAll !== $fieldsDefault) {
+                    $field = new Hidden();
+                    $field->name = "componentBlockId";
+                    $field->defaultValue = $componentBlock;
+                    $form->addField($field);
+
+                    if ($fieldsEditable) {
                         $form->addSubmitButton();
                     }
                     $form->addButton('delete-block', '__pagemyself_component_delete__', 'delete', ColorName::ERROR);
@@ -144,16 +185,16 @@ class Index extends View
                 $componentBlock->blockClass = $jsCall->parameters['blockClass'];
                 $componentBlock->placement = $bellow->placement ?? $jsCall->parameters['placement'];
                 $componentBlock->sort = ($bellow->sort ?? -1);
-                $blockInstance = ComponentBase::createInstance($componentBlock);
+                $blockInstance = $componentBlock->getComponentInstance();
                 $componentBlock->settings = $blockInstance->getDefaultSettings();
                 $componentBlock->store();
                 $blocks = $page->getComponentBlocks();
                 $sort = 0;
                 // resort blocks
-                foreach ($blocks as $componentBlock) {
-                    $componentBlock->sort = $sort++;
-                    $componentBlock->preserveUpdateUserAndTime();
-                    $componentBlock->store();
+                foreach ($blocks as $subBlock) {
+                    $subBlock->sort = $sort++;
+                    $subBlock->preserveUpdateUserAndTime();
+                    $subBlock->store();
                 }
                 $jsCall->result = [
                     'url' => $componentBlock->getPublicUrl()
@@ -170,6 +211,33 @@ class Index extends View
      */
     public function onRequest(): void
     {
+        if (Request::getPost('framelix-form-themeSettings')) {
+            $page = Page::getById(Request::getPost('page'));
+            $instance = $page->getThemeInstance();
+            $form = new Form();
+            $instance->addSettingFields($form);
+            $values = $form->getConvertedSubmittedValues();
+            foreach ($values as $key => $value) {
+                WebsiteSettings::set('theme_' . $instance->themeId . "_" . $key, $value);
+            }
+            Toast::success('__framelix_saved__');
+            Url::getBrowserUrl()->redirect();
+        }
+        if (Request::getPost('framelix-form-blockSettings')) {
+            $componentBlock = ComponentBlock::getById(Request::getPost('componentBlockId'));
+            $instance = $componentBlock->getComponentInstance();
+            $form = new Form();
+            $instance->addSettingFields($form);
+            $values = $form->getConvertedSubmittedValues();
+            $settings = $componentBlock->settings;
+            foreach ($values as $key => $value) {
+                $settings[$key] = $value;
+            }
+            $componentBlock->settings = $settings;
+            $componentBlock->store();
+            Toast::success('__framelix_saved__');
+            Url::getBrowserUrl()->redirect();
+        }
         $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pageeditor");
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pageeditor");
         $this->showContentBasedOnRequestType();
@@ -193,30 +261,30 @@ class Index extends View
              data-edit-url="<?= JsCall::getCallUrl(__CLASS__, 'custom') ?>">
             <div class="pageeditor-frame-top">
                 <div class="pageeditor-frame-top-addressbar">
-                    <button class="framelix-button hide-if-no-page" data-icon-left="chevron_left"
+                    <button class="framelix-button" data-icon-left="chevron_left"
                             title="__pagemyself_pageeditor_page_back__" data-frame-action="back"></button>
-                    <button class="framelix-button hide-if-no-page" data-icon-left="autorenew"
+                    <button class="framelix-button" data-icon-left="autorenew"
                             title="__pagemyself_pageeditor_page_reload__" data-frame-action="reload"></button>
-                    <button class="framelix-button hide-if-no-page" data-icon-left="home"
+                    <button class="framelix-button" data-icon-left="home"
                             title="__pagemyself_pageeditor_page_home__" data-frame-action="loadurl"
                             data-url="<?= Url::getApplicationUrl() ?>"></button>
-                    <div class="hide-if-no-page">
-                        <?php
-                        $field = new Select();
-                        $field->name = 'jumpToPage';
-                        $field->chooseOptionLabel = '__pagemyself_pageeditor_jump_to_page__';
-                        $pages = Page::getByCondition(sort: "+sort");
-                        foreach ($pages as $page) {
-                            $field->addOption($page->getPublicUrl(), $page->title);
-                        }
-                        $field->show();
-                        ?>
-                    </div>
+                    <?php
+                    $field = new Select();
+                    $field->name = 'jumpToPage';
+                    $field->chooseOptionLabel = '__pagemyself_pageeditor_jump_to_page__';
+                    $pages = Page::getByCondition(sort: "+sort");
+                    foreach ($pages as $page) {
+                        $field->addOption($page->getPublicUrl(), $page->title);
+                    }
+                    $field->show();
+                    ?>
                     <div class="pageeditor-address"></div>
-                    <button class="framelix-button hide-if-no-page" data-icon-left="smartphone"
+                    <button class="framelix-button " data-icon-left="smartphone"
                             title="__pagemyself_pageeditor_page_mobile__" data-frame-action="mobile"></button>
                 </div>
 
+                <button class="framelix-button " data-icon-left="settings"
+                        title="__pagemyself_pageeditor_theme_settings__" data-frame-action="themeSettings"></button>
                 <?php
                 $field = new Select();
                 $field->name = 'theme';

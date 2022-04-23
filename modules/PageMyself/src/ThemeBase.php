@@ -4,14 +4,14 @@ namespace Framelix\PageMyself;
 
 use Framelix\Framelix\Form\Field\Password;
 use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
-use Framelix\Framelix\View;
-use Framelix\PageMyself\Component\ComponentBase;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
+
 use function array_pop;
 use function explode;
 use function file_exists;
@@ -29,6 +29,12 @@ abstract class ThemeBase
     private static array $cache = [];
 
     /**
+     * The internal theme id (folder name
+     * @var string
+     */
+    public string $themeId;
+
+    /**
      * The current page
      * @var Page
      */
@@ -38,6 +44,25 @@ abstract class ThemeBase
      * Show the page content
      */
     abstract public function showContent(): void;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $exp = explode("\\", get_class($this));
+        array_pop($exp);
+        $this->themeId = array_pop($exp);
+        $cacheKey = $this->themeId . "_initialized";
+        if (!isset(self::$cache[$cacheKey])) {
+            // include lang
+            $folder = __DIR__ . "/../public/themes/$this->themeId";
+            foreach (Lang::getEnabledLanguages() as $language) {
+                $filePath = $folder . "/lang/$language.json";
+                Lang::addValuesForFile($language, $filePath);
+            }
+        }
+    }
 
     /**
      * Get list of available themes
@@ -63,17 +88,6 @@ abstract class ThemeBase
         }
         self::$cache[$cacheKey] = $arr;
         return $arr;
-    }
-
-    /**
-     * Get internal theme id (The folder name)
-     * @return string
-     */
-    final public function getThemeId(): string
-    {
-        $exp = explode("\\", get_class($this));
-        array_pop($exp);
-        return array_pop($exp);
     }
 
     /**
@@ -129,7 +143,6 @@ abstract class ThemeBase
             </ul>
         </nav>
         <?php
-
     }
 
     /**
@@ -138,15 +151,14 @@ abstract class ThemeBase
      */
     public function showNavigationEntry(Page $page): void
     {
-        $url = $page->category === Page::CATEGORY_PAGE ? View::getUrl(
-            __CLASS__,
-            ['url' => $page->url]
-        ) : $page->link;
+        $url = $page->category === Page::CATEGORY_PAGE ? $page->getPublicUrl() : $page->link;
         $target = $page->category === Page::CATEGORY_PAGE ? '' : 'target="_blank"';
         ?>
         <li>
+            <span></span>
             <a class="nav-entry <?= $page === $this->page ? 'nav-entry-active' : '' ?>"
                href="<?= $url ?>" <?= $target ?>><?= HtmlUtils::escape($page->titleNav ?: $page->title) ?></a>
+            <span></span>
         </li>
         <?php
     }
@@ -186,7 +198,6 @@ abstract class ThemeBase
                 continue;
             }
             $this->showComponentBlock($componentBlock);
-
         }
         echo '</div>';
     }
@@ -198,7 +209,7 @@ abstract class ThemeBase
      */
     public function showComponentBlock(ComponentBlock $componentBlock): void
     {
-        $instance = ComponentBase::createInstance($componentBlock);
+        $instance = $componentBlock->getComponentInstance();
         $jsClassName = "PageMyselfComponent" . ClassUtils::getClassBaseName($componentBlock->blockClass);
         ?>
         <div class="component-block <?= ClassUtils::getHtmlClass($componentBlock->blockClass) ?>"
@@ -214,5 +225,12 @@ abstract class ThemeBase
           })()
         </script>
         <?php
+    }
+
+    /**
+     * Add setting fields to the settings form that is displayed when the user click the settings icon
+     */
+    public function addSettingFields(Form $form): void
+    {
     }
 }

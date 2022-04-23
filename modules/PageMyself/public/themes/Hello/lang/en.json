@@ -1,0 +1,8 @@
+{
+  "__theme_hello_maxwidth_label__": [
+    "Max page width"
+  ],
+  "__theme_hello_maxwidth_label_desc__": [
+    "Maximal width of your page in pixel. It automatically shrink in width when screen is smaller, but do not grow over this size."
+  ]
+}

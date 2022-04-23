@@ -59,9 +59,6 @@ class PageMyselfPageEditor {
       PageMyselfPageEditor.onIframeLoad()
     })
     PageMyselfPageEditor.updateFrameSize()
-    $('button[data-modal-url]').on('click', function () {
-      FramelixModal.callPhpMethod($(this).attr('data-modal-url'), { 'page': PageMyselfPageEditor.iframeHtml.attr('data-page') })
-    })
     $('button[data-frame-action]').on('click', function () {
       switch ($(this).attr('data-frame-action')) {
         case 'back':
@@ -76,11 +73,25 @@ class PageMyselfPageEditor {
         case 'mobile':
           PageMyselfPageEditor.frame.attr('data-mobile', PageMyselfPageEditor.frame.attr('data-mobile') === '1' ? '0' : '1')
           break
+        case 'themeSettings':
+          FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+            'page': PageMyselfPageEditor.currentPage,
+            'action': 'themeSettings'
+          }, { maxWidth: 900 })
+          break
       }
     })
     FramelixFormField.onValueChange(PageMyselfPageEditor.frame, 'jumpToPage', true, function (field) {
       PageMyselfPageEditor.setIframeUrl(field.getValue())
       field.setValue(null)
+    })
+    FramelixFormField.onValueChange(PageMyselfPageEditor.frame, 'theme', true, async function (field) {
+      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'changeTheme',
+        'theme': field.getValue()
+      })
+      PageMyselfPageEditor.iframeWindow.location.reload()
     })
   }
 
