@@ -1,3 +1,41 @@
+.pagemyself-component-calendar .calendar-month-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.pagemyself-component-calendar .calendar-month-select strong {
+  min-width: 0;
+  font-weight: bold;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pagemyself-component-calendar .calendar-month-select .framelix-button {
+  padding: 10px 30px;
+}
+.pagemyself-component-calendar .calendar-table table {
+  text-align: center;
+  width: 100%;
+}
+.pagemyself-component-calendar .calendar-table th {
+  background: #f5f5f5;
+  padding: 10px;
+  font-weight: bold;
+}
+.pagemyself-component-calendar .calendar-table td {
+  padding: 10px;
+}
+.pagemyself-component-calendar .calendar-othermonth {
+  pointer-events: none;
+  opacity: 0.3;
+}
+.pagemyself-component-calendar[data-editing="1"] td:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 300px inset;
+}
+
 .pagemyself-component-text[data-editing="1"] {
   cursor: pointer;
 }
