@@ -8,7 +8,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
     icon: 'save',
     onAction: async function () {
       Framelix.showProgressBar(1)
-      await component.apiRequest('saveText', { 'id': el.attr('data-id'), 'text': editor.getContent() })
+      await component.apiRequest('textEditorSaveText', { 'id': el.attr('data-id'), 'text': editor.getContent() })
       FramelixToast.success('__framelix_saved__')
       Framelix.showProgressBar(null)
       editor.initialContent = editor.getContent()
@@ -29,7 +29,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
     tooltip: FramelixLang.get('__pagemyself_editor_blocks__'),
     icon: 'edit-image',
     onAction: async function () {
-      const modal = await component.apiRequestInModal('editorPredefinedLayouts')
+      const modal = await component.apiRequestInModal('textEditorLayouts')
       modal.bodyContainer.find('.styled-layout').on('click', function () {
         editor.execCommand('mceInsertContent', false, $(this).html().trim())
         modal.destroy()

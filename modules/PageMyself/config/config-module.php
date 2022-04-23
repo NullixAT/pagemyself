@@ -45,10 +45,7 @@ if (!defined("FRAMELIX_MODULE")) {
                                     "js\/pagemyself.js"
                                 ]
                             }
-                        ],
-                        "options": {
-                            "noInclude": true
-                        }
+                        ]
                     },
                     "components": {
                         "files": [

@@ -1,0 +1,48 @@
+.pagemyself-component-calendar {
+  .calendar-month-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    strong {
+      min-width: 0;
+      font-weight: bold;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .framelix-button {
+      padding: 10px 30px;
+    }
+  }
+
+  .calendar-table {
+    table {
+      text-align: center;
+      width: 100%;
+    }
+
+    th {
+      background: #f5f5f5;
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    td {
+      padding: 10px;
+    }
+  }
+
+  .calendar-othermonth {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &[data-editing='1'] td:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 300px inset;
+  }
+}

@@ -5,6 +5,7 @@ namespace Framelix\PageMyself\View;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Storable\User;
@@ -12,7 +13,9 @@ use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
+use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\LayoutView;
+use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\WebsiteSettings;
@@ -60,6 +63,27 @@ class Index extends LayoutView
      * @var ThemeBase
      */
     private ThemeBase $theme;
+
+    /**
+     * On js call
+     * @param JsCall $jsCall
+     */
+    public static function onJsCall(JsCall $jsCall): void
+    {
+        if ($jsCall->action === 'componentApiRequest') {
+            $componentBlock = ComponentBlock::getById(
+                Request::getGet('data[componentBlockId]') ?? $jsCall->parameters['componentBlockId'] ?? null
+            );
+            if (!$componentBlock) {
+                return;
+            }
+            $component = $componentBlock->getComponentInstance();
+            $component->onApiRequest(
+                Request::getGet('data[action]') ?? $jsCall->parameters['action'],
+                Request::getGet('data[params]') ?? $jsCall->parameters['params']
+            );
+        }
+    }
 
     /**
      * On request
@@ -112,9 +136,9 @@ class Index extends LayoutView
         $themeFolder = __DIR__ . "/../../public/themes/" . $this->theme->themeId;
 
         $this->includeCompiledFilesForModule("Framelix");
+        $this->includeCompiledFilesForModule(FRAMELIX_MODULE);
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "pagemyself");
         $this->includeCompiledFile(FRAMELIX_MODULE, "scss", "components");
-        $this->includeCompiledFile(FRAMELIX_MODULE, "js", "pagemyself");
         $this->includeCompiledFile(FRAMELIX_MODULE, "js", "components");
 
         $themeCssFiles = FileUtils::getFiles($themeFolder . "/stylesheets", "~\.css$~i", true);
@@ -173,6 +197,11 @@ class Index extends LayoutView
             <meta property="og:type" content="website" />
             <meta property="og:url" content="' . Url::create() . '" />
             <meta name="generator" content="PageMyself Website Builder" />
+            <script>            
+                PageMyself.config = ' . JsonUtils::encode([
+                'componentApiRequestUrl' => JsCall::getCallUrl(__CLASS__, 'componentApiRequest')
+            ]) . ';
+            </script>
         '
         );
 

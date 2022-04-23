@@ -105,7 +105,7 @@ class PageMyselfComponent {
       style_formats_merge: true,
       file_picker_callback: async function (callback, value, meta) {
         console.log(meta)
-        const modal = await self.apiRequestInModal('mediaBrowser')
+        const modal = await self.apiRequestInModal('textEditorMediaBrowser')
         modal.bodyContainer.on('change', '.mediabrowser-file[data-url]', function () {
           const checked = $(this).find('input:checked')
           if (checked.length) {
@@ -135,9 +135,10 @@ class PageMyselfComponent {
    * @returns {Promise<any>}
    */
   async apiRequest (action, params) {
-    return FramelixApi.callPhpMethod(window.top.eval('PageMyselfPageEditor.config.apiRequestUrl'), {
+    const pageMyself = window.top.eval('PageMyself')
+    return FramelixApi.callPhpMethod(pageMyself.config.componentApiRequestUrl, {
       'action': action,
-      'blockId': this.id,
+      'componentBlockId': this.id,
       'params': params
     })
   }
@@ -150,10 +151,10 @@ class PageMyselfComponent {
    */
   async apiRequestInModal (action, params) {
     const modal = window.top.eval('FramelixModal')
-    const editor = window.top.eval('PageMyselfPageEditor')
-    return modal.callPhpMethod(editor.config.apiRequestUrl, {
+    const pageMyself = window.top.eval('PageMyself')
+    return modal.callPhpMethod(pageMyself.config.componentApiRequestUrl, {
       'action': action,
-      'blockId': this.id,
+      'componentBlockId': this.id,
       'params': params
     }, { maxWidth: 900 })
   }

@@ -1,6 +1,12 @@
 class PageMyself {
 
   /**
+   * Global config
+   * @type {{}}
+   */
+  static config = {}
+
+  /**
    * Init
    */
   static initLate () {

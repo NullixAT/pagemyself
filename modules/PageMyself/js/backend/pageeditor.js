@@ -152,7 +152,7 @@ class PageMyselfPageEditor {
     // add new block button
     $(PageMyselfPageEditor.iframeDoc).on('click', '.add-new-block', async function () {
       const placement = $(this).closest('.pageeditor-block-options').attr('data-placement')
-      const bellow = $(this).closest('.pageeditor-block-options').attr('data-block-id')
+      const bellow = $(this).closest('.pageeditor-block-options').attr('data-component-block-id')
       const data = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
         'action': 'getComponentList'
@@ -202,7 +202,7 @@ class PageMyselfPageEditor {
       const modal = await FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
         'action': 'blockSettings',
-        'block': blockNow.attr('data-block-id')
+        'block': blockNow.attr('data-component-block-id')
       }, { maxWidth: 900 })
 
       // delete block button
@@ -214,7 +214,7 @@ class PageMyselfPageEditor {
         await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
           'page': PageMyselfPageEditor.currentPage,
           'action': 'deleteBlock',
-          'blockId': formData.componentBlockId
+          'componentBlockId': formData.componentBlockId
         })
         PageMyselfPageEditor.iframeWindow.location.reload()
         modal.destroy()
@@ -225,9 +225,9 @@ class PageMyselfPageEditor {
     const blockElMap = new Map()
     PageMyselfPageEditor.iframeHtml.find('.component-block').each(function () {
       const block = $(this)
-      const blockId = block.attr('data-id')
+      const componentBlockId = block.attr('data-id')
       const options = $(`
-        <div class="pageeditor-block-options" data-block-id="${blockId}">  
+        <div class="pageeditor-block-options" data-component-block-id="${componentBlockId}">  
           <button class="framelix-button framelix-button-small settings" data-icon-left="settings" title="__pagemyself_component_settings__"></button> 
           <div class="pageeditor-block-options-title"><span class="framelix-loading"></span></div>   
           <button class="framelix-button framelix-button-small sort-block-down framelix-button-customcolor" data-icon-left="south" style="--color-custom-bg:#2190af; --color-custom-text:white;" title="__pagemyself_component_sort_down__"></button>    
@@ -236,10 +236,10 @@ class PageMyselfPageEditor {
         </div>
       `)
       block.before(options)
-      const component = PageMyselfPageEditor.iframeWindow.eval('PageMyselfComponent.instances[' + blockId + ']')
+      const component = PageMyselfPageEditor.iframeWindow.eval('PageMyselfComponent.instances[' + componentBlockId + ']')
       component.backendOptionsContainer = options
       component.enableEditing()
-      blockElMap.set(blockId, component)
+      blockElMap.set(componentBlockId, component)
     })
 
     PageMyselfPageEditor.iframeHtml.find('.component-blocks').each(function () {

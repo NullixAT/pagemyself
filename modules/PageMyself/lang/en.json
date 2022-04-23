@@ -137,6 +137,27 @@
   "__pagemyself_component_jumpmark_link__": [
     "Use this URL to link to this jumpmark"
   ],
+  "__pagemyself_component_calendar_title__": [
+    "Calendar"
+  ],
+  "__pagemyself_component_calendar_desc__": [
+    "Display a calendar on your homepage, where you can add information to each day for your visitors. You can have mulitple calendars on different pages as well."
+  ],
+  "__pagemyself_component_calendar_defaultcellcolor__": [
+    "Default Cell Color"
+  ],
+  "__pagemyself_component_calendar_color__": [
+    "Cell Color"
+  ],
+  "__pagemyself_component_calendar_predefinedcolor__": [
+    "Cell Color (Values that you have already used before)"
+  ],
+  "__pagemyself_component_calendar_info__": [
+    "Tooltip Info Text"
+  ],
+  "__pagemyself_component_calendar_internalinfo__": [
+    "Internal Info (Only visible in website editor)"
+  ],
   "__pagemyself_component_add__": [
     "Add a new block bellow"
   ],

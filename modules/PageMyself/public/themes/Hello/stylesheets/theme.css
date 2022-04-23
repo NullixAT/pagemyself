@@ -131,6 +131,10 @@ body {
   font-weight: normal;
 }
 
+.component-block {
+  margin-bottom: 20px;
+}
+
 .component-block img {
   max-width: 100%;
 }

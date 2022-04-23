@@ -4,7 +4,10 @@ namespace Framelix\PageMyself\Component;
 
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Network\JsCall;
+use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
+use Framelix\PageMyself\View\Index;
 
 use function scandir;
 use function str_ends_with;
@@ -59,16 +62,44 @@ abstract class ComponentBase
     }
 
     /**
-     * Create an instance based on the block
-     * @param ComponentBlock $componentBlock
-     * @return ComponentBase
+     * On api request from frontend
+     * @param string $action
+     * @param array|null $parameters
+     * @return void
      */
-    public static function createInstance(ComponentBlock $componentBlock): ComponentBase
+    public function onApiRequest(string $action, ?array $parameters): void
     {
-        /** @var ComponentBase $instance */
-        $instance = new $componentBlock->blockClass();
-        $instance->block = $componentBlock;
-        return $instance;
+        switch ($action) {
+            case 'textEditorSaveText':
+                $settings = $this->block->settings;
+                $settings['text'][$parameters['id']] = $parameters['text'];
+                $this->block->settings = $settings;
+                $this->block->store();
+                break;
+            case 'textEditorMediaBrowser':
+                $jsCall = new JsCall('browser', ['action' => 'browser']);
+                echo $jsCall->call(MediaBrowser::class . "::onJsCall");
+                break;
+            case 'textEdtorLayouts':
+
+                break;
+        }
+    }
+
+    /**
+     * Get api request url that directly points to given action
+     * Usefull for form submit
+     * @param string $action
+     * @param array|null $parameters
+     * @return string
+     */
+    public function getApiRequestUrl(string $action, ?array $parameters): string
+    {
+        return JsCall::getCallUrl(
+            Index::class,
+            'componentApiRequest',
+            ['data' => ['componentBlockId' => $this->block->id, 'action' => $action, 'params' => $parameters]]
+        );
     }
 
     /**

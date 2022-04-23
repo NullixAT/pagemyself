@@ -17,7 +17,6 @@ use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\PageMyself\Component\ComponentBase;
-use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\WebsiteSettings;
@@ -35,32 +34,6 @@ class Index extends View
      */
     public static function onJsCall(JsCall $jsCall): void
     {
-        if ($jsCall->action === 'componentApiRequest') {
-            $componentBlock = ComponentBlock::getById($jsCall->parameters['blockId'] ?? null);
-            if (!$componentBlock) {
-                return;
-            }
-            $params = $jsCall->parameters['params'] ?? null;
-            switch ($jsCall->parameters['action']) {
-                case 'saveText':
-                    $settings = $componentBlock->settings;
-                    $settings['text'][$params['id']] = $params['text'];
-                    $componentBlock->settings = $settings;
-                    $componentBlock->store();
-                    break;
-                case 'mediaBrowser':
-                    $jsCall = new JsCall('browser', ['action' => 'browser']);
-                    echo $jsCall->call(MediaBrowser::class . "::onJsCall");
-                    break;
-                case 'editorPredefinedLayouts':
-                    // todo blocks
-                    ?>
-                    sdf
-                    <?php
-                    break;
-            }
-            return;
-        }
         $page = Page::getById($jsCall->parameters['page'] ?? null);
         switch ($jsCall->parameters['action'] ?? null) {
             case 'pageData':
@@ -138,6 +111,7 @@ class Index extends View
             case 'blockSettings':
                 $componentBlock = ComponentBlock::getById($jsCall->parameters['block'] ?? null);
                 if ($componentBlock) {
+                    $settings = $componentBlock->settings;
                     $list = ComponentBase::getAvailableList();
                     $listRow = $list[$componentBlock->blockClass];
 
@@ -164,6 +138,7 @@ class Index extends View
                         if (!($field instanceof Hidden) && !($field instanceof Html)) {
                             $fieldsEditable++;
                         }
+                        $field->defaultValue = $settings[$field->name] ?? $field->defaultValue;
                     }
 
                     $field = new Hidden();
@@ -201,7 +176,7 @@ class Index extends View
                 ];
                 break;
             case 'deleteBlock':
-                ComponentBlock::getById($jsCall->parameters['blockId'])?->delete();
+                ComponentBlock::getById($jsCall->parameters['componentBlockId'])?->delete();
                 break;
         }
     }
@@ -251,11 +226,6 @@ class Index extends View
         // call defaults will initialize them when not yet added
         // useful because this is the first page the user will open after setup
         Page::getDefault();
-        $config = [
-            'apiRequestUrl' => JsCall::getCallUrl(__CLASS__, 'componentApiRequest'),
-            'tinymceUrl' => Url::getUrlToFile(Editor::TINYMCE_PATH, antiCacheParameter: false),
-            'tinymcePluginsUrl' => Compiler::getDistUrl(FRAMELIX_MODULE, 'js', 'tinymce-plugins')
-        ];
         ?>
         <div data-color-scheme="dark" class="pageeditor-frame"
              data-edit-url="<?= JsCall::getCallUrl(__CLASS__, 'custom') ?>">
@@ -307,7 +277,16 @@ class Index extends View
                     frameborder="0"></iframe>
         </div>
         <script>
-          PageMyselfPageEditor.config = <?=JsonUtils::encode($config)?>;
+          PageMyselfPageEditor.config = <?=JsonUtils::encode([
+              'tinymceUrl' => Url::getUrlToFile(Editor::TINYMCE_PATH, antiCacheParameter: false),
+              'tinymcePluginsUrl' => Compiler::getDistUrl(FRAMELIX_MODULE, 'js', 'tinymce-plugins')
+          ])?>;
+          PageMyself.config = <?=JsonUtils::encode([
+              'componentApiRequestUrl' => JsCall::getCallUrl(
+                  \Framelix\PageMyself\View\Index::class,
+                  'componentApiRequest'
+              )
+          ])?>;
         </script>
         <?php
     }
