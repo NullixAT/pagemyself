@@ -34,9 +34,9 @@ class MediaBrowser extends Field
      */
     public static function onJsCall(JsCall $jsCall): void
     {
-        $disabled = (bool)(Request::getGet('disabled'));
-        $multiple = (bool)(Request::getGet('multiple'));
-        $allowedExtensions = Request::getGet('allowedExtensions');
+        $disabled = $jsCall->parameters['disabled'] ?? (bool)(Request::getGet('disabled'));
+        $multiple = $jsCall->parameters['multiple'] ?? (bool)(Request::getGet('multiple'));
+        $allowedExtensions = $jsCall->parameters['allowedExtensions'] ?? Request::getGet('allowedExtensions');
         if (isset($_FILES['file'])) {
             ini_set("memory_limit", "2G");
             $uploadedFiles = UploadedFile::createFromSubmitData('file');
@@ -96,7 +96,8 @@ class MediaBrowser extends Field
                 foreach ($files as $file) {
                     ?>
                     <div class="mediabrowser-file" data-id="<?= $file ?>"
-                         data-extension="<?= HtmlUtils::escape($file->extension) ?>">
+                         data-extension="<?= HtmlUtils::escape($file->extension) ?>"
+                         data-url="<?= $file->getUrl()->removeParameter('t') ?>">
                         <span class="mediabrowser-file-checkbox"><input
                                     type="checkbox" <?= isset($selectedValues[$file->id]) ? 'checked' : '' ?>/></span>
                         <?php

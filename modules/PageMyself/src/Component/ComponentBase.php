@@ -2,8 +2,10 @@
 
 namespace Framelix\PageMyself\Component;
 
+use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Lang;
 use Framelix\PageMyself\Storable\ComponentBlock;
+
 use function scandir;
 use function str_ends_with;
 use function strtolower;
@@ -76,6 +78,13 @@ abstract class ComponentBase
     public function getDefaultSettings(): array
     {
         return [];
+    }
+
+    /**
+     * Add setting fields to the settings form that is displayed when the user click the settings icon
+     */
+    public function addSettingFields(Form $form): void
+    {
     }
 
     /**

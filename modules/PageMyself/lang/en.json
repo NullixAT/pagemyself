@@ -117,13 +117,16 @@
     "This is a meta information and is used by search engines and social media representation"
   ],
   "__pagemyself_component_text_title__": [
-    "Texteditor"
+    "Texteditor with predefined components"
   ],
   "__pagemyself_component_text_desc__": [
-    "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc..."
+    "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc... Also there are a lot of predefined layout blocks you can insert, like cards, alerts, buttons, etc..."
+  ],
+  "__pagemyself_editor_blocks__": [
+    "Add predefined layout components"
   ],
   "__pagemyself_component_text_help__": [
-    "To add a new line without a paragraph (Vertical space), Hold CTRL and hit enter, instead of just pressing Enter only"
+    "To add a new line without a vertical empty space, hold CTRL and hit enter, instead of just pressing Enter only"
   ],
   "__pagemyself_component_jumpmark_title__": [
     "Jumpmark"

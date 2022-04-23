@@ -3,7 +3,11 @@
 namespace Framelix\PageMyself\View\Backend\PageEditor;
 
 use Framelix\Framelix\Form\Field\Editor;
+use Framelix\Framelix\Form\Field\Hidden;
+use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Form\Field\Select;
+use Framelix\Framelix\Form\Form;
+use Framelix\Framelix\Html\ColorName;
 use Framelix\Framelix\Html\Compiler;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
@@ -11,6 +15,7 @@ use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
 use Framelix\PageMyself\Component\ComponentBase;
+use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\ThemeBase;
@@ -34,11 +39,21 @@ class Index extends View
             }
             $params = $jsCall->parameters['params'] ?? null;
             switch ($jsCall->parameters['action']) {
-                case 'save-text':
+                case 'saveText':
                     $settings = $componentBlock->settings;
                     $settings['text'][$params['id']] = $params['text'];
                     $componentBlock->settings = $settings;
                     $componentBlock->store();
+                    break;
+                case 'mediaBrowser':
+                    $jsCall = new JsCall('browser', ['action' => 'browser']);
+                    echo $jsCall->call(MediaBrowser::class . "::onJsCall");
+                    break;
+                case 'editorPredefinedLayouts':
+                    // todo blocks
+                    ?>
+                    sdf
+                    <?php
                     break;
             }
             return;
@@ -61,11 +76,11 @@ class Index extends View
                 $blockList = ComponentBase::getAvailableList();
                 $blocks = ComponentBlock::getByIds($jsCall->parameters['blockIds']);
                 $arr = [];
-                foreach ($blocks as $block) {
-                    $arr[$block->id] = [
-                        'id' => $block->id,
-                        'title' => $blockList[$block->blockClass]['title'],
-                        'help' => $blockList[$block->blockClass]['help'],
+                foreach ($blocks as $componentBlock) {
+                    $arr[$componentBlock->id] = [
+                        'id' => $componentBlock->id,
+                        'title' => $blockList[$componentBlock->blockClass]['title'],
+                        'help' => $blockList[$componentBlock->blockClass]['help'],
                     ];
                 }
                 $jsCall->result = $arr;
@@ -85,9 +100,41 @@ class Index extends View
                 }
                 break;
             case 'blockSettings':
-                $block = ComponentBlock::getById($jsCall->parameters['block'] ?? null);
-                if ($block) {
-                    echo $block->id;
+                $componentBlock = ComponentBlock::getById($jsCall->parameters['block'] ?? null);
+                if ($componentBlock) {
+                    $list = ComponentBase::getAvailableList();
+                    $listRow = $list[$componentBlock->blockClass];
+
+                    $instance = ComponentBase::createInstance($componentBlock);
+                    $form = new Form();
+
+                    $field = new Hidden();
+                    $field->name = "componentBlockId";
+                    $field->defaultValue = $componentBlock;
+                    $form->addField($field);
+
+                    $field = new Html();
+                    $field->name = "_desc";
+                    $field->label = $listRow['title'];
+                    $field->labelDescription = $listRow['desc'];
+                    $form->addField($field);
+
+                    if ($listRow['help'] ?? null) {
+                        $field = new Html();
+                        $field->name = "_help";
+                        $field->defaultValue = '<div class="framelix-alert">' . Lang::get($listRow['help']) . '</div>';
+                        $form->addField($field);
+                    }
+
+                    $fieldsDefault = count($form->fields);
+                    $instance->addSettingFields($form);
+                    $fieldsAll = count($form->fields);
+
+                    if ($fieldsAll !== $fieldsDefault) {
+                        $form->addSubmitButton();
+                    }
+                    $form->addButton('delete-block', '__pagemyself_component_delete__', 'delete', ColorName::ERROR);
+                    $form->show();
                 }
                 break;
             case 'createComponentBlock':
@@ -103,10 +150,10 @@ class Index extends View
                 $blocks = $page->getComponentBlocks();
                 $sort = 0;
                 // resort blocks
-                foreach ($blocks as $block) {
-                    $block->sort = $sort++;
-                    $block->preserveUpdateUserAndTime();
-                    $block->store();
+                foreach ($blocks as $componentBlock) {
+                    $componentBlock->sort = $sort++;
+                    $componentBlock->preserveUpdateUserAndTime();
+                    $componentBlock->store();
                 }
                 $jsCall->result = [
                     'url' => $componentBlock->getPublicUrl()

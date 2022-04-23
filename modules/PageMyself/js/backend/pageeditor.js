@@ -172,19 +172,6 @@ class PageMyselfPageEditor {
       })
     })
 
-    // delete block button
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options .delete-block', async function () {
-      if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) {
-        return
-      }
-      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-        'page': PageMyselfPageEditor.currentPage,
-        'action': 'deleteBlock',
-        'blockId': $(this).closest('.pageeditor-block-options').attr('data-block-id')
-      })
-      PageMyselfPageEditor.iframeWindow.location.reload()
-    })
-
     // sorting blocks
     $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options  .sort-block-up, .pageeditor-block-options  .sort-block-down', async function () {
       const blockNow = $(this).closest('.pageeditor-block-options').next()
@@ -201,11 +188,26 @@ class PageMyselfPageEditor {
     // block settings
     $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options .settings', async function () {
       const blockNow = $(this).closest('.pageeditor-block-options')
-      await FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+      const modal = await FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
         'action': 'blockSettings',
         'block': blockNow.attr('data-block-id')
       }, { maxWidth: 900 })
+
+      // delete block button
+      modal.bodyContainer.on('click', '.framelix-form-buttons [data-action="delete-block"]', async function () {
+        if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) {
+          return
+        }
+        const formData = FormDataJson.toJson(modal.bodyContainer.find('form'))
+        await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+          'page': PageMyselfPageEditor.currentPage,
+          'action': 'deleteBlock',
+          'blockId': formData.componentBlockId
+        })
+        PageMyselfPageEditor.iframeWindow.location.reload()
+        modal.destroy()
+      })
     })
 
     // add editing options of existing blocks

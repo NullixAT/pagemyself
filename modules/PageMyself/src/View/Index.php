@@ -13,8 +13,11 @@ use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\FileUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\View\LayoutView;
+use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\Page;
+use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\ThemeBase;
+
 use function trim;
 
 /**
@@ -119,6 +122,56 @@ class Index extends LayoutView
         foreach ($themeJsFiles as $themeJsFile) {
             $this->addHeadHtml(HtmlUtils::getIncludeTagForUrl(Url::getUrlToFile($themeJsFile)));
         }
+
+        $favicon = MediaFile::getById(WebsiteSettings::get('websitesetting_favicon'));
+        if ($favicon) {
+            $this->addHeadHtmlAfterInit('<link rel="icon" href="' . $favicon->getUrl() . '">');
+        } else {
+            $this->addHeadHtmlAfterInit(
+                '<link rel="icon" href="' . Url::getUrlToFile(__DIR__ . "/../../public/img/logo-squared.svg") . '">'
+            );
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_og_site_name')) {
+            $this->addHeadHtmlAfterInit(
+                '<meta property="og:site_name" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_og_image')) {
+            $image = MediaFile::getById($settingValue);
+            if ($image) {
+                $this->addHeadHtmlAfterInit(
+                    '<meta property="og:image" content="' . $image->getUrl() . '"/>'
+                );
+            }
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_og_title')) {
+            $this->addHeadHtmlAfterInit(
+                '<meta property="og:title" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_og_description')) {
+            $this->addHeadHtmlAfterInit(
+                '<meta property="og:description" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_author')) {
+            $this->addHeadHtmlAfterInit('<meta property="author" content="' . HtmlUtils::escape($settingValue) . '"/>');
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_keywords')) {
+            $this->addHeadHtmlAfterInit(
+                '<meta property="keywords" content="' . HtmlUtils::escape($settingValue) . '"/>'
+            );
+        }
+        if ($settingValue = WebsiteSettings::get('websitesetting_headhtml')) {
+            $this->addHeadHtmlAfterInit($settingValue);
+        }
+        $this->addHeadHtmlAfterInit(
+            '
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="' . Url::create() . '" />
+            <meta name="generator" content="PageMyself Website Builder" />
+        '
+        );
 
         $pageContent = Buffer::getAll();
 
