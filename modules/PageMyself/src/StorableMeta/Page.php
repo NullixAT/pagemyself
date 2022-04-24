@@ -7,6 +7,7 @@ use Framelix\Framelix\Form\Field\Select;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\StorableMeta;
+use Framelix\PageMyself\Form\Field\MediaBrowser;
 
 /**
  * Page
@@ -67,6 +68,12 @@ class Page extends StorableMeta
 
         $property = $this->createProperty('titleNav');
         $property->addDefaultField();
+        $property->field->getVisibilityCondition()
+            ->equal('flagNav', '1');
+
+        $property = $this->createProperty('imageNav');
+        $property->field = new MediaBrowser();
+        $property->field->setOnlyImages();
         $property->field->getVisibilityCondition()
             ->equal('flagNav', '1');
 

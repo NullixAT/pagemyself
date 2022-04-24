@@ -8,6 +8,8 @@ use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\PageMyself\Component\ComponentBase;
+use Framelix\PageMyself\Form\Field\MediaBrowser;
+use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\ThemeBase;
 
@@ -29,14 +31,30 @@ class Theme extends ThemeBase
         $attr->addClass('component-block-inner');
         $fullWidth = $blockSettings['fullWidth'] ?? null;
         $backgroundColor = $blockSettings['backgroundColor'] ?? null;
+        $backgroundImage = MediaFile::getById($blockSettings['backgroundImage'] ?? null);
+        $backgroundVideo = MediaFile::getById($blockSettings['backgroundVideo'] ?? null);
         if (!$fullWidth) {
             $attr->setStyle('max-width', 'var(--page-max-width)');
+        } else {
+            $attr->addClass('component-block-inner-max-width');
         }
         if ($backgroundColor) {
             $attr->setStyle('background-color', $backgroundColor);
         }
+        if ($backgroundImage?->isImageFile()) {
+            $attr->set('data-background-image', $backgroundImage->getUrl());
+        }
+        if ($backgroundVideo?->isVideoFile()) {
+            $attr->set('data-background-video', $backgroundVideo->getUrl());
+        }
         echo '<div ' . $attr . '>';
+        if ($fullWidth) {
+            echo '<div style="max-width:var(--page-max-width)">';
+        }
         $componentInstance->show();
+        if ($fullWidth) {
+            echo '</div>';
+        }
         echo '</div>';
     }
 
@@ -67,8 +85,6 @@ class Theme extends ThemeBase
     {
         $field = new Number();
         $field->name = 'maxWidth';
-        $field->label = '__theme_hello_maxwidth_label__';
-        $field->labelDescription = '__theme_hello_maxwidth_label_desc__';
         $field->defaultValue = 900;
         $form->addField($field);
     }
@@ -83,13 +99,20 @@ class Theme extends ThemeBase
     {
         $field = new Toggle();
         $field->name = 'fullWidth';
-        $field->label = '__theme_hello_fullwidth_label__';
-        $field->labelDescription = '__theme_hello_fullwidth_label_desc__';
         $form->addField($field);
 
         $field = new Color();
         $field->name = 'backgroundColor';
-        $field->label = '__theme_hello_backgroundcolor_label__';
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundImage';
+        $field->setOnlyImages();
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundVideo';
+        $field->setOnlyVideos();
         $form->addField($field);
     }
 

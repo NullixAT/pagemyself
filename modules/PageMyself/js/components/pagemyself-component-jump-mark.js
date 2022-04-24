@@ -1,3 +1,0 @@
-class PageMyselfComponentJumpMark extends PageMyselfComponent {
-
-}

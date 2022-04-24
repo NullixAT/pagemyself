@@ -158,11 +158,15 @@ abstract class ThemeBase
     {
         $url = $page->category === Page::CATEGORY_PAGE ? $page->getPublicUrl() : $page->link;
         $target = $page->category === Page::CATEGORY_PAGE ? '' : 'target="_blank"';
+        $title = HtmlUtils::escape($page->titleNav ?: $page->title);
+        if ($page->imageNav?->isImageFile()) {
+            $title = '<img src="' . $page->imageNav->getUrl(500) . '" alt="' . $title . '">';
+        }
         ?>
         <li>
             <span></span>
             <a class="nav-entry <?= $page === $this->page ? 'nav-entry-active' : '' ?>"
-               href="<?= $url ?>" <?= $target ?>><?= HtmlUtils::escape($page->titleNav ?: $page->title) ?></a>
+               href="<?= $url ?>" <?= $target ?>><?= $title ?></a>
             <span></span>
         </li>
         <?php

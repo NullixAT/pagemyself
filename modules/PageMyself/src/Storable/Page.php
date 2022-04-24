@@ -8,6 +8,7 @@ use Framelix\Framelix\Url;
 use Framelix\Framelix\View;
 use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Backend\Page\Index;
+
 use function file_exists;
 
 /**
@@ -15,6 +16,7 @@ use function file_exists;
  * @property int $category
  * @property string $title
  * @property string|null $titleNav
+ * @property MediaFile|null $imageNav
  * @property string|null $password
  * @property string|null $url
  * @property string|null $link

@@ -107,6 +107,13 @@ class WebsiteSettings extends View
         $field->defaultValue = \Framelix\PageMyself\Storable\WebsiteSettings::get($field->name);
         $form->addField($field);
 
+        $field = new Textarea();
+        $field->name = 'websitesetting_bodyhtml';
+        $field->label = '__pagemyself_' . $field->name . '__';
+        $field->labelDescription = '__pagemyself_websitesettings_headhtml_desc__';
+        $field->defaultValue = \Framelix\PageMyself\Storable\WebsiteSettings::get($field->name);
+        $form->addField($field);
+
         return $form;
     }
 }

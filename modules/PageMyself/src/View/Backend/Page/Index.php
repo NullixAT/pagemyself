@@ -8,6 +8,7 @@ use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
+use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\Page;
 
 /**
@@ -47,6 +48,7 @@ class Index extends View
             $form = $this->meta->getEditForm();
             $form->validate();
             $form->setStorableValues($this->storable);
+            $this->storable->imageNav = MediaFile::getById(Request::getPost('imageNav'));
             $this->storable->store();
             Toast::success('__framelix_saved__');
             Url::getBrowserUrl()->setParameter('id', $this->storable)->redirect();

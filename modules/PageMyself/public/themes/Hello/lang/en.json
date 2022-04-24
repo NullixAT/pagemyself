@@ -2,16 +2,22 @@
   "__theme_hello_maxwidth_label__": [
     "Max page width"
   ],
-  "__theme_hello_maxwidth_label_desc__": [
+  "__theme_hello_maxwidth_desc__": [
     "Maximal width of your page in pixel. It automatically shrink in width when screen is smaller, but do not grow over this size."
   ],
   "__theme_hello_fullwidth_label__": [
     "Full width background"
   ],
-  "__theme_hello_fullwidth_label_desc__": [
-    "This block will use full screen width and you can set individuall background color, background image or background video."
+  "__theme_hello_fullwidth_desc__": [
+    "This block will use full screen width and you can set individuall background color, background image or background video over the full width. The inner text however still fit into the defined max page width."
   ],
   "__theme_hello_backgroundcolor_label__": [
     "Background color"
+  ],
+  "__theme_hello_backgroundimage_label__": [
+    "Background image"
+  ],
+  "__theme_hello_backgroundvideo_label__": [
+    "Background video"
   ]
 }

@@ -226,6 +226,9 @@ class Index extends LayoutView
           Framelix.initLate()
         </script>
         <?php
+        if ($settingValue = WebsiteSettings::get('websitesetting_bodyhtml')) {
+            echo $settingValue;
+        }
         echo '</body></html>';
         Buffer::flush();
     }

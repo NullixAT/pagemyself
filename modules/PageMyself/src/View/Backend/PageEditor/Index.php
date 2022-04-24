@@ -66,8 +66,11 @@ class Index extends View
                     $field->defaultValue = WebsiteSettings::get(
                             'theme_' . $componentInstance->themeId . "_" . $field->name
                         ) ?? $field->defaultValue;
-                    $field->label = Lang::get($field->label ?? '');
-                    $field->labelDescription = Lang::get($field->labelDescription ?? '');
+                    $keyPrefix = strtolower("__theme_" . $componentInstance->themeId . "_" . $field->name);
+                    $field->label = Lang::get($field->label ?? $keyPrefix . "_label__");
+                    if (Lang::keyExist($keyPrefix . "_desc__") && $field->labelDescription === null) {
+                        $field->labelDescription = Lang::get($keyPrefix . "_desc__");
+                    }
                 }
 
                 $field = new Hidden();
@@ -131,6 +134,8 @@ class Index extends View
                     if ($listRow['help'] ?? null) {
                         $field = new Html();
                         $field->name = "_help";
+                        $field->label = '';
+                        $field->labelDescription = '';
                         $field->defaultValue = '<div class="framelix-alert">' . Lang::get($listRow['help']) . '</div>';
                         $form->addField($field);
                     }
@@ -143,8 +148,11 @@ class Index extends View
                             $fieldsEditable++;
                         }
                         $field->defaultValue = $settings[$field->name] ?? $field->defaultValue;
-                        $field->label = Lang::get($field->label ?? '');
-                        $field->labelDescription = Lang::get($field->labelDescription ?? '');
+                        $keyPrefix = strtolower("__theme_" . $themeInstance->themeId . "_" . $field->name);
+                        $field->label = Lang::get($field->label ?? $keyPrefix . "_label__");
+                        if (Lang::keyExist($keyPrefix . "_desc__") && $field->labelDescription === null) {
+                            $field->labelDescription = Lang::get($keyPrefix . "_desc__");
+                        }
                     }
 
                     $field = new Hidden();
@@ -292,6 +300,7 @@ class Index extends View
                     $field = new Select();
                     $field->name = 'jumpToPage';
                     $field->chooseOptionLabel = '__pagemyself_pageeditor_jump_to_page__';
+                    $field->showResetButton = false;
                     $pages = Page::getByCondition(sort: "+sort");
                     foreach ($pages as $page) {
                         $field->addOption($page->getPublicUrl(), $page->title);
@@ -334,6 +343,11 @@ class Index extends View
                                 '__pagemyself_page_options__'
                             ) ?></div>
                         <div>
+                            <button class="framelix-button framelix-button-small page-options"
+                                    data-icon-left="settings"
+                                    title="__pagemyself_page_options__" data-url="<?= \Framelix\Framelix\View::getUrl(
+                                \Framelix\PageMyself\View\Backend\Page\Index::class
+                            ) ?>"></button>
                             <?= Lang::get('__pagemyself_pagetitle__') ?>:
                             <span class="pageeditor-frame-top-title"></span>
                         </div>

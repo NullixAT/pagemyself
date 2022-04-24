@@ -9,10 +9,7 @@ use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\View\Index;
 
-use function scandir;
-use function str_ends_with;
 use function strtolower;
-use function substr;
 
 /**
  * Base class for a component
@@ -41,15 +38,14 @@ abstract class ComponentBase
         if (array_key_exists($cacheKey, self::$cache)) {
             return self::$cache[$cacheKey];
         }
-        $files = scandir(__DIR__);
+        $blockIds = [
+            'Text',
+            'Calendar'
+        ];
         $arr = [];
-        foreach ($files as $file) {
-            if ($file[0] === "." || $file === 'ComponentBase.php' || !str_ends_with($file, ".php")) {
-                continue;
-            }
-            $blockName = substr($file, 0, -4);
-            $class = "Framelix\\PageMyself\\Component\\" . $blockName;
-            $langPrefix = '__pagemyself_component_' . strtolower($blockName);
+        foreach ($blockIds as $blockId) {
+            $class = "Framelix\\PageMyself\\Component\\" . $blockId;
+            $langPrefix = '__pagemyself_component_' . strtolower($blockId);
             $arr[$class] = [
                 'blockClass' => $class,
                 'title' => "{$langPrefix}_title__",
