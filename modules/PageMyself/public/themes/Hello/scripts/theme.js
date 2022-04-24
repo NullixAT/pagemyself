@@ -4,6 +4,7 @@ class Theme {
    */
   static initLate () {
     const nav = $('.page-nav')
+    const navUl = nav.find('ul').first()
     $(document).on('click', '.page-nav button', function () {
       const ul = $(this).parent().children('ul')
       if (!ul.length) return

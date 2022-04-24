@@ -93,6 +93,81 @@ class PageMyselfPageEditor {
       })
       PageMyselfPageEditor.iframeWindow.location.reload()
     })
+
+    // add new block button
+    PageMyselfPageEditor.frameTop.on('click', '.add-new-block', async function () {
+      $(PageMyselfPageEditor.iframeDoc).find('.insert-component-block-here').parent().remove()
+      $(PageMyselfPageEditor.iframeDoc).find('.component-blocks[data-placement], .component-block').each(function () {
+        const parent = $(this).closest('.component-blocks[data-placement]')
+        const btn = $(`<div style="text-align: center; padding:10px;"><button class="framelix-button insert-component-block-here framelix-button-primary" data-placement="${parent.attr('data-placement')}" data-component-block-id="${$(this).attr('data-id')}" data-icon-left="add">${FramelixLang.get('__pagemyself_component_insert_here__')}</button></div>`)
+        if ($(this).hasClass('component-blocks')) {
+          $(this).prepend(btn)
+        } else {
+          $(this).after(btn)
+        }
+      })
+    })
+
+    // sorting blocks
+    $(document).on('click', '.sort-block-up, .sort-block-down', async function () {
+      const blockNow = $(this).closest('.pageeditor-block-options')
+      const blockNext = $(this).hasClass('sort-block-up') ? blockNow.prev() : blockNow.next()
+      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'updateBlockSort',
+        'blockA': blockNow.attr('data-component-block-id'),
+        'blockB': blockNext.attr('data-component-block-id')
+      })
+      PageMyselfPageEditor.iframeWindow.location.reload()
+      if (!$(this).hasClass('sort-block-up')) {
+        blockNext.after(blockNow)
+      } else {
+        blockNow.after(blockNext)
+      }
+    })
+
+    // block list
+    $(document).on('click', '.block-list', async function () {
+      FramelixModal.destroyAll()
+      FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'getBlockSettingsList'
+      }, { maxWidth: 900 })
+    })
+
+    // block settings
+    $(document).on('click', '.block-settings', async function () {
+      const blockNow = $(this).closest('.pageeditor-block-options')
+      PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, blockNow.attr('data-component-block-id'))
+    })
+  }
+
+  /**
+   * Open block settings
+   * @param {number|string} pageId
+   * @param  {number|string} blockId
+   * @returns {Promise<void>}
+   */
+  static async openBlockSettings (pageId, blockId) {
+    const modal = await FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+      'page': pageId,
+      'action': 'blockSettings',
+      'block': blockId
+    }, { maxWidth: 900 })
+
+    // delete block button
+    modal.bodyContainer.on('click', '.framelix-form-buttons [data-action="delete-block"]', async function () {
+      if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) {
+        return
+      }
+      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'deleteBlock',
+        'componentBlockId': blockId
+      })
+      modal.destroy()
+      window.location.reload()
+    })
   }
 
   /**
@@ -121,6 +196,8 @@ class PageMyselfPageEditor {
     PageMyselfPageEditor.frame.attr('data-page', PageMyselfPageEditor.currentPage)
     PageMyselfPageEditor.frameTop.find('.pageeditor-address').html(`<a href="${PageMyselfPageEditor.iframeWindow.location.href}" target="_blank" title="__pagemyself_pageeditor_page_open__">${PageMyselfPageEditor.iframeWindow.location.href}</a>`)
 
+    window.history.pushState('', document.title, window.location.href.replace(/\?.*/ig, '') + '?url=' + encodeURIComponent(PageMyselfPageEditor.iframeWindow.location.href))
+
     if (!PageMyselfPageEditor.currentPage) return
 
     // update editor bar information on frame load
@@ -139,20 +216,19 @@ class PageMyselfPageEditor {
     })
     PageMyselfPageEditor.iframeHtml.addClass('pageeditor-website')
 
-    // insert editor containers
-    PageMyselfPageEditor.iframeHtml.find('.component-blocks').each(function () {
-      $(this).before(`
-        <div class="pageeditor-block-options" data-placement="${$(this).attr('data-placement')}">
-          <div class="pageeditor-block-options-title"></div>
-          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_component_add__"></button>
-        </div>
-      `)
+    // quick open block settings
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.component-block', async function (ev) {
+      if (!ev.ctrlKey) return
+      ev.stopPropagation()
+      ev.stopImmediatePropagation()
+      PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, $(this).attr('data-id'))
     })
 
-    // add new block button
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.add-new-block', async function () {
-      const placement = $(this).closest('.pageeditor-block-options').attr('data-placement')
-      const bellow = $(this).closest('.pageeditor-block-options').attr('data-component-block-id')
+    // insert new blocks
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.insert-component-block-here', async function () {
+      const placement = $(this).attr('data-placement')
+      const bellow = $(this).attr('data-component-block-id')
+      $(PageMyselfPageEditor.iframeDoc).find('.insert-component-block-here').parent().remove()
       const data = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
         'page': PageMyselfPageEditor.currentPage,
         'action': 'getComponentList'
@@ -183,89 +259,12 @@ class PageMyselfPageEditor {
       })
     })
 
-    // sorting blocks
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options  .sort-block-up, .pageeditor-block-options  .sort-block-down', async function () {
-      const blockNow = $(this).closest('.pageeditor-block-options').next()
-      const blockNext = $(this).hasClass('sort-block-up') ? blockNow.prevUntil('.component-block').last().prev() : blockNow.next().nextUntil('.component-block').last().next()
-      await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-        'page': PageMyselfPageEditor.currentPage,
-        'action': 'updateBlockSort',
-        'blockA': blockNow.attr('data-id'),
-        'blockB': blockNext.attr('data-id')
-      })
-      PageMyselfPageEditor.iframeWindow.location.reload()
-    })
-
-    // block settings
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.pageeditor-block-options .settings', async function () {
-      const blockNow = $(this).closest('.pageeditor-block-options')
-      const modal = await FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-        'page': PageMyselfPageEditor.currentPage,
-        'action': 'blockSettings',
-        'block': blockNow.attr('data-component-block-id')
-      }, { maxWidth: 900 })
-
-      // delete block button
-      modal.bodyContainer.on('click', '.framelix-form-buttons [data-action="delete-block"]', async function () {
-        if (!(await FramelixModal.confirm('__framelix_sure__').confirmed)) {
-          return
-        }
-        const formData = FormDataJson.toJson(modal.bodyContainer.find('form'))
-        await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-          'page': PageMyselfPageEditor.currentPage,
-          'action': 'deleteBlock',
-          'componentBlockId': formData.componentBlockId
-        })
-        PageMyselfPageEditor.iframeWindow.location.reload()
-        modal.destroy()
-      })
-    })
-
-    // add editing options of existing blocks
-    const blockElMap = new Map()
+    // enable editing for components
     PageMyselfPageEditor.iframeHtml.find('.component-block').each(function () {
       const block = $(this)
       const componentBlockId = block.attr('data-id')
-      const options = $(`
-        <div class="pageeditor-block-options" data-component-block-id="${componentBlockId}">  
-          <button class="framelix-button framelix-button-small settings" data-icon-left="settings" title="__pagemyself_component_settings__"></button> 
-          <div class="pageeditor-block-options-title"><span class="framelix-loading"></span></div>   
-          <button class="framelix-button framelix-button-small sort-block-down framelix-button-customcolor" data-icon-left="south" style="--color-custom-bg:#2190af; --color-custom-text:white;" title="__pagemyself_component_sort_down__"></button>    
-          <button class="framelix-button framelix-button-small sort-block-up framelix-button-customcolor" data-icon-left="north" style="--color-custom-bg:#216daf; --color-custom-text:white;" title="__pagemyself_component_sort_up__"></button>     
-          <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add" title="__pagemyself_component_add__"></button>          
-        </div>
-      `)
-      block.before(options)
       const component = PageMyselfPageEditor.iframeWindow.eval('PageMyselfComponent.instances[' + componentBlockId + ']')
-      component.backendOptionsContainer = options
       component.enableEditing()
-      blockElMap.set(componentBlockId, component)
-    })
-
-    PageMyselfPageEditor.iframeHtml.find('.component-blocks').each(function () {
-      const childs = $(this).children('.pageeditor-block-options')
-      childs.first().addClass('pageeditor-block-options-first')
-      childs.last().addClass('pageeditor-block-options-last')
-    })
-
-    // update block infos
-    FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
-      'page': PageMyselfPageEditor.currentPage,
-      'action': 'getComponentBlockInfos',
-      'blockIds': Array.from(blockElMap.keys())
-    }).then(function (data) {
-      for (let id in data) {
-        const row = data[id]
-        const blockInstance = blockElMap.get(id)
-        blockInstance.backendOptionsContainer.find('.pageeditor-block-options-title').text('#' + row.id + ' ' + FramelixLang.get(row.title))
-        if (row.help) {
-          const openHelp = blockInstance.backendOptionsContainer.find('.open-help')
-          openHelp.removeClass('hidden')
-          openHelp.on('click', function () {
-            FramelixModal.show({ bodyContent: FramelixLang.get(row.help), maxWidth: 900 })
-          })
-        }
-      }
     })
 
     // bypass resize event into the page frame

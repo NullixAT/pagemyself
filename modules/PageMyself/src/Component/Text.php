@@ -24,6 +24,6 @@ class Text extends ComponentBase
      */
     public function show(): void
     {
-        echo '<div data-id="text">' . ($this->block->settings['text']['text'] ?? '') . '</div>';
+        echo '<div class="pagemyself-component-text-text" data-id="text">' . ($this->block->settings['text']['text'] ?? '') . '</div>';
     }
 }

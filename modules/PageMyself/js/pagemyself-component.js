@@ -19,13 +19,6 @@ class PageMyselfComponent {
   container
 
   /**
-   * The backend options container
-   * Only isset when enableEditing() is called from the backend
-   * @type {Cash}
-   */
-  backendOptionsContainer
-
-  /**
    * The tinymce editor instance, if enableTextEditor has been called
    */
   editor

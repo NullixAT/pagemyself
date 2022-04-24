@@ -14,15 +14,10 @@ body {
 }
 
 .page {
-  text-align: center;
 }
 
 .page-inner {
-  box-sizing: border-box;
-  padding: 20px;
-  text-align: left;
-  max-width: 900px;
-  margin: 0 auto;
+  text-align: center;
 }
 
 .page-nav {
@@ -30,8 +25,9 @@ body {
   background: var(--color-page-bg);
   padding: 10px;
   border-radius: 10px;
-  margin-bottom: 20px;
   text-align: center;
+  margin: 0 auto;
+  max-width: var(--page-max-width);
 }
 
 .page-nav .invisible {
@@ -59,7 +55,7 @@ body {
 .page-nav .nav-entry:any-link {
   background: transparent;
   border: 0;
-  padding: 5px 5px 0;
+  padding: 10px 20px 0;
   margin: 0;
   color: var(--nav-color-text);
   text-decoration: none;
@@ -131,10 +127,18 @@ body {
   font-weight: normal;
 }
 
-.component-block {
-  margin-bottom: 20px;
+
+.popup-nav ul {
+  display: block;
 }
 
 .component-block img {
   max-width: 100%;
+}
+
+.component-block-inner {
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: left;
+  margin: 0 auto;
 }

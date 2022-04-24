@@ -14,6 +14,6 @@ class PageMyselfComponentText extends PageMyselfComponent {
    */
   async enableEditing () {
     await super.enableEditing()
-    this.enableTextEditor(this.container.children())
+    this.enableTextEditor(this.container.find('.pagemyself-component-text-text'))
   }
 }

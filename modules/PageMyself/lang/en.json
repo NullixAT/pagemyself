@@ -98,6 +98,15 @@
   "__pagemyself_theme__": [
     "Theme"
   ],
+  "__pagemyself_theme_options__": [
+    "Theme options"
+  ],
+  "__pagemyself_block_options__": [
+    "Block options"
+  ],
+  "__pagemyself_page_options__": [
+    "Page options"
+  ],
   "__pagemyself_pagetitle__": [
     "Page title"
   ],
@@ -159,13 +168,25 @@
     "Internal Info (Only visible in website editor)"
   ],
   "__pagemyself_component_add__": [
-    "Add a new block bellow"
+    "Add a new block to this page<br/>After clicking this button, click on 'Insert block here' to choose the position to insert"
+  ],
+  "__pagemyself_component_insert_here__": [
+    "Insert block here"
   ],
   "__pagemyself_component_delete__": [
     "Delete this block"
   ],
   "__pagemyself_component_help__": [
     "Open help on how to use this block"
+  ],
+  "__pagemyself_component_block_settings__": [
+    "Block settings"
+  ],
+  "__pagemyself_component_no_blocks__": [
+    "You have no blocks on this page. Add some by clicking the plus symbol right next to the settings symbol."
+  ],
+  "__pagemyself_component_ctrl_click__": [
+    "Pro Tip: Hold CTRL and click on any block directly on the website, to open the settings window for the block."
   ],
   "__pagemyself_component_sort_up__": [
     "Move this block up"

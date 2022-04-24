@@ -9,6 +9,7 @@ use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
+use Framelix\PageMyself\Component\ComponentBase;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
 
@@ -103,44 +104,48 @@ abstract class ThemeBase
         $pages = Page::getByCondition($condition, sort: "+sort");
         ?>
         <nav class="page-nav">
-            <ul>
-                <?php
-                $pagesCollected = [];
-                foreach ($pages as $page) {
-                    if (isset($pagesCollected[$page->id])) {
-                        continue;
-                    }
-                    $group = [];
-                    if ($page->navGroup) {
-                        foreach ($pages as $subPage) {
-                            if (isset($pagesCollected[$subPage->id])) {
-                                continue;
-                            }
-                            if ($subPage->navGroup === $page->navGroup) {
-                                $group[$subPage->id] = $subPage;
-                                $pagesCollected[$subPage->id] = true;
+            <div class="page-nav-inner">
+                <ul>
+                    <?php
+                    $pagesCollected = [];
+                    foreach ($pages as $page) {
+                        if (isset($pagesCollected[$page->id])) {
+                            continue;
+                        }
+                        $group = [];
+                        if ($page->navGroup) {
+                            foreach ($pages as $subPage) {
+                                if (isset($pagesCollected[$subPage->id])) {
+                                    continue;
+                                }
+                                if ($subPage->navGroup === $page->navGroup) {
+                                    $group[$subPage->id] = $subPage;
+                                    $pagesCollected[$subPage->id] = true;
+                                }
                             }
                         }
+                        if ($group) {
+                            ?>
+                            <li>
+                                <span></span>
+                                <button class="nav-entry"><?= HtmlUtils::escape($page->navGroup) ?></button>
+                                <span></span>
+                                <ul class="hidden">
+                                    <?php
+                                    foreach ($group as $subPage) {
+                                        $this->showNavigationEntry($subPage);
+                                    }
+                                    ?>
+                                </ul>
+                            </li>
+                            <?php
+                        } else {
+                            $this->showNavigationEntry($page);
+                        }
                     }
-                    if ($group) {
-                        ?>
-                        <li>
-                            <button class="nav-entry"><?= HtmlUtils::escape($page->navGroup) ?></button>
-                            <ul class="hidden">
-                                <?php
-                                foreach ($group as $subPage) {
-                                    $this->showNavigationEntry($subPage);
-                                }
-                                ?>
-                            </ul>
-                        </li>
-                        <?php
-                    } else {
-                        $this->showNavigationEntry($page);
-                    }
-                }
-                ?>
-            </ul>
+                    ?>
+                </ul>
+            </div>
         </nav>
         <?php
     }
@@ -207,7 +212,7 @@ abstract class ThemeBase
      * @param ComponentBlock $componentBlock
      * @return void
      */
-    public function showComponentBlock(ComponentBlock $componentBlock): void
+    final public function showComponentBlock(ComponentBlock $componentBlock): void
     {
         $instance = $componentBlock->getComponentInstance();
         $jsClassName = "PageMyselfComponent" . ClassUtils::getClassBaseName($componentBlock->blockClass);
@@ -215,7 +220,7 @@ abstract class ThemeBase
         <div class="component-block <?= ClassUtils::getHtmlClass($componentBlock->blockClass) ?>"
              id="block-<?= $componentBlock ?>" data-id="<?= $componentBlock ?>">
             <?php
-            $instance->show();
+            $this->showComponentContent($instance);
             ?>
         </div>
         <script>
@@ -228,9 +233,31 @@ abstract class ThemeBase
     }
 
     /**
-     * Add setting fields to the settings form that is displayed when the user click the settings icon
+     * Show component content
+     * @param ComponentBase $componentInstance
+     * @return void
      */
-    public function addSettingFields(Form $form): void
+    public function showComponentContent(ComponentBase $componentInstance): void
+    {
+        $componentInstance->show();
+    }
+
+    /**
+     * Add fields to the theme settings form that is displayed when the user click the theme settings icon
+     * @param Form $form
+     * @return void
+     */
+    public function addThemeSettingFields(Form $form): void
+    {
+    }
+
+    /**
+     * Add fields to the component block settings form that is displayed when the user click the component settings icon
+     * @param Form $form
+     * @param ComponentBase $component
+     * @return void
+     */
+    public function addComponentSettingFields(Form $form, ComponentBase $component): void
     {
     }
 }
