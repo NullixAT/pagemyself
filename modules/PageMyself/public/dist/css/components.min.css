@@ -48,23 +48,26 @@
   margin: 0;
 }
 .pagemyself-component-slideshow .slideshow-thumbs {
-  height: 120px;
+  height: 130px;
+  padding: 10px;
   overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
   text-align: center;
   white-space: nowrap;
+  position: relative;
 }
 .pagemyself-component-slideshow .slideshow-thumbs > div {
   display: inline-flex;
   height: 100px;
   width: 100px;
   margin: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
   border-radius: var(--border-radius);
   cursor: pointer;
   opacity: 0.8;
   transition: 0.2s;
+}
+.pagemyself-component-slideshow .slideshow-thumbs > div.slideshow-thumb-active {
+  box-shadow: var(--color-primary-bg) 0 0 20px;
 }
 .pagemyself-component-slideshow .slideshow-thumbs > div:hover {
   opacity: 1;
@@ -74,7 +77,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  scroll-snap-align: center;
 }
 .pagemyself-component-slideshow .slideshow-image {
   flex: 1 1 auto;
@@ -97,6 +99,9 @@
 }
 .pagemyself-component-slideshow .slideshow-image-inner[data-visible="1"] {
   opacity: 1;
+}
+.pagemyself-component-slideshow[data-editing="1"] .slideshow-thumbs > div {
+  cursor: move;
 }
 
 .pagemyself-component-text[data-editing="1"] {

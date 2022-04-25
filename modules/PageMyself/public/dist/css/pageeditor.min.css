@@ -30,7 +30,7 @@
   flex-wrap: wrap;
 }
 .pageeditor-frame .pageeditor-frame-top .pageeditor-frame-options .pageeditor-frame-option-group {
-  padding: 3px 10px;
+  padding: 3px 20px;
   background: #444;
   border-radius: var(--border-radius);
 }
