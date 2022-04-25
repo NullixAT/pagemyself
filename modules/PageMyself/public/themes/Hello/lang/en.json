@@ -19,5 +19,35 @@
   ],
   "__theme_hello_backgroundvideo_label__": [
     "Background video"
+  ],
+  "__theme_hello_font_label__": [
+    "Font"
+  ],
+  "__theme_hello_colorscheme_label__": [
+    "Color scheme / pattern"
+  ],
+  "__theme_hello_colorscheme_desc__": [
+    "Need ideas for new color schemes? Goto: {0} for some fresh ideas."
+  ],
+  "__theme_hello_colorscheme_background__": [
+    "Website background color"
+  ],
+  "__theme_hello_colorscheme_font__": [
+    "Website text color"
+  ],
+  "__theme_hello_fontsize_label__": [
+    "Website text size in pixel"
+  ],
+  "__theme_hello_colorscheme_primary__": [
+    "Primary color (Used for text highlights, links, buttons, etc...)"
+  ],
+  "__theme_hello_colorscheme_header__": [
+    "Headlines"
+  ],
+  "__theme_hello_colorscheme_nav__": [
+    "Navigation text color"
+  ],
+  "__theme_hello_colorscheme_override__": [
+    "Override scheme color: {0}"
   ]
 }

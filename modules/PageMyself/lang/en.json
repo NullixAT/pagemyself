@@ -8,6 +8,15 @@
   "__pagemyself_component_block_settings__": [
     "Block settings"
   ],
+  "__pagemyself_component_slideshow_title__": [
+    "Image Slideshow"
+  ],
+  "__pagemyself_component_slideshow_desc__": [
+    "An easy to use image slideshow where the user can switch between images."
+  ],
+  "__pagemyself_component_slideshow_images__": [
+    "Choose images"
+  ],
   "__pagemyself_component_calendar_color__": [
     "Cell Color"
   ],
@@ -30,7 +39,16 @@
     "Calendar"
   ],
   "__pagemyself_component_ctrl_click__": [
-    "Pro Tip: Hold CTRL and click on any block directly on the website, to open the settings window for the block."
+    "Pro Tip: Hold CTRL and right-click on any block directly on the website, to open the settings window for the block."
+  ],
+  "__pagemyself_component_slideshow_sorting__": [
+    "To sort images in the slideshow, enable thumbnails and drag&drop the images to the desired places."
+  ],
+  "__pagemyself_component_slideshow_thumbnails__": [
+    "Show Thumbnails"
+  ],
+  "__pagemyself_component_slideshow_random__": [
+    "Random sorting"
   ],
   "__pagemyself_component_delete__": [
     "Delete this block"
@@ -62,20 +80,41 @@
   "__pagemyself_component_text_desc__": [
     "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc... Also there are a lot of predefined layout blocks you can insert, like cards, alerts, buttons, etc..."
   ],
+  "__pagemyself_component_text_default__": [
+    "Your editable text is here. Click me to edit the text."
+  ],
   "__pagemyself_component_text_help__": [
     "To add a new line without a vertical empty space, hold CTRL and hit enter, instead of just pressing Enter only"
   ],
   "__pagemyself_component_text_title__": [
     "Texteditor with predefined components"
   ],
-  "__pagemyself_editor_blocks__": [
-    "Add predefined layout components"
+  "__pagemyself_editor_components__": [
+    "Add Component"
+  ],
+  "__pagemyself_editor_components_tooltip__": [
+    "A huge list of layout components"
   ],
   "__pagemyself_mediabrowser_files_selected__": [
     "{{0=1:{0} file|0=*:{0} files}} selected"
   ],
   "__pagemyself_mediabrowser_open__": [
     "Open Media Browser"
+  ],
+  "__pagemyself_mediabrowser_deletefolder__": [
+    "Delete folder including all files in it"
+  ],
+  "__pagemyself_mediabrowser_rootfolder__": [
+    "Root folder"
+  ],
+  "__pagemyself_mediabrowser_rename__": [
+    "Rename"
+  ],
+  "__pagemyself_mediabrowser_deselect_files__": [
+    "Clear selection"
+  ],
+  "__pagemyself_mediabrowser_createfolder__": [
+    "Create folder"
   ],
   "__pagemyself_mediabrowser_replace__": [
     "Replace file"

@@ -79,6 +79,7 @@ class Index extends View
                 $form->addField($field);
 
                 if ($fieldsEditable) {
+                    $form->stickyFormButtons = true;
                     $form->addSubmitButton();
                 }
                 $form->show();
@@ -161,6 +162,7 @@ class Index extends View
                     $form->addField($field);
 
                     if ($fieldsEditable) {
+                        $form->stickyFormButtons = true;
                         $form->addSubmitButton();
                     }
                     $form->addButton('delete-block', '__pagemyself_component_delete__', 'delete', ColorName::ERROR);

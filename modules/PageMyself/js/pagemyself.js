@@ -25,6 +25,7 @@ class PageMyself {
    * On dom change
    */
   static onDomChange () {
+    const thumbSizes = [100, 500, 1000, 1500, 1920]
     $('[data-background-video]').each(function () {
       const el = $(this)
       const block = el.closest('.component-block')
@@ -61,12 +62,33 @@ class PageMyself {
     })
     $('[data-background-image]').each(function () {
       const el = $(this)
-      const backgroundImage = el.attr('data-background-image')
+      let backgroundImage = el.attr('data-background-image')
       const backgroundPosition = el.attr('data-background-position') || 'center'
       el.removeAttr('data-background-image')
       el.attr('data-background-image-original', backgroundImage)
       FramelixIntersectionObserver.onGetVisible(this, function () {
         if (!el.attr('data-background-video') && !el.attr('data-background-video-original')) {
+          // for uploaded images, automatically find best fitting thumb size
+          if (backgroundImage.match(/\/uploads\/[0-9]+\//)) {
+            const url = new URL(backgroundImage)
+            let pathSplit = url.pathname.split('/')
+            let basename = pathSplit.pop()
+            if (basename.startsWith('t-')) {
+              basename = basename.split('-', 3).pop()
+            }
+            const containerSize = Math.max(el.parent().width(), el.parent().height())
+            let useThumbSize = 100
+            for (let i in thumbSizes) {
+              const thumbSize = thumbSizes[i]
+              const diff = containerSize - thumbSize
+              useThumbSize = thumbSize
+              if (diff <= 0) break
+            }
+            basename = 't-' + useThumbSize + '-' + basename
+            pathSplit.push(basename)
+            url.pathname = pathSplit.join('/')
+            backgroundImage = url.toString()
+          }
           el.css('background-image', 'url(' + backgroundImage + ')')
           el.css('background-position', 'center ' + backgroundPosition)
         }

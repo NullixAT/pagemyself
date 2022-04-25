@@ -24,9 +24,10 @@ class PageMyselfComponentCalendar extends PageMyselfComponent {
 
   /**
    * Initialize the block
+   * @param {Object=} params Parameters passed from the backend
    * @returns {Promise<void>}
    */
-  async init () {
+  async init (params) {
     await super.init()
     const tableContainer = this.container.find('.calendar-table')
     const self = this

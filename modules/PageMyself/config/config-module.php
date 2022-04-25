@@ -42,7 +42,8 @@ if (!defined("FRAMELIX_MODULE")) {
                             {
                                 "type": "file",
                                 "path": [
-                                    "js\/pagemyself.js"
+                                    "js\/pagemyself.js",
+                                    "js\/pagemyself-theme.js"
                                 ]
                             }
                         ]

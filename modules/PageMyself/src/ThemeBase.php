@@ -9,10 +9,12 @@ use Framelix\Framelix\Network\Session;
 use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
+use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\PageMyself\Component\ComponentBase;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
-
+use Framelix\PageMyself\Storable\WebsiteSettings;
+use Framelix\PageMyself\View\Index;
 use function array_pop;
 use function explode;
 use function file_exists;
@@ -42,30 +44,6 @@ abstract class ThemeBase
     public Page $page;
 
     /**
-     * Show the page content
-     */
-    abstract public function showContent(): void;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $exp = explode("\\", get_class($this));
-        array_pop($exp);
-        $this->themeId = array_pop($exp);
-        $cacheKey = $this->themeId . "_initialized";
-        if (!isset(self::$cache[$cacheKey])) {
-            // include lang
-            $folder = __DIR__ . "/../public/themes/$this->themeId";
-            foreach (Lang::getEnabledLanguages() as $language) {
-                $filePath = $folder . "/lang/$language.json";
-                Lang::addValuesForFile($language, $filePath);
-            }
-        }
-    }
-
-    /**
      * Get list of available themes
      * @return array
      */
@@ -92,7 +70,31 @@ abstract class ThemeBase
     }
 
     /**
-     * Show <nav> block based on current page
+     * Constructor
+     */
+    public function __construct()
+    {
+        $exp = explode("\\", get_class($this));
+        array_pop($exp);
+        $this->themeId = array_pop($exp);
+        $cacheKey = $this->themeId . "_initialized";
+        if (!isset(self::$cache[$cacheKey])) {
+            // include lang
+            $folder = __DIR__ . "/../public/themes/$this->themeId";
+            foreach (Lang::getEnabledLanguages() as $language) {
+                $filePath = $folder . "/lang/$language.json";
+                Lang::addValuesForFile($language, $filePath);
+            }
+        }
+    }
+
+    /**
+     * Show the page content
+     */
+    abstract public function showContent(): void;
+
+    /**
+     * Show navigation entries
      * @return void
      */
     public function showNavigation(): void
@@ -125,10 +127,17 @@ abstract class ThemeBase
                             }
                         }
                         if ($group) {
+                            $isActive = false;
+                            foreach ($group as $subPage) {
+                                $isActive = $this->page === $subPage;
+                                if ($isActive) {
+                                    break;
+                                }
+                            }
                             ?>
                             <li>
                                 <span></span>
-                                <button class="nav-entry"><?= HtmlUtils::escape($page->navGroup) ?></button>
+                                <button class="nav-entry nav-entry-group <?= $isActive ? 'nav-entry-active' : '' ?>"><?= HtmlUtils::escape($page->navGroup) ?></button>
                                 <span></span>
                                 <ul class="hidden">
                                     <?php
@@ -230,10 +239,20 @@ abstract class ThemeBase
         <script>
           (function () {
             const block = new <?=$jsClassName?>(<?=$componentBlock?>)
-            block.init()
+            block.init(<?=JsonUtils::encode($instance->getJavascriptInitParameters())?>)
           })()
         </script>
         <?php
+    }
+
+    /**
+     * Get setting value
+     * @param string $key
+     * @return mixed
+     */
+    final public function getSettingValue(string $key): mixed
+    {
+        return WebsiteSettings::get('theme_' . $this->themeId . "_" . $key);
     }
 
     /**
@@ -262,6 +281,16 @@ abstract class ThemeBase
      * @return void
      */
     public function addComponentSettingFields(Form $form, ComponentBase $component): void
+    {
+    }
+
+    /**
+     * On view setup
+     * Use this to insert <head> data with $view->addHeadHtmlAfterInit() if you need some additional initializing stuff
+     * @param Index $view
+     * @return void
+     */
+    public function onViewSetup(Index $view): void
     {
     }
 }

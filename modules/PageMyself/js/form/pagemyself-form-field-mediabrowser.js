@@ -28,6 +28,12 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
   multiple = false
 
   /**
+   * Current folder
+   * @type {number|null}
+   */
+  currentFolder = null
+
+  /**
    * Set value for this field
    * @param {*} value
    * @param {boolean} isUserChange Indicates if this change was done because of an user input
@@ -41,7 +47,13 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
         self.hiddenFieldsContainer.append('<input type="hidden" name="' + self.name + (self.multiple ? '[]' : '') + '" value="' + value[i] + '">')
       }
     }
-    this.hiddenFieldsContainer.append(FramelixLang.get('__pagemyself_mediabrowser_files_selected__', [FramelixObjectUtils.countKeys(value)]))
+    const count = FramelixObjectUtils.countKeys(value)
+    let html = ''
+    if (count > 0) {
+      html = '<button class="framelix-button framelix-button-small" data-icon-left="clear" title="__pagemyself_mediabrowser_deselect_files__" style="padding: 5px; min-height: 0"></button> &nbsp; ' + html
+    }
+    html += FramelixLang.get('__pagemyself_mediabrowser_files_selected__', [count])
+    this.hiddenFieldsContainer.append(html)
     this.triggerChange(this.field, isUserChange)
   }
 
@@ -69,6 +81,7 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('replaceId', replaceId || '')
+    formData.append('currentFolder', this.currentFolder)
     const request = FramelixRequest.request('post', this.apiUrl, null, formData, true)
     await request.finished
     const result = await request.getJson()
@@ -88,7 +101,8 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
     if (this.modal) await this.modal.destroy()
     this.modal = await FramelixModal.callPhpMethod(self.apiUrl, {
       'action': 'browser',
-      'selectedValues': this.getValue()
+      'selectedValues': this.getValue(),
+      'currentFolder': self.currentFolder
     }, {
       maxWidth: 900,
       noAnimation: true
@@ -106,12 +120,14 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
       self.reload()
     })
     this.modal.bodyContainer.on('change', 'input[type="checkbox"]', async function (ev) {
+      ev.stopPropagation()
+      ev.stopImmediatePropagation()
       const arr = []
       if (!self.multiple) {
-        if (this.checked) arr.push($(this).closest('.mediabrowser-file').attr('data-id'))
+        if (this.checked) arr.push($(this).closest('.mediabrowser-file, .mediabrowser-folder').attr('data-id'))
       } else {
         self.modal.bodyContainer.find('input:checked').each(function () {
-          arr.push($(this).closest('.mediabrowser-file').attr('data-id'))
+          arr.push($(this).closest('.mediabrowser-file, .mediabrowser-folder').attr('data-id'))
         })
       }
       self.setValue(arr)
@@ -121,11 +137,26 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
     })
     this.modal.bodyContainer.on('click', '.delete-file', async function (ev) {
       ev.stopPropagation()
+      ev.stopImmediatePropagation()
       if (await FramelixModal.confirm('__framelix_sure__').confirmed) {
-        await FramelixApi.callPhpMethod(self.apiUrl, {
-          'action': 'deleteFile',
-          'id': $(this).closest('.mediabrowser-file').attr('data-id')
-        })
+        await self.apiRequest('deleteFile', { 'id': $(this).closest('.mediabrowser-file').attr('data-id') })
+        self.reload()
+      }
+    })
+    this.modal.bodyContainer.on('click', '.delete-folder', async function (ev) {
+      ev.stopPropagation()
+      ev.stopImmediatePropagation()
+      if (await FramelixModal.confirm('__framelix_sure__').confirmed) {
+        await self.apiRequest('deleteFolder', { 'id': $(this).closest('.mediabrowser-folder').attr('data-id') })
+        self.reload()
+      }
+    })
+    this.modal.bodyContainer.on('click', '.rename-entry', async function (ev) {
+      ev.stopPropagation()
+      ev.stopImmediatePropagation()
+      let name = await FramelixModal.prompt('__pagemyself_mediabrowser_rename__', $(this).attr('data-default')).promptResult
+      if (name) {
+        await self.apiRequest('renameEntry', { 'id': $(this).attr('data-id'), 'name': name.trim() })
         self.reload()
       }
     })
@@ -139,7 +170,27 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
       self.modal.bodyContainer.find('input[type="file"]').closest('label').trigger('click')
       await Framelix.wait(200)
       input.attr('accept', accept)
-
+    })
+    this.modal.bodyContainer.on('click', '.mediabrowser-folder', async function (ev) {
+      if ($(ev.target).is('input')) return
+      ev.stopPropagation()
+      self.currentFolder = $(this).attr('data-id')
+      if (self.currentFolder === '') self.currentFolder = null
+      self.reload()
+    })
+    this.modal.bodyContainer.on('click', 'a[data-folder-id]', async function (ev) {
+      ev.stopPropagation()
+      ev.preventDefault()
+      self.currentFolder = $(this).attr('data-folder-id')
+      if (self.currentFolder === '') self.currentFolder = null
+      self.reload()
+    })
+    this.modal.bodyContainer.on('click', '.create-folder', async function () {
+      let name = await FramelixModal.prompt('__pagemyself_mediabrowser_createfolder__', '').promptResult
+      if (name) {
+        self.currentFolder = await self.apiRequest('createFolder', { 'name': name.trim() })
+        self.reload()
+      }
     })
   }
 
@@ -151,7 +202,10 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
     const self = this
     await super.renderInternal()
     const btn = $('<button class="framelix-button framelix-button-primary" data-icon-left="perm_media" type="button">' + FramelixLang.get('__pagemyself_mediabrowser_open__') + '</button>')
-    this.hiddenFieldsContainer = $('<div class="pagemyself-media-browser"></div>')
+    this.hiddenFieldsContainer = $('<div></div>')
+    this.hiddenFieldsContainer.on('click', '.framelix-button-small[data-icon-left]', function () {
+      self.setValue(null, true)
+    })
     this.field.append(btn)
     this.field.append(this.hiddenFieldsContainer)
 
@@ -159,6 +213,17 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
       self.reload()
     })
     await this.setValue(this.defaultValue)
+  }
+
+  /**
+   * Api request
+   * @param {string} action
+   * @param {Object=} params
+   * @returns {Promise<*>}
+   */
+  async apiRequest (action, params) {
+    params = Object.assign({ 'action': action, 'currentFolder': this.currentFolder }, params || {})
+    return FramelixApi.callPhpMethod(this.apiUrl, params)
   }
 }
 

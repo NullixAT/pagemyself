@@ -20,7 +20,6 @@ use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\ThemeBase;
-
 use function trim;
 
 /**
@@ -204,6 +203,8 @@ class Index extends LayoutView
             </script>
         '
         );
+
+        $this->theme->onViewSetup($this);
 
         $pageContent = Buffer::getAll();
 

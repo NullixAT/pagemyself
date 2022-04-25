@@ -8,7 +8,6 @@ use Framelix\Framelix\Network\JsCall;
 use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\View\Index;
-
 use function strtolower;
 
 /**
@@ -40,7 +39,8 @@ abstract class ComponentBase
         }
         $blockIds = [
             'Text',
-            'Calendar'
+            'Slideshow',
+            'Calendar',
         ];
         $arr = [];
         foreach ($blockIds as $blockId) {
@@ -105,6 +105,15 @@ abstract class ComponentBase
     public function getDefaultSettings(): array
     {
         return [];
+    }
+
+    /**
+     * Get javascript init parameters
+     * @return array|null
+     */
+    public function getJavascriptInitParameters(): ?array
+    {
+        return null;
     }
 
     /**

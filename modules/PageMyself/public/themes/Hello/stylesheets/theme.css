@@ -1,9 +1,10 @@
 :root {
   --font: Arial, sans-serif;
   --font-size: 16px;
-  --line-height: 20px;
+  --line-height: 1.4;
   --color-page-bg: white;
-  --color-page-text: black;
+  --color-page-text: #111;
+  --color-primary-hue: 120;
   --nav-color-text: var(--color-page-text);
   --nav-color-text-highlight: var(--color-primary-text);
 }
@@ -45,10 +46,6 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-
-.page-nav-wrap ul {
-  flex-wrap: wrap;
 }
 
 .page-nav .nav-entry,
@@ -97,11 +94,21 @@ body {
 .page-nav button.nav-entry {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
-.page-nav button.nav-entry:after {
+
+.page-nav .nav-entry-group:after {
   content: "expand_more";
   font-family: "Material Icons", sans-serif;
   margin-left: 5px;
+}
+
+.page-nav .nav-entry-hidden {
+  display: none;
+}
+
+.page-nav .show-more button:before {
+  font-size: 24px;
 }
 
 @keyframes nav-gelatine {
@@ -120,21 +127,34 @@ body {
 }
 
 .popup-nav {
-  padding: 10px 20px 5px;
+  padding: 5px;
   --color-popup-default-bg: var(--color-page-bg);
   --arrow-color: var(--color-page-bg);
   --color-popup-default-text: var(--color-page-text);
   text-align: center;
 }
+
+.popup-nav .page-nav {
+  padding: 0;
+}
+
 .popup-nav .nav-entry,
 .popup-nav .nav-entry:any-link {
   font-size: 1rem;
   font-weight: normal;
 }
 
-
 .popup-nav ul {
   display: block;
+}
+
+.modal-nav ul {
+  display: block;
+}
+
+
+.modal-nav .show-more {
+  display: none;
 }
 
 .component-block img {

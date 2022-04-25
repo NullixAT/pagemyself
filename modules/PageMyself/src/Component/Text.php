@@ -2,6 +2,8 @@
 
 namespace Framelix\PageMyself\Component;
 
+use Framelix\Framelix\Lang;
+
 /**
  * A simple text block
  */
@@ -14,7 +16,7 @@ class Text extends ComponentBase
     public function getDefaultSettings(): array
     {
         return [
-            'text' => ['text' => '<p>Your text here</p>']
+            'text' => ['text' => '<p>' . Lang::get('__pagemyself_component_text_default__') . '</p>']
         ];
     }
 

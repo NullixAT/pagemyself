@@ -8,7 +8,7 @@ use Framelix\Framelix\Url;
 use Framelix\Framelix\View;
 use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Backend\Page\Index;
-
+use function class_exists;
 use function file_exists;
 
 /**
@@ -138,7 +138,14 @@ class Page extends StorableExtended
      */
     public function getComponentBlocks(): array
     {
-        return ComponentBlock::getByCondition('page = {0}', [$this], ["+sort", "+id"]);
+        $componentBlocks = ComponentBlock::getByCondition('page = {0}', [$this], ["+sort", "+id"]);
+        // in case some classes have been removed
+        foreach ($componentBlocks as $key => $componentBlock) {
+            if (!class_exists($componentBlock->blockClass)) {
+                unset($componentBlocks[$key]);
+            }
+        }
+        return $componentBlocks;
     }
 
     /**

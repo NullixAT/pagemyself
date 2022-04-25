@@ -222,8 +222,9 @@ class PageMyselfPageEditor {
     PageMyselfPageEditor.iframeHtml.addClass('pageeditor-website')
 
     // quick open block settings
-    $(PageMyselfPageEditor.iframeDoc).on('click', '.component-block', async function (ev) {
+    $(PageMyselfPageEditor.iframeDoc).on('contextmenu', '.component-block', async function (ev) {
       if (!ev.ctrlKey) return
+      ev.preventDefault()
       ev.stopPropagation()
       ev.stopImmediatePropagation()
       PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, $(this).attr('data-id'))

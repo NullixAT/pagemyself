@@ -35,9 +35,10 @@ class PageMyselfComponent {
 
   /**
    * Initialize the block
+   * @param {Object|Array=} params Parameters passed from the backend
    * @returns {Promise<void>}
    */
-  async init () {
+  async init (params) {
 
   }
 
@@ -78,26 +79,39 @@ class PageMyselfComponent {
     for (let i = 0.6; i <= 8; i += 0.2) {
       fontSizes.push(i.toFixed(1) + 'rem')
     }
-
+    let font_formats = ''
+    const fonts = {
+      'Andale Mono': { 'name': 'andale mono,times,sans-serif' },
+      'Arial': { 'name': 'arial,helvetica,sans-serif' },
+      'Arial Black': { 'name': 'arial black,avant garde,sans-serif' },
+      'Book Antiqua': { 'name': 'book antiqua,palatino,sans-serif' },
+      'Comic Sans MS': { 'name': 'comic sans ms,sans-serif' },
+      'Courier New': { 'name': 'courier new,courier,sans-serif' },
+      'Georgia': { 'name': 'georgia,palatino,sans-serif' },
+      'Helvetica': { 'name': 'helvetica,sans-serif' },
+      'Impact': { 'name': 'impact,chicago,sans-serif' },
+      'Symbol': { 'name': 'symbol,sans-serif' },
+      'Tahoma': { 'name': 'tahoma,arial,helvetica,sans-serif' },
+      'Terminal': { 'name': 'terminal,monaco,sans-serif' },
+      'Times New Roman': { 'name': 'times new roman,times,sans-serif' },
+      'Trebuchet MS': { 'name': 'trebuchet ms,geneva,sans-serif' },
+      'Verdana': { 'name': 'verdana,geneva,sans-serif' },
+      'Webdings': { 'name': 'webdings' },
+      'Wingdings': { 'name': 'wingdings,zapf dingbats' }
+    }
+    for (let key in fonts) {
+      const row = fonts[key]
+      font_formats += key + '=' + row.name + ';'
+    }
     tinymce.init({
-      fontsize_formats: fontSizes.join(' '),
+      'font_formats': font_formats,
+      font_size_formats: fontSizes.join(' '),
       language: ['en', 'de'].indexOf(FramelixLang.lang) > -1 ? FramelixLang.lang : 'en',
       target: container[0],
       menubar: false,
       inline: true,
-      plugins: 'image link media table advlist lists code -pagemyself',
-      style_formats: [
-        {
-          title: 'Button Link',
-          inline: 'a',
-          classes: 'framelix-button framelix-button-primary',
-          attributes: { href: '#' }
-        }
-      ],
-      // The following option is used to append style formats rather than overwrite the default style formats.
-      style_formats_merge: true,
+      plugins: ['image', 'link', 'media', 'table', 'advlist', 'lists', 'code', '-pagemyself'],
       file_picker_callback: async function (callback, value, meta) {
-        console.log(meta)
         const modal = await self.apiRequestInModal('textEditorMediaBrowser')
         modal.bodyContainer.on('change', '.mediabrowser-file[data-url]', function () {
           const checked = $(this).find('input:checked')
@@ -107,7 +121,7 @@ class PageMyselfComponent {
           }
         })
       },
-      toolbar: 'pagemyself-save-text pagemyself-components | undo redo | bold italic underline strikethrough | pagemyself-cancel-text | fontselect fontsizeselect styleselect lineheight | alignleft aligncenter alignright alignjustify | image media pageembed link | forecolor backcolor removeformat | outdent indent | numlist bullist checklist | table  | code',
+      toolbar: 'pagemyself-save-text pagemyself-components | bold italic underline strikethrough | pagemyself-cancel-text | fontfamily fontsize lineheight | alignleft aligncenter alignright alignjustify | image media pageembed link | forecolor backcolor removeformat | outdent indent | numlist bullist checklist | table  | code',
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
       image_dimensions: false,

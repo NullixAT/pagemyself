@@ -5,11 +5,11 @@ namespace Framelix\PageMyself\Storable;
 use Framelix\Framelix\Network\UploadedFile;
 use Framelix\Framelix\Storable\StorableFile;
 use Framelix\Framelix\Url;
-
 use function in_array;
 
 /**
  * MediaFile
+ * @property MediaFolder|null $mediaFolder
  * @property mixed|null $tags
  * @property mixed|null $metadata
  */
@@ -58,6 +58,15 @@ class MediaFile extends StorableFile
     public function isImageFile(): bool
     {
         return in_array($this->extension, ['jpg', 'jpeg', 'gif', 'png', 'webp']);
+    }
+
+    /**
+     * Get full name to this file
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->mediaFolder ? $this->mediaFolder->getFullName() . " / " . $this->filename : $this->filename;
     }
 
     /**
