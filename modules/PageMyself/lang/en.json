@@ -42,7 +42,10 @@
     "Pro Tip: Hold CTRL and right-click on any block directly on the website, to open the settings window for the block."
   ],
   "__pagemyself_component_slideshow_sorting__": [
-    "To sort images in the slideshow, enable thumbnails and drag&drop the images to the desired places."
+    "To sort images in the slideshow, enable thumbnails and drag&drop the images to the desired places in the thumbnail container."
+  ],
+  "__pagemyself_component_slideshow_sorting_tooltip_": [
+    "Drag&Drop the images to the desired places"
   ],
   "__pagemyself_component_slideshow_thumbnails__": [
     "Show Thumbnails"
@@ -70,6 +73,9 @@
   ],
   "__pagemyself_component_settings__": [
     "Settings"
+  ],
+  "__pagemyself_component_open_settings__": [
+    "Open settings"
   ],
   "__pagemyself_component_sort_down__": [
     "Move this block down"

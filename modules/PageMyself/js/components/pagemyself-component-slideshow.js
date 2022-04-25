@@ -27,17 +27,24 @@ class PageMyselfComponentSlideshow extends PageMyselfComponent {
     const self = this
     this.imageContainer = this.container.find('.slideshow-image')
     this.images = params.images
-    if (!this.images.length) return
+    if (!this.images.length) {
+      return
+    }
 
     this.gotoImage(this.index)
 
-    FramelixIntersectionObserver.onGetVisible(this.imageContainer, function () {
-      // implement thumbs
-      const container = self.container.find('.slideshow-thumbs')
-      for (let i = 0; i < self.images.length; i++) {
-        container.append('<div data-index="' + i + '"><div data-background-image="' + self.images[i].url + '"></div></div>')
-      }
-    })
+    const thumbsContainer = self.container.find('.slideshow-thumbs')
+    if (params.thumbnails) {
+      FramelixIntersectionObserver.onGetVisible(this.imageContainer, function () {
+        // implement thumbs
+        for (let i = 0; i < self.images.length; i++) {
+          const row = self.images[i]
+          thumbsContainer.append('<div data-index="' + i + '" class="' + (i === self.index ? 'slideshow-thumb-active' : '') + '" data-id="' + row.id + '"><div data-background-image="' + row.url + '"></div></div>')
+        }
+      })
+    } else {
+      thumbsContainer.remove()
+    }
 
     this.container.on('click', '.slideshow-btn', function () {
       self.gotoImage(self.index + parseInt($(this).attr('data-dir')))
@@ -47,10 +54,10 @@ class PageMyselfComponentSlideshow extends PageMyselfComponent {
     })
     // on any swipe left/right we close as well
     this.imageContainer.on('swiped-left', function () {
-      self.gotoImage(self.index - 1)
+      self.gotoImage(self.index + 1)
     })
     this.imageContainer.on('swiped-right', function () {
-      self.gotoImage(self.index + 1)
+      self.gotoImage(self.index - 1)
     })
     this.container.on('click', '.slideshow-thumbs > div', function () {
       self.gotoImage(parseInt($(this).attr('data-index')))
@@ -66,8 +73,16 @@ class PageMyselfComponentSlideshow extends PageMyselfComponent {
     const rowPrev = this.images[this.getFixedIndex(index - 1)]
     const rowNext = this.images[this.getFixedIndex(index + 1)]
     this.index = this.getFixedIndex(index)
+    const thumbsContainer = this.container.find('.slideshow-thumbs')
+    const activeImage = thumbsContainer.find('[data-index]').removeClass('slideshow-thumb-active').filter('[data-index="' + this.index + '"]').addClass('slideshow-thumb-active')
+    if (activeImage.length) {
+      try {
+        activeImage[0].scrollIntoView({ inline: 'center', 'block': 'nearest' })
+      } catch (e) {}
+    }
     this.imageContainer.empty()
     this.imageContainer.append(`<div class="slideshow-image-inner" data-visible="1"><div class="framelix-loading"></div></div>`)
+    this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${row.url}"></div>`)
     this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${rowPrev.url}"></div>`)
     this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${rowNext.url}"></div>`)
     this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${row.url}" data-visible="1"></div>`)
@@ -90,5 +105,24 @@ class PageMyselfComponentSlideshow extends PageMyselfComponent {
    */
   async enableEditing () {
     await super.enableEditing()
+    const self = this
+    const thumbsContainer = this.container.find('.slideshow-thumbs')
+    if (!this.images.length) {
+      this.container.find('.slideshow-image').html('<div class="slideshow-image-inner" data-visible="1"><button class="framelix-button open-block-settings">' + FramelixLang.get('__pagemyself_component_open_settings__') + '</button></div>')
+    } else {
+      if (thumbsContainer.length) {
+        FramelixDom.includeCompiledFile('Framelix', 'js', 'sortablejs', 'Sortable').then(function () {
+          new Sortable(thumbsContainer[0], {
+            'onSort': function () {
+              const ids = []
+              thumbsContainer.find('[data-id]').each(function () {
+                ids.push($(this).attr('data-id'))
+              })
+              self.apiRequest('sort', { 'ids': ids })
+            }
+          })
+        })
+      }
+    }
   }
 }

@@ -15,23 +15,27 @@
   }
 
   .slideshow-thumbs {
-    height: 120px;
+    height: 130px;
+    padding: 10px;
     overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
     text-align: center;
     white-space: nowrap;
+    position: relative;
 
     > div {
       display: inline-flex;
       height: 100px;
       width: 100px;
       margin: 5px;
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
       border-radius: var(--border-radius);
       cursor: pointer;
       opacity: 0.8;
       transition: .2s;
+
+      &.slideshow-thumb-active {
+        box-shadow: var(--color-primary-bg) 0 0 20px;
+      }
 
       &:hover {
         opacity: 1;
@@ -42,7 +46,6 @@
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        scroll-snap-align: center;
       }
     }
   }
@@ -70,5 +73,9 @@
     &[data-visible='1'] {
       opacity: 1;
     }
+  }
+
+  &[data-editing='1'] .slideshow-thumbs > div {
+    cursor: move;
   }
 }

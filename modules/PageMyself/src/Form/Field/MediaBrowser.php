@@ -11,6 +11,7 @@ use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\MediaFolder;
 use Throwable;
+
 use function array_reverse;
 use function implode;
 use function is_array;
@@ -130,27 +131,33 @@ class MediaBrowser extends Field
                     while ($parent = $parent->parent) {
                         $name[] = '<a href="#" data-folder-id="' . $parent . '">' . $parent->name . '</a>';
                     }
-                    $name[] = '<a href="#" data-folder-id="">' . Lang::get('__pagemyself_mediabrowser_rootfolder__') . '</a>';
+                    $name[] = '<a href="#" data-folder-id="">' . Lang::get(
+                            '__pagemyself_mediabrowser_rootfolder__'
+                        ) . '</a>';
                     $name = array_reverse($name);
                 } else {
                     $name[] = Lang::get('__pagemyself_mediabrowser_rootfolder__');
                 }
 
                 ?>
-                <h3 style="display: flex; align-items: center; gap:10px;">
+                <h2 style="display: flex; align-items: center; gap:10px; border-bottom:1px solid var(--color-border-subtle)">
                     <span class="material-icons" style="color:var(--color-warning-text)">folder</span>
-                    <?= implode(" / ",
-                        $name) ?>
-                </h3>
-                <button class="framelix-button create-folder framelix-button-trans"
+                    <?= implode(
+                        " / ",
+                        $name
+                    ) ?>
+                </h2>
+                <button class="framelix-button framelix-button-primary create-folder"
                         data-icon-left="add">
                     <?= Lang::get('__pagemyself_mediabrowser_createfolder__') ?>
                 </button>
                 <?php
 
-                $folders = MediaFolder::getByCondition($currentFolder ? 'parent = {0}' : 'parent IS NULL',
+                $folders = MediaFolder::getByCondition(
+                    $currentFolder ? 'parent = {0}' : 'parent IS NULL',
                     [$currentFolder],
-                    "+name");
+                    "+name"
+                );
                 foreach ($folders as $folder) {
                     ?>
                     <div class="mediabrowser-folder" data-id="<?= $folder ?>">
@@ -182,9 +189,15 @@ class MediaBrowser extends Field
                     <?php
                 }
 
-                $files = MediaFile::getByCondition($currentFolder ? 'mediaFolder = {0}' : 'mediaFolder IS NULL',
-                    [$currentFolder], "+filename");
+                $files = MediaFile::getByCondition(
+                    $currentFolder ? 'mediaFolder = {0}' : 'mediaFolder IS NULL',
+                    [$currentFolder],
+                    "+filename"
+                );
                 foreach ($files as $file) {
+                    if ($allowedExtensions && !in_array($file->extension, $allowedExtensions)) {
+                        continue;
+                    }
                     ?>
                     <div class="mediabrowser-file" data-id="<?= $file ?>"
                          data-extension="<?= HtmlUtils::escape($file->extension) ?>"

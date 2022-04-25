@@ -14,6 +14,7 @@ use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Index;
+
 use function array_keys;
 use function is_array;
 use function ucfirst;
@@ -167,21 +168,27 @@ class Theme extends ThemeBase
         $field->showResetButton = false;
         $field->defaultValue = $fonts['Arial'];
         foreach ($fonts as $fontName => $fontCss) {
-            $field->addOption($fontCss,
-                $fontName . ' (<span style="font-family: ' . $fontCss . '">' . $fontName . '</span>)');
+            $field->addOption(
+                $fontCss,
+                $fontName . ' (<span style="font-family: ' . $fontCss . '">' . $fontName . '</span>)'
+            );
         }
         $form->addField($field);
 
         $field = new Select();
         $field->name = 'colorScheme';
-        $field->labelDescription = Lang::get('__theme_hello_colorscheme_desc__',
-            ['<a href="https://coolors.co/palettes/trending" target="_blank">https://coolors.co/palettes/trending</a>']);
+        $field->labelDescription = Lang::get(
+            '__theme_hello_colorscheme_desc__',
+            ['<a href="https://coolors.co/palettes/trending" target="_blank">https://coolors.co/palettes/trending</a>']
+        );
         $field->showResetButton = false;
         foreach (self::$colorSchemes as $colorScheme => $row) {
-            $html = '<div style="display: flex; align-items: center; gap: 5px; padding:10px; border-radius: var(--border-radius); background:#414645 linear-gradient(45deg, #262928 25%, #414645 25%, #414645 50%, #262928 50%, #262928 75%, #414645 75%, #414645 100%); background-size: 56px 56px;">';
+            $html = '<div style="display: flex; align-items: center; gap: 5px; padding:10px; border-radius: var(--border-radius); color:white; background:#414645 linear-gradient(45deg, #262928 25%, #414645 25%, #414645 50%, #262928 50%, #262928 75%, #414645 75%, #414645 100%); background-size: 56px 56px;">';
             $html .= '<b style="min-width: 100px">' . $colorScheme . '</b>';
             foreach ($row as $colorName => $defaultColor) {
-                $html .= '<div style="cursor:pointer; border-radius:3px; height:30px; width:30px; box-shadow:rgba(0,0,0,0.5) 0 0 3px; background-color:' . $defaultColor . ';" title="' . Lang::get('__theme_hello_colorscheme_' . $colorName . '__') . '">';
+                $html .= '<div style="cursor:pointer; border-radius:3px; height:30px; width:30px; box-shadow:rgba(0,0,0,0.5) 0 0 3px; background-color:' . $defaultColor . ';" title="' . Lang::get(
+                        '__theme_hello_colorscheme_' . $colorName . '__'
+                    ) . '">';
                 $html .= '</div>';
             }
             $html .= '</div>';
@@ -194,8 +201,10 @@ class Theme extends ThemeBase
         foreach ($colorNames as $colorName) {
             $field = new Color();
             $field->name = 'colorSchemeOverride' . ucfirst($colorName);
-            $field->label = Lang::get('__theme_hello_colorscheme_override__',
-                [Lang::get('__theme_hello_colorscheme_' . $colorName . '__')]);
+            $field->label = Lang::get(
+                '__theme_hello_colorscheme_override__',
+                [Lang::get('__theme_hello_colorscheme_' . $colorName . '__')]
+            );
 
             $form->addField($field);
         }

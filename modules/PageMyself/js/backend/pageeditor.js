@@ -222,12 +222,15 @@ class PageMyselfPageEditor {
     PageMyselfPageEditor.iframeHtml.addClass('pageeditor-website')
 
     // quick open block settings
-    $(PageMyselfPageEditor.iframeDoc).on('contextmenu', '.component-block', async function (ev) {
+    $(PageMyselfPageEditor.iframeDoc).on('contextmenu', '.component-block', function (ev) {
       if (!ev.ctrlKey) return
       ev.preventDefault()
       ev.stopPropagation()
       ev.stopImmediatePropagation()
       PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, $(this).attr('data-id'))
+    })
+    $(PageMyselfPageEditor.iframeDoc).on('click', '.open-block-settings', function () {
+      PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, $(this).closest('.component-block').attr('data-id'))
     })
 
     // insert new blocks
