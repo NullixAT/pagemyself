@@ -8,37 +8,50 @@
   flex-wrap: wrap;
   min-width: 250px;
 
+  .pagemyself-column {
+    min-width: 250px;
+    flex-grow: 1;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
   &[data-columns='1'] {
+    flex-basis: 100%;
+
     .pagemyself-column {
       flex-basis: 100%;
     }
   }
 
   &[data-columns='2'] {
+    flex-basis: 50%;
+
     .pagemyself-column {
       flex-basis: 50%;
     }
   }
 
   &[data-columns='3'] {
+    flex-basis: 33%;
+
     .pagemyself-column {
       flex-basis: 33%;
     }
   }
 
   &[data-columns='4'] {
+    flex-basis: 25%;
+
     .pagemyself-column {
       flex-basis: 25%;
     }
   }
 
   &[data-columns='5'] {
+    flex-basis: 20%;
+
     .pagemyself-column {
       flex-basis: 20%;
     }
-  }
-
-  .pagemyself-column {
-    flex-basis: 100%;
   }
 }

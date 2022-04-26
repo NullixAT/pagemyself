@@ -64,7 +64,7 @@ class TinymceTemplates {
 
   /**
    * On before insert into the tinymce editor
-   * Use this to ask user for some input or stuff like that that cant be handled with default fields
+   * Use this to ask user for some input or stuff like that that can't be handled with default fields
    * Manipulate template container to your needs
    * Do not bind events on this container, they will not be fired
    * @param {string} id The template id
@@ -77,7 +77,7 @@ class TinymceTemplates {
         const columns = parseInt(formValues[0])
         const container = $(`<div class="pagemyself-columns" data-columns="${columns}"></div>`)
         for (let i = 1; i <= columns; i++) {
-          container.append(`<div class="pagemyself-column">Your text here</div>`)
+          container.append(`<div class="pagemyself-column" data-color-picker="column|css|backgroundColor">Your text here</div>`)
         }
         templateContainer.html(container)
         break

@@ -101,6 +101,9 @@
   "__pagemyself_editor_templates_colorpicker_bg__": [
     "Pick a background color"
   ],
+  "__pagemyself_editor_templates_settings__": [
+    "Settings"
+  ],
   "__pagemyself_editor_templates_type_alert__": [
     "Alert Box"
   ],

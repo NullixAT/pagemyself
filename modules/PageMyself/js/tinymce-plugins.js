@@ -23,7 +23,6 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
       component.enableTextEditor(el)
     }
   })
-
   editor.ui.registry.addMenuButton('pagemyself-templates', {
     text: FramelixLang.get('__pagemyself_editor_templates__'),
     fetch: function (callback) {
@@ -50,7 +49,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
               form.addButton('accept', '__framelix_ok__', 'check', 'success')
               form.render()
               modalContent.append(form.container)
-              const formModal = FramelixModal.show({ bodyContent: modalContent })
+              const formModal = FramelixModal.show({ bodyContent: modalContent, maxWidth: 900 })
               let proceed = false
               form.container.on('click', '.framelix-form-buttons button', async function (ev) {
                 ev.stopPropagation()
@@ -79,56 +78,37 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
       callback(options)
     }
   })
-  editor.ui.registry.addNestedMenuItem('pagemyself-templates', {
-    text: FramelixLang.get('__pagemyself_editor_templates__'),
-    tooltip: FramelixLang.get('__pagemyself_editor_templates_tooltip__'),
-    getSubmenuItems: function () {
-      const templatesInstance = window.top.eval('PageMyselfPageEditorTinymceTemplates')
-      const templates = templatesInstance.getTemplates()
-      let options = []
-      for (let id in templates) {
-        const row = templates[id]
-        options.push({
-          type: 'menuitem',
-          text: row.title,
-          onAction: async function () {
-            let replacements = {}
-            const templateContainer = $('<div>').html(row.html)
-            if (row.fields) {
-              const modalContent = $('<div>')
-              const form = new FramelixForm()
-              for (let i in row.fields) {
-                /** @type {FramelixFormField} */
-                const field = row.fields[i]
-                field.name = i.toString()
-                form.addField(field)
-              }
-              form.addButton('accept', '__framelix_ok__', 'check', 'success')
-              form.render()
-              modalContent.append(form.container)
-              const formModal = FramelixModal.show({ bodyContent: modalContent })
-              let proceed = false
-              form.container.on('click', '.framelix-form-buttons button', function () {
-                proceed = true
-                formModal.destroy()
-              })
-              await formModal.destroyed
-              if (!proceed) return
-              const values = form.getValues()
-              if (values) {
-                replacements = values
-              }
-            }
-            await templatesInstance.onBeforeInsert(id, templatesInstance)
-            let html = templateContainer.html()
-            for (let search in replacements) {
-              html = html.replace(new RegExp(FramelixStringUtils.escapeRegex('{' + search + '}'), 'ig'), replacements[search])
-            }
-            editor.insertContent(html + '<br/>')
-          }
-        })
+  editor.ui.registry.addMenuItem('block-settings', {
+    icon: 'settings',
+    text: FramelixLang.get('__pagemyself_editor_templates_settings__'),
+    onAction: function () {
+      const node = editor.selection.getNode()
+      if (!node) return
+      const colorPicker = node.closest('[data-color-picker]')
+      if (colorPicker) {
+        const colorPickerData = colorPicker.dataset.colorPicker.split(',')
+        const form = new FramelixForm()
+        for (let i in colorPickerData) {
+          const row = colorPickerData[i].split('|')
+          const field = new FramelixFormFieldColor()
+          field.name = i
+          field.label = row[0]
+          if (row[1] === 'css' && colorPicker.style[row[2]]) field.defaultValue = FramelixColorUtils.cssColorToHex(colorPicker.style[row[2]])
+          form.addField(field)
+          field.container.on(FramelixFormField.EVENT_CHANGE_USER, function () {
+            colorPicker.style[row[2]] = field.getValue()
+          })
+        }
+        form.render()
+        const modal = FramelixModal.show({ bodyContent: form.container, maxWidth: 900 })
+
       }
-      return options
+
+    }
+  })
+  editor.ui.registry.addContextMenu('image', {
+    update: function (element) {
+      return !element.closest('[data-color-picker]') ? '' : 'block-settings'
     }
   })
   return {
