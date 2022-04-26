@@ -20,7 +20,7 @@ if (!defined("FRAMELIX_MODULE")) {
                             {
                                 "type": "file",
                                 "path": [
-                                    "js\/backend\/pageeditor.js"
+                                    "js\/backend\/pagemyself-page-editor.js"
                                 ]
                             }
                         ],
@@ -71,7 +71,8 @@ if (!defined("FRAMELIX_MODULE")) {
                             {
                                 "type": "file",
                                 "path": [
-                                    "js\/tinymce-plugins.js"
+                                    "js\/tinymce-plugins.js",
+                                    "js\/tinymce-templates.js"
                                 ]
                             }
                         ],

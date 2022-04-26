@@ -95,11 +95,29 @@
   "__pagemyself_component_text_title__": [
     "Texteditor with predefined components"
   ],
-  "__pagemyself_editor_components__": [
-    "Add Component"
+  "__pagemyself_editor_templates__": [
+    "Insert template"
   ],
-  "__pagemyself_editor_components_tooltip__": [
-    "A huge list of layout components"
+  "__pagemyself_editor_templates_colorpicker_bg__": [
+    "Pick a background color"
+  ],
+  "__pagemyself_editor_templates_type_alert__": [
+    "Alert Box"
+  ],
+  "__pagemyself_editor_templates_type_buttonlink__": [
+    "Button Link"
+  ],
+  "__pagemyself_editor_templates_type_columns__": [
+    "Responsive columns"
+  ],
+  "__pagemyself_editor_templates_type_columns_number__": [
+    "Number of columns"
+  ],
+  "__pagemyself_editor_templates_colorpicker_text__": [
+    "Pick a text color"
+  ],
+  "__pagemyself_editor_templates_edit_text__": [
+    "You can edit this text after inserting into the website"
   ],
   "__pagemyself_mediabrowser_files_selected__": [
     "{{0=1:{0} file|0=*:{0} files}} selected"

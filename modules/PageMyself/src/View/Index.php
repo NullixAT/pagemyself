@@ -79,7 +79,7 @@ class Index extends LayoutView
             $component = $componentBlock->getComponentInstance();
             $component->onApiRequest(
                 Request::getGet('data[action]') ?? $jsCall->parameters['action'],
-                Request::getGet('data[params]') ?? $jsCall->parameters['params']
+                Request::getGet('data[params]') ?? $jsCall->parameters['params'] ?? null
             );
         }
     }

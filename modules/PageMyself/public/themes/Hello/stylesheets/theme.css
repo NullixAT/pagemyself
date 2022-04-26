@@ -4,7 +4,7 @@
   --line-height: 1.4;
   --color-page-bg: white;
   --color-page-text: #111;
-  --color-primary-hue: 120;
+  --color-primary-hue: 210;
   --nav-color-text: var(--color-page-text);
   --nav-color-text-highlight: var(--color-primary-text);
 }

@@ -76,8 +76,10 @@ abstract class ComponentBase
                 $jsCall = new JsCall('browser', ['action' => 'browser']);
                 echo $jsCall->call(MediaBrowser::class . "::onJsCall");
                 break;
-            case 'textEdtorLayouts':
-
+            case 'textEditorLayouts':
+                ?>
+                
+                <?php
                 break;
         }
     }

@@ -14,7 +14,6 @@ use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Index;
-
 use function array_keys;
 use function is_array;
 use function ucfirst;
@@ -235,6 +234,9 @@ class Theme extends ThemeBase
         $field->name = 'backgroundVideo';
         $field->setOnlyVideos();
         $form->addField($field);
+
+        $form->addFieldGroup('bg', 'Background Settings',
+            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'], false, true);
     }
 
     /**

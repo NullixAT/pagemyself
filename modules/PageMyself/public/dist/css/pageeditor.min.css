@@ -106,3 +106,8 @@
 .pageeditor-block-options .pageeditor-block-options-title:empty {
   background: transparent;
 }
+
+.editor-templates-body {
+  margin-top: 20px;
+  pointer-events: none;
+}
