@@ -6,3 +6,4 @@ modules/*
 !modules/Framelix
 !modules/Myself
 !modules/PageMyself
+package-lock.json
