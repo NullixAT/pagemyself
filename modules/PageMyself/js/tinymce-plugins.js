@@ -36,7 +36,6 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
           onAction: async function () {
             let replacements = {}
             let values = null
-            const templateContainer = $('<div>').html(row.html)
             if (row.fields) {
               const modalContent = $('<div>')
               const form = new FramelixForm()
@@ -66,8 +65,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
                 replacements = values
               }
             }
-            await TinymceTemplates.onBeforeInsert(id, templateContainer, values)
-            let html = templateContainer.html()
+            let html = await TinymceTemplates.getTemplateHtml(id, values, replacements)
             for (let search in replacements) {
               html = html.replace(new RegExp(FramelixStringUtils.escapeRegex('{' + search + '}'), 'ig'), replacements[search])
             }

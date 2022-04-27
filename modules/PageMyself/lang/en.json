@@ -113,6 +113,21 @@
   "__pagemyself_editor_templates_type_columns__": [
     "Responsive columns"
   ],
+  "__pagemyself_editor_templates_type_emailme__": [
+    "E-Mail Button"
+  ],
+  "__pagemyself_editor_templates_type_emailme_email__": [
+    "Your contact e-mail"
+  ],
+  "__pagemyself_editor_templates_type_emailme_sendmail__": [
+    "Send an e-mail"
+  ],
+  "__pagemyself_editor_templates_type_emailme_sendmailnfo__": [
+    "Please send an e-mail to {0}"
+  ],
+  "__pagemyself_editor_templates_type_emailme_subject__": [
+    "Default Subject"
+  ],
   "__pagemyself_editor_templates_type_columns_number__": [
     "Number of columns"
   ],

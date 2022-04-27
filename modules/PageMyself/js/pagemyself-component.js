@@ -110,6 +110,7 @@ class PageMyselfComponent {
       target: container[0],
       menubar: false,
       inline: true,
+      valid_elements: '*[*]',
       plugins: ['image', 'link', 'media', 'table', 'advlist', 'lists', 'code', '-pagemyself'],
       file_picker_callback: async function (callback, value, meta) {
         const modal = await self.apiRequestInModal('textEditorMediaBrowser')

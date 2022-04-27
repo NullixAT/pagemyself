@@ -48,6 +48,18 @@ class TinymceTemplates {
           })
         ]
       },
+      'emailme': {
+        'html': `<button class="framelix-button framelix-button-primary" onclick='{mailonclick}'>${FramelixLang.get('__pagemyself_editor_templates_type_emailme_sendmail__')}</button>`,
+        'fields': [
+          Object.assign(new FramelixFormFieldEmail(), {
+            'label': '__pagemyself_editor_templates_type_emailme_email__',
+            required: true
+          }),
+          Object.assign(new FramelixFormFieldText(), {
+            'label': '__pagemyself_editor_templates_type_emailme_subject__'
+          })
+        ]
+      },
       'columns': {
         'html': ``,
         'fields': [
@@ -63,24 +75,35 @@ class TinymceTemplates {
   }
 
   /**
-   * On before insert into the tinymce editor
-   * Use this to ask user for some input or stuff like that that can't be handled with default fields
+   * Get template html to insert in tinymce editor
+   * You can use this to ask user for some input or stuff like that that can't be handled with default fields
    * Manipulate template container to your needs
    * Do not bind events on this container, they will not be fired
    * @param {string} id The template id
-   * @param {Cash} templateContainer
-   * @param {Object=} formValues
+   * @param {Object|null} formValues The form values, when your template has some values to enter
+   * @param {Object} replacements An object with key value pairs where {key} is automatically replaced with the value before insert
+   *  Add more key/value pairs if you need more replacements
+   * @return {Promise<string>}
    */
-  static async onBeforeInsert (id, templateContainer, formValues) {
+  static async getTemplateHtml (id, formValues, replacements) {
+    let html = this.getTemplates()[id].html
     switch (id) {
+      case 'emailme':
+        const email = formValues[0]
+        const subject = formValues[1]
+        let mailto = 'mailto:' + email + '?subject=' + encodeURIComponent(subject)
+        let mailonclick = 'FramelixModal.show({bodyContent: atob(' + JSON.stringify(btoa(FramelixLang.get('__pagemyself_editor_templates_type_emailme_sendmailnfo__', [email]))) + '), maxWidth:600}); window.open(atob(' + JSON.stringify(btoa(mailto)) + '));'
+        replacements['mailonclick'] = mailonclick
+        break
       case 'columns':
         const columns = parseInt(formValues[0])
         const container = $(`<div class="pagemyself-columns" data-columns="${columns}"></div>`)
         for (let i = 1; i <= columns; i++) {
           container.append(`<div class="pagemyself-column" data-color-picker="column|css|backgroundColor">Your text here</div>`)
         }
-        templateContainer.html(container)
+        html = container.html()
         break
     }
+    return html
   }
 }
