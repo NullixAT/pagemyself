@@ -179,6 +179,7 @@ body {
   text-align: left;
   margin: 0 auto;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .pagemyself-background-video {
@@ -188,5 +189,5 @@ body {
 
 .pagemyself-background-video > video {
   position: absolute;
-  z-index: 0;
+  z-index: -1;
 }

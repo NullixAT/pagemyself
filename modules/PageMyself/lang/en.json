@@ -143,6 +143,9 @@
   "__pagemyself_mediabrowser_open__": [
     "Open Media Browser"
   ],
+  "__pagemyself_mediabrowser_accept_selection__": [
+    "Accept current selection"
+  ],
   "__pagemyself_mediabrowser_deletefolder__": [
     "Delete folder including all files in it"
   ],

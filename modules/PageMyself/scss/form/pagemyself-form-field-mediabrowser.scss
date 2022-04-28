@@ -1,13 +1,13 @@
-.mediabrowser {
-  .framelix-form-field-file-file {
-    display: none;
-  }
+.mediabrowser-action-bar {
+  display: flex;
+  gap: 10px;
 
-  .framelix-form-field-file {
-    display: block;
+  .framelix-form-field {
+    padding: 0;
+    margin: 0;
 
-    .framelix-form-field-file-button {
-      display: flex;
+    .framelix-form-field-file-file {
+      display: none;
     }
   }
 }
@@ -51,6 +51,14 @@
   .material-icons {
     font-size: 24px;
   }
+}
+
+.mediabrowser-file-icon {
+  min-width: 40px;
+  max-width: 40px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
 }
 
 .mediabrowser-file-preview {

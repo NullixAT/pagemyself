@@ -11,7 +11,6 @@ use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\MediaFolder;
 use Throwable;
-
 use function array_reverse;
 use function implode;
 use function is_array;
@@ -109,21 +108,6 @@ class MediaBrowser extends Field
                 break;
             case 'browser':
                 echo '<div class="mediabrowser">';
-                if (!$disabled) {
-                    $arr = [];
-                    if (is_array($allowedExtensions)) {
-                        foreach ($allowedExtensions as $allowedExtension) {
-                            $arr[] = "." . $allowedExtension;
-                        }
-                    }
-                    $field = new Field\File();
-                    $field->name = "newFile";
-                    $field->multiple = $multiple;
-                    $field->allowedFileTypes = implode(",", $arr);
-                    $field->maxWidth = null;
-                    $field->show();
-                }
-
                 $name = [];
                 if ($currentFolder) {
                     $name[] = '<span>' . $currentFolder->name . '</span>';
@@ -142,15 +126,32 @@ class MediaBrowser extends Field
                 ?>
                 <h2 style="display: flex; align-items: center; gap:10px; border-bottom:1px solid var(--color-border-subtle)">
                     <span class="material-icons" style="color:var(--color-warning-text)">folder</span>
-                    <?= implode(
-                        " / ",
-                        $name
-                    ) ?>
+                    <?= implode(" / ", $name) ?>
                 </h2>
-                <button class="framelix-button framelix-button-primary create-folder"
-                        data-icon-left="add">
-                    <?= Lang::get('__pagemyself_mediabrowser_createfolder__') ?>
-                </button>
+                <div class="mediabrowser-action-bar">
+                    <?php
+                    if (!$disabled) {
+                        $arr = [];
+                        if (is_array($allowedExtensions)) {
+                            foreach ($allowedExtensions as $allowedExtension) {
+                                $arr[] = "." . $allowedExtension;
+                            }
+                        }
+                        $field = new Field\File();
+                        $field->name = "newFile";
+                        $field->multiple = $multiple;
+                        $field->allowedFileTypes = implode(",", $arr);
+                        $field->maxWidth = null;
+                        $field->show();
+                        ?>
+                        <button class="framelix-button framelix-button-warning create-folder"
+                                data-icon-left="create_new_folder">
+                            <?= Lang::get('__pagemyself_mediabrowser_createfolder__') ?>
+                        </button>
+                        <?php
+                    }
+                    ?>
+                </div>
                 <?php
 
                 $folders = MediaFolder::getByCondition(
@@ -169,8 +170,9 @@ class MediaBrowser extends Field
                             <?php
                         }
                         ?>
-                        <span class="mediabrowser-file-filename"><span class="material-icons"
-                                                                       style="color:var(--color-warning-text)">folder</span> <?= $folder->name ?></span>
+                        <span class="mediabrowser-file-icon"><span class="material-icons"
+                                                                      style="color:var(--color-warning-text)">folder</span></span>
+                        <span class="mediabrowser-file-filename"><?= $folder->name ?></span>
                         <?php
                         if (!$disabled) {
                             ?>

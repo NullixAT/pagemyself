@@ -236,7 +236,28 @@ class Theme extends ThemeBase
         $form->addField($field);
 
         $form->addFieldGroup('bg', 'Background Settings',
-            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'], false, true);
+            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'], false);
+
+        $field = new Toggle();
+        $field->name = 'fullWidth';
+        $form->addField($field);
+
+        $field = new Color();
+        $field->name = 'backgroundColor';
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundImage';
+        $field->setOnlyImages();
+        $form->addField($field);
+
+        $field = new MediaBrowser();
+        $field->name = 'backgroundVideo';
+        $field->setOnlyVideos();
+        $form->addField($field);
+
+        $form->addFieldGroup('bg', 'Background Settings',
+            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'], false);
     }
 
     /**

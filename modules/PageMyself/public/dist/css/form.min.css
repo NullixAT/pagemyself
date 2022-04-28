@@ -1,11 +1,13 @@
-.mediabrowser .framelix-form-field-file-file {
-  display: none;
-}
-.mediabrowser .framelix-form-field-file {
-  display: block;
-}
-.mediabrowser .framelix-form-field-file .framelix-form-field-file-button {
+.mediabrowser-action-bar {
   display: flex;
+  gap: 10px;
+}
+.mediabrowser-action-bar .framelix-form-field {
+  padding: 0;
+  margin: 0;
+}
+.mediabrowser-action-bar .framelix-form-field .framelix-form-field-file-file {
+  display: none;
 }
 
 .mediabrowser-file,
@@ -46,6 +48,14 @@
 }
 .mediabrowser-file-filename .material-icons {
   font-size: 24px;
+}
+
+.mediabrowser-file-icon {
+  min-width: 40px;
+  max-width: 40px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
 }
 
 .mediabrowser-file-preview {

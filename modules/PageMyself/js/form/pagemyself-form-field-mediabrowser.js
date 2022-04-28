@@ -39,6 +39,9 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
    * @param {boolean} isUserChange Indicates if this change was done because of an user input
    */
   async setValue (value, isUserChange = false) {
+    if (isUserChange && this.modal) {
+      this.modal.footerContainer.find('button').removeClass('hidden')
+    }
     this.hiddenFieldsContainer.empty()
     if (value) {
       const self = this
@@ -105,7 +108,11 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
       'currentFolder': self.currentFolder
     }, {
       maxWidth: 900,
-      noAnimation: true
+      noAnimation: true,
+      footerContent: $('<button class="framelix-button framelix-button-success hidden" data-icon-left="check">' + FramelixLang.get('__pagemyself_mediabrowser_accept_selection__') + '</button>').on('click', function () {
+        self.modal?.destroy()
+      })
+
     })
     this.modal.destroyed.then(function () {
       self.modal = null
@@ -130,7 +137,7 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
           arr.push($(this).closest('.mediabrowser-file, .mediabrowser-folder').attr('data-id'))
         })
       }
-      self.setValue(arr)
+      self.setValue(arr, true)
       if (!self.multiple) {
         if (self.modal) self.modal.destroy()
       }
