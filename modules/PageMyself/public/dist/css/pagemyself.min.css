@@ -44,3 +44,8 @@
 .pagemyself-columns[data-columns="5"] .pagemyself-column {
   flex-basis: 20%;
 }
+
+.pagemyself-jump-mark {
+  position: relative;
+  opacity: 0;
+}

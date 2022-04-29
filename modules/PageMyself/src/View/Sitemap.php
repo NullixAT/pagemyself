@@ -43,6 +43,9 @@ class Sitemap extends View
         $this->showSitemapUrl(View::getUrl(PageMyselfAbout::class));
         $pages = Page::getByCondition('flagDraft = false && category = {0}', [Page::CATEGORY_PAGE]);
         foreach ($pages as $page) {
+            if ($page->password) {
+                continue;
+            }
             $this->showSitemapUrl($page->url);
         }
         echo '</urlset>';

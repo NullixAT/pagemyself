@@ -194,6 +194,19 @@ class Index extends View
             case 'deleteBlock':
                 ComponentBlock::getById($jsCall->parameters['componentBlockId'])?->delete();
                 break;
+            case 'getBlockSettingsData':
+                $componentBlocks = $page->getComponentBlocks();
+                $blockList = ComponentBase::getAvailableList();
+                $arr = [];
+                foreach ($componentBlocks as $componentBlock) {
+                    $arr[$componentBlock->id] = [
+                        'id' => $componentBlock->id,
+                        'title' => $blockList[$componentBlock->blockClass]['title'],
+                        'help' => $blockList[$componentBlock->blockClass]['help'],
+                    ];
+                }
+                $jsCall->result = $arr;
+                break;
             case 'getBlockSettingsList':
                 $componentBlocks = $page->getComponentBlocks();
                 if (!$componentBlocks) {
@@ -356,15 +369,15 @@ class Index extends View
                     </div>
                     <div class="pageeditor-frame-option-group">
                         <div class="pageeditor-frame-option-group-small"><?= Lang::get(
-                                '__pagemyself_block_options__'
+                                '__pagemyself_block_info__'
                             ) ?></div>
-                        <div>
-                            <button class="framelix-button framelix-button-small block-list"
-                                    data-icon-left="settings"
-                                    title="__pagemyself_component_block_settings__"></button>
-                            <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add"
-                                    title="__pagemyself_component_add__"></button>
-                        </div>
+                        <button class="framelix-button framelix-button-small block-list"
+                                data-icon-left="tune"
+                                title="__pagemyself_component_block_settings__"></button>
+                        <button class="framelix-button framelix-button-small add-new-block" data-icon-left="add"
+                                title="__pagemyself_component_add__"></button>
+                        <span class="framelix-button" title="__pagemyself_component_ctrl_click__"
+                              data-icon-left="help"></span> <span class="pageeditor-current-block-data"></span>
                     </div>
                 </div>
             </div>

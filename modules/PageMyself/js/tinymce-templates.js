@@ -48,6 +48,18 @@ class TinymceTemplates {
           })
         ]
       },
+      'jumpMark': {
+        'html': `<div class="pagemyself-jump-mark mceNonEditable" id="jumpto-{1}"></div>`,
+        'fields': [
+          Object.assign(new FramelixFormFieldHtml(), {
+            defaultValue : FramelixLang.get('__pagemyself_editor_templates_type_jumpmark_info__')
+          }),
+          Object.assign(new FramelixFormFieldText(), {
+            'label': '__pagemyself_editor_templates_type_jumpmark__',
+            required: true
+          })
+        ]
+      },
       'emailme': {
         'html': `<button class="framelix-button framelix-button-primary" onclick='{mailonclick}'>${FramelixLang.get('__pagemyself_editor_templates_type_emailme_sendmail__')}</button>`,
         'fields': [

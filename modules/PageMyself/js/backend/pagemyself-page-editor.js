@@ -41,6 +41,12 @@ class PageMyselfPageEditor {
   static currentPage
 
   /**
+   * Current blocks data
+   * @type {Object<string, Object>}
+   */
+  static currentBlocksData = {}
+
+  /**
    * Editor js call url
    * @type {string}
    */
@@ -105,6 +111,7 @@ class PageMyselfPageEditor {
         } else {
           $(this).after(btn)
         }
+        PageMyselfPageEditor.iframeWindow.scrollTo(0, 999999)
       })
     })
 
@@ -143,7 +150,8 @@ class PageMyselfPageEditor {
     // block settings
     $(document).on('click', '.block-settings', async function () {
       const blockNow = $(this).closest('.pageeditor-block-options')
-      PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, blockNow.attr('data-component-block-id'))
+      console.log($(this).attr("data-component-block-id"))
+      PageMyselfPageEditor.openBlockSettings(PageMyselfPageEditor.currentPage, $(this).attr("data-component-block-id") || blockNow.attr('data-component-block-id'))
     })
   }
 
@@ -205,6 +213,11 @@ class PageMyselfPageEditor {
 
     if (!PageMyselfPageEditor.currentPage) return
 
+    PageMyselfPageEditor.currentBlocksData = await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+      'page': PageMyselfPageEditor.currentPage,
+      'action': 'getBlockSettingsData'
+    })
+
     // update editor bar information on frame load
     const pageData = await FramelixApi.callPhpMethod(PageMyselfPageEditor.frame.attr('data-edit-url'), {
       'page': PageMyselfPageEditor.currentPage,
@@ -220,6 +233,18 @@ class PageMyselfPageEditor {
       PageMyselfPageEditor.iframeHtml.find('head').append($(this).clone())
     })
     PageMyselfPageEditor.iframeHtml.addClass('pageeditor-website')
+
+    // check block data on current mouse pointer
+    $(PageMyselfPageEditor.iframeDoc).on('mouseenter', '.component-block', function (ev) {
+      const blockData = PageMyselfPageEditor.currentBlocksData[$(this).attr('data-id')]
+      const blockInfo = $('.pageeditor-current-block-data')
+      blockInfo.html(`<button class="framelix-button framelix-button-small block-settings"
+                        data-icon-left="settings"
+                        title="__pagemyself_component_open_settings__" 
+                        data-component-block-id="${blockData.id}"
+                        ></button> <b>#${blockData.id}</b> 
+                        ${FramelixLang.get(blockData.title)}`)
+    })
 
     // quick open block settings
     $(PageMyselfPageEditor.iframeDoc).on('contextmenu', '.component-block', function (ev) {

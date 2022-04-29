@@ -41,6 +41,8 @@
         padding: 3px 20px;
         background: #444;
         border-radius: var(--border-radius);
+        width: 250px;
+        min-height: 100px;
       }
 
       .pageeditor-frame-option-group-small {
@@ -137,4 +139,21 @@
 .editor-templates-body {
   margin-top: 20px;
   pointer-events: none;
+}
+
+.pageeditor-website {
+  .pagemyself-jump-mark {
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0.4;
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+    padding: 2px;
+    font-size: 12px;
+
+    &:after {
+      content: "#" attr(id);
+      display: block;
+    }
+  }
 }

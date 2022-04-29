@@ -1,12 +1,9 @@
 {
-  "__pagemyself_block_options__": [
-    "Block options"
-  ],
   "__pagemyself_component_add__": [
     "Add a new block to this page<br\/>After clicking this button, click on 'Insert block here' to choose the position to insert"
   ],
   "__pagemyself_component_block_settings__": [
-    "Block settings"
+    "Show a list of all blocks on website"
   ],
   "__pagemyself_component_slideshow_title__": [
     "Image Slideshow"
@@ -19,6 +16,9 @@
   ],
   "__pagemyself_component_calendar_color__": [
     "Cell Color"
+  ],
+  "__pagemyself_block_info__" : [
+    "Block info (At current mouse position)"
   ],
   "__pagemyself_component_calendar_defaultcellcolor__": [
     "Default Cell Color"
@@ -130,6 +130,12 @@
   ],
   "__pagemyself_editor_templates_type_columns_number__": [
     "Number of columns"
+  ],
+  "__pagemyself_editor_templates_type_jumpmark__": [
+    "Jump-Mark"
+  ],
+  "__pagemyself_editor_templates_type_jumpmark_info__": [
+    "You can use a jump-mark to create a link to this exact position in page. So when an user open the link with this jump-mark, the page will automatically scroll to this position."
   ],
   "__pagemyself_editor_templates_colorpicker_text__": [
     "Pick a text color"

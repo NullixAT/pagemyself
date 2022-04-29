@@ -6,10 +6,11 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
     text: FramelixLang.get('__framelix_save__'),
     onAction: async function () {
       Framelix.showProgressBar(1)
-      await component.apiRequest('textEditorSaveText', { 'id': el.attr('data-id'), 'text': editor.getContent() })
+      const content = editor.getContent({format: 'raw'})
+      await component.apiRequest('textEditorSaveText', { 'id': el.attr('data-id'), 'text': content })
       FramelixToast.success('__framelix_saved__')
       Framelix.showProgressBar(null)
-      editor.initialContent = editor.getContent()
+      editor.initialContent = content
       editor.destroy()
       component.enableTextEditor(el)
     }
