@@ -11,6 +11,7 @@ use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\MediaFolder;
 use Throwable;
+
 use function array_reverse;
 use function implode;
 use function is_array;
@@ -139,7 +140,7 @@ class MediaBrowser extends Field
                         }
                         $field = new Field\File();
                         $field->name = "newFile";
-                        $field->multiple = $multiple;
+                        $field->multiple = true;
                         $field->allowedFileTypes = implode(",", $arr);
                         $field->maxWidth = null;
                         $field->show();
@@ -171,7 +172,7 @@ class MediaBrowser extends Field
                         }
                         ?>
                         <span class="mediabrowser-file-icon"><span class="material-icons"
-                                                                      style="color:var(--color-warning-text)">folder</span></span>
+                                                                   style="color:var(--color-warning-text)">folder</span></span>
                         <span class="mediabrowser-file-filename"><?= $folder->name ?></span>
                         <?php
                         if (!$disabled) {
@@ -273,10 +274,10 @@ class MediaBrowser extends Field
             foreach ($value as $key => $v) {
                 $value[$key] = (int)$v;
             }
-            return $value;
+            return MediaFile::getByIds($value);
         }
         if ($value) {
-            return (int)$value;
+            return MediaFile::getById($value);
         }
         return null;
     }

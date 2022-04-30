@@ -33,17 +33,12 @@
   padding: 3px 20px;
   background: #444;
   border-radius: var(--border-radius);
-  width: 250px;
-  min-height: 100px;
 }
 .pageeditor-frame .pageeditor-frame-top .pageeditor-frame-options .pageeditor-frame-option-group-small {
   font-size: 0.8rem;
   opacity: 0.8;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   margin-bottom: 5px;
-}
-.pageeditor-frame .pageeditor-frame-top .pageeditor-frame-top-title {
-  font-weight: bold;
 }
 .pageeditor-frame .pageeditor-frame-top .pageeditor-frame-top-addressbar {
   display: flex;

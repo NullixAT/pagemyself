@@ -8,7 +8,6 @@ use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\Framelix\View\Backend\View;
-use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\Page;
 
 /**
@@ -38,17 +37,13 @@ class Index extends View
         // just to create default if not yet exist
         Page::getDefault();
         $this->storable = Page::getByIdOrNew(Request::getGet('id'));
-        if (!$this->storable->id) {
-            $this->storable->category = $this->storable::CATEGORY_PAGE;
-            $this->storable->flagNav = true;
-        }
 
         $this->meta = new \Framelix\PageMyself\StorableMeta\Page($this->storable);
         if (Form::isFormSubmitted($this->meta->getEditFormId())) {
             $form = $this->meta->getEditForm();
             $form->validate();
             $form->setStorableValues($this->storable);
-            $this->storable->imageNav = MediaFile::getById(Request::getPost('imageNav'));
+            $this->storable->url = (string)$this->storable->url;
             $this->storable->store();
             Toast::success('__framelix_saved__');
             Url::getBrowserUrl()->setParameter('id', $this->storable)->redirect();

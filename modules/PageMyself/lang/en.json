@@ -17,8 +17,11 @@
   "__pagemyself_component_calendar_color__": [
     "Cell Color"
   ],
-  "__pagemyself_block_info__" : [
-    "Block info (At current mouse position)"
+  "__pagemyself_block_info__": [
+    "Blocks"
+  ],
+  "__pagemyself_view_backend_nav_index__": [
+    "Website Navigation"
   ],
   "__pagemyself_component_calendar_defaultcellcolor__": [
     "Default Cell Color"
@@ -104,6 +107,42 @@
   "__pagemyself_editor_templates_settings__": [
     "Settings"
   ],
+  "__pagemyself_storable_naventry_grouptitle_label__": [
+    "Group Label"
+  ],
+  "__pagemyself_storable_naventry_page_label__": [
+    "Link to page"
+  ],
+  "__pagemyself_storable_naventry_page_label_desc__": [
+    "Choose an existing website page to link to"
+  ],
+  "__pagemyself_storable_naventry_url_external_label__": [
+    "Or link to a free defined external url"
+  ],
+  "__pagemyself_storable_naventry_url_external_label_desc__": [
+    "Must begin with http..."
+  ],
+  "__pagemyself_storable_naventry_image_label__": [
+    "Image"
+  ],
+  "__pagemyself_storable_naventry_image_label_desc__": [
+    "Display this image instead of the title. The title is still required as alternative text."
+  ],
+  "__pagemyself_storable_naventry_flagshow_label__": [
+    "Is visible"
+  ],
+  "__pagemyself_storable_naventry_flagshow_label_desc__": [
+    "Just in case you want to hide this entry in the navigation. This is useful because all website pages automatically have a navigation entry created. Maybe you don't want all pages in your navigation."
+  ],
+  "__pagemyself_storable_naventry_missing__": [
+    "Please choose a page or an external URL to link to"
+  ],
+  "__pagemyself_storable_naventry_url_hash_label__": [
+    "Set a jump-mark - This must begin with #jumpmark-..."
+  ],
+  "__pagemyself_storable_naventry_grouptitle_label_desc__": [
+    "Fill this out, if you want to group navigation entries into a submenu with this label. The user later can expand this submenu and see all the entries with the same group label."
+  ],
   "__pagemyself_editor_templates_type_alert__": [
     "Alert Box"
   ],
@@ -179,9 +218,6 @@
   "__pagemyself_page_login__": [
     "Login"
   ],
-  "__pagemyself_page_options__": [
-    "Page options"
-  ],
   "__pagemyself_page_password__": [
     "This page is password protected"
   ],
@@ -218,47 +254,11 @@
   "__pagemyself_pageeditor_theme_settings_desc__": [
     "All settings in this window are applied to the choosen theme. Changes to this settings will change appearance of all pages that use this theme."
   ],
-  "__pagemyself_pagetitle__": [
-    "Page title"
-  ],
   "__pagemyself_password_incorrect__": [
     "Password is incorrect"
   ],
   "__pagemyself_reset_text__": [
     "Revert text changes"
-  ],
-  "__pagemyself_storable_page_category_label_1__": [
-    "Default"
-  ],
-  "__pagemyself_storable_page_category_label_2__": [
-    "External Site\/Link"
-  ],
-  "__pagemyself_storable_page_category_label__": [
-    "Category"
-  ],
-  "__pagemyself_storable_page_flagdraft_label__": [
-    "Draft"
-  ],
-  "__pagemyself_storable_page_flagdraft_label_desc__": [
-    "Only visible for site administrators"
-  ],
-  "__pagemyself_storable_page_flagnav_label__": [
-    "Visible in site navigation"
-  ],
-  "__pagemyself_storable_page_flagnav_label_desc__": [
-    "If enabled, this page will be displayed in the navigation bar of the website."
-  ],
-  "__pagemyself_storable_page_imagenav_label__": [
-    "Navigation image"
-  ],
-  "__pagemyself_storable_page_link_label__": [
-    "Link"
-  ],
-  "__pagemyself_storable_page_navgroup_label__": [
-    "Navigation grouping"
-  ],
-  "__pagemyself_storable_page_navgroup_label_desc__": [
-    "If filled out, each entry with the same group name will be grouped under a submenu entry which an user can expand."
   ],
   "__pagemyself_storable_page_password_label__": [
     "Password protection"
@@ -271,12 +271,6 @@
   ],
   "__pagemyself_storable_page_title_label_desc__": [
     "The title the appears in your browser tab and in search engine results"
-  ],
-  "__pagemyself_storable_page_titlenav_label__": [
-    "Override title for navigation"
-  ],
-  "__pagemyself_storable_page_titlenav_label_desc__": [
-    "If filled out, then this title will be shown in the sites navigation instead of the page title."
   ],
   "__pagemyself_storable_page_url_label__": [
     "URL Path"
@@ -294,7 +288,10 @@
     "PageMyself Backend"
   ],
   "__pagemyself_view_backend_page_index__": [
-    "Pages"
+    "Website Pages"
+  ],
+  "__pagemyself_storable_naventry_title_label__": [
+    "Title"
   ],
   "__pagemyself_view_backend_pageeditor_index__": [
     "Live Website Editor"

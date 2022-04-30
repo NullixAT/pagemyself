@@ -8,35 +8,20 @@ use Framelix\Framelix\Url;
 use Framelix\Framelix\View;
 use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Backend\Page\Index;
+
 use function class_exists;
 use function file_exists;
 
 /**
  * Page
- * @property int $category
  * @property string $title
- * @property string|null $titleNav
- * @property MediaFile|null $imageNav
- * @property string|null $password
  * @property string|null $url
- * @property string|null $link
- * @property bool $flagDraft
- * @property bool $flagNav
+ * @property string|null $password
  * @property string|null $theme
  * @property int|null $sort
- * @property string|null $navGroup
  */
 class Page extends StorableExtended
 {
-    public const CATEGORY_PAGE = 1;
-    public const CATEGORY_EXTERNAL = 2;
-
-    /**
-     * Categories
-     * @var int[]
-     */
-    public static array $categories = [self::CATEGORY_PAGE, self::CATEGORY_EXTERNAL];
-
     /**
      * Setup self storable schema
      * @param StorableSchema $selfStorableSchema
@@ -53,13 +38,10 @@ class Page extends StorableExtended
      */
     public static function getDefault(): Page
     {
-        $storable = self::getByConditionOne('url = {1} && category = {0}', [self::CATEGORY_PAGE, '']);
+        $storable = self::getByConditionOne('url = {0}', ['']);
         if (!$storable) {
             $storable = new self();
-            $storable->category = self::CATEGORY_PAGE;
             $storable->title = 'Homepage';
-            $storable->flagDraft = false;
-            $storable->flagNav = true;
             $storable->url = '';
             $storable->sort = 0;
             $storable->store();
@@ -146,6 +128,25 @@ class Page extends StorableExtended
             }
         }
         return $componentBlocks;
+    }
+
+    /**
+     * Store
+     */
+    public function store(): void
+    {
+        parent::store();
+        $navEntry = NavEntry::getByConditionOne('page = {0}', [$this]);
+        if (!$navEntry) {
+            $lastSort = NavEntry::getByConditionOne(sort: "-sort")->sort ?? -1;
+            $lastSort++;
+            $navEntry = new NavEntry();
+            $navEntry->page = $this;
+            $navEntry->title = $this->title;
+            $navEntry->flagShow = true;
+            $navEntry->sort = $lastSort;
+            $navEntry->store();
+        }
     }
 
     /**

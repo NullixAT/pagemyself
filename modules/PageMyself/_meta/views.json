@@ -1,5 +1,5 @@
 {
-    "directoryListHash": "1|547740728",
+    "directoryListHash": "1|3970238912",
     "views": {
         "Framelix\\PageMyself\\View\\Backend\\Index": {
             "accessRole": true,
@@ -9,6 +9,15 @@
             "urlPriority": 0,
             "pageTitle": "{classLangKey}",
             "url": "\/backend"
+        },
+        "Framelix\\PageMyself\\View\\Backend\\Nav\\Index": {
+            "accessRole": true,
+            "customUrl": null,
+            "devModeOnly": false,
+            "multilanguage": true,
+            "urlPriority": 0,
+            "pageTitle": "{classLangKey}",
+            "url": "\/backend\/nav"
         },
         "Framelix\\PageMyself\\View\\Backend\\Page\\Index": {
             "accessRole": true,

@@ -8,7 +8,6 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\Session;
-use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\FileUtils;
@@ -20,6 +19,7 @@ use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\ThemeBase;
+
 use function trim;
 
 /**
@@ -92,15 +92,9 @@ class Index extends LayoutView
         $applicationUrl = Url::getApplicationUrl();
         $url = Url::create();
         $relativeUrl = trim($url->getRelativePath($applicationUrl), "/");
-        $this->page = $this->page ?? Page::getByConditionOne(
-                'url = {0} && category = {1}',
-                [$relativeUrl, Page::CATEGORY_PAGE]
-            );
+        $this->page = $this->page ?? Page::getByConditionOne('url = {0}', [$relativeUrl]);
         if (!$this->page && $relativeUrl) {
             Url::getApplicationUrl()->redirect();
-        }
-        if (($this->page->flagDraft ?? null) && !User::get()) {
-            $this->page = null;
         }
         if (!$this->page) {
             $this->page = Page::getDefault();

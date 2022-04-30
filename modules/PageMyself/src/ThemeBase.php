@@ -6,15 +6,16 @@ use Framelix\Framelix\Form\Field\Password;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\Session;
-use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\PageMyself\Component\ComponentBase;
 use Framelix\PageMyself\Storable\ComponentBlock;
+use Framelix\PageMyself\Storable\NavEntry;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\View\Index;
+
 use function array_pop;
 use function explode;
 use function file_exists;
@@ -99,37 +100,33 @@ abstract class ThemeBase
      */
     public function showNavigation(): void
     {
-        $condition = 'flagNav = 1';
-        if (!User::get()) {
-            $condition = 'flagDraft = 0';
-        }
-        $pages = Page::getByCondition($condition, sort: "+sort");
+        $navEntries = NavEntry::getByCondition("flagShow = 1", sort: "+sort");
         ?>
         <nav class="page-nav">
             <div class="page-nav-inner">
                 <ul>
                     <?php
                     $pagesCollected = [];
-                    foreach ($pages as $page) {
-                        if (isset($pagesCollected[$page->id])) {
+                    foreach ($navEntries as $navEntry) {
+                        if (isset($pagesCollected[$navEntry->id])) {
                             continue;
                         }
                         $group = [];
-                        if ($page->navGroup) {
-                            foreach ($pages as $subPage) {
-                                if (isset($pagesCollected[$subPage->id])) {
+                        if ($navEntry->groupTitle) {
+                            foreach ($navEntries as $subNavEntry) {
+                                if (isset($pagesCollected[$subNavEntry->id])) {
                                     continue;
                                 }
-                                if ($subPage->navGroup === $page->navGroup) {
-                                    $group[$subPage->id] = $subPage;
-                                    $pagesCollected[$subPage->id] = true;
+                                if ($subNavEntry->groupTitle === $navEntry->groupTitle) {
+                                    $group[$subNavEntry->id] = $subNavEntry;
+                                    $pagesCollected[$subNavEntry->id] = true;
                                 }
                             }
                         }
                         if ($group) {
                             $isActive = false;
-                            foreach ($group as $subPage) {
-                                $isActive = $this->page === $subPage;
+                            foreach ($group as $subNavEntry) {
+                                $isActive = $this->page === $subNavEntry;
                                 if ($isActive) {
                                     break;
                                 }
@@ -137,19 +134,21 @@ abstract class ThemeBase
                             ?>
                             <li>
                                 <span></span>
-                                <button class="nav-entry nav-entry-group <?= $isActive ? 'nav-entry-active' : '' ?>"><?= HtmlUtils::escape($page->navGroup) ?></button>
+                                <button class="nav-entry nav-entry-group <?= $isActive ? 'nav-entry-active' : '' ?>"><?= HtmlUtils::escape(
+                                        $navEntry->groupTitle
+                                    ) ?></button>
                                 <span></span>
                                 <ul class="hidden">
                                     <?php
-                                    foreach ($group as $subPage) {
-                                        $this->showNavigationEntry($subPage);
+                                    foreach ($group as $subNavEntry) {
+                                        $this->showNavigationEntry($subNavEntry);
                                     }
                                     ?>
                                 </ul>
                             </li>
                             <?php
                         } else {
-                            $this->showNavigationEntry($page);
+                            $this->showNavigationEntry($navEntry);
                         }
                     }
                     ?>
@@ -160,21 +159,21 @@ abstract class ThemeBase
     }
 
     /**
-     * Show navigation entry for given page
-     * @param Page $page
+     * Show navigation entry for given entry
+     * @param NavEntry $navEntry
      */
-    public function showNavigationEntry(Page $page): void
+    public function showNavigationEntry(NavEntry $navEntry): void
     {
-        $url = $page->category === Page::CATEGORY_PAGE ? $page->getPublicUrl() : $page->link;
-        $target = $page->category === Page::CATEGORY_PAGE ? '' : 'target="_blank"';
-        $title = HtmlUtils::escape($page->titleNav ?: $page->title);
-        if ($page->imageNav?->isImageFile()) {
-            $title = '<img src="' . $page->imageNav->getUrl(500) . '" alt="' . $title . '">';
+        $url = $navEntry->getPublicUrl();
+        $target = $navEntry->page ? '' : 'target="_blank"';
+        $title = HtmlUtils::escape($navEntry->title);
+        if ($navEntry->image?->isImageFile()) {
+            $title = '<img src="' . $navEntry->image->getUrl(500) . '" alt="' . $title . '">';
         }
         ?>
         <li>
             <span></span>
-            <a class="nav-entry <?= $page === $this->page ? 'nav-entry-active' : '' ?>"
+            <a class="nav-entry <?= $navEntry->page === $this->page ? 'nav-entry-active' : '' ?>"
                href="<?= $url ?>" <?= $target ?>><?= $title ?></a>
             <span></span>
         </li>
