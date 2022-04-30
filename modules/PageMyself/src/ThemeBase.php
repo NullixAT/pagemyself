@@ -101,8 +101,9 @@ abstract class ThemeBase
     public function showNavigation(): void
     {
         $navEntries = NavEntry::getByCondition("flagShow = 1", sort: "+sort");
+        $stickyNav = $this->getSettingValue('stickyNav') !== false;
         ?>
-        <nav class="page-nav">
+        <nav class="page-nav <?= $stickyNav ? 'page-nav-sticky pagemyself-jumpmark-offset' : '' ?>">
             <div class="page-nav-inner">
                 <ul>
                     <?php

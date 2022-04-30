@@ -44,7 +44,9 @@ class NavEntry extends StorableExtended
     public function getPublicUrl(): string
     {
         if ($this->page) {
-            return (string)$this->page->getPublicUrl()->setHash($this->url);
+            return (string)$this->page->getPublicUrl()->setHash(
+                str_starts_with($this->url ?? '', "#") ? substr($this->url, 1) : null
+            );
         }
         return $this->url;
     }

@@ -29,6 +29,12 @@ body {
   text-align: center;
   margin: 0 auto;
   max-width: var(--page-max-width);
+  z-index: 2;
+}
+
+.page-nav-sticky {
+  position: sticky;
+  top: 0;
 }
 
 .page-nav .invisible {

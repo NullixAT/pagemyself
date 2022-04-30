@@ -9,11 +9,13 @@ use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Html\HtmlAttributes;
 use Framelix\Framelix\Lang;
+use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\PageMyself\Component\ComponentBase;
 use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\ThemeBase;
 use Framelix\PageMyself\View\Index;
+
 use function array_keys;
 use function is_array;
 use function ucfirst;
@@ -111,7 +113,6 @@ class Theme extends ThemeBase
      */
     public function showContent(): void
     {
-        $font = ($this->getSettingValue('font') ?? 'arial, sans-serif');
         ?>
         <div class="page"
              style="--page-max-width:<?= ($this->getSettingValue('maxWidth') ?? 900) ?>px;">
@@ -132,6 +133,11 @@ class Theme extends ThemeBase
      */
     public function addThemeSettingFields(Form $form): void
     {
+        $field = new Toggle();
+        $field->name = 'stickyNav';
+        $field->defaultValue = 900;
+        $form->addField($field);
+
         $field = new Number();
         $field->name = 'maxWidth';
         $field->defaultValue = 900;
@@ -235,8 +241,12 @@ class Theme extends ThemeBase
         $field->setOnlyVideos();
         $form->addField($field);
 
-        $form->addFieldGroup('bg', 'Background Settings',
-            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'], false);
+        $form->addFieldGroup(
+            'bg',
+            'Background Settings',
+            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'],
+            false
+        );
 
         $field = new Toggle();
         $field->name = 'fullWidth';
@@ -256,8 +266,12 @@ class Theme extends ThemeBase
         $field->setOnlyVideos();
         $form->addField($field);
 
-        $form->addFieldGroup('bg', 'Background Settings',
-            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'], false);
+        $form->addFieldGroup(
+            'bg',
+            'Background Settings',
+            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'],
+            false
+        );
     }
 
     /**
@@ -270,6 +284,8 @@ class Theme extends ThemeBase
     {
         $colorScheme = $this->getSettingValue('colorScheme') ?? 'Default';
         $colors = self::$colorSchemes[$colorScheme] ?? 'Default';
+
+        $colorMap = [];
 
         $headHtml = '<style>';
         $headHtml .= ':root{';
@@ -292,6 +308,8 @@ class Theme extends ThemeBase
             foreach ($varnames as $varname) {
                 $headHtml .= $varname . ":" . $value . ";";
             }
+            $colorMap[] = $value;
+            $colorMap[] = $colorName;
         }
         $font = ($this->getSettingValue('font') ?? 'arial, sans-serif');
         $fontSize = $this->getSettingValue('fontSize');
@@ -303,6 +321,11 @@ class Theme extends ThemeBase
         $headHtml .= '--font: ' . $font . '; font-family: ' . $font . "; font-size: " . $fontSize . "; --font-size: " . $fontSize . ";";
         $headHtml .= '}';
         $headHtml .= '</style>';
+        if ($colorMap) {
+            $headHtml .= '<script>PageMyselfComponent.additionalColorMap = ' . JsonUtils::encode(
+                    $colorMap
+                ) . ';</script>';
+        }
         $view->addHeadHtmlAfterInit($headHtml);
     }
 

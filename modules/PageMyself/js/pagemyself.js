@@ -33,6 +33,7 @@ class PageMyself {
       el.removeAttr('data-background-video')
       el.attr('data-background-video-original', backgroundVideo)
       FramelixIntersectionObserver.onGetVisible(this, function () {
+
         function updateVideoPosition () {
           const elWidth = block.width()
           const elHeight = block.height()
@@ -54,6 +55,7 @@ class PageMyself {
         video.poster = el.attr('data-background-image') || el.attr('data-background-original') || ''
         el.prepend(video)
         el.addClass('pagemyself-background-video')
+        el.css('background-color', '')
         video.play()
         video.addEventListener('timeupdate', updateVideoPosition)
         video.addEventListener('play', updateVideoPosition)
@@ -101,7 +103,7 @@ class PageMyself {
    */
   static onHashChange () {
     if (!window.location.hash.startsWith('#jumpto-')) return
-    const target = $('.' + window.location.hash.substring(1))
+    const target = $('.pagemyself-jump-mark').filter('[data-id=\'' + window.location.hash.substring(1) + '\']')
     if (!target.length) return
     let offset = 0
     const el = $('.pagemyself-jumpmark-offset').first()

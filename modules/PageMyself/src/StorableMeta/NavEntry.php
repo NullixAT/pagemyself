@@ -51,11 +51,23 @@ class NavEntry extends StorableMeta
         $property->field = new Text();
         $property->field->getVisibilityCondition()->empty('page');
         $property->setVisibility(self::CONTEXT_TABLE, false);
+        $property->valueCallable = function () {
+            if (!str_starts_with($this->storable->url ?? '', "#")) {
+                return $this->storable->url;
+            }
+            return null;
+        };
 
         $property = $this->createProperty('url_hash');
         $property->field = new Text();
         $property->field->getVisibilityCondition()->notEmpty('page');
         $property->setVisibility(self::CONTEXT_TABLE, false);
+        $property->valueCallable = function () {
+            if (str_starts_with($this->storable->url ?? '', "#")) {
+                return $this->storable->url;
+            }
+            return null;
+        };
 
         $property = $this->createProperty('flagShow');
         $property->addDefaultField();

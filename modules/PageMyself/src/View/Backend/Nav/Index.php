@@ -43,6 +43,12 @@ class Index extends View
             $form = $this->meta->getEditForm();
             $form->validate();
             $form->setStorableValues($this->storable);
+            if (Request::getPost('url_hash')) {
+                $this->storable->url = "#" . trim(Request::getPost('url_hash'), "# ");
+            }
+            if (Request::getPost('url_external')) {
+                $this->storable->url = Request::getPost('url_external');
+            }
             if (!$this->storable->page && !str_starts_with($this->storable->url ?? '', 'http')) {
                 Response::showFormValidationErrorResponse('__pagemyself_storable_naventry_missing__');
             }

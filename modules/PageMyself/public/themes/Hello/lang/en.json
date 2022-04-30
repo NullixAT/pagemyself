@@ -1,4 +1,10 @@
 {
+  "__theme_hello_stickynav_label__": [
+    "Sticky navigation"
+  ],
+  "__theme_hello_stickynav_desc__": [
+    "Navigation bar is always visible, even when scrolling down"
+  ],
   "__theme_hello_maxwidth_label__": [
     "Max page width"
   ],

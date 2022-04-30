@@ -109,6 +109,9 @@
   pointer-events: none;
 }
 
+.pageeditor-website .tox-editor-header {
+  z-index: 3 !important;
+}
 .pageeditor-website .pagemyself-jump-mark {
   background-color: rgba(0, 0, 0, 0.7);
   opacity: 0.4;
@@ -118,7 +121,10 @@
   padding: 2px;
   font-size: 12px;
 }
+.pageeditor-website .pagemyself-jump-mark * {
+  display: none;
+}
 .pageeditor-website .pagemyself-jump-mark:after {
-  content: "#" attr(id);
+  content: "#" attr(data-id);
   display: block;
 }

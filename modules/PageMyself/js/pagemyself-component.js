@@ -7,6 +7,12 @@ class PageMyselfComponent {
   static instances = {}
 
   /**
+   * Additional color map for tinymce to list theme colors as well
+   * @type {string[]}
+   */
+  static additionalColorMap = []
+
+  /**
    * The block id
    * @type {number}
    */
@@ -103,6 +109,34 @@ class PageMyselfComponent {
       const row = fonts[key]
       font_formats += key + '=' + row.name + ';'
     }
+    let colorMap = PageMyselfComponent.additionalColorMap.concat([
+      '#bfedd2', 'Light Green',
+      '#fbeeb8', 'Light Yellow',
+      '#f8cac6', 'Light Red',
+      '#eccafa', 'Light Purple',
+      '#c2e0f4', 'Light Blue',
+
+      '#2dc26b', 'Green',
+      '#f1c40f', 'Yellow',
+      '#e03e2d', 'Red',
+      '#b96ad9', 'Purple',
+      '#3598db', 'Blue',
+
+      '#169179', 'Dark Turquoise',
+      '#e67e23', 'Orange',
+      '#ba372a', 'Dark Red',
+      '#843fa1', 'Dark Purple',
+      '#236fa1', 'Dark Blue',
+
+      '#ecf0f1', 'Light Gray',
+      '#ced4d9', 'Medium Gray',
+      '#95a5a6', 'Gray',
+      '#7e8c8d', 'Dark Gray',
+      '#34495e', 'Navy Blue',
+
+      '#000', 'Black',
+      '#fff', 'White'
+    ])
     tinymce.init({
       'font_formats': font_formats,
       font_size_formats: fontSizes.join(' '),
@@ -111,6 +145,7 @@ class PageMyselfComponent {
       menubar: false,
       inline: true,
       valid_elements: '*[*]',
+      color_map: colorMap,
       plugins: ['image', 'link', 'media', 'table', 'advlist', 'lists', 'code', '-pagemyself'],
       file_picker_callback: async function (callback, value, meta) {
         const modal = await self.apiRequestInModal('textEditorMediaBrowser')

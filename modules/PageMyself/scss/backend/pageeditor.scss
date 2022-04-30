@@ -136,6 +136,10 @@
 }
 
 .pageeditor-website {
+  .tox-editor-header {
+    z-index: 3 !important;
+  }
+
   .pagemyself-jump-mark {
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 0.4;
@@ -145,8 +149,12 @@
     padding: 2px;
     font-size: 12px;
 
+    * {
+      display: none;
+    }
+
     &:after {
-      content: "#" attr(id);
+      content: "#" attr(data-id);
       display: block;
     }
   }

@@ -7,6 +7,7 @@ use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\UploadedFile;
+use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\MediaFolder;
@@ -274,10 +275,10 @@ class MediaBrowser extends Field
             foreach ($value as $key => $v) {
                 $value[$key] = (int)$v;
             }
-            return MediaFile::getByIds($value);
+            return Storable::getByIds($value);
         }
         if ($value) {
-            return MediaFile::getById($value);
+            return Storable::getById($value);
         }
         return null;
     }
