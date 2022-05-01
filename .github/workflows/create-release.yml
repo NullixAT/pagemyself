@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+    inputs:
+      RELEASE_TAG:
+        required: true
+        description: 'Choose an existing TAG'
+        type: string
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    name: Creating release
+    steps:
+      - name: Creating release
+        id: release
+        uses: NullixAT/framelix-release@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.event.inputs.RELEASE_TAG }}
