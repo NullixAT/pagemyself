@@ -1,7 +1,7 @@
 {
   "name": "pagemyself",
   "description": "PageMyself - A full WYSIWYG website builder with live editing features.",
-  "version": "0.16.3",
+  "version": "1.0.0-alpha.0",
   "directories": {
     "doc": "docs"
   },
@@ -19,12 +19,5 @@
   "bugs": {
     "url": "https://github.com/NullixAT/pagemyself/issues"
   },
-  "homepage": "https://github.com/NullixAT/pagemyself#readme",
-  "framelix": {
-    "isRootPackage": true,
-    "builtInModules": [
-      "Framelix",
-      "PageMyself"
-    ]
-  }
+  "homepage": "https://github.com/NullixAT/pagemyself#readme"
 }
