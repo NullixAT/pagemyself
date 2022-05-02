@@ -1,10 +1,4 @@
-on:
-  workflow_dispatch:
-    inputs:
-      RELEASE_TAG:
-        required: true
-        description: 'Choose an existing TAG'
-        type: string
+on: [ workflow_dispatch ]
 
 jobs:
   create_release:
@@ -16,4 +10,3 @@ jobs:
         uses: NullixAT/framelix-release@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.event.inputs.RELEASE_TAG }}
