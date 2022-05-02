@@ -1,3 +1,7 @@
+## [1.0.0-alpha.3]
+
+* updates for docker release and update process
+
 ## [1.0.0-alpha.2]
 
 * updates for docker release and update process
