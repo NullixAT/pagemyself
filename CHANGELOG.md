@@ -1,3 +1,7 @@
+## [1.0.0-alpha.2]
+
+* updates for docker release and update process
+
 ## [1.0.0-alpha.1]
 
 Huge refactoring based on 0.x feedback and real world tests. Almost nothing stayed the same, even Module name was
