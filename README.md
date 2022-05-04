@@ -1,6 +1,6 @@
 [![logo](docs/media/logo-github.png)](https://scripts.0x.at/github-webhooks/slack-join/)
 
-## PageMyself - Fast, easy and powerful website creator
+## PageMyself - Fast, easy and powerful website generator
 
 > We try to give you the tools to create your private/company website in no time and without coding skills.
 
