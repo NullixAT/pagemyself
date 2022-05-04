@@ -1,23 +1,12 @@
 {
   "name": "pagemyself",
-  "description": "PageMyself - A full WYSIWYG website builder with live editing features.",
-  "version": "1.0.0-alpha.4",
-  "directories": {
-    "doc": "docs"
-  },
+  "description": "PageMyself - Fast, easy and powerful website generator",
+  "version": "1.0.0-alpha.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NullixAT/pagemyself.git"
   },
-  "keywords": [
-    "php",
-    "framework",
-    "fullstack"
-  ],
   "author": "BrainFooLong",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/NullixAT/pagemyself/issues"
-  },
-  "homepage": "https://github.com/NullixAT/pagemyself#readme"
+  "homepage": "https://github.com/NullixAT/pagemyself"
 }

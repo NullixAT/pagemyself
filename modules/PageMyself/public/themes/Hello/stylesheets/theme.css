@@ -197,3 +197,17 @@ body {
   position: absolute;
   z-index: -1;
 }
+
+.pagemyself-password-form {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.pagemyself-password-form .framelix-form-field-container {
+  justify-content: center;
+}
+
+.pagemyself-password-form .framelix-form-row-bottom {
+  display: block;
+}

@@ -184,10 +184,10 @@ abstract class ThemeBase
     /**
      * Show components for given placement
      * @param string $placement
-     * @param bool $mainContent Set this true, for the one container that represent the main page content
+     * @param bool $mainContent Set this false, for the contains that no represents main content (sidebar, etc..)
      * @return void
      */
-    final public function showComponentBlocks(string $placement, bool $mainContent = false): void
+    final public function showComponentBlocks(string $placement, bool $mainContent = true): void
     {
         if (
             ($this->page->password ?? null)
@@ -196,6 +196,7 @@ abstract class ThemeBase
             if (!$mainContent) {
                 return;
             }
+            echo '<div class="pagemyself-password-form">';
             $form = new Form();
             $form->id = "pagepassword";
             $form->submitAsync = false;
@@ -204,10 +205,12 @@ abstract class ThemeBase
             $field = new Password();
             $field->name = "password";
             $field->label = "__pagemyself_page_password__";
+            $field->maxWidth = null;
             $form->addField($field);
 
             $form->addSubmitButton('login', '__pagemyself_page_login__');
             $form->show();
+            echo '</div>';
             return;
         }
         echo '<div class="component-blocks" data-placement="' . $placement . '">';

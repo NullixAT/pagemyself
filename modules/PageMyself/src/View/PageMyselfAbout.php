@@ -11,13 +11,6 @@ use Framelix\Framelix\View\LayoutView;
  */
 class PageMyselfAbout extends LayoutView
 {
-
-    /**
-     * Is in editmode
-     * @var bool
-     */
-    public bool $editMode = false;
-
     /**
      * Access role
      * @var string|bool
@@ -56,8 +49,8 @@ class PageMyselfAbout extends LayoutView
             </a>
             <h1>
                 This page was generated with <a
-                        href="https://github.com/NullixAT/pagemyself" target="_blank">PageMyself - Open Source Self
-                    Hosted WYSIWYG Website Builder</a>
+                        href="https://github.com/NullixAT/pagemyself" target="_blank">PageMyself - Fast, easy and
+                    powerful website generator</a>
             </h1>
             <p style="font-size: 90%; opacity:0.8;">
                 Our goal is to give you the tools to create your private/company website in no time and without coding

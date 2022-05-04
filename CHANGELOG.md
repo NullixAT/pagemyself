@@ -1,3 +1,7 @@
+## [1.0.0-alpha.5]
+
+* minor fixes for several features and update process
+
 ## [1.0.0-alpha.4]
 
 * updates for docker release and update process
