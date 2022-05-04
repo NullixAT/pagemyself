@@ -1,7 +1,7 @@
 {
   "name": "pagemyself",
   "description": "PageMyself - A full WYSIWYG website builder with live editing features.",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "directories": {
     "doc": "docs"
   },
