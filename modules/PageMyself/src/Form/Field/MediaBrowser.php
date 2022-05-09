@@ -5,17 +5,20 @@ namespace Framelix\PageMyself\Form\Field;
 use Framelix\Framelix\Form\Field;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
+use Framelix\Framelix\Network\JsCallUnsigned;
 use Framelix\Framelix\Network\Request;
 use Framelix\Framelix\Network\UploadedFile;
 use Framelix\Framelix\Storable\Storable;
+use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\MediaFolder;
 use Throwable;
-
 use function array_reverse;
+use function explode;
 use function implode;
 use function is_array;
+use function is_string;
 
 /**
  * MediaBrowser
@@ -36,13 +39,19 @@ class MediaBrowser extends Field
 
     /**
      * On js call
-     * @param JsCall $jsCall
+     * @param JsCallUnsigned|JsCall $jsCall
      */
-    public static function onJsCall(JsCall $jsCall): void
+    public static function onJsCall(JsCallUnsigned|JsCall $jsCall): void
     {
+        if (!User::get()) {
+            return;
+        }
         $disabled = $jsCall->parameters['disabled'] ?? (bool)(Request::getGet('disabled'));
         $multiple = $jsCall->parameters['multiple'] ?? (bool)(Request::getGet('multiple'));
-        $allowedExtensions = $jsCall->parameters['allowedExtensions'] ?? Request::getGet('allowedExtensions');
+        $allowedExtensions = $jsCall->parameters['allowedExtensions'] ?? Request::getGet('allowedExtensions') ?? Request::getPost('allowedExtensions');
+        if (is_string($allowedExtensions)) {
+            $allowedExtensions = explode(",", $allowedExtensions);
+        }
         if (isset($_FILES['file'])) {
             ini_set("memory_limit", "2G");
             $uploadedFiles = UploadedFile::createFromSubmitData('file');
@@ -282,25 +291,4 @@ class MediaBrowser extends Field
         }
         return null;
     }
-
-    /**
-     * Get json data
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        $data = parent::jsonSerialize();
-        $data['properties']['apiUrl'] = JsCall::getCallUrl(
-            __CLASS__,
-            'api',
-            [
-                'allowedExtensions' => $this->allowedExtensions,
-                'multiple' => $this->multiple,
-                'disabled' => $this->disabled
-            ]
-        );
-        return $data;
-    }
-
-
 }

@@ -122,6 +122,30 @@
     "__pagemyself_editor_templates_type_columns_number__": [
         "Number of columns"
     ],
+    "__pagemyself_editor_templates_type_card__": [
+        "Card"
+    ],
+    "__pagemyself_editor_templates_type_card_bgcolor__": [
+        "Background color"
+    ],
+    "__pagemyself_editor_templates_type_card_bgimage__": [
+        "Background image"
+    ],
+    "__pagemyself_editor_templates_type_card_animation__": [
+        "Mouseover Animation"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_none__": [
+        "None"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_flip__": [
+        "Flip Card"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_fadein__": [
+        "Background Fade In"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_slidein__": [
+        "Background Slide In"
+    ],
     "__pagemyself_editor_templates_type_emailme__": [
         "E-Mail Button"
     ],

@@ -82,6 +82,29 @@ class TinymceTemplates {
             defaultValue: 2
           })
         ]
+      },
+      'card': {
+        'html': ``,
+        'fields': [
+          Object.assign(new FramelixFormFieldColor(), {
+            'label': '__pagemyself_editor_templates_type_card_bgcolor__'
+          }),
+          Object.assign(new PageMyselfFormFieldMediaBrowser(), {
+            'label': '__pagemyself_editor_templates_type_card_bgimage__',
+            'allowedExtensions': ['png', 'jpeg', 'jpg', 'gif']
+          }),
+          Object.assign(new FramelixFormFieldSelect(), {
+            'label': '__pagemyself_editor_templates_type_card_animation__',
+            required: true,
+            defaultValue: 'none',
+            options: [
+              ['none', '__pagemyself_editor_templates_type_card_animation_none__'],
+              ['flip', '__pagemyself_editor_templates_type_card_animation_flip__'],
+              ['fadein', '__pagemyself_editor_templates_type_card_animation_fadein__'],
+              ['slidein', '__pagemyself_editor_templates_type_card_animation_slidein__']
+            ]
+          })
+        ]
       }
     }
   }
@@ -100,20 +123,48 @@ class TinymceTemplates {
   static async getTemplateHtml (id, formValues, replacements) {
     let html = this.getTemplates()[id].html
     switch (id) {
-      case 'emailme':
+      case 'emailme': {
         const email = formValues[0]
         const subject = formValues[1]
         let mailto = 'mailto:' + email + '?subject=' + encodeURIComponent(subject)
-        let mailonclick = 'FramelixModal.show({bodyContent: atob(' + JSON.stringify(btoa(FramelixLang.get('__pagemyself_editor_templates_type_emailme_sendmailnfo__', [email]))) + '), maxWidth:600}); window.open(atob(' + JSON.stringify(btoa(mailto)) + '));'
-        replacements['mailonclick'] = mailonclick
+        replacements['mailonclick'] = 'FramelixModal.show({bodyContent: atob(' + JSON.stringify(btoa(FramelixLang.get('__pagemyself_editor_templates_type_emailme_sendmailnfo__', [email]))) + '), maxWidth:600}); window.open(atob(' + JSON.stringify(btoa(mailto)) + '));'
+      }
         break
-      case 'columns':
+      case 'columns': {
         const columns = parseInt(formValues[0])
-        const container = $(`<div class="pagemyself-columns" data-columns="${columns}"></div>`)
+        const container = $(`<div><div class="pagemyself-columns" data-columns="${columns}"></div></div>`)
         for (let i = 1; i <= columns; i++) {
-          container.append(`<div class="pagemyself-column" data-color-picker="column|css|backgroundColor">Your text here</div>`)
+          container.children().append(`<div class="pagemyself-column" data-color-picker="column|css|backgroundColor">Your text here</div>`)
         }
         html = container.html()
+      }
+        break
+      case 'card': {
+        const container = $(`<div><div class="pagemyself-card">
+            <div class="pagemyself-card-icon"></div>
+            <div class="pagemyself-card-title">${FramelixLang.get('__pagemyself_component_text_default__')}</div>
+            <div class="pagemyself-card-text">${FramelixLang.get('__pagemyself_component_text_default__')}</div>
+            <div class="pagemyself-card-link"><a href="#" class="framelix-button">More...</a></div>
+        </div></div>`)
+        const card = container.children()
+        if (formValues[0]) {
+          const hsl = FramelixColorUtils.rgbToHsl(...FramelixColorUtils.hexToRgb(formValues[0]))
+          const inverted = FramelixColorUtils.invertColor(formValues[0], true)
+          card.attr('data-background-color', 1)
+          card.css('--card-text-color', inverted)
+          card.css('--card-background-color-h', (hsl[0] * 360).toFixed(0) + 'deg')
+          card.css('--card-background-color-s', (hsl[1] * 100).toFixed(0) + '%')
+          card.css('--card-background-color-l', (hsl[2] * 100).toFixed(0) + '%')
+        }
+        if (formValues[1]) {
+          card.attr('data-background-image', formValues[0])
+          card.css('--card-background-image', formValues[0])
+        }
+        if (formValues[2]) {
+          card.attr('data-background-fade', formValues[2])
+        }
+        html = container.html()
+      }
         break
     }
     return html

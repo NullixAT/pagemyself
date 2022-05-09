@@ -3,15 +3,42 @@
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
 }
 
+.pagemyself-card {
+  display: block;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+  border-radius: 3px;
+  text-align: center;
+  margin-bottom: 10px;
+
+  &[data-background-color] {
+    color:var(--card-text-color);
+    background: hsl(var(--card-background-color-h), var(--card-background-color-s), var(--card-background-color-l));
+    background: linear-gradient(34deg, hsla(var(--card-background-color-h), var(--card-background-color-s), var(--card-background-color-l), 1) 0%, hsla(var(--card-background-color-h), var(--card-background-color-s), var(--card-background-color-l), 1) 35%, hsla(var(--card-background-color-h), var(--card-background-color-s), var(--card-background-color-l), 0.7) 100%);
+
+  }
+}
+
+
+.pagemyself-card-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.pagemyself-card-text {
+  margin-bottom: 10px;
+}
+
 .pagemyself-columns {
   display: flex;
   flex-wrap: wrap;
   min-width: 250px;
+  gap: 10px;
 
   .pagemyself-column {
     min-width: 250px;
     flex-grow: 1;
-    padding: 10px;
     box-sizing: border-box;
   }
 

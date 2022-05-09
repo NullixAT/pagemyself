@@ -70,7 +70,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
             for (let search in replacements) {
               html = html.replace(new RegExp(FramelixStringUtils.escapeRegex('{' + search + '}'), 'ig'), replacements[search])
             }
-            editor.insertContent(html)
+            editor.insertContent(html+'<br/>')
           }
         })
       }

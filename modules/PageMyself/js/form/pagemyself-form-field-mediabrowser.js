@@ -85,9 +85,11 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
     formData.append('file', file)
     formData.append('replaceId', replaceId || '')
     formData.append('currentFolder', this.currentFolder)
-    const request = FramelixRequest.request('post', this.apiUrl, null, formData, true)
-    await request.finished
-    const result = await request.getJson()
+    formData.append('allowedExtensions', this.allowedExtensions)
+    const result = await FramelixApi.callPhpMethod({
+      phpMethod: 'Framelix\\PageMyself\\Form\\Field\\MediaBrowser',
+      'action': 'upload'
+    }, formData)
     if (result === true) {
       FramelixToast.success('__framelix_saved__')
     } else {
@@ -102,7 +104,10 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
   async reload () {
     const self = this
     if (this.modal) await this.modal.destroy()
-    this.modal = await FramelixModal.callPhpMethod(self.apiUrl, {
+    this.modal = await FramelixModal.callPhpMethod({
+      phpMethod: 'Framelix\\PageMyself\\Form\\Field\\MediaBrowser',
+      'action': ''
+    }, {
       'action': 'browser',
       'selectedValues': this.getValue(),
       'currentFolder': self.currentFolder
@@ -230,7 +235,10 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
    */
   async apiRequest (action, params) {
     params = Object.assign({ 'action': action, 'currentFolder': this.currentFolder }, params || {})
-    return FramelixApi.callPhpMethod(this.apiUrl, params)
+    return FramelixApi.callPhpMethod({
+      phpMethod: 'Framelix\\PageMyself\\Form\\Field\\MediaBrowser',
+      'action': ''
+    }, params)
   }
 }
 
