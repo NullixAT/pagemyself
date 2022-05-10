@@ -115,6 +115,40 @@ class PageMyselfPageEditor {
       })
     })
 
+    // show block json
+    PageMyselfPageEditor.frameTop.on('click', '.dev-show-block-json', function () {
+      FramelixModal.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+        'page': PageMyselfPageEditor.currentPage,
+        'action': 'showBlockJson'
+      }, { maxWidth: 900 })
+    })
+
+    // import block json
+    PageMyselfPageEditor.frameTop.on('click', '.dev-import-block-json', function () {
+      const form = new FramelixForm()
+      form.id = 'import'
+
+      let field = new FramelixFormFieldTextarea()
+      field.name = 'code'
+      field.label = 'JSON'
+      field.labelDescription = 'WARNING: All existing blocks on this page will be deleted'
+      form.addField(field)
+
+      form.addButton('import', 'Import')
+      form.render()
+
+      form.container.on('click', '.framelix-form-buttons [data-action="import"]', async function () {
+        await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
+          'page': PageMyselfPageEditor.currentPage,
+          'action': 'importBlockJson',
+          'code': field.getValue()
+        })
+        //window.location.reload()
+      })
+
+      FramelixModal.show({ bodyContent: form.container, maxWidth: 900 })
+    })
+
     // sorting blocks
     $(document).on('click', '.sort-block-up, .sort-block-down', async function () {
       const blockNow = $(this).closest('.pageeditor-block-options')

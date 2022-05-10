@@ -2,6 +2,7 @@
 
 namespace Framelix\PageMyself\View\Backend\PageEditor;
 
+use Framelix\Framelix\Config;
 use Framelix\Framelix\Form\Field\Editor;
 use Framelix\Framelix\Form\Field\Hidden;
 use Framelix\Framelix\Form\Field\Html;
@@ -25,6 +26,7 @@ use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\Page;
 use Framelix\PageMyself\Storable\WebsiteSettings;
 use Framelix\PageMyself\ThemeBase;
+use Framelix\PageMyself\Utils\PageExportImport;
 
 /**
  * Index
@@ -56,6 +58,15 @@ class Index extends View
         }
         $page = Page::getById($jsCall->parameters['page'] ?? null);
         switch ($jsCall->parameters['action'] ?? null) {
+            case 'importBlockJson':
+                PageExportImport::importFromJson($page, $jsCall->parameters['code']);
+                break;
+            case 'showBlockJson':
+                ?>
+                <textarea style="width: 99%; height:70vh; white-space: pre; font-family: monospace"
+                          spellcheck="false"><?= PageExportImport::exportAsJson($page) ?></textarea>
+                <?php
+                break;
             case 'pageData':
                 $jsCall->result = [
                     'theme' => $page->getThemeInstance()->themeId
@@ -369,6 +380,21 @@ class Index extends View
                         <span class="framelix-button" title="__pagemyself_component_ctrl_click__"
                               data-icon-left="help"></span>
                     </div>
+                    <?php
+                    if (Config::isDevMode()) {
+                        ?>
+                        <div class="pageeditor-frame-option-group">
+                            <div class="pageeditor-frame-option-group-small">Dev</div>
+                            <button class="framelix-button framelix-button-small dev-show-block-json"
+                                    data-icon-left="code"
+                                    title="Show block json"></button>
+                            <button class="framelix-button framelix-button-small dev-import-block-json"
+                                    data-icon-left="add"
+                                    title="Import block json"></button>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
             <iframe src="<?= Request::getGet('url') ?? \Framelix\Framelix\View::getUrl(

@@ -1,0 +1,78 @@
+{
+  "blocks": [
+    {
+      "blockClass": "Framelix\\PageMyself\\Component\\Text",
+      "placement": "content",
+      "sort": 0,
+      "settings": {
+        "text": {
+          "text": "<p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 3.2rem;\" data-mce-style=\"color: rgb(255, 255, 255); font-size: 3.2rem;\"><strong><\/strong><\/span><br><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\" data-mce-style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\"><strong><\/strong><\/span><br><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\" data-mce-style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\"><strong><\/strong><\/span><br><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 3.2rem; background-color: rgb(50, 140, 125);\" data-mce-style=\"color: rgb(255, 255, 255); font-size: 3.2rem; background-color: rgb(50, 140, 125);\"><strong>Lorem ipsum dolor sit amet, consetetur sadipscing elitr<\/strong><\/span><span style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\" data-mce-style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\"><strong><\/strong><\/span><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(50, 140, 125); font-size: 2.4rem;\" data-mce-style=\"color: rgb(50, 140, 125); font-size: 2.4rem;\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua<\/span><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\" data-mce-style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\"><strong><\/strong><\/span><br><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\" data-mce-style=\"color: rgb(206, 212, 217); font-size: 3.2rem; background-color: rgb(50, 140, 125);\"><strong><\/strong><\/span><br><\/p>"
+        },
+        "fullWidth": true,
+        "backgroundColor": null,
+        "backgroundImage": "DEMO|image",
+        "backgroundVideo": null
+      }
+    },
+    {
+      "blockClass": "Framelix\\PageMyself\\Component\\Text",
+      "placement": "content",
+      "sort": 1,
+      "settings": {
+        "text": {
+          "text": "<h3 style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"font-size: 3rem;\" data-mce-style=\"font-size: 3rem;\">Our Feature<\/span><\/h3><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><br><\/p><div class=\"pagemyself-columns\" data-columns=\"3\"><div class=\"pagemyself-column\" data-color-picker=\"column|css|backgroundColor\"><div class=\"pagemyself-card\" data-background-color=\"1\" data-background-fade=\"flip\" style=\"--card-text-color: #fff; --card-background-color-h: 160deg; --card-background-color-s: 87%; --card-background-color-l: 37%;\" data-mce-style=\"--card-text-color: #fff; --card-background-color-h: 160deg; --card-background-color-s: 87%; --card-background-color-l: 37%;\"><div class=\"pagemyself-card-inner\"><div class=\"pagemyself-card-icon\"><br><\/div><div class=\"pagemyself-card-title\">\u00a0<span class=\"material-icons\" style=\"font-size: 2rem;\" data-mce-style=\"font-size: 2rem;\">accessibility<\/span> <br><br>Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-text\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<\/div><div class=\"pagemyself-card-link\"><a href=\"#\" class=\"framelix-button\" data-mce-href=\"#\">Lorem ipsum....<\/a><\/div><\/div><\/div><\/div><div class=\"pagemyself-column\" data-color-picker=\"column|css|backgroundColor\"><div class=\"pagemyself-card\" data-background-color=\"1\" data-background-fade=\"flip\" style=\"--card-text-color: #fff; --card-background-color-h: 120deg; --card-background-color-s: 87%; --card-background-color-l: 37%;\" data-mce-style=\"--card-text-color: #fff; --card-background-color-h: 120deg; --card-background-color-s: 87%; --card-background-color-l: 37%;\"><div class=\"pagemyself-card-inner\"><div class=\"pagemyself-card-icon\"><br><\/div><div class=\"pagemyself-card-title\">\u00a0<span class=\"material-icons\" style=\"font-size: 2rem;\" data-mce-style=\"font-size: 2rem;\">all_inclusive<\/span> <br><br>Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-text\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<\/div><div class=\"pagemyself-card-link\"><a href=\"#\" class=\"framelix-button\" data-mce-href=\"#\">Lorem ipsum....<\/a><\/div><\/div><\/div><\/div><div class=\"pagemyself-column\" data-color-picker=\"column|css|backgroundColor\"><div class=\"pagemyself-card\" data-background-color=\"1\" data-background-fade=\"flip\" style=\"--card-text-color: #fff; --card-background-color-h: 260deg; --card-background-color-s: 87%; --card-background-color-l: 37%;\" data-mce-style=\"--card-text-color: #fff; --card-background-color-h: 260deg; --card-background-color-s: 87%; --card-background-color-l: 37%;\"><div class=\"pagemyself-card-inner\"><div class=\"pagemyself-card-icon\"><br><\/div><div class=\"pagemyself-card-title\">\u00a0<span class=\"material-icons\" style=\"font-size: 2rem;\" data-mce-style=\"font-size: 2rem;\">airline_seat_legroom_extra<\/span> <br><br>Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-text\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<\/div><div class=\"pagemyself-card-link\"><a href=\"#\" class=\"framelix-button\" data-mce-href=\"#\">Lorem ipsum....<\/a><\/div><\/div><\/div><\/div><\/div><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><br><\/p><table border=\"1\" style=\"border-collapse: collapse; width: 100%; border-width: 0px; border-spacing: 10px;\" data-mce-style=\"border-collapse: collapse; width: 100%; border-width: 0px; border-spacing: 10px;\"><colgroup><col style=\"width: 50%;\" data-mce-style=\"width: 50%;\"><col style=\"width: 20px;\" data-mce-style=\"width: 20px;\"><col><\/colgroup><tbody><tr><td style=\"border-width: 0px;\" data-mce-style=\"border-width: 0px;\"><img src=\"uploads\/1000\/twnSqh8XMquyceUWcf2PSUHFygLd1EVPf8TuZ.jpg\" alt=\"\" width=\"459\" height=\"298\" data-mce-src=\"uploads\/1000\/twnSqh8XMquyceUWcf2PSUHFygLd1EVPf8TuZ.jpg\"><\/td><td style=\"border-width: 0px;\" data-mce-style=\"border-width: 0px;\"><div class=\"elementor-element elementor-element-a12a604 elementor-widget elementor-widget-witr_section_service\" data-id=\"a12a604\" data-element_type=\"widget\" data-widget_type=\"witr_section_service.default\"><div class=\"elementor-widget-container\"><div class=\"em-service2 sleft all_color_service\"><div class=\"em_service_content \"><div class=\"em_single_service_text width_height_link_0 \"><div class=\"text_box witr_s_flex\"><div class=\"em-service-inner\"><div class=\"em-service-title\"><h3><br><\/h3><br><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/td><td style=\"border-width: 0px;\" data-mce-style=\"border-width: 0px;\"><div class=\"elementor-element elementor-element-a12a604 elementor-widget elementor-widget-witr_section_service\" data-id=\"a12a604\" data-element_type=\"widget\" data-widget_type=\"witr_section_service.default\"><div class=\"elementor-widget-container\"><div class=\"em-service2 sleft all_color_service\"><div class=\"em_service_content \"><div class=\"em_single_service_text width_height_link_0 \"><div class=\"text_box witr_s_flex\"><div class=\"em-service-inner\"><div class=\"em-service-title\"><h3>Our Company History<\/h3><\/div><div class=\"em-service-desc\"><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply.<\/p><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/div><div class=\"elementor-element elementor-element-593c996 elementor-widget elementor-widget-witr_section_service\" data-id=\"593c996\" data-element_type=\"widget\" data-widget_type=\"witr_section_service.default\"><div class=\"elementor-widget-container\"><div class=\"em-service2 sleft all_color_service\"><div class=\"em_service_content \"><div class=\"em_single_service_text width_height_link_0 \"><div class=\"text_box witr_s_flex\"><div class=\"em-service-inner\"><div class=\"em-service-title\"><h3>Our Success Mission<\/h3><\/div><div class=\"em-service-desc\"><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply.<\/p><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/div><div class=\"elementor-element elementor-element-6801ace elementor-widget elementor-widget-witr_section_service\" data-id=\"6801ace\" data-element_type=\"widget\" data-widget_type=\"witr_section_service.default\"><div class=\"elementor-widget-container\"><div class=\"em-service2 sleft all_color_service\"><div class=\"em_service_content \"><div class=\"em_single_service_text width_height_link_0 \"><div class=\"text_box witr_s_flex\"><div class=\"em-service-inner\"><div class=\"em-service-title\"><h3>Our Future Plan<\/h3><\/div><div class=\"em-service-desc\"><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply.<\/p><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/td><\/tr><\/tbody><\/table><p><br><\/p><p><br><\/p>"
+        }
+      }
+    },
+    {
+      "blockClass": "Framelix\\PageMyself\\Component\\Text",
+      "placement": "content",
+      "sort": 2,
+      "settings": {
+        "text": {
+          "text": "<div class=\"pagemyself-columns\" data-columns=\"2\"><div class=\"pagemyself-column\" data-color-picker=\"column|css|backgroundColor\"><div class=\"pagemyself-card\" data-background-color=\"1\" data-background-fade=\"none\" style=\"--card-text-color: #000; --card-background-color-h: 0deg; --card-background-color-s: 0%; --card-background-color-l: 100%;\" data-mce-style=\"--card-text-color: #000; --card-background-color-h: 0deg; --card-background-color-s: 0%; --card-background-color-l: 100%;\"><div class=\"pagemyself-card-inner\"><div class=\"pagemyself-card-icon\"><br><\/div><div class=\"pagemyself-card-title\">Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-text\">Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-link\"><a href=\"#\" class=\"framelix-button\" data-mce-href=\"#\">More...<\/a><\/div><\/div><\/div><\/div><div class=\"pagemyself-column\" data-color-picker=\"column|css|backgroundColor\"><div class=\"pagemyself-card\" data-background-color=\"1\" data-background-fade=\"none\" style=\"--card-text-color: #000; --card-background-color-h: 0deg; --card-background-color-s: 0%; --card-background-color-l: 100%;\" data-mce-style=\"--card-text-color: #000; --card-background-color-h: 0deg; --card-background-color-s: 0%; --card-background-color-l: 100%;\"><div class=\"pagemyself-card-inner\"><div class=\"pagemyself-card-icon\"><br><\/div><div class=\"pagemyself-card-title\">Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-text\">Lorem ipsum dolor sit amet<\/div><div class=\"pagemyself-card-link\"><a href=\"#\" class=\"framelix-button\" data-mce-href=\"#\">More...<\/a><\/div><\/div><\/div><\/div><\/div><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"font-size: 1.8rem;\" data-mce-style=\"font-size: 1.8rem;\"><\/span><br><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"font-size: 1.8rem; color: var(--color-page-text); font-family: var(--font);\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<\/span><br><span style=\"font-size: 1.8rem;\" data-mce-style=\"font-size: 1.8rem;\"><\/span><\/p><p style=\"text-align: center;\" data-mce-style=\"text-align: center;\"><span style=\"font-size: 1.2rem;\" data-mce-style=\"font-size: 1.2rem;\">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\/span><\/p>"
+        },
+        "fullWidth": true,
+        "backgroundColor": "#F7F7F7",
+        "backgroundImage": null,
+        "backgroundVideo": null
+      }
+    },
+    {
+      "blockClass": "Framelix\\PageMyself\\Component\\Calendar",
+      "placement": "content",
+      "sort": 3,
+      "settings": []
+    },
+    {
+      "blockClass": "Framelix\\PageMyself\\Component\\Text",
+      "placement": "content",
+      "sort": 4,
+      "settings": {
+        "text": {
+          "text": "<p style=\"text-align: center;\" data-mce-style=\"text-align: center;\">PageMyself. Made with<span style=\"color: rgb(224, 62, 45);\" data-mce-style=\"color: rgb(224, 62, 45);\"> <span class=\"material-icons\" style=\"font-size: 1rem;\" data-mce-style=\"font-size: 1rem;\">favorite<\/span> <\/span>from Austria.<\/p>"
+        },
+        "fullWidth": true,
+        "backgroundColor": "#F7F7F7",
+        "backgroundImage": null,
+        "backgroundVideo": null
+      }
+    }
+  ],
+  "page": {
+    "theme": null,
+    "themeSettings": []
+  },
+  "themeSettings": {
+    "stickyNav": null,
+    "maxWidth": null,
+    "fontSize": null,
+    "font": null,
+    "colorScheme": null,
+    "colorSchemeOverrideBackground": null,
+    "colorSchemeOverrideFont": null,
+    "colorSchemeOverridePrimary": null,
+    "colorSchemeOverrideHeader": null,
+    "colorSchemeOverrideNav": null
+  }
+}

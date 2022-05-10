@@ -6,11 +6,8 @@ use Framelix\Framelix\Form\Field\Html;
 use Framelix\Framelix\Form\Field\Toggle;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Lang;
-use Framelix\Framelix\Storable\Storable;
-use Framelix\Framelix\Utils\ArrayUtils;
 use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\MediaFile;
-use Framelix\PageMyself\Storable\MediaFolder;
 
 use function shuffle;
 
@@ -26,17 +23,7 @@ class Slideshow extends ComponentBase
      */
     public function getJavascriptInitParameters(): ?array
     {
-        $selectedValues = Storable::getByIds($this->block->settings['images'] ?? null);
-        $files = [];
-        if ($selectedValues) {
-            foreach ($selectedValues as $selectedValue) {
-                if ($selectedValue instanceof MediaFile) {
-                    $files[$selectedValue->id] = $selectedValue;
-                } elseif ($selectedValue instanceof MediaFolder) {
-                    $files = ArrayUtils::merge($files, $selectedValue->getAllChildFiles());
-                }
-            }
-        }
+        $files = MediaFile::getFlatList($this->block->settings['images'] ?? null);
         $data = [];
         foreach ($files as $file) {
             if (!$file->isImageFile()) {

@@ -3,15 +3,16 @@
 namespace Framelix\PageMyself\Storable;
 
 use Framelix\Framelix\Network\UploadedFile;
+use Framelix\Framelix\Storable\Storable;
 use Framelix\Framelix\Storable\StorableFile;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\ArrayUtils;
 
 use function in_array;
 
 /**
  * MediaFile
  * @property MediaFolder|null $mediaFolder
- * @property string|null $link
  * @property mixed|null $tags
  * @property mixed|null $metadata
  */
@@ -34,6 +35,34 @@ class MediaFile extends StorableFile
      * @var string|null
      */
     public ?string $folder = __DIR__ . "/../../public/uploads";
+
+    /**
+     * Get flat list of given media file/media folders
+     * Does flatten if media folder is given, also is recursive
+     * @param mixed $ids
+     * @return MediaFile[]
+     */
+    public static function getFlatList(mixed $ids): array
+    {
+        if (!$ids) {
+            return [];
+        }
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+        $storables = Storable::getByIds($ids);
+        $files = [];
+        if ($storables) {
+            foreach ($storables as $storable) {
+                if ($storable instanceof MediaFile) {
+                    $files[$storable->id] = $storable;
+                } elseif ($storable instanceof MediaFolder) {
+                    $files = ArrayUtils::merge($files, $storable->getAllChildFiles());
+                }
+            }
+        }
+        return $files;
+    }
 
     /**
      * Is this storable deletable
