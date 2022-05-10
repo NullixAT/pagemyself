@@ -137,16 +137,20 @@ class PageMyselfPageEditor {
       form.addButton('import', 'Import')
       form.render()
 
-      form.container.on('click', '.framelix-form-buttons [data-action="import"]', async function () {
+      const modal = FramelixModal.show({
+        bodyContent: form.container,
+        footerContent: form.container.find('.framelix-form-buttons'),
+        maxWidth: 900
+      })
+
+      modal.footerContainer.on('click', '.framelix-form-buttons [data-action="import"]', async function () {
         await FramelixApi.callPhpMethod(PageMyselfPageEditor.editorJsCallUrl, {
           'page': PageMyselfPageEditor.currentPage,
           'action': 'importBlockJson',
           'code': field.getValue()
         })
-        //window.location.reload()
+        window.location.reload()
       })
-
-      FramelixModal.show({ bodyContent: form.container, maxWidth: 900 })
     })
 
     // sorting blocks
