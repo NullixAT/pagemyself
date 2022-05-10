@@ -155,6 +155,34 @@
         "Button Link",
         "c4b4f"
     ],
+    "__pagemyself_editor_templates_type_card__": [
+        "Karte",
+        "1d565"
+    ],
+    "__pagemyself_editor_templates_type_card_animation__": [
+        "Mouseover Animation",
+        "df3c8"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_flip__": [
+        "Flip Card",
+        "664fd"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_none__": [
+        "Keine",
+        "6adf9"
+    ],
+    "__pagemyself_editor_templates_type_card_animation_slidein__": [
+        "Hintergrund Slide In",
+        "46465"
+    ],
+    "__pagemyself_editor_templates_type_card_bgcolor__": [
+        "Hintergrundfarbe",
+        "368d9"
+    ],
+    "__pagemyself_editor_templates_type_card_bgimage__": [
+        "Hintergrundbild",
+        "69ee1"
+    ],
     "__pagemyself_editor_templates_type_columns__": [
         "Responsive Spalten",
         "1b878"
@@ -182,6 +210,10 @@
     "__pagemyself_editor_templates_type_emailme_subject__": [
         "Standard Betreff",
         "421d8"
+    ],
+    "__pagemyself_editor_templates_type_icon__": [
+        "Icons",
+        "8f679"
     ],
     "__pagemyself_editor_templates_type_jumpmark__": [
         "Sprungmarke",

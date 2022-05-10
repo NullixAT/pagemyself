@@ -5,9 +5,9 @@ class TinymceTemplates {
 
   /**
    * Get templates
-   * @returns {Object<string, {html: string, title: string}>}
+   * @returns {Promise<Object<string, {html: string, title: string}>>}
    */
-  static getTemplates () {
+  static async getTemplates () {
     const defaultText = FramelixLang.get('__pagemyself_editor_templates_edit_text__')
     return {
       'alert': {
@@ -100,13 +100,36 @@ class TinymceTemplates {
             options: [
               ['none', '__pagemyself_editor_templates_type_card_animation_none__'],
               ['flip', '__pagemyself_editor_templates_type_card_animation_flip__'],
-              ['fadein', '__pagemyself_editor_templates_type_card_animation_fadein__'],
               ['slidein', '__pagemyself_editor_templates_type_card_animation_slidein__']
             ]
           })
         ]
+      },
+      'icon': {
+        'html': ``,
+        'fields': [
+          Object.assign(new FramelixFormFieldHtml(), {
+            defaultValue: await TinymceTemplates.getIcons()
+          })
+        ]
       }
     }
+  }
+
+  /**
+   * Get icons html container
+   * @returns {Promise<Cash>}
+   */
+  static async getIcons () {
+    const container = $('<div><input type="hidden" name="0"><div></div></div>')
+    container.children('div').html(await FramelixApi.callPhpMethod({
+      phpMethod: 'Framelix\\PageMyself\\View\\Backend\\PageEditor\\Index',
+      action: 'getIcons'
+    }))
+    container.on('click', '.framelix-space-click', function () {
+      container.find('input').val($(this).html()).trigger('insert-content')
+    })
+    return container
   }
 
   /**
@@ -121,7 +144,7 @@ class TinymceTemplates {
    * @return {Promise<string>}
    */
   static async getTemplateHtml (id, formValues, replacements) {
-    let html = this.getTemplates()[id].html
+    let html = (await this.getTemplates())[id].html
     switch (id) {
       case 'emailme': {
         const email = formValues[0]
@@ -140,12 +163,12 @@ class TinymceTemplates {
       }
         break
       case 'card': {
-        const container = $(`<div><div class="pagemyself-card">
+        const container = $(`<div><div class="pagemyself-card"><div class="pagemyself-card-inner">
             <div class="pagemyself-card-icon"></div>
             <div class="pagemyself-card-title">${FramelixLang.get('__pagemyself_component_text_default__')}</div>
             <div class="pagemyself-card-text">${FramelixLang.get('__pagemyself_component_text_default__')}</div>
             <div class="pagemyself-card-link"><a href="#" class="framelix-button">More...</a></div>
-        </div></div>`)
+        </div></div></div>`)
         const card = container.children()
         if (formValues[0]) {
           const hsl = FramelixColorUtils.rgbToHsl(...FramelixColorUtils.hexToRgb(formValues[0]))
@@ -157,13 +180,18 @@ class TinymceTemplates {
           card.css('--card-background-color-l', (hsl[2] * 100).toFixed(0) + '%')
         }
         if (formValues[1]) {
-          card.attr('data-background-image', formValues[0])
-          card.css('--card-background-image', formValues[0])
+          card.attr('data-background-image-url', 1)
+          card.css('--card-background-image-url', 'url(' + await PageMyselfFormFieldMediaBrowser.getUrlToId(formValues[1]) + ')')
         }
         if (formValues[2]) {
           card.attr('data-background-fade', formValues[2])
         }
         html = container.html()
+      }
+        break
+      case 'icon': {
+        console.log(formValues)
+        html = formValues[0]
       }
         break
     }

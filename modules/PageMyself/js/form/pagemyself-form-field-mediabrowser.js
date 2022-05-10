@@ -34,6 +34,18 @@ class PageMyselfFormFieldMediaBrowser extends FramelixFormField {
   currentFolder = null
 
   /**
+   * Get url to id
+   * @param {string|number} id
+   * @returns {Promise<string>}
+   */
+  static async getUrlToId (id) {
+    return FramelixApi.callPhpMethod({
+      phpMethod: 'Framelix\\PageMyself\\Form\\Field\\MediaBrowser',
+      'action': ''
+    }, { 'action': 'getUrl', 'id': id })
+  }
+
+  /**
    * Set value for this field
    * @param {*} value
    * @param {boolean} isUserChange Indicates if this change was done because of an user input

@@ -13,7 +13,9 @@ use Framelix\Framelix\Html\Tabs;
 use Framelix\Framelix\Html\Toast;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
+use Framelix\Framelix\Network\JsCallUnsigned;
 use Framelix\Framelix\Network\Request;
+use Framelix\Framelix\Storable\User;
 use Framelix\Framelix\Url;
 use Framelix\Framelix\Utils\Buffer;
 use Framelix\Framelix\Utils\JsonUtils;
@@ -32,10 +34,26 @@ class Index extends View
 
     /**
      * On js call
-     * @param JsCall $jsCall
+     * @param JsCall|JsCallUnsigned $jsCall
      */
-    public static function onJsCall(JsCall $jsCall): void
+    public static function onJsCall(JsCall|JsCallUnsigned $jsCall): void
     {
+        if (!User::get()) {
+            return;
+        }
+        if ($jsCall->action === 'getIcons') {
+            $listFile = __DIR__ . "/../../../../../Framelix/public/fonts/material-icons-list.txt";
+            $icons = file($listFile);
+            foreach ($icons as $icon) {
+                ?>
+                <div tabindex="0" class="framelix-space-click" data-name="<?= $icon ?>" title="<?= $icon ?>"
+                     style="font-size: 24px; padding:10px; display: inline-block; cursor: pointer">
+                    <span class="material-icons" style="font-size: 2rem"><?= trim($icon) ?></span>
+                </div>
+                <?php
+            }
+            return;
+        }
         $page = Page::getById($jsCall->parameters['page'] ?? null);
         switch ($jsCall->parameters['action'] ?? null) {
             case 'pageData':

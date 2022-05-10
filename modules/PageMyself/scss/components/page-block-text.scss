@@ -1,5 +1,9 @@
 .pagemyself-component-text {
   &[data-editing='1'] {
     cursor: pointer;
+
+    .mce-content-body:hover {
+      box-shadow: rgb(0 0 0 / 50%) 0 0 10px;
+    }
   }
 }

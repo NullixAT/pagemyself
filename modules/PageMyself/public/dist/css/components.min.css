@@ -107,3 +107,6 @@
 .pagemyself-component-text[data-editing="1"] {
   cursor: pointer;
 }
+.pagemyself-component-text[data-editing="1"] .mce-content-body:hover {
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+}

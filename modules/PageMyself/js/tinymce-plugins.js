@@ -6,7 +6,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
     text: FramelixLang.get('__framelix_save__'),
     onAction: async function () {
       Framelix.showProgressBar(1)
-      const content = editor.getContent({format: 'raw'})
+      const content = editor.getContent({ format: 'raw' })
       await component.apiRequest('textEditorSaveText', { 'id': el.attr('data-id'), 'text': content })
       FramelixToast.success('__framelix_saved__')
       Framelix.showProgressBar(null)
@@ -26,8 +26,8 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
   })
   editor.ui.registry.addMenuButton('pagemyself-templates', {
     text: FramelixLang.get('__pagemyself_editor_templates__'),
-    fetch: function (callback) {
-      const templates = TinymceTemplates.getTemplates()
+    fetch: async function (callback) {
+      const templates = await TinymceTemplates.getTemplates()
       let options = []
       for (let id in templates) {
         const row = templates[id]
@@ -51,6 +51,10 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
               modalContent.append(form.container)
               const formModal = FramelixModal.show({ bodyContent: modalContent, maxWidth: 900 })
               let proceed = false
+              formModal.bodyContainer.on('insert-content', function () {
+                proceed = true
+                formModal.destroy()
+              })
               form.container.on('click', '.framelix-form-buttons button', async function (ev) {
                 ev.stopPropagation()
                 ev.stopImmediatePropagation()
@@ -61,7 +65,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
               })
               await formModal.destroyed
               if (!proceed) return
-              values = form.getValues()
+              values = FormDataJson.toJson(form.container)
               if (values) {
                 replacements = values
               }
@@ -70,7 +74,7 @@ tinymce.PluginManager.add('pagemyself', function (editor, url) {
             for (let search in replacements) {
               html = html.replace(new RegExp(FramelixStringUtils.escapeRegex('{' + search + '}'), 'ig'), replacements[search])
             }
-            editor.insertContent(html+'<br/>')
+            editor.insertContent(html + '<br/>')
           }
         })
       }
