@@ -5,11 +5,13 @@ namespace Framelix\PageMyself\Storable;
 use Framelix\Framelix\Network\UploadedFile;
 use Framelix\Framelix\Storable\StorableFile;
 use Framelix\Framelix\Url;
+
 use function in_array;
 
 /**
  * MediaFile
  * @property MediaFolder|null $mediaFolder
+ * @property string|null $link
  * @property mixed|null $tags
  * @property mixed|null $metadata
  */
