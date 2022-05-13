@@ -156,6 +156,7 @@ class Page extends StorableExtended
     public function delete(bool $force = false): void
     {
         self::deleteMultiple($this->getComponentBlocks());
+        self::deleteMultiple(NavEntry::getByCondition('page = {0}', [$this]));
         parent::delete($force);
     }
 }

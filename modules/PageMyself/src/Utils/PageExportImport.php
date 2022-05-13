@@ -103,7 +103,19 @@ class PageExportImport
             $themeInstance->addComponentSettingFields($form, $componentInstance);
 
             $demoImage = __DIR__ . "/../../public/img/demo-image_2hmedia_unsplashed.jpg";
+            $demoImageFile = MediaFile::getByConditionOne('filename = {0}', [basename($demoImage)]);
+            if (!$demoImageFile) {
+                $demoImageFile = new MediaFile();
+                $demoImageFile->filename = basename($demoImage);
+                $demoImageFile->store(file_get_contents($demoImage));
+            }
             $demoFile = __DIR__ . "/../../public/img/demo-file.txt";
+            $demoFileFile = MediaFile::getByConditionOne('filename = {0}', [basename($demoFile)]);
+            if (!$demoFileFile) {
+                $demoFileFile = new MediaFile();
+                $demoFileFile->filename = basename($demoFile);
+                $demoFileFile->store(file_get_contents($demoFile));
+            }
 
             foreach ($form->fields as $field) {
                 $value = $settings[$field->name] ?? null;
@@ -118,19 +130,9 @@ class PageExportImport
                     foreach ($value as $key => $mediaType) {
                         $mediaType = substr($mediaType, 5);
                         if ($mediaType === "image") {
-                            $file = MediaFile::getByConditionOne('filename = {0}', [basename($demoImage)]);
-                            if (!$file) {
-                                $file = new MediaFile();
-                                $file->filename = basename($demoImage);
-                                $file->store(file_get_contents($demoImage));
-                            }
+                            $file = $demoImageFile;
                         } else {
-                            $file = MediaFile::getByConditionOne('filename = {0}', [basename($demoFile)]);
-                            if (!$file) {
-                                $file = new MediaFile();
-                                $file->filename = basename($demoFile);
-                                $file->store(file_get_contents($demoFile));
-                            }
+                            $file = $demoFileFile;
                         }
                         $value[$key] = $file->id;
                     }
@@ -141,7 +143,31 @@ class PageExportImport
                 }
             }
 
-            $block->settings = $settings;
+            // converting to json string to parse all hardcoded file links to uploaded files
+            // and replace them with now existing demo media files
+            $settingsStr = JsonUtils::encode($settings);
+            preg_match_all("~uploads\\\\/\d+\\\\/([^\s\"'\\\\]+)~i", $settingsStr, $matchedLinks);
+            if ($matchedLinks[0][0] ?? null) {
+                foreach ($matchedLinks[0] as $key => $link) {
+                    $filename = $matchedLinks[1][$key];
+                    if (preg_match("~(jpeg|jpg|gif|png|webp)$~", $filename)) {
+                        preg_match("~^t-([0-9]+)~", $filename, $thumbSize);
+                        $settingsStr = str_replace(
+                            $link,
+                            substr(
+                                JsonUtils::encode(
+                                    $demoImageFile->getUrl(isset($thumbSize[1]) ? (int)$thumbSize[1] : null)
+                                ),
+                                1,
+                                -1
+                            ),
+                            $settingsStr
+                        );
+                    }
+                }
+            }
+
+            $block->settings = JsonUtils::decode($settingsStr);
             $block->store();
         }
     }
