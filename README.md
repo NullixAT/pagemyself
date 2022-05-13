@@ -12,26 +12,32 @@
 * Multilanguage interface 👄 Currently there is english and german, but plan is to integrate open-source translations as
   well
 
+## Demo
+
+Everything is easier to understand 👀 when you get your hands on our demo page at https://demo.pagemyself.com/
+
 ### Requirements
 
-PageMyself runs in a `docker` container, so you have to `docker` and `docker-compose`. All of them are available on almost every OS. Docker give you an extra layer of security and a simple setup process for PageMyself.
+PageMyself runs in a `docker` container, so you have to `docker` and `docker-compose`. All of them are available on
+almost every OS. Docker give you an extra layer of security and a simple setup process for PageMyself.
 
-### Installation 
+### Installation
+
 #### On windows it recommended to use a WSL ubuntu instance which is also linux in the end
 
-```shell
+```
 mkdir pagemyself
 cd pagemyself
 wget https://github.com/NullixAT/pagemyself/releases/latest/download/docker-release.tar -O docker-release.tar
 tar xf docker-release.tar
 rm docker-release.tar  
 cp config/env-default .env
-docker-compose build
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 Open `https://yourdomainorip:8686` and follow instructions in your browser. The container is configured to restart
-always, also after host reboot. For more help on configuring the docker instance, goto [our docker implementation repository](https://github.com/NullixAT/framelix-docker).
+always, also after host reboot. For more help on configuring the docker instance,
+goto [our docker implementation repository](https://github.com/NullixAT/framelix-docker).
 
 ### Team
 
