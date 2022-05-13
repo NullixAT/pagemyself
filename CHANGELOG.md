@@ -1,3 +1,8 @@
+## [1.0.0-alpha.7]
+
+* fixed bug with wrong initial sort when creating nav entries
+* updated framelix core
+
 ## [1.0.0-alpha.6]
 
 * several improvements and first usable release

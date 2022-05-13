@@ -36,6 +36,7 @@ class Index extends View
         $this->storable = NavEntry::getByIdOrNew(Request::getGet('id'));
         if (!$this->storable->id) {
             $this->storable->flagShow = true;
+            $this->storable->sort = NavEntry::getByConditionOne(sort: "-sort")?->sort + 1;
         }
 
         $this->meta = new \Framelix\PageMyself\StorableMeta\NavEntry($this->storable);
