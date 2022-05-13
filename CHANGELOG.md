@@ -1,3 +1,7 @@
+## [1.0.0-alpha.6]
+
+* several improvements and first usable release
+
 ## [1.0.0-alpha.5]
 
 * minor fixes for several features and update process
