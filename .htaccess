@@ -1,7 +1,0 @@
-RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^@([A-Za-z0-9]+)/(.*) modules/$1/public/$2 [L]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^.*$ index.php [L]
