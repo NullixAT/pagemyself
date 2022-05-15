@@ -25,10 +25,15 @@ body {
   overflow: hidden;
   background: var(--color-page-bg);
   padding: 10px;
+  z-index: 2;
+  border-bottom: 2px solid #eee;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 30px;
+}
+
+.page-nav-inner {
   text-align: center;
   margin: 0 auto;
   max-width: var(--page-max-width);
-  z-index: 2;
 }
 
 .page-nav-sticky {
@@ -44,6 +49,7 @@ body {
   display: flex;
   white-space: nowrap;
   align-items: center;
+  gap: 5px;
 }
 
 .page-nav ul,
@@ -57,7 +63,7 @@ body {
 .page-nav .nav-entry:any-link {
   background: transparent;
   border: 0;
-  padding: 10px 20px 0;
+  padding: 10px 20px;
   margin: 0;
   color: var(--nav-color-text);
   text-decoration: none;
@@ -65,35 +71,29 @@ body {
   display: block;
   font-weight: bold;
   font-size: 1.1rem;
+  border-radius: var(--border-radius);
 }
 
 
 .page-nav .nav-entry img {
-  max-height: 100px;
+  max-width: 150px;
+}
+.page-nav .nav-entry [data-image-type='svg'] {
+  width: 150px;
 }
 
 .page-nav .nav-entry + span,
 .page-nav .nav-entry:any-link + span {
-  display: inline-block;
-  max-width: 60px;
-  width: 100%;
-  height: 4px;
-  background: var(--nav-color-text-highlight);
-  border-radius: 20px;
-  transform: scaleX(0);
+  display: none;
 }
 
-.page-nav .nav-entry.nav-entry-active, .page-nav .nav-entry:hover,
+.page-nav .nav-entry.nav-entry-active,
+.page-nav .nav-entry:not(.nav-entry-image):hover,
 .page-nav .nav-entry:any-link.nav-entry-active,
-.page-nav .nav-entry:any-link:hover {
-  color: var(--nav-color-text-highlight);
-}
-
-.page-nav .nav-entry.nav-entry-active + span, .page-nav .nav-entry:hover + span,
-.page-nav .nav-entry:any-link.nav-entry-active + span,
-.page-nav .nav-entry:any-link:hover + span {
+.page-nav .nav-entry:not(.nav-entry-image):any-link:hover {
+  background: var(--nav-color-text-highlight);
+  color: white;
   animation: nav-gelatine 0.5s;
-  transform: scaleX(1);
 }
 
 .page-nav button.nav-entry {
@@ -144,9 +144,11 @@ body {
 }
 
 .popup-nav .nav-entry,
-.popup-nav .nav-entry:any-link {
+.popup-nav .nav-entry:any-link,
+.modal-nav .nav-entry,
+.modal-nav .nav-entry:any-link {
   font-size: 1rem;
-  font-weight: normal;
+  margin-bottom: 2px;
 }
 
 .popup-nav ul {

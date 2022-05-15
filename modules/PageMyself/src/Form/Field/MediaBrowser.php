@@ -14,6 +14,7 @@ use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\PageMyself\Storable\MediaFile;
 use Framelix\PageMyself\Storable\MediaFolder;
 use Throwable;
+
 use function array_reverse;
 use function explode;
 use function implode;
@@ -48,7 +49,9 @@ class MediaBrowser extends Field
         }
         $disabled = $jsCall->parameters['disabled'] ?? (bool)(Request::getGet('disabled'));
         $multiple = $jsCall->parameters['multiple'] ?? (bool)(Request::getGet('multiple'));
-        $allowedExtensions = $jsCall->parameters['allowedExtensions'] ?? Request::getGet('allowedExtensions') ?? Request::getPost('allowedExtensions');
+        $allowedExtensions = $jsCall->parameters['allowedExtensions'] ?? Request::getGet(
+                'allowedExtensions'
+            ) ?? Request::getPost('allowedExtensions');
         if (is_string($allowedExtensions)) {
             $allowedExtensions = explode(",", $allowedExtensions);
         }
@@ -218,7 +221,7 @@ class MediaBrowser extends Field
                         <span class="mediabrowser-file-checkbox"><input
                                     type="checkbox" <?= isset($selectedValues[$file->id]) ? 'checked' : '' ?>/></span>
                         <?php
-                        if ($file->isImageFile()) {
+                        if ($file->isImage()) {
                             ?>
                             <span class="mediabrowser-file-preview"
                                   style="background-image:url(<?= $file->getUrl(100) ?>)"></span>
@@ -261,7 +264,7 @@ class MediaBrowser extends Field
      */
     public function setOnlyImages(): void
     {
-        $this->allowedExtensions = ['jpg', 'jpeg', 'gif', 'png', 'webp'];
+        $this->allowedExtensions = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'svg'];
     }
 
     /**

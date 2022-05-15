@@ -77,18 +77,27 @@ class MediaFile extends StorableFile
      * Is video file that can be viewed in the browser
      * @return bool
      */
-    public function isVideoFile(): bool
+    public function isVideo(): bool
     {
         return in_array($this->extension, ['mp4', 'webm']);
     }
 
     /**
-     * Is image file that can be viewed in the browser
+     * Is image file that can be converted into thumbnails
      * @return bool
      */
-    public function isImageFile(): bool
+    public function isImageWithThumbnails(): bool
     {
         return in_array($this->extension, ['jpg', 'jpeg', 'gif', 'png', 'webp']);
+    }
+
+    /**
+     * Is image file html valid, so it can be displayed in an <img> tag
+     * @return bool
+     */
+    public function isImage(): bool
+    {
+        return in_array($this->extension, ['jpg', 'jpeg', 'gif', 'png', 'webp', 'svg']);
     }
 
     /**
@@ -114,7 +123,7 @@ class MediaFile extends StorableFile
 
     /**
      * Get public url to this file
-     * @param int|null $thumbSize
+     * @param int|null $thumbSize Only take effect when isImageWithThumbnails() is true
      * @return Url
      */
     public function getUrl(?int $thumbSize = null): Url
@@ -122,7 +131,7 @@ class MediaFile extends StorableFile
         $file = $this->getPath();
         $basename = basename($file);
         $url = Url::getUrlToFile($file);
-        if ($thumbSize) {
+        if ($thumbSize && $this->isImageWithThumbnails()) {
             $file = $this->getThumbPath($thumbSize);
             $url->setPath(str_replace("/" . $basename, "/" . basename($file), $url->getPath()));
         }

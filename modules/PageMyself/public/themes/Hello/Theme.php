@@ -90,10 +90,10 @@ class Theme extends ThemeBase
         if ($backgroundColor) {
             $attr->setStyle('background-color', $backgroundColor);
         }
-        if ($backgroundImage?->isImageFile()) {
+        if ($backgroundImage?->isImage()) {
             $attr->set('data-background-image', $backgroundImage->getUrl());
         }
-        if ($backgroundVideo?->isVideoFile()) {
+        if ($backgroundVideo?->isVideo()) {
             $attr->set('data-background-video', $backgroundVideo->getUrl());
         }
         echo '<div ' . $attr . '>';

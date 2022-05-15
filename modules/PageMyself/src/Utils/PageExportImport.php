@@ -47,9 +47,9 @@ class PageExportImport
                     $files = MediaFile::getFlatList($value);
                     foreach ($files as $key => $file) {
                         $type = "other";
-                        if ($file->isImageFile()) {
+                        if ($file->isImage()) {
                             $type = "image";
-                        } elseif ($file->isVideoFile()) {
+                        } elseif ($file->isVideo()) {
                             $type = "video";
                         }
                         $files[$key] = "DEMO|" . $type;

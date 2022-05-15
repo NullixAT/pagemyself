@@ -26,7 +26,7 @@ class Slideshow extends ComponentBase
         $files = MediaFile::getFlatList($this->block->settings['images'] ?? null);
         $data = [];
         foreach ($files as $file) {
-            if (!$file->isImageFile()) {
+            if (!$file->isImage()) {
                 continue;
             }
             $data[$file->id] = ['filename' => $file->filename, 'url' => $file->getUrl(), 'id' => $file->id];

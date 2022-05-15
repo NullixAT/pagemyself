@@ -127,7 +127,7 @@ abstract class ThemeBase
                         if ($group) {
                             $isActive = false;
                             foreach ($group as $subNavEntry) {
-                                $isActive = $this->page === $subNavEntry;
+                                $isActive = $this->page === $subNavEntry->page;
                                 if ($isActive) {
                                     break;
                                 }
@@ -168,13 +168,17 @@ abstract class ThemeBase
         $url = $navEntry->getPublicUrl();
         $target = $navEntry->page ? '' : 'target="_blank"';
         $title = HtmlUtils::escape($navEntry->title);
-        if ($navEntry->image?->isImageFile()) {
-            $title = '<img src="' . $navEntry->image->getUrl(500) . '" alt="' . $title . '">';
+        $isImage = $navEntry->image?->isImage();
+        if ($isImage) {
+            $title = '<img src="' . $navEntry->image->getUrl(
+                    500
+                ) . '" alt="' . $title . '" data-image-type="' . $navEntry->image->extension . '">';
         }
+        $isActive = $navEntry->page === $this->page && !str_contains($url, "#") && !$isImage;
         ?>
         <li>
             <span></span>
-            <a class="nav-entry <?= $navEntry->page === $this->page ? 'nav-entry-active' : '' ?>"
+            <a class="nav-entry <?= $isActive ? 'nav-entry-active' : '' ?> <?= $isImage ? 'nav-entry-image' : '' ?>"
                href="<?= $url ?>" <?= $target ?>><?= $title ?></a>
             <span></span>
         </li>
