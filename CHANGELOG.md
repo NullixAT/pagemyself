@@ -1,3 +1,10 @@
+## [1.0.0-alpha.8]
+
+* some cleanup and removements of old files
+* improved default theme styling
+* added support for svg as image file
+* added dev role
+
 ## [1.0.0-alpha.7]
 
 * fixed bug with wrong initial sort when creating nav entries

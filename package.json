@@ -1,7 +1,7 @@
 {
   "name": "pagemyself",
   "description": "PageMyself - Fast, easy and powerful website generator",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.8",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NullixAT/pagemyself.git"
