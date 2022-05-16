@@ -1,3 +1,7 @@
+## [1.0.0-alpha.9]
+
+* fixed bug with navigation popups and jumpto marks
+
 ## [1.0.0-alpha.8]
 
 * some cleanup and removements of old files
