@@ -1,0 +1,1 @@
+* fixed bug with navigation popups and jumpto marks

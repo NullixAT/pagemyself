@@ -55,6 +55,9 @@ class PageMyselfTheme {
       const content = $(`<nav class="page-nav">`).append(ulClone)
       const popup = FramelixPopup.show(this, content)
       popup.popperEl.addClass('popup-nav')
+      popup.popperEl.on('click', function () {
+        popup.destroy()
+      })
     })
     nav.on('click', '.show-more', function () {
       const navPopup = nav.clone()
@@ -68,7 +71,12 @@ class PageMyselfTheme {
         })
         parent.remove()
       })
-      FramelixModal.show({ bodyContent: $('<div class="modal-nav"></div>').append(navPopup) })
+      const modal = FramelixModal.show({ bodyContent: $('<div class="modal-nav"></div>').append(navPopup) })
+      modal.bodyContainer.on('click', 'a', async function (ev) {
+        ev.preventDefault()
+        await modal.destroy()
+        window.location.href = this.href
+      })
     })
     onResize()
     let resizeTo = null
