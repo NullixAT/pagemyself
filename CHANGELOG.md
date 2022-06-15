@@ -1,3 +1,9 @@
+## [1.0.0-beta.2]
+
+* fixed navigation not properly displayed on small screen
+* fixed mediabrowser in tinymce not working properly
+* fixed redirect after page save
+
 ## [1.0.0-beta.1]
 
 #### Merged Framelix changes

@@ -114,6 +114,9 @@ body {
 
 .page-nav .show-more button:before {
   font-size: 24px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
 }
 
 @keyframes nav-gelatine {

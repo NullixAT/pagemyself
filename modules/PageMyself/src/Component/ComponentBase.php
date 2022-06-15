@@ -5,9 +5,9 @@ namespace Framelix\PageMyself\Component;
 use Framelix\Framelix\Form\Form;
 use Framelix\Framelix\Lang;
 use Framelix\Framelix\Network\JsCall;
-use Framelix\PageMyself\Form\Field\MediaBrowser;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\View\Index;
+
 use function strtolower;
 
 /**
@@ -72,13 +72,9 @@ abstract class ComponentBase
                 $this->block->settings = $settings;
                 $this->block->store();
                 break;
-            case 'textEditorMediaBrowser':
-                $jsCall = new JsCall('browser', ['action' => 'browser']);
-                echo $jsCall->call(MediaBrowser::class . "::onJsCall");
-                break;
             case 'textEditorLayouts':
                 ?>
-                
+
                 <?php
                 break;
         }
