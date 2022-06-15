@@ -1,0 +1,1 @@
+* [added multiple file select to media browser with shift key]()
