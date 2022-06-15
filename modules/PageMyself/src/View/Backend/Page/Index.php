@@ -46,7 +46,7 @@ class Index extends View
             $this->storable->url = (string)$this->storable->url;
             $this->storable->store();
             Toast::success('__framelix_saved__');
-            Url::getBrowserUrl()->setParameter('id', $this->storable)->redirect();
+            Url::getBrowserUrl()->removeParameter('id')->redirect();
         }
         $this->showContentBasedOnRequestType();
     }
