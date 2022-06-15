@@ -105,24 +105,8 @@ class PageMyselfComponentSlideshow extends PageMyselfComponent {
    */
   async enableEditing () {
     await super.enableEditing()
-    const self = this
-    const thumbsContainer = this.container.find('.slideshow-thumbs')
     if (!this.images.length) {
       this.container.find('.slideshow-image').html('<div class="slideshow-image-inner" data-visible="1"><button class="framelix-button open-block-settings">' + FramelixLang.get('__pagemyself_component_open_settings__') + '</button></div>')
-    } else {
-      if (thumbsContainer.length) {
-        FramelixDom.includeCompiledFile('Framelix', 'js', 'sortablejs', 'Sortable').then(function () {
-          new Sortable(thumbsContainer[0], {
-            'onSort': function () {
-              const ids = []
-              thumbsContainer.find('[data-id]').each(function () {
-                ids.push($(this).attr('data-id'))
-              })
-              self.apiRequest('sort', { 'ids': ids })
-            }
-          })
-        })
-      }
     }
   }
 }

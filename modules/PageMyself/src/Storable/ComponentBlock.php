@@ -4,6 +4,7 @@ namespace Framelix\PageMyself\Storable;
 
 use Framelix\Framelix\Storable\StorableExtended;
 use Framelix\Framelix\Url;
+use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\PageMyself\Component\ComponentBase;
 
 /**
@@ -16,6 +17,15 @@ use Framelix\PageMyself\Component\ComponentBase;
  */
 class ComponentBlock extends StorableExtended
 {
+    /**
+     * Get js class name
+     * @return string
+     */
+    public function getJsClassName(): string
+    {
+        return "PageMyselfComponent" . ClassUtils::getClassBaseName($this->blockClass);
+    }
+
     /**
      * Get public url
      * @return Url

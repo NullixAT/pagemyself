@@ -1,365 +1,371 @@
 {
-    "__pagemyself_block_info__": [
-        "Blocks"
-    ],
-    "__pagemyself_component_add__": [
-        "Add a new block to this page<br\/>After clicking this button, click on 'Insert block here' to choose the position to insert"
-    ],
-    "__pagemyself_component_block_settings__": [
-        "Show a list of all blocks on website"
-    ],
-    "__pagemyself_component_calendar_color__": [
-        "Cell Color"
-    ],
-    "__pagemyself_component_calendar_defaultcellcolor__": [
-        "Default Cell Color"
-    ],
-    "__pagemyself_component_calendar_desc__": [
-        "Display a calendar on your homepage, where you can add information to each day for your visitors. You can have mulitple calendars on different pages as well."
-    ],
-    "__pagemyself_component_calendar_info__": [
-        "Tooltip Info Text"
-    ],
-    "__pagemyself_component_calendar_internalinfo__": [
-        "Internal Info (Only visible in website editor)"
-    ],
-    "__pagemyself_component_calendar_predefinedcolor__": [
-        "Cell Color (Values that you have already used before)"
-    ],
-    "__pagemyself_component_calendar_title__": [
-        "Calendar"
-    ],
-    "__pagemyself_component_ctrl_click__": [
-        "Pro Tip: Hold CTRL and right-click on any block directly on the website, to open the settings window for the block."
-    ],
-    "__pagemyself_component_delete__": [
-        "Delete this block"
-    ],
-    "__pagemyself_component_insert_here__": [
-        "Insert block here"
-    ],
-    "__pagemyself_component_jumpmark_desc__": [
-        "Allow to jump to this element with a jumpark (#xxx) in pagelink. This will allow to use links in your navigation that point to this jumpmark. Mostly used for single page applications."
-    ],
-    "__pagemyself_component_jumpmark_link__": [
-        "Use this URL to link to this jumpmark"
-    ],
-    "__pagemyself_component_jumpmark_title__": [
-        "Jumpmark"
-    ],
-    "__pagemyself_component_no_blocks__": [
-        "You have no blocks on this page. Add some by clicking the plus symbol right next to the settings symbol."
-    ],
-    "__pagemyself_component_open_settings__": [
-        "Open settings"
-    ],
-    "__pagemyself_component_settings__": [
-        "Settings"
-    ],
-    "__pagemyself_component_slideshow_desc__": [
-        "An easy to use image slideshow where an user can switch between images."
-    ],
-    "__pagemyself_component_slideshow_images__": [
-        "Choose images"
-    ],
-    "__pagemyself_component_slideshow_random__": [
-        "Random sorting"
-    ],
-    "__pagemyself_component_slideshow_sorting__": [
-        "To sort images in the slideshow, enable thumbnails and drag&drop the images to the desired places in the thumbnail container."
-    ],
-    "__pagemyself_component_slideshow_sorting_tooltip_": [
-        "Drag&Drop the images to the desired places"
-    ],
-    "__pagemyself_component_slideshow_thumbnails__": [
-        "Show Thumbnails"
-    ],
-    "__pagemyself_component_slideshow_title__": [
-        "Image Slideshow"
-    ],
-    "__pagemyself_component_sort_down__": [
-        "Move this block down"
-    ],
-    "__pagemyself_component_sort_up__": [
-        "Move this block up"
-    ],
-    "__pagemyself_component_text_default__": [
-        "Your editable text is here. Click me to edit the text."
-    ],
-    "__pagemyself_component_text_desc__": [
-        "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc... Also there are a lot of predefined layout blocks you can insert, like cards, alerts, buttons, etc..."
-    ],
-    "__pagemyself_component_text_help__": [
-        "To add a new line without a vertical empty space, hold CTRL and hit enter, instead of just pressing Enter only"
-    ],
-    "__pagemyself_component_text_title__": [
-        "Texteditor with predefined components"
-    ],
-    "__pagemyself_editor_templates__": [
-        "Insert template"
-    ],
-    "__pagemyself_editor_templates_colorpicker_bg__": [
-        "Pick a background color"
-    ],
-    "__pagemyself_editor_templates_colorpicker_text__": [
-        "Pick a text color"
-    ],
-    "__pagemyself_editor_templates_edit_text__": [
-        "You can edit this text after inserting into the website"
-    ],
-    "__pagemyself_editor_templates_settings__": [
-        "Settings"
-    ],
-    "__pagemyself_editor_templates_type_alert__": [
-        "Alert Box"
-    ],
-    "__pagemyself_editor_templates_type_buttonlink__": [
-        "Button Link"
-    ],
-    "__pagemyself_editor_templates_type_card__": [
-        "Card"
-    ],
-    "__pagemyself_editor_templates_type_card_animation__": [
-        "Mouseover Animation"
-    ],
-    "__pagemyself_editor_templates_type_card_animation_flip__": [
-        "Flip Card"
-    ],
-    "__pagemyself_editor_templates_type_card_animation_none__": [
-        "None"
-    ],
-    "__pagemyself_editor_templates_type_card_animation_slidein__": [
-        "Background Slide In"
-    ],
-    "__pagemyself_editor_templates_type_card_bgcolor__": [
-        "Background color"
-    ],
-    "__pagemyself_editor_templates_type_card_bgimage__": [
-        "Background image"
-    ],
-    "__pagemyself_editor_templates_type_columns__": [
-        "Responsive columns"
-    ],
-    "__pagemyself_editor_templates_type_columns_number__": [
-        "Number of columns"
-    ],
-    "__pagemyself_editor_templates_type_emailme__": [
-        "E-Mail Button"
-    ],
-    "__pagemyself_editor_templates_type_emailme_email__": [
-        "Your contact e-mail"
-    ],
-    "__pagemyself_editor_templates_type_emailme_sendmail__": [
-        "Send an e-mail"
-    ],
-    "__pagemyself_editor_templates_type_emailme_sendmailnfo__": [
-        "In case your default e-mail app doesn't open,<br\/>please send an e-mail to {0}"
-    ],
-    "__pagemyself_editor_templates_type_emailme_subject__": [
-        "Default Subject"
-    ],
-    "__pagemyself_editor_templates_type_icon__": [
-        "Icons"
-    ],
-    "__pagemyself_editor_templates_type_jumpmark__": [
-        "Jump-Mark"
-    ],
-    "__pagemyself_editor_templates_type_jumpmark_info__": [
-        "You can use a jump-mark to create a link to this exact position in page. So when an user open the link with this jump-mark, the page will automatically scroll to this position."
-    ],
-    "__pagemyself_mediabrowser_accept_selection__": [
-        "Accept current selection"
-    ],
-    "__pagemyself_mediabrowser_createfolder__": [
-        "Create folder"
-    ],
-    "__pagemyself_mediabrowser_deletefolder__": [
-        "Delete folder including all files in it"
-    ],
-    "__pagemyself_mediabrowser_deselect_files__": [
-        "Clear selection"
-    ],
-    "__pagemyself_mediabrowser_files_selected__": [
-        "{{0=1:{0} file|0=*:{0} files}} selected"
-    ],
-    "__pagemyself_mediabrowser_open__": [
-        "Open Media Browser"
-    ],
-    "__pagemyself_mediabrowser_rename__": [
-        "Rename"
-    ],
-    "__pagemyself_mediabrowser_replace__": [
-        "Replace file"
-    ],
-    "__pagemyself_mediabrowser_rootfolder__": [
-        "Root folder"
-    ],
-    "__pagemyself_mediabrowser_upload_failed__": [
-        "Upload failed: {0}"
-    ],
-    "__pagemyself_more_nav__": [
-        "More"
-    ],
-    "__pagemyself_page_login__": [
-        "Login"
-    ],
-    "__pagemyself_page_password__": [
-        "This page is password protected"
-    ],
-    "__pagemyself_page_password_desc__": [
-        "Enter the password"
-    ],
-    "__pagemyself_pageeditor_jump_to_page__": [
-        "Jump to page"
-    ],
-    "__pagemyself_pageeditor_page_back__": [
-        "Back"
-    ],
-    "__pagemyself_pageeditor_page_home__": [
-        "Homepage"
-    ],
-    "__pagemyself_pageeditor_page_mobile__": [
-        "Toggle between mobile and desktop view"
-    ],
-    "__pagemyself_pageeditor_page_open__": [
-        "Click here to open this website in a new tab to see your changes"
-    ],
-    "__pagemyself_pageeditor_page_reload__": [
-        "Reload"
-    ],
-    "__pagemyself_pageeditor_page_required__": [
-        "You need to navigate to a page before you can edit the settings."
-    ],
-    "__pagemyself_pageeditor_theme_settings__": [
-        "Theme Settings"
-    ],
-    "__pagemyself_pageeditor_theme_settings_desc__": [
-        "All settings in this window are applied to the choosen theme. Changes to this settings will change appearance of all pages that use this theme."
-    ],
-    "__pagemyself_password_incorrect__": [
-        "Password is incorrect"
-    ],
-    "__pagemyself_reset_text__": [
-        "Revert text changes"
-    ],
-    "__pagemyself_storable_naventry_flagshow_label__": [
-        "Is visible"
-    ],
-    "__pagemyself_storable_naventry_flagshow_label_desc__": [
-        "Just in case you want to hide this entry in the navigation. This is useful because all website pages automatically have a navigation entry created. Maybe you don't want all pages in your navigation."
-    ],
-    "__pagemyself_storable_naventry_grouptitle_label__": [
-        "Group Label"
-    ],
-    "__pagemyself_storable_naventry_grouptitle_label_desc__": [
-        "Fill this out, if you want to group navigation entries into a submenu with this label. The user later can expand this submenu and see all the entries with the same group label."
-    ],
-    "__pagemyself_storable_naventry_image_label__": [
-        "Image"
-    ],
-    "__pagemyself_storable_naventry_image_label_desc__": [
-        "Display this image instead of the title. The title is still required as alternative text."
-    ],
-    "__pagemyself_storable_naventry_missing__": [
-        "Please choose a page or an external URL to link to"
-    ],
-    "__pagemyself_storable_naventry_page_label__": [
-        "Link to page"
-    ],
-    "__pagemyself_storable_naventry_page_label_desc__": [
-        "Choose an existing website page to link to"
-    ],
-    "__pagemyself_storable_naventry_title_label__": [
-        "Title"
-    ],
-    "__pagemyself_storable_naventry_url_external_label__": [
-        "Or link to a free defined external url"
-    ],
-    "__pagemyself_storable_naventry_url_external_label_desc__": [
-        "Must begin with http..."
-    ],
-    "__pagemyself_storable_naventry_url_hash_label__": [
-        "Set a jump-mark - This must begin with #jumpto-..."
-    ],
-    "__pagemyself_storable_page_password_label__": [
-        "Password protection"
-    ],
-    "__pagemyself_storable_page_password_label_desc__": [
-        "If set, an user must enter this password in order to view the page."
-    ],
-    "__pagemyself_storable_page_title_label__": [
-        "Page Title"
-    ],
-    "__pagemyself_storable_page_title_label_desc__": [
-        "The title the appears in your browser tab and in search engine results"
-    ],
-    "__pagemyself_storable_page_url_label__": [
-        "URL Path"
-    ],
-    "__pagemyself_storable_page_url_label_desc__": [
-        "The name that appears in your website url. Special characters are not allowed.<br\/>Empty = Homepage"
-    ],
-    "__pagemyself_theme__": [
-        "Theme"
-    ],
-    "__pagemyself_theme_options__": [
-        "Theme options"
-    ],
-    "__pagemyself_view_backend_index__": [
-        "PageMyself Backend"
-    ],
-    "__pagemyself_view_backend_nav_index__": [
-        "Website Navigation"
-    ],
-    "__pagemyself_view_backend_page_index__": [
-        "Website Pages"
-    ],
-    "__pagemyself_view_backend_pageeditor_index__": [
-        "Live Website Editor"
-    ],
-    "__pagemyself_view_backend_websitesettings__": [
-        "Website Settings"
-    ],
-    "__pagemyself_view_index__": [
-        "PageMyself - Fast, easy and powerful website generator"
-    ],
-    "__pagemyself_websitesetting_author__": [
-        "Author of website"
-    ],
-    "__pagemyself_websitesetting_bodyhtml__": [
-        "HTML Code that appears at the end of &lt;body&gt; tag"
-    ],
-    "__pagemyself_websitesetting_favicon__": [
-        "Favicon"
-    ],
-    "__pagemyself_websitesetting_favicon_desc__": [
-        "The tiny icon that is displayed beside the browser page title and in search engines. Should be a squared image with 512x512."
-    ],
-    "__pagemyself_websitesetting_headhtml__": [
-        "HTML Code that appears inside &lt;head&gt; tag"
-    ],
-    "__pagemyself_websitesetting_keywords__": [
-        "Website keywords"
-    ],
-    "__pagemyself_websitesetting_og_description__": [
-        "Website Description"
-    ],
-    "__pagemyself_websitesetting_og_image__": [
-        "Website Logo"
-    ],
-    "__pagemyself_websitesetting_og_site_name__": [
-        "Website Short Name"
-    ],
-    "__pagemyself_websitesetting_og_title__": [
-        "Website Full Name"
-    ],
-    "__pagemyself_websitesettings_headhtml_desc__": [
-        "Use this to including scripts, adding external stylesheets, etc..."
-    ],
-    "__pagemyself_websitesettings_og_data__": [
-        "This is a meta information and is used by search engines and social media representation"
-    ],
-    "__pagemyself_websitesettings_search_engine_data__": [
-        "This is a meta information and is only used for search machine optimization"
-    ]
+  "__pagemyself_block_info__": [
+    "Blocks"
+  ],
+  "__pagemyself_component_add__": [
+    "Add a new block to this page<br\/>After clicking this button, click on 'Insert block here' to choose the position to insert"
+  ],
+  "__pagemyself_component_block_settings__": [
+    "Show a list of all blocks on website"
+  ],
+  "__pagemyself_component_calendar_color__": [
+    "Cell Color"
+  ],
+  "__pagemyself_component_calendar_defaultcellcolor__": [
+    "Default Cell Color"
+  ],
+  "__pagemyself_component_calendar_desc__": [
+    "Display a calendar on your homepage, where you can add information to each day for your visitors. You can have mulitple calendars on different pages as well."
+  ],
+  "__pagemyself_component_calendar_info__": [
+    "Tooltip Info Text"
+  ],
+  "__pagemyself_component_calendar_internalinfo__": [
+    "Internal Info (Only visible in website editor)"
+  ],
+  "__pagemyself_component_calendar_predefinedcolor__": [
+    "Cell Color (Values that you have already used before)"
+  ],
+  "__pagemyself_component_calendar_title__": [
+    "Calendar"
+  ],
+  "__pagemyself_component_ctrl_click__": [
+    "Pro Tip: Hold CTRL and right-click on any block directly on the website, to open the settings window for the block."
+  ],
+  "__pagemyself_component_delete__": [
+    "Delete this block"
+  ],
+  "__pagemyself_component_insert_here__": [
+    "Insert block here"
+  ],
+  "__pagemyself_component_jumpmark_desc__": [
+    "Allow to jump to this element with a jumpark (#xxx) in pagelink. This will allow to use links in your navigation that point to this jumpmark. Mostly used for single page applications."
+  ],
+  "__pagemyself_component_jumpmark_link__": [
+    "Use this URL to link to this jumpmark"
+  ],
+  "__pagemyself_component_jumpmark_title__": [
+    "Jumpmark"
+  ],
+  "__pagemyself_component_no_blocks__": [
+    "You have no blocks on this page. Add some by clicking the plus symbol right next to the settings symbol."
+  ],
+  "__pagemyself_component_open_settings__": [
+    "Open settings"
+  ],
+  "__pagemyself_component_settings__": [
+    "Settings"
+  ],
+  "__pagemyself_component_slideshow_desc__": [
+    "An easy to use image slideshow where an user can switch between images."
+  ],
+  "__pagemyself_component_slideshow_images__": [
+    "Choose images"
+  ],
+  "__pagemyself_component_slideshow_random__": [
+    "Random sorting"
+  ],
+  "__pagemyself_component_slideshow_editimagedata__": [
+    "Click here to sort and add titles for selected images"
+  ],
+  "__pagemyself_component_slideshow_editimagedata_title__": [
+    "Title"
+  ],
+  "__pagemyself_component_slideshow_editimagedata_description__": [
+    "Description"
+  ],
+  "__pagemyself_component_slideshow_sorting_tooltip_": [
+    "Drag&Drop the images to the desired places"
+  ],
+  "__pagemyself_component_slideshow_thumbnails__": [
+    "Show Thumbnails"
+  ],
+  "__pagemyself_component_slideshow_title__": [
+    "Image Slideshow"
+  ],
+  "__pagemyself_component_sort_down__": [
+    "Move this block down"
+  ],
+  "__pagemyself_component_sort_up__": [
+    "Move this block up"
+  ],
+  "__pagemyself_component_text_default__": [
+    "Your editable text is here. Click me to edit the text."
+  ],
+  "__pagemyself_component_text_desc__": [
+    "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc... Also there are a lot of predefined layout blocks you can insert, like cards, alerts, buttons, etc..."
+  ],
+  "__pagemyself_component_text_help__": [
+    "To add a new line without a vertical empty space, hold CTRL and hit enter, instead of just pressing Enter only"
+  ],
+  "__pagemyself_component_text_title__": [
+    "Texteditor with predefined components"
+  ],
+  "__pagemyself_editor_templates__": [
+    "Insert template"
+  ],
+  "__pagemyself_editor_templates_colorpicker_bg__": [
+    "Pick a background color"
+  ],
+  "__pagemyself_editor_templates_colorpicker_text__": [
+    "Pick a text color"
+  ],
+  "__pagemyself_editor_templates_edit_text__": [
+    "You can edit this text after inserting into the website"
+  ],
+  "__pagemyself_editor_templates_settings__": [
+    "Settings"
+  ],
+  "__pagemyself_editor_templates_type_alert__": [
+    "Alert Box"
+  ],
+  "__pagemyself_editor_templates_type_buttonlink__": [
+    "Button Link"
+  ],
+  "__pagemyself_editor_templates_type_card__": [
+    "Card"
+  ],
+  "__pagemyself_editor_templates_type_card_animation__": [
+    "Mouseover Animation"
+  ],
+  "__pagemyself_editor_templates_type_card_animation_flip__": [
+    "Flip Card"
+  ],
+  "__pagemyself_editor_templates_type_card_animation_none__": [
+    "None"
+  ],
+  "__pagemyself_editor_templates_type_card_animation_slidein__": [
+    "Background Slide In"
+  ],
+  "__pagemyself_editor_templates_type_card_bgcolor__": [
+    "Background color"
+  ],
+  "__pagemyself_editor_templates_type_card_bgimage__": [
+    "Background image"
+  ],
+  "__pagemyself_editor_templates_type_columns__": [
+    "Responsive columns"
+  ],
+  "__pagemyself_editor_templates_type_columns_number__": [
+    "Number of columns"
+  ],
+  "__pagemyself_editor_templates_type_emailme__": [
+    "E-Mail Button"
+  ],
+  "__pagemyself_editor_templates_type_emailme_email__": [
+    "Your contact e-mail"
+  ],
+  "__pagemyself_editor_templates_type_emailme_sendmail__": [
+    "Send an e-mail"
+  ],
+  "__pagemyself_editor_templates_type_emailme_sendmailnfo__": [
+    "In case your default e-mail app doesn't open,<br\/>please send an e-mail to {0}"
+  ],
+  "__pagemyself_editor_templates_type_emailme_subject__": [
+    "Default Subject"
+  ],
+  "__pagemyself_editor_templates_type_icon__": [
+    "Icons"
+  ],
+  "__pagemyself_editor_templates_type_jumpmark__": [
+    "Jump-Mark"
+  ],
+  "__pagemyself_editor_templates_type_jumpmark_info__": [
+    "You can use a jump-mark to create a link to this exact position in page. So when an user open the link with this jump-mark, the page will automatically scroll to this position."
+  ],
+  "__pagemyself_mediabrowser_accept_selection__": [
+    "Accept current selection"
+  ],
+  "__pagemyself_mediabrowser_createfolder__": [
+    "Create folder"
+  ],
+  "__pagemyself_mediabrowser_deletefolder__": [
+    "Delete folder including all files in it"
+  ],
+  "__pagemyself_mediabrowser_deselect_files__": [
+    "Clear selection"
+  ],
+  "__pagemyself_mediabrowser_files_selected__": [
+    "{{0=1:{0} file|0=*:{0} files}} selected"
+  ],
+  "__pagemyself_mediabrowser_open__": [
+    "Open Media Browser"
+  ],
+  "__pagemyself_mediabrowser_rename__": [
+    "Rename"
+  ],
+  "__pagemyself_mediabrowser_replace__": [
+    "Replace file"
+  ],
+  "__pagemyself_mediabrowser_rootfolder__": [
+    "Root folder"
+  ],
+  "__pagemyself_mediabrowser_upload_failed__": [
+    "Upload failed: {0}"
+  ],
+  "__pagemyself_more_nav__": [
+    "More"
+  ],
+  "__pagemyself_page_login__": [
+    "Login"
+  ],
+  "__pagemyself_page_password__": [
+    "This page is password protected"
+  ],
+  "__pagemyself_page_password_desc__": [
+    "Enter the password"
+  ],
+  "__pagemyself_pageeditor_jump_to_page__": [
+    "Jump to page"
+  ],
+  "__pagemyself_pageeditor_page_back__": [
+    "Back"
+  ],
+  "__pagemyself_pageeditor_page_home__": [
+    "Homepage"
+  ],
+  "__pagemyself_pageeditor_page_mobile__": [
+    "Toggle between mobile and desktop view"
+  ],
+  "__pagemyself_pageeditor_page_open__": [
+    "Click here to open this website in a new tab to see your changes"
+  ],
+  "__pagemyself_pageeditor_page_reload__": [
+    "Reload"
+  ],
+  "__pagemyself_pageeditor_page_required__": [
+    "You need to navigate to a page before you can edit the settings."
+  ],
+  "__pagemyself_pageeditor_theme_settings__": [
+    "Theme Settings"
+  ],
+  "__pagemyself_pageeditor_theme_settings_desc__": [
+    "All settings in this window are applied to the choosen theme. Changes to this settings will change appearance of all pages that use this theme."
+  ],
+  "__pagemyself_password_incorrect__": [
+    "Password is incorrect"
+  ],
+  "__pagemyself_reset_text__": [
+    "Revert text changes"
+  ],
+  "__pagemyself_storable_naventry_flagshow_label__": [
+    "Is visible"
+  ],
+  "__pagemyself_storable_naventry_flagshow_label_desc__": [
+    "Just in case you want to hide this entry in the navigation. This is useful because all website pages automatically have a navigation entry created. Maybe you don't want all pages in your navigation."
+  ],
+  "__pagemyself_storable_naventry_grouptitle_label__": [
+    "Group Label"
+  ],
+  "__pagemyself_storable_naventry_grouptitle_label_desc__": [
+    "Fill this out, if you want to group navigation entries into a submenu with this label. The user later can expand this submenu and see all the entries with the same group label."
+  ],
+  "__pagemyself_storable_naventry_image_label__": [
+    "Image"
+  ],
+  "__pagemyself_storable_naventry_image_label_desc__": [
+    "Display this image instead of the title. The title is still required as alternative text."
+  ],
+  "__pagemyself_storable_naventry_missing__": [
+    "Please choose a page or an external URL to link to"
+  ],
+  "__pagemyself_storable_naventry_page_label__": [
+    "Link to page"
+  ],
+  "__pagemyself_storable_naventry_page_label_desc__": [
+    "Choose an existing website page to link to"
+  ],
+  "__pagemyself_storable_naventry_title_label__": [
+    "Title"
+  ],
+  "__pagemyself_storable_naventry_url_external_label__": [
+    "Or link to a free defined external url"
+  ],
+  "__pagemyself_storable_naventry_url_external_label_desc__": [
+    "Must begin with http..."
+  ],
+  "__pagemyself_storable_naventry_url_hash_label__": [
+    "Set a jump-mark - This must begin with #jumpto-..."
+  ],
+  "__pagemyself_storable_page_password_label__": [
+    "Password protection"
+  ],
+  "__pagemyself_storable_page_password_label_desc__": [
+    "If set, an user must enter this password in order to view the page."
+  ],
+  "__pagemyself_storable_page_title_label__": [
+    "Page Title"
+  ],
+  "__pagemyself_storable_page_title_label_desc__": [
+    "The title the appears in your browser tab and in search engine results"
+  ],
+  "__pagemyself_storable_page_url_label__": [
+    "URL Path"
+  ],
+  "__pagemyself_storable_page_url_label_desc__": [
+    "The name that appears in your website url. Special characters are not allowed.<br\/>Empty = Homepage"
+  ],
+  "__pagemyself_theme__": [
+    "Theme"
+  ],
+  "__pagemyself_theme_options__": [
+    "Theme options"
+  ],
+  "__pagemyself_view_backend_index__": [
+    "PageMyself Backend"
+  ],
+  "__pagemyself_view_backend_nav_index__": [
+    "Website Navigation"
+  ],
+  "__pagemyself_view_backend_page_index__": [
+    "Website Pages"
+  ],
+  "__pagemyself_view_backend_pageeditor_index__": [
+    "Live Website Editor"
+  ],
+  "__pagemyself_view_backend_websitesettings__": [
+    "Website Settings"
+  ],
+  "__pagemyself_view_index__": [
+    "PageMyself - Fast, easy and powerful website generator"
+  ],
+  "__pagemyself_websitesetting_author__": [
+    "Author of website"
+  ],
+  "__pagemyself_websitesetting_bodyhtml__": [
+    "HTML Code that appears at the end of &lt;body&gt; tag"
+  ],
+  "__pagemyself_websitesetting_favicon__": [
+    "Favicon"
+  ],
+  "__pagemyself_websitesetting_favicon_desc__": [
+    "The tiny icon that is displayed beside the browser page title and in search engines. Should be a squared image with 512x512."
+  ],
+  "__pagemyself_websitesetting_headhtml__": [
+    "HTML Code that appears inside &lt;head&gt; tag"
+  ],
+  "__pagemyself_websitesetting_keywords__": [
+    "Website keywords"
+  ],
+  "__pagemyself_websitesetting_og_description__": [
+    "Website Description"
+  ],
+  "__pagemyself_websitesetting_og_image__": [
+    "Website Logo"
+  ],
+  "__pagemyself_websitesetting_og_site_name__": [
+    "Website Short Name"
+  ],
+  "__pagemyself_websitesetting_og_title__": [
+    "Website Full Name"
+  ],
+  "__pagemyself_websitesettings_headhtml_desc__": [
+    "Use this to including scripts, adding external stylesheets, etc..."
+  ],
+  "__pagemyself_websitesettings_og_data__": [
+    "This is a meta information and is used by search engines and social media representation"
+  ],
+  "__pagemyself_websitesettings_search_engine_data__": [
+    "This is a meta information and is only used for search machine optimization"
+  ]
 }

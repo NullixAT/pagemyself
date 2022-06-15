@@ -69,3 +69,6 @@
   background-size: contain;
   border-radius: var(--border-radius);
 }
+.mediabrowser-file-preview:hover, .mediabrowser-file-preview:active {
+  transform: scale(5) translateX(16px);
+}

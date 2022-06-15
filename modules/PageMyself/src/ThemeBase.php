@@ -235,7 +235,7 @@ abstract class ThemeBase
     final public function showComponentBlock(ComponentBlock $componentBlock): void
     {
         $instance = $componentBlock->getComponentInstance();
-        $jsClassName = "PageMyselfComponent" . ClassUtils::getClassBaseName($componentBlock->blockClass);
+        $jsClassName = $componentBlock->getJsClassName();
         ?>
         <div class="component-block <?= ClassUtils::getHtmlClass($componentBlock->blockClass) ?>"
              id="block-<?= $componentBlock ?>" data-id="<?= $componentBlock ?>">

@@ -1,486 +1,482 @@
 {
-    "__pagemyself_block_info__": [
-        "Bl\u00f6cke",
-        "04c4f"
-    ],
-    "__pagemyself_component_add__": [
-        "F\u00fcge einen neuen Block hinzu<br\/>Nach dem Klick, klicke auf einen der neu erschienenen Buttons \"Hier einf\u00fcgen\", an der Position an der du m\u00f6chtest",
-        "7bc31"
-    ],
-    "__pagemyself_component_block_settings__": [
-        "Zeige eine Liste aller Bl\u00f6cke dieser Seite",
-        "69f6f"
-    ],
-    "__pagemyself_component_calendar_color__": [
-        "Farbe der Zelle",
-        "01b41"
-    ],
-    "__pagemyself_component_calendar_defaultcellcolor__": [
-        "Standardfarbe aller Zellen",
-        "85a5f"
-    ],
-    "__pagemyself_component_calendar_desc__": [
-        "Zeige einen Kalender auf deiner Webseite. Du kannst zu jedem Tag Informationen hinzuf\u00fcgen. Du kannst auch mehrere verschiedene Kalender auf einer Seite einf\u00fcgen.",
-        "f86f5"
-    ],
-    "__pagemyself_component_calendar_info__": [
-        "Tooltip Info Text",
-        "5c2bb"
-    ],
-    "__pagemyself_component_calendar_internalinfo__": [
-        "Interne Info (Nur sichtbar im Webseiteneditor)",
-        "b2edb"
-    ],
-    "__pagemyself_component_calendar_predefinedcolor__": [
-        "Farbe der Zelle (Werte die du bereits schon einmal benutzt hast)",
-        "cfcc4"
-    ],
-    "__pagemyself_component_calendar_title__": [
-        "Kalender",
-        "8ff92"
-    ],
-    "__pagemyself_component_ctrl_click__": [
-        "Pro Tipp: Halte STRG und klicke mit der rechten Maustaste auf einen Block direkt auf der Webseite um die Blockoptionen zu \u00f6ffnen.",
-        "6db1a"
-    ],
-    "__pagemyself_component_delete__": [
-        "L\u00f6sche diesen Block",
-        "4fd76"
-    ],
-    "__pagemyself_component_insert_here__": [
-        "Block hier einf\u00fcgen",
-        "6b754"
-    ],
-    "__pagemyself_component_jumpmark_desc__": [
-        "Nutze diese Sprungmarke damit du mittels einem Link genau zu dieser Position springen kannst. Das ist hilfreich wenn du eine lange Seite hast, dem Nutzer aber in der Navigation ein paar Sprungmarken setzen willst.",
-        "aaf65"
-    ],
-    "__pagemyself_component_jumpmark_link__": [
-        "Benutze diese URL als Link zu dieser Sprungmarke",
-        "6c6a7"
-    ],
-    "__pagemyself_component_jumpmark_title__": [
-        "Sprungmarke",
-        "07236"
-    ],
-    "__pagemyself_component_no_blocks__": [
-        "Du hast noch keine Bl\u00f6cke auf dieser Seite. F\u00fcge welche mit dem Plus Symbol hinzu.",
-        "7db37"
-    ],
-    "__pagemyself_component_open_settings__": [
-        "Einstellungen \u00f6ffnen",
-        "bae08"
-    ],
-    "__pagemyself_component_settings__": [
-        "Einstellungen",
-        "f4f70"
-    ],
-    "__pagemyself_component_slideshow_desc__": [
-        "Ein einfach zu benutzende Slideshow f\u00fcr deine Bilder in der deine Nutzer zwischen den Bildern wechseln k\u00f6nnen.",
-        "dcbca"
-    ],
-    "__pagemyself_component_slideshow_images__": [
-        "W\u00e4hle deine Bilder",
-        "1fecb"
-    ],
-    "__pagemyself_component_slideshow_random__": [
-        "Zuf\u00e4llige Sortierung",
-        "22eb3"
-    ],
-    "__pagemyself_component_slideshow_sorting__": [
-        "Um die Bilder in deiner gew\u00fcnschten Reihenfolge zu sortieren, aktiviere die Vorschaubilder und ziehe die Vorschaubilder an die Position an die du sie haben willst.",
-        "db4e1"
-    ],
-    "__pagemyself_component_slideshow_sorting_tooltip_": [
-        "Drag&Drop die Bilder zu den gew\u00fcnschten Positionen",
-        "391ac"
-    ],
-    "__pagemyself_component_slideshow_thumbnails__": [
-        "Zeige Vorschaubilder",
-        "60e0c"
-    ],
-    "__pagemyself_component_slideshow_title__": [
-        "Bilder Slideshow",
-        "072ff"
-    ],
-    "__pagemyself_component_sort_down__": [
-        "Block nach unten verschieben",
-        "c1132"
-    ],
-    "__pagemyself_component_sort_up__": [
-        "Block nach oben verschieben",
-        "78a61"
-    ],
-    "__pagemyself_component_text_default__": [
-        "Dein bearbeitbarer Text ist hier. Klicke hier um den Text zu bearbeiten.",
-        "42f5e"
-    ],
-    "__pagemyself_component_text_desc__": [
-        "Schreibe jeglichen Text so wie du willst. Der Editor bietet dir einen Vielzahl an vorgefertigten Layouts, Formatierungen, usw...",
-        "1c61f"
-    ],
-    "__pagemyself_component_text_help__": [
-        "Um eine neue Zeile ohne einen Absatz zu erstellen, halte STRG und dr\u00fccke Enter, anstatt nur Enter.",
-        "5e0b8"
-    ],
-    "__pagemyself_component_text_title__": [
-        "Texteditor mit vielen Vorlagen und Formatierungen",
-        "f05da"
-    ],
-    "__pagemyself_editor_templates__": [
-        "Template einf\u00fcgen",
-        "9f366"
-    ],
-    "__pagemyself_editor_templates_colorpicker_bg__": [
-        "W\u00e4hle eine Hintergrundfarbe",
-        "8e4ee"
-    ],
-    "__pagemyself_editor_templates_colorpicker_text__": [
-        "W\u00e4hle eine Textfarbe",
-        "93d31"
-    ],
-    "__pagemyself_editor_templates_edit_text__": [
-        "Du kannst diesen Text nach dem einf\u00fcgen auf der Seite bearbeiten",
-        "3b6e6"
-    ],
-    "__pagemyself_editor_templates_settings__": [
-        "Einstellungen",
-        "f4f70"
-    ],
-    "__pagemyself_editor_templates_type_alert__": [
-        "Alert Box",
-        "b7a5e"
-    ],
-    "__pagemyself_editor_templates_type_buttonlink__": [
-        "Button Link",
-        "c4b4f"
-    ],
-    "__pagemyself_editor_templates_type_card__": [
-        "Karte",
-        "1d565"
-    ],
-    "__pagemyself_editor_templates_type_card_animation__": [
-        "Mouseover Animation",
-        "df3c8"
-    ],
-    "__pagemyself_editor_templates_type_card_animation_flip__": [
-        "Flip Card",
-        "664fd"
-    ],
-    "__pagemyself_editor_templates_type_card_animation_none__": [
-        "Keine",
-        "6adf9"
-    ],
-    "__pagemyself_editor_templates_type_card_animation_slidein__": [
-        "Hintergrund Slide In",
-        "46465"
-    ],
-    "__pagemyself_editor_templates_type_card_bgcolor__": [
-        "Hintergrundfarbe",
-        "368d9"
-    ],
-    "__pagemyself_editor_templates_type_card_bgimage__": [
-        "Hintergrundbild",
-        "69ee1"
-    ],
-    "__pagemyself_editor_templates_type_columns__": [
-        "Responsive Spalten",
-        "1b878"
-    ],
-    "__pagemyself_editor_templates_type_columns_number__": [
-        "Anzahl der Spalten",
-        "03d7c"
-    ],
-    "__pagemyself_editor_templates_type_emailme__": [
-        "E-Mail Button",
-        "0186b"
-    ],
-    "__pagemyself_editor_templates_type_emailme_email__": [
-        "Deine Kontaktemail",
-        "be000"
-    ],
-    "__pagemyself_editor_templates_type_emailme_sendmail__": [
-        "Sende eine E-Mail",
-        "938e5"
-    ],
-    "__pagemyself_editor_templates_type_emailme_sendmailnfo__": [
-        "Falls deine Standard E-Mail App sich nicht \u00f6ffnet,<br\/>sende bitte eine E-Mail an {0}",
-        "37d5f"
-    ],
-    "__pagemyself_editor_templates_type_emailme_subject__": [
-        "Standard Betreff",
-        "421d8"
-    ],
-    "__pagemyself_editor_templates_type_icon__": [
-        "Icons",
-        "8f679"
-    ],
-    "__pagemyself_editor_templates_type_jumpmark__": [
-        "Sprungmarke",
-        "b6b1c"
-    ],
-    "__pagemyself_editor_templates_type_jumpmark_info__": [
-        "Du kannst eine Sprungmarke nutzen, um einen Link zu dieser Position auf der Webseite zu erstellen. Wenn ein Nutzer diesen Link \u00f6ffnet, dann scrollt er automatisch zu dieser Position.",
-        "d64bf"
-    ],
-    "__pagemyself_mediabrowser_accept_selection__": [
-        "Akzeptiere Auswahl",
-        "d253f"
-    ],
-    "__pagemyself_mediabrowser_createfolder__": [
-        "Ordner erstellen",
-        "5dc1e"
-    ],
-    "__pagemyself_mediabrowser_deletefolder__": [
-        "L\u00f6schen den Ordner inklusive aller Dateien darin",
-        "59d02"
-    ],
-    "__pagemyself_mediabrowser_deselect_files__": [
-        "Selektion aufheben",
-        "80fff"
-    ],
-    "__pagemyself_mediabrowser_files_selected__": [
-        "{{0=1:{0} Datei|0=*:{0} Dateien}} selektiert",
-        "4ca9e"
-    ],
-    "__pagemyself_mediabrowser_open__": [
-        "\u00d6ffne Media Browser",
-        "0fdaf"
-    ],
-    "__pagemyself_mediabrowser_rename__": [
-        "Umbenennen",
-        "904a8"
-    ],
-    "__pagemyself_mediabrowser_replace__": [
-        "Datei ersetzen",
-        "82c8e"
-    ],
-    "__pagemyself_mediabrowser_rootfolder__": [
-        "Root Ordner",
-        "2a23c"
-    ],
-    "__pagemyself_mediabrowser_upload_failed__": [
-        "Upload fehlgeschlagen: {0}",
-        "70e10"
-    ],
-    "__pagemyself_more_nav__": [
-        "Mehr",
-        "d3da9"
-    ],
-    "__pagemyself_page_login__": [
-        "Login",
-        "99dea"
-    ],
-    "__pagemyself_page_password__": [
-        "Diese Seite ist mit einem Passwort gesch\u00fctzt",
-        "96331"
-    ],
-    "__pagemyself_page_password_desc__": [
-        "Gib das Passwort ein",
-        "0cede"
-    ],
-    "__pagemyself_pageeditor_jump_to_page__": [
-        "\u00d6ffne Seite",
-        "e91cf"
-    ],
-    "__pagemyself_pageeditor_page_back__": [
-        "Zur\u00fcck",
-        "0557f"
-    ],
-    "__pagemyself_pageeditor_page_home__": [
-        "Hauptseite",
-        "339f7"
-    ],
-    "__pagemyself_pageeditor_page_mobile__": [
-        "Wechsle zwischen mobiler und Desktopansicht",
-        "4bce6"
-    ],
-    "__pagemyself_pageeditor_page_open__": [
-        "Klicke hier um die Seite in einem neuen zu \u00f6ffnen um deine \u00c4nderungen direkt zu sehen",
-        "19d54"
-    ],
-    "__pagemyself_pageeditor_page_reload__": [
-        "Neu laden",
-        "4d1c8"
-    ],
-    "__pagemyself_pageeditor_page_required__": [
-        "Du musst eine Seite \u00f6ffnen bevor du die Einstellungen bearbeiten kannst.",
-        "e6ef4"
-    ],
-    "__pagemyself_pageeditor_theme_settings__": [
-        "Design Einstellungen",
-        "e873d"
-    ],
-    "__pagemyself_pageeditor_theme_settings_desc__": [
-        "Alle Einstellungen in diesem Fenster beziehen sich auf das gew\u00e4hlte Design. Alle \u00c4nderungen werden auf allen Seiten angewendet wo das selbe Design verwendet wird.",
-        "78c2f"
-    ],
-    "__pagemyself_password_incorrect__": [
-        "Passwort ist nicht korrekt",
-        "a8666"
-    ],
-    "__pagemyself_reset_text__": [
-        "\u00c4nderungen r\u00fcckg\u00e4ngig machen",
-        "782fd"
-    ],
-    "__pagemyself_storable_naventry_flagshow_label__": [
-        "Ist sichtbar",
-        "5e2f2"
-    ],
-    "__pagemyself_storable_naventry_flagshow_label_desc__": [
-        "Falls du den Navigationseintrag nicht auf der Seite anzeigen willst. Das ist dann hilfreich, wenn du die standardm\u00e4\u00dfig f\u00fcr alle Seiten automatisch angelegten Navigationseintr\u00e4ge nicht anzeigen willst.",
-        "30a86"
-    ],
-    "__pagemyself_storable_naventry_grouptitle_label__": [
-        "Gruppenbezeichnung",
-        "428b5"
-    ],
-    "__pagemyself_storable_naventry_grouptitle_label_desc__": [
-        "F\u00fclle das aus, wenn du mehrere Navigationseintr\u00e4ge in einem Unterpunkt gruppieren willst. Alle Eintr\u00e4ge mit dem selben Namen werden in diesem Unterpunkt vereint.",
-        "23102"
-    ],
-    "__pagemyself_storable_naventry_image_label__": [
-        "Bild",
-        "be53a"
-    ],
-    "__pagemyself_storable_naventry_image_label_desc__": [
-        "Zeige ein Bild anstelle des Textes. Der Text muss trotzdem auch ausgef\u00fcllt werden.",
-        "4df57"
-    ],
-    "__pagemyself_storable_naventry_missing__": [
-        "Bitte w\u00e4hle eine Seite oder gib externe URL an",
-        "7b6c5"
-    ],
-    "__pagemyself_storable_naventry_page_label__": [
-        "Link zu einer Seite",
-        "a0af9"
-    ],
-    "__pagemyself_storable_naventry_page_label_desc__": [
-        "W\u00e4hle eine vorhandene Seite auf die du verlinkten willst",
-        "aedc5"
-    ],
-    "__pagemyself_storable_naventry_title_label__": [
-        "Titel",
-        "b78a3"
-    ],
-    "__pagemyself_storable_naventry_url_external_label__": [
-        "Oder verwende einen frei definierten Link",
-        "135ad"
-    ],
-    "__pagemyself_storable_naventry_url_external_label_desc__": [
-        "Muss mit http... beginnen",
-        "9918a"
-    ],
-    "__pagemyself_storable_naventry_url_hash_label__": [
-        "Setze eine Sprungmarke - Muss mit #jumpto- beginnen",
-        "61f9a"
-    ],
-    "__pagemyself_storable_page_password_label__": [
-        "Passwortschutz",
-        "aac9e"
-    ],
-    "__pagemyself_storable_page_password_label_desc__": [
-        "Falls gesetzt dann kann ein Nutzer nur mit diesem Passwort den Inhalt der Seite sehen.",
-        "37827"
-    ],
-    "__pagemyself_storable_page_title_label__": [
-        "Seitentitel",
-        "28645"
-    ],
-    "__pagemyself_storable_page_title_label_desc__": [
-        "Der Titel der im Browser Tab und in Suchmaschinen erscheint",
-        "2ef1f"
-    ],
-    "__pagemyself_storable_page_url_label__": [
-        "URL Pfad",
-        "fd7a3"
-    ],
-    "__pagemyself_storable_page_url_label_desc__": [
-        "Der Name der in deiner Webseite URL erscheint. Nur Buchstaben, Zahlen und Bindestriche sind erlaubt.",
-        "ab025"
-    ],
-    "__pagemyself_theme__": [
-        "Design",
-        "d7217"
-    ],
-    "__pagemyself_theme_options__": [
-        "Design Einstellungen",
-        "6d993"
-    ],
-    "__pagemyself_view_backend_index__": [
-        "PageMyself Backend",
-        "3c7ab"
-    ],
-    "__pagemyself_view_backend_nav_index__": [
-        "Webseitennavigation",
-        "d079b"
-    ],
-    "__pagemyself_view_backend_page_index__": [
-        "Seiten",
-        "7d854"
-    ],
-    "__pagemyself_view_backend_pageeditor_index__": [
-        "Live Webseiteneditor",
-        "49b8b"
-    ],
-    "__pagemyself_view_backend_websitesettings__": [
-        "Webseiteneinstellungen",
-        "214da"
-    ],
-    "__pagemyself_view_index__": [
-        "PageMyself - Fast, easy and powerful website generator",
-        "9d045"
-    ],
-    "__pagemyself_websitesetting_author__": [
-        "Autor der Webseite",
-        "881eb"
-    ],
-    "__pagemyself_websitesetting_bodyhtml__": [
-        "HTML Code der am Ende des  &lt;body&gt; Tags erscheint",
-        "02244"
-    ],
-    "__pagemyself_websitesetting_favicon__": [
-        "Favicon",
-        "49e95"
-    ],
-    "__pagemyself_websitesetting_favicon_desc__": [
-        "Das kleine Icon das im Browser neben dem Titel erscheint. Sollte eine Grafik mit 512x512 sein.",
-        "bba11"
-    ],
-    "__pagemyself_websitesetting_headhtml__": [
-        "HTML Code der innerhalb  &lt;head&gt; Tags erscheint",
-        "81ae4"
-    ],
-    "__pagemyself_websitesetting_keywords__": [
-        "Webseiten Keywords",
-        "a33b1"
-    ],
-    "__pagemyself_websitesetting_og_description__": [
-        "Webseitenbeschreibung",
-        "b8b21"
-    ],
-    "__pagemyself_websitesetting_og_image__": [
-        "Logo",
-        "e5ccb"
-    ],
-    "__pagemyself_websitesetting_og_site_name__": [
-        "Kurzer Titel der Webseite",
-        "b2d8c"
-    ],
-    "__pagemyself_websitesetting_og_title__": [
-        "Langer Titel der Webseite",
-        "9592d"
-    ],
-    "__pagemyself_websitesettings_headhtml_desc__": [
-        "Benutze das um Scripte, externe Stylesheets, usw.. einzuf\u00fcgen",
-        "49084"
-    ],
-    "__pagemyself_websitesettings_og_data__": [
-        "Dies ist eine Meta-Informationen die von Suchmaschinen und Social Media Seiten genutzt wird.",
-        "d76c1"
-    ],
-    "__pagemyself_websitesettings_search_engine_data__": [
-        "Dies ist eine Meta-Informationen die von Suchmaschinen genutzt wird.",
-        "1f5d9"
-    ]
+  "__pagemyself_block_info__": [
+    "Bl\u00f6cke",
+    "04c4f"
+  ],
+  "__pagemyself_component_add__": [
+    "F\u00fcge einen neuen Block hinzu<br\/>Nach dem Klick, klicke auf einen der neu erschienenen Buttons \"Hier einf\u00fcgen\", an der Position an der du m\u00f6chtest",
+    "7bc31"
+  ],
+  "__pagemyself_component_block_settings__": [
+    "Zeige eine Liste aller Bl\u00f6cke dieser Seite",
+    "69f6f"
+  ],
+  "__pagemyself_component_calendar_color__": [
+    "Farbe der Zelle",
+    "01b41"
+  ],
+  "__pagemyself_component_calendar_defaultcellcolor__": [
+    "Standardfarbe aller Zellen",
+    "85a5f"
+  ],
+  "__pagemyself_component_calendar_desc__": [
+    "Zeige einen Kalender auf deiner Webseite. Du kannst zu jedem Tag Informationen hinzuf\u00fcgen. Du kannst auch mehrere verschiedene Kalender auf einer Seite einf\u00fcgen.",
+    "f86f5"
+  ],
+  "__pagemyself_component_calendar_info__": [
+    "Tooltip Info Text",
+    "5c2bb"
+  ],
+  "__pagemyself_component_calendar_internalinfo__": [
+    "Interne Info (Nur sichtbar im Webseiteneditor)",
+    "b2edb"
+  ],
+  "__pagemyself_component_calendar_predefinedcolor__": [
+    "Farbe der Zelle (Werte die du bereits schon einmal benutzt hast)",
+    "cfcc4"
+  ],
+  "__pagemyself_component_calendar_title__": [
+    "Kalender",
+    "8ff92"
+  ],
+  "__pagemyself_component_ctrl_click__": [
+    "Pro Tipp: Halte STRG und klicke mit der rechten Maustaste auf einen Block direkt auf der Webseite um die Blockoptionen zu \u00f6ffnen.",
+    "6db1a"
+  ],
+  "__pagemyself_component_delete__": [
+    "L\u00f6sche diesen Block",
+    "4fd76"
+  ],
+  "__pagemyself_component_insert_here__": [
+    "Block hier einf\u00fcgen",
+    "6b754"
+  ],
+  "__pagemyself_component_jumpmark_desc__": [
+    "Nutze diese Sprungmarke damit du mittels einem Link genau zu dieser Position springen kannst. Das ist hilfreich wenn du eine lange Seite hast, dem Nutzer aber in der Navigation ein paar Sprungmarken setzen willst.",
+    "aaf65"
+  ],
+  "__pagemyself_component_jumpmark_link__": [
+    "Benutze diese URL als Link zu dieser Sprungmarke",
+    "6c6a7"
+  ],
+  "__pagemyself_component_jumpmark_title__": [
+    "Sprungmarke",
+    "07236"
+  ],
+  "__pagemyself_component_no_blocks__": [
+    "Du hast noch keine Bl\u00f6cke auf dieser Seite. F\u00fcge welche mit dem Plus Symbol hinzu.",
+    "7db37"
+  ],
+  "__pagemyself_component_open_settings__": [
+    "Einstellungen \u00f6ffnen",
+    "bae08"
+  ],
+  "__pagemyself_component_settings__": [
+    "Einstellungen",
+    "f4f70"
+  ],
+  "__pagemyself_component_slideshow_desc__": [
+    "Ein einfach zu benutzende Slideshow f\u00fcr deine Bilder in der deine Nutzer zwischen den Bildern wechseln k\u00f6nnen.",
+    "dcbca"
+  ],
+  "__pagemyself_component_slideshow_images__": [
+    "W\u00e4hle deine Bilder",
+    "1fecb"
+  ],
+  "__pagemyself_component_slideshow_random__": [
+    "Zuf\u00e4llige Sortierung",
+    "22eb3"
+  ],
+  "__pagemyself_component_slideshow_sorting_tooltip_": [
+    "Drag&Drop die Bilder zu den gew\u00fcnschten Positionen",
+    "391ac"
+  ],
+  "__pagemyself_component_slideshow_thumbnails__": [
+    "Zeige Vorschaubilder",
+    "60e0c"
+  ],
+  "__pagemyself_component_slideshow_title__": [
+    "Bilder Slideshow",
+    "072ff"
+  ],
+  "__pagemyself_component_sort_down__": [
+    "Block nach unten verschieben",
+    "c1132"
+  ],
+  "__pagemyself_component_sort_up__": [
+    "Block nach oben verschieben",
+    "78a61"
+  ],
+  "__pagemyself_component_text_default__": [
+    "Dein bearbeitbarer Text ist hier. Klicke hier um den Text zu bearbeiten.",
+    "42f5e"
+  ],
+  "__pagemyself_component_text_desc__": [
+    "Schreibe jeglichen Text so wie du willst. Der Editor bietet dir einen Vielzahl an vorgefertigten Layouts, Formatierungen, usw...",
+    "1c61f"
+  ],
+  "__pagemyself_component_text_help__": [
+    "Um eine neue Zeile ohne einen Absatz zu erstellen, halte STRG und dr\u00fccke Enter, anstatt nur Enter.",
+    "5e0b8"
+  ],
+  "__pagemyself_component_text_title__": [
+    "Texteditor mit vielen Vorlagen und Formatierungen",
+    "f05da"
+  ],
+  "__pagemyself_editor_templates__": [
+    "Template einf\u00fcgen",
+    "9f366"
+  ],
+  "__pagemyself_editor_templates_colorpicker_bg__": [
+    "W\u00e4hle eine Hintergrundfarbe",
+    "8e4ee"
+  ],
+  "__pagemyself_editor_templates_colorpicker_text__": [
+    "W\u00e4hle eine Textfarbe",
+    "93d31"
+  ],
+  "__pagemyself_editor_templates_edit_text__": [
+    "Du kannst diesen Text nach dem einf\u00fcgen auf der Seite bearbeiten",
+    "3b6e6"
+  ],
+  "__pagemyself_editor_templates_settings__": [
+    "Einstellungen",
+    "f4f70"
+  ],
+  "__pagemyself_editor_templates_type_alert__": [
+    "Alert Box",
+    "b7a5e"
+  ],
+  "__pagemyself_editor_templates_type_buttonlink__": [
+    "Button Link",
+    "c4b4f"
+  ],
+  "__pagemyself_editor_templates_type_card__": [
+    "Karte",
+    "1d565"
+  ],
+  "__pagemyself_editor_templates_type_card_animation__": [
+    "Mouseover Animation",
+    "df3c8"
+  ],
+  "__pagemyself_editor_templates_type_card_animation_flip__": [
+    "Flip Card",
+    "664fd"
+  ],
+  "__pagemyself_editor_templates_type_card_animation_none__": [
+    "Keine",
+    "6adf9"
+  ],
+  "__pagemyself_editor_templates_type_card_animation_slidein__": [
+    "Hintergrund Slide In",
+    "46465"
+  ],
+  "__pagemyself_editor_templates_type_card_bgcolor__": [
+    "Hintergrundfarbe",
+    "368d9"
+  ],
+  "__pagemyself_editor_templates_type_card_bgimage__": [
+    "Hintergrundbild",
+    "69ee1"
+  ],
+  "__pagemyself_editor_templates_type_columns__": [
+    "Responsive Spalten",
+    "1b878"
+  ],
+  "__pagemyself_editor_templates_type_columns_number__": [
+    "Anzahl der Spalten",
+    "03d7c"
+  ],
+  "__pagemyself_editor_templates_type_emailme__": [
+    "E-Mail Button",
+    "0186b"
+  ],
+  "__pagemyself_editor_templates_type_emailme_email__": [
+    "Deine Kontaktemail",
+    "be000"
+  ],
+  "__pagemyself_editor_templates_type_emailme_sendmail__": [
+    "Sende eine E-Mail",
+    "938e5"
+  ],
+  "__pagemyself_editor_templates_type_emailme_sendmailnfo__": [
+    "Falls deine Standard E-Mail App sich nicht \u00f6ffnet,<br\/>sende bitte eine E-Mail an {0}",
+    "37d5f"
+  ],
+  "__pagemyself_editor_templates_type_emailme_subject__": [
+    "Standard Betreff",
+    "421d8"
+  ],
+  "__pagemyself_editor_templates_type_icon__": [
+    "Icons",
+    "8f679"
+  ],
+  "__pagemyself_editor_templates_type_jumpmark__": [
+    "Sprungmarke",
+    "b6b1c"
+  ],
+  "__pagemyself_editor_templates_type_jumpmark_info__": [
+    "Du kannst eine Sprungmarke nutzen, um einen Link zu dieser Position auf der Webseite zu erstellen. Wenn ein Nutzer diesen Link \u00f6ffnet, dann scrollt er automatisch zu dieser Position.",
+    "d64bf"
+  ],
+  "__pagemyself_mediabrowser_accept_selection__": [
+    "Akzeptiere Auswahl",
+    "d253f"
+  ],
+  "__pagemyself_mediabrowser_createfolder__": [
+    "Ordner erstellen",
+    "5dc1e"
+  ],
+  "__pagemyself_mediabrowser_deletefolder__": [
+    "L\u00f6schen den Ordner inklusive aller Dateien darin",
+    "59d02"
+  ],
+  "__pagemyself_mediabrowser_deselect_files__": [
+    "Selektion aufheben",
+    "80fff"
+  ],
+  "__pagemyself_mediabrowser_files_selected__": [
+    "{{0=1:{0} Datei|0=*:{0} Dateien}} selektiert",
+    "4ca9e"
+  ],
+  "__pagemyself_mediabrowser_open__": [
+    "\u00d6ffne Media Browser",
+    "0fdaf"
+  ],
+  "__pagemyself_mediabrowser_rename__": [
+    "Umbenennen",
+    "904a8"
+  ],
+  "__pagemyself_mediabrowser_replace__": [
+    "Datei ersetzen",
+    "82c8e"
+  ],
+  "__pagemyself_mediabrowser_rootfolder__": [
+    "Root Ordner",
+    "2a23c"
+  ],
+  "__pagemyself_mediabrowser_upload_failed__": [
+    "Upload fehlgeschlagen: {0}",
+    "70e10"
+  ],
+  "__pagemyself_more_nav__": [
+    "Mehr",
+    "d3da9"
+  ],
+  "__pagemyself_page_login__": [
+    "Login",
+    "99dea"
+  ],
+  "__pagemyself_page_password__": [
+    "Diese Seite ist mit einem Passwort gesch\u00fctzt",
+    "96331"
+  ],
+  "__pagemyself_page_password_desc__": [
+    "Gib das Passwort ein",
+    "0cede"
+  ],
+  "__pagemyself_pageeditor_jump_to_page__": [
+    "\u00d6ffne Seite",
+    "e91cf"
+  ],
+  "__pagemyself_pageeditor_page_back__": [
+    "Zur\u00fcck",
+    "0557f"
+  ],
+  "__pagemyself_pageeditor_page_home__": [
+    "Hauptseite",
+    "339f7"
+  ],
+  "__pagemyself_pageeditor_page_mobile__": [
+    "Wechsle zwischen mobiler und Desktopansicht",
+    "4bce6"
+  ],
+  "__pagemyself_pageeditor_page_open__": [
+    "Klicke hier um die Seite in einem neuen zu \u00f6ffnen um deine \u00c4nderungen direkt zu sehen",
+    "19d54"
+  ],
+  "__pagemyself_pageeditor_page_reload__": [
+    "Neu laden",
+    "4d1c8"
+  ],
+  "__pagemyself_pageeditor_page_required__": [
+    "Du musst eine Seite \u00f6ffnen bevor du die Einstellungen bearbeiten kannst.",
+    "e6ef4"
+  ],
+  "__pagemyself_pageeditor_theme_settings__": [
+    "Design Einstellungen",
+    "e873d"
+  ],
+  "__pagemyself_pageeditor_theme_settings_desc__": [
+    "Alle Einstellungen in diesem Fenster beziehen sich auf das gew\u00e4hlte Design. Alle \u00c4nderungen werden auf allen Seiten angewendet wo das selbe Design verwendet wird.",
+    "78c2f"
+  ],
+  "__pagemyself_password_incorrect__": [
+    "Passwort ist nicht korrekt",
+    "a8666"
+  ],
+  "__pagemyself_reset_text__": [
+    "\u00c4nderungen r\u00fcckg\u00e4ngig machen",
+    "782fd"
+  ],
+  "__pagemyself_storable_naventry_flagshow_label__": [
+    "Ist sichtbar",
+    "5e2f2"
+  ],
+  "__pagemyself_storable_naventry_flagshow_label_desc__": [
+    "Falls du den Navigationseintrag nicht auf der Seite anzeigen willst. Das ist dann hilfreich, wenn du die standardm\u00e4\u00dfig f\u00fcr alle Seiten automatisch angelegten Navigationseintr\u00e4ge nicht anzeigen willst.",
+    "30a86"
+  ],
+  "__pagemyself_storable_naventry_grouptitle_label__": [
+    "Gruppenbezeichnung",
+    "428b5"
+  ],
+  "__pagemyself_storable_naventry_grouptitle_label_desc__": [
+    "F\u00fclle das aus, wenn du mehrere Navigationseintr\u00e4ge in einem Unterpunkt gruppieren willst. Alle Eintr\u00e4ge mit dem selben Namen werden in diesem Unterpunkt vereint.",
+    "23102"
+  ],
+  "__pagemyself_storable_naventry_image_label__": [
+    "Bild",
+    "be53a"
+  ],
+  "__pagemyself_storable_naventry_image_label_desc__": [
+    "Zeige ein Bild anstelle des Textes. Der Text muss trotzdem auch ausgef\u00fcllt werden.",
+    "4df57"
+  ],
+  "__pagemyself_storable_naventry_missing__": [
+    "Bitte w\u00e4hle eine Seite oder gib externe URL an",
+    "7b6c5"
+  ],
+  "__pagemyself_storable_naventry_page_label__": [
+    "Link zu einer Seite",
+    "a0af9"
+  ],
+  "__pagemyself_storable_naventry_page_label_desc__": [
+    "W\u00e4hle eine vorhandene Seite auf die du verlinkten willst",
+    "aedc5"
+  ],
+  "__pagemyself_storable_naventry_title_label__": [
+    "Titel",
+    "b78a3"
+  ],
+  "__pagemyself_storable_naventry_url_external_label__": [
+    "Oder verwende einen frei definierten Link",
+    "135ad"
+  ],
+  "__pagemyself_storable_naventry_url_external_label_desc__": [
+    "Muss mit http... beginnen",
+    "9918a"
+  ],
+  "__pagemyself_storable_naventry_url_hash_label__": [
+    "Setze eine Sprungmarke - Muss mit #jumpto- beginnen",
+    "61f9a"
+  ],
+  "__pagemyself_storable_page_password_label__": [
+    "Passwortschutz",
+    "aac9e"
+  ],
+  "__pagemyself_storable_page_password_label_desc__": [
+    "Falls gesetzt dann kann ein Nutzer nur mit diesem Passwort den Inhalt der Seite sehen.",
+    "37827"
+  ],
+  "__pagemyself_storable_page_title_label__": [
+    "Seitentitel",
+    "28645"
+  ],
+  "__pagemyself_storable_page_title_label_desc__": [
+    "Der Titel der im Browser Tab und in Suchmaschinen erscheint",
+    "2ef1f"
+  ],
+  "__pagemyself_storable_page_url_label__": [
+    "URL Pfad",
+    "fd7a3"
+  ],
+  "__pagemyself_storable_page_url_label_desc__": [
+    "Der Name der in deiner Webseite URL erscheint. Nur Buchstaben, Zahlen und Bindestriche sind erlaubt.",
+    "ab025"
+  ],
+  "__pagemyself_theme__": [
+    "Design",
+    "d7217"
+  ],
+  "__pagemyself_theme_options__": [
+    "Design Einstellungen",
+    "6d993"
+  ],
+  "__pagemyself_view_backend_index__": [
+    "PageMyself Backend",
+    "3c7ab"
+  ],
+  "__pagemyself_view_backend_nav_index__": [
+    "Webseitennavigation",
+    "d079b"
+  ],
+  "__pagemyself_view_backend_page_index__": [
+    "Seiten",
+    "7d854"
+  ],
+  "__pagemyself_view_backend_pageeditor_index__": [
+    "Live Webseiteneditor",
+    "49b8b"
+  ],
+  "__pagemyself_view_backend_websitesettings__": [
+    "Webseiteneinstellungen",
+    "214da"
+  ],
+  "__pagemyself_view_index__": [
+    "PageMyself - Fast, easy and powerful website generator",
+    "9d045"
+  ],
+  "__pagemyself_websitesetting_author__": [
+    "Autor der Webseite",
+    "881eb"
+  ],
+  "__pagemyself_websitesetting_bodyhtml__": [
+    "HTML Code der am Ende des  &lt;body&gt; Tags erscheint",
+    "02244"
+  ],
+  "__pagemyself_websitesetting_favicon__": [
+    "Favicon",
+    "49e95"
+  ],
+  "__pagemyself_websitesetting_favicon_desc__": [
+    "Das kleine Icon das im Browser neben dem Titel erscheint. Sollte eine Grafik mit 512x512 sein.",
+    "bba11"
+  ],
+  "__pagemyself_websitesetting_headhtml__": [
+    "HTML Code der innerhalb  &lt;head&gt; Tags erscheint",
+    "81ae4"
+  ],
+  "__pagemyself_websitesetting_keywords__": [
+    "Webseiten Keywords",
+    "a33b1"
+  ],
+  "__pagemyself_websitesetting_og_description__": [
+    "Webseitenbeschreibung",
+    "b8b21"
+  ],
+  "__pagemyself_websitesetting_og_image__": [
+    "Logo",
+    "e5ccb"
+  ],
+  "__pagemyself_websitesetting_og_site_name__": [
+    "Kurzer Titel der Webseite",
+    "b2d8c"
+  ],
+  "__pagemyself_websitesetting_og_title__": [
+    "Langer Titel der Webseite",
+    "9592d"
+  ],
+  "__pagemyself_websitesettings_headhtml_desc__": [
+    "Benutze das um Scripte, externe Stylesheets, usw.. einzuf\u00fcgen",
+    "49084"
+  ],
+  "__pagemyself_websitesettings_og_data__": [
+    "Dies ist eine Meta-Informationen die von Suchmaschinen und Social Media Seiten genutzt wird.",
+    "d76c1"
+  ],
+  "__pagemyself_websitesettings_search_engine_data__": [
+    "Dies ist eine Meta-Informationen die von Suchmaschinen genutzt wird.",
+    "1f5d9"
+  ]
 }

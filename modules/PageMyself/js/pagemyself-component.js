@@ -29,6 +29,10 @@ class PageMyselfComponent {
    */
   editor
 
+  static initBlockSettingsForm () {
+
+  }
+
   /**
    * Constructor
    * @param {number} id

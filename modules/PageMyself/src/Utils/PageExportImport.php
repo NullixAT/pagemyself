@@ -34,6 +34,7 @@ class PageExportImport
         }
         foreach ($blocks as $block) {
             $form = new Form();
+            $form->id = "blockSettings";
             $componentInstance = $block->getComponentInstance();
             $componentInstance->addSettingFields($form);
             $themeInstance->addComponentSettingFields($form, $componentInstance);
@@ -98,6 +99,7 @@ class PageExportImport
             $settings = $blockData['settings'];
 
             $form = new Form();
+            $form->id = "blockSettings";
             $componentInstance = $block->getComponentInstance();
             $componentInstance->addSettingFields($form);
             $themeInstance->addComponentSettingFields($form, $componentInstance);

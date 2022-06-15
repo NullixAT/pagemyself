@@ -71,4 +71,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: var(--border-radius);
+
+  &:hover, &:active {
+    transform: scale(5) translateX(16px);
+  }
 }

@@ -1,16 +1,26 @@
 .pagemyself-component-slideshow {
 
-  .slideshow-container {
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
-  }
-
   .slideshow-image-container {
-    height: 65vh;
+    height: min(65vw, 65vh);
     display: flex;
     cursor: pointer;
 
     button {
       margin: 0;
+      height: 10vh;
+      align-self: center;
+      background: transparent;
+      color: white;
+      text-shadow: rgba(0, 0, 0, 0.9) 0 0 6px;
+
+      &:before {
+        font-size: 32px;
+        margin: 0;
+      }
+
+      &:active {
+        transform: scale(1.5);
+      }
     }
   }
 
@@ -53,7 +63,6 @@
   .slideshow-image {
     flex: 1 1 auto;
     position: relative;
-    background: rgba(0, 0, 0, 0.1);
   }
 
   .slideshow-image-inner {

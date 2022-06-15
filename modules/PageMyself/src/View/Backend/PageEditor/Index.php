@@ -289,6 +289,7 @@ class Index extends View
             $componentInstance = $componentBlock->getComponentInstance();
             $themeInstance = $componentBlock->page->getThemeInstance();
             $form = new Form();
+            $form->id = "blockSettings";
             $componentInstance->addSettingFields($form);
             $themeInstance->addComponentSettingFields($form, $componentInstance);
             $values = $form->getConvertedSubmittedValues();
