@@ -80,8 +80,13 @@ class Theme extends ThemeBase
         $attr->addClass('component-block-inner');
         $fullWidth = $blockSettings['fullWidth'] ?? null;
         $backgroundColor = $blockSettings['backgroundColor'] ?? null;
+        $backgroundPosition = $blockSettings['backgroundPosition'] ?? 'center';
+        $minHeight = $blockSettings['minHeight'] ?? null;
         $backgroundImage = MediaFile::getById($blockSettings['backgroundImage'] ?? null);
         $backgroundVideo = MediaFile::getById($blockSettings['backgroundVideo'] ?? null);
+        if ($minHeight) {
+            $attr->setStyle('min-height', $minHeight . "vh");
+        }
         if (!$fullWidth) {
             $attr->setStyle('max-width', 'var(--page-max-width)');
         } else {
@@ -92,9 +97,11 @@ class Theme extends ThemeBase
         }
         if ($backgroundImage?->isImage()) {
             $attr->set('data-background-image', $backgroundImage->getUrl());
+            $attr->set('data-background-position', $backgroundPosition);
         }
         if ($backgroundVideo?->isVideo()) {
             $attr->set('data-background-video', $backgroundVideo->getUrl());
+            $attr->set('data-background-position', $backgroundPosition);
         }
         echo '<div ' . $attr . '>';
         if ($fullWidth) {
@@ -243,13 +250,27 @@ class Theme extends ThemeBase
 
         $form->addFieldGroup(
             'bg',
-            'Background Settings',
-            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'],
+            Lang::get('__theme_hello_more_settings__'),
+            ['fullWidth', 'minHeight', 'backgroundPosition', 'backgroundColor', 'backgroundImage', 'backgroundVideo'],
             false
         );
 
         $field = new Toggle();
         $field->name = 'fullWidth';
+        $form->addField($field);
+
+        $field = new Number();
+        $field->name = 'minHeight';
+        $field->min = 0;
+        $field->max = 100;
+        $form->addField($field);
+
+        $field = new Select();
+        $field->name = 'backgroundPosition';
+        $field->addOption('top', Lang::get('__theme_hello_backgroundposition_top__'));
+        $field->addOption('center', Lang::get('__theme_hello_backgroundposition_center__'));
+        $field->addOption('bottom', Lang::get('__theme_hello_backgroundposition_bottom__'));
+        $field->defaultValue = "center";
         $form->addField($field);
 
         $field = new Color();
@@ -265,13 +286,6 @@ class Theme extends ThemeBase
         $field->name = 'backgroundVideo';
         $field->setOnlyVideos();
         $form->addField($field);
-
-        $form->addFieldGroup(
-            'bg',
-            'Background Settings',
-            ['fullWidth', 'backgroundColor', 'backgroundImage', 'backgroundVideo'],
-            false
-        );
     }
 
     /**

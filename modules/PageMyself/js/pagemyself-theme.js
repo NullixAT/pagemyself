@@ -80,6 +80,10 @@ class PageMyselfTheme {
       })
     })
     onResize()
+    // after 1 second if in case first call was too early
+    setTimeout(function () {
+      onResize()
+    }, 1000)
     let resizeTo = null
     $(window).on('resize', function () {
       if (resizeTo) return

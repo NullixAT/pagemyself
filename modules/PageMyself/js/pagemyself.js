@@ -30,6 +30,7 @@ class PageMyself {
       const el = $(this)
       const block = el.closest('.component-block')
       const backgroundVideo = el.attr('data-background-video')
+      const backgroundPosition = el.attr('data-background-position')
       el.removeAttr('data-background-video')
       el.attr('data-background-video-original', backgroundVideo)
       FramelixIntersectionObserver.onGetVisible(this, function () {
@@ -43,7 +44,13 @@ class PageMyself {
           video.width = video.videoWidth * maxRatio
           video.height = video.videoHeight * maxRatio
           video.style.left = (elWidth / 2 - video.width / 2) + 'px'
-          video.style.top = (elHeight / 2 - video.height / 2) + 'px'
+          if (backgroundPosition === 'top') {
+            video.style.top = '0px'
+          } else if (backgroundPosition === 'bottom') {
+            video.style.bottom = '0px'
+          } else {
+            video.style.top = (elHeight / 2 - video.height / 2) + 'px'
+          }
         }
 
         /** @type {HTMLVideoElement} */

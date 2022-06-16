@@ -33,7 +33,10 @@ class Slideshow extends ComponentBase
             case 'saveImageData':
                 $block = ComponentBlock::getById(Request::getGet('blockId'));
                 $settings = $block->settings ?? [];
-                $settings['imageData'] = $jsCall->parameters['imageData']['data'];
+                $settings['imageData'] = ArrayUtils::merge(
+                    $settings['imageData'] ?? null,
+                    $jsCall->parameters['imageData']['data']
+                );
                 $settings['imageSort'] = $jsCall->parameters['imageSort'];
                 $block->settings = $settings;
                 $block->store();
@@ -46,7 +49,7 @@ class Slideshow extends ComponentBase
                 if ($settings['imageSort'] ?? null) {
                     foreach ($settings['imageSort'] as $imageId) {
                         $image = MediaFile::getById($imageId);
-                        if ($image) {
+                        if ($image && isset($images[$imageId])) {
                             $imageArr[$image->id] = $image;
                         }
                     }
@@ -188,7 +191,8 @@ class Slideshow extends ComponentBase
         return [
             'images' => $images,
             'random' => $this->block->settings['random'] ?? null,
-            'thumbnails' => $this->block->settings['thumbnails'] ?? null
+            'thumbnails' => $this->block->settings['thumbnails'] ?? null,
+            ''
         ];
     }
 
@@ -198,6 +202,7 @@ class Slideshow extends ComponentBase
      */
     public function show(): void
     {
+        $settings = $this->block->settings;
         ?>
         <div class="slideshow-container">
             <div class="slideshow-image-container">
@@ -210,9 +215,23 @@ class Slideshow extends ComponentBase
                         data-icon-left="chevron_right">
                 </button>
             </div>
-            <div class="slideshow-thumbs">
-
-            </div>
+            <?php
+            if ($settings['showTitle'] ?? null) {
+                ?>
+                <div class="slideshow-title"></div>
+                <?php
+            }
+            if ($settings['showDescription'] ?? null) {
+                ?>
+                <div class="slideshow-description"></div>
+                <?php
+            }
+            if ($settings['thumbnails'] ?? null) {
+                ?>
+                <div class="slideshow-thumbs"></div>
+                <?php
+            }
+            ?>
         </div>
         <?php
     }
@@ -234,7 +253,7 @@ class Slideshow extends ComponentBase
         $field->label = '';
         $field->defaultValue = '<button class="framelix-button framelix-button-primary" onclick=\'FramelixModal.callPhpMethod(' . JsonUtils::encode(
                 JsCall::getCallUrl(__CLASS__, "editImageData", ['blockId' => $this->block->id])
-            ) . ', FramelixForm.getById("' . $form->id . '").getValues())\'>' . Lang::get(
+            ) . ', FramelixForm.getById("' . $form->id . '").getValues(), {maxWidth:900})\'>' . Lang::get(
                 '__pagemyself_component_slideshow_editimagedata__'
             ) . '</button>';
         $form->addField($field);
@@ -246,6 +265,16 @@ class Slideshow extends ComponentBase
 
         $field = new Toggle();
         $field->name = 'random';
+        $field->label = '__pagemyself_component_slideshow_' . strtolower($field->name) . '__';
+        $form->addField($field);
+
+        $field = new Toggle();
+        $field->name = 'showTitle';
+        $field->label = '__pagemyself_component_slideshow_' . strtolower($field->name) . '__';
+        $form->addField($field);
+
+        $field = new Toggle();
+        $field->name = 'showDescription';
         $field->label = '__pagemyself_component_slideshow_' . strtolower($field->name) . '__';
         $form->addField($field);
     }

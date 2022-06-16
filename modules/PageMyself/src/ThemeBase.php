@@ -10,6 +10,7 @@ use Framelix\Framelix\Utils\ClassUtils;
 use Framelix\Framelix\Utils\HtmlUtils;
 use Framelix\Framelix\Utils\JsonUtils;
 use Framelix\PageMyself\Component\ComponentBase;
+use Framelix\PageMyself\Component\Text;
 use Framelix\PageMyself\Storable\ComponentBlock;
 use Framelix\PageMyself\Storable\NavEntry;
 use Framelix\PageMyself\Storable\Page;
@@ -217,8 +218,26 @@ abstract class ThemeBase
             echo '</div>';
             return;
         }
+        $componentBlocks = $this->page->getComponentBlocks();
+        // main content automatically get a text block if no block exist
+        if (!$componentBlocks && $mainContent) {
+            $componentBlock = new ComponentBlock();
+            $componentBlock->page = $this->page;
+            $componentBlock->blockClass = Text::class;
+            $componentBlock->placement = $placement;
+            $componentBlock->settings = [
+                'text' => [
+                    'text' => '<p>' . Lang::get(
+                            '__pagemyself_component_text_newpage__'
+                        ) . '</p>'
+                ]
+            ];
+            $componentBlock->sort = 0;
+            $componentBlock->store();
+            $componentBlocks[$componentBlock->id] = $componentBlock;
+        }
         echo '<div class="component-blocks" data-placement="' . $placement . '">';
-        foreach ($this->page->getComponentBlocks() as $componentBlock) {
+        foreach ($componentBlocks as $componentBlock) {
             if ($componentBlock->placement !== $placement) {
                 continue;
             }

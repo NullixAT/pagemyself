@@ -29,10 +29,6 @@ class PageMyselfComponent {
    */
   editor
 
-  static initBlockSettingsForm () {
-
-  }
-
   /**
    * Constructor
    * @param {number} id
@@ -167,7 +163,7 @@ class PageMyselfComponent {
           mediaBrowser.modal.destroy()
         })
       },
-      toolbar: 'pagemyself-save-text pagemyself-templates | bold italic underline strikethrough | pagemyself-cancel-text | fontfamily fontsize lineheight | alignleft aligncenter alignright alignjustify | image media pageembed link | forecolor backcolor removeformat | outdent indent | numlist bullist checklist | table  | code',
+      toolbar: 'pagemyself-save-text pagemyself-templates | bold italic underline strikethrough | pagemyself-cancel-text | fontfamily fontsize lineheight blocks | alignleft aligncenter alignright alignjustify | image media pageembed link | forecolor backcolor removeformat | outdent indent | numlist bullist checklist | table  | code',
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
       image_dimensions: false,

@@ -71,6 +71,12 @@
   "__pagemyself_component_slideshow_editimagedata_title__": [
     "Title"
   ],
+  "__pagemyself_component_slideshow_showtitle__": [
+    "Show image titles"
+  ],
+  "__pagemyself_component_slideshow_showdescription__": [
+    "Show image descriptions"
+  ],
   "__pagemyself_component_slideshow_editimagedata_description__": [
     "Description"
   ],
@@ -90,7 +96,10 @@
     "Move this block up"
   ],
   "__pagemyself_component_text_default__": [
-    "Your editable text is here. Click me to edit the text."
+    "Your editable text is here. Click here to edit the text."
+  ],
+  "__pagemyself_component_text_newpage__": [
+    "This is your new page. Click here to edit the text or add other blocks with the action bar at the top."
   ],
   "__pagemyself_component_text_desc__": [
     "Write any text in any style you want. This give you the most flexible option to add your content. You have many formating options like tables, colors, images, links, etc... Also there are a lot of predefined layout blocks you can insert, like cards, alerts, buttons, etc..."

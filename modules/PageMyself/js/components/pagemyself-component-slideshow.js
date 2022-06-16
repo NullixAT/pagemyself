@@ -86,6 +86,8 @@ class PageMyselfComponentSlideshow extends PageMyselfComponent {
     this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${rowPrev.url}"></div>`)
     this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${rowNext.url}"></div>`)
     this.imageContainer.append(`<div class="slideshow-image-inner" data-background-image="${row.url}" data-visible="1"></div>`)
+    this.container.find('.slideshow-title').text(row.title || row.filename)
+    this.container.find('.slideshow-description').text(row.description || '')
   }
 
   /**

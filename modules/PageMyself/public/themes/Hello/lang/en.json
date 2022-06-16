@@ -11,6 +11,27 @@
   "__theme_hello_maxwidth_desc__": [
     "Maximal width of your page in pixel. It automatically shrink in width when screen is smaller, but do not grow over this size."
   ],
+  "__theme_hello_minheight_label__": [
+    "Minimal height"
+  ],
+  "__theme_hello_backgroundposition_label__": [
+    "Background position"
+  ],
+  "__theme_hello_backgroundposition_top__": [
+    "Top"
+  ],
+  "__theme_hello_backgroundposition_center__": [
+    "Center"
+  ],
+  "__theme_hello_backgroundposition_bottom__": [
+    "Bottom"
+  ],
+  "__theme_hello_more_settings__": [
+    "More settings"
+  ],
+  "__theme_hello_minheight_desc__": [
+    "Choose a value between 0-100 to define the minimal height in percent of total screen height. Very helpful if you use a background image without any other content."
+  ],
   "__theme_hello_fullwidth_label__": [
     "Full width background"
   ],
